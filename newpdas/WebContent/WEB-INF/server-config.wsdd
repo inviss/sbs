@@ -1,0 +1,1323 @@
+<ns1:deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns1="http://xml.apache.org/axis/wsdd/">
+ <ns1:globalConfiguration>
+  <ns1:parameter name="sendMultiRefs" value="true"/>
+  <ns1:parameter name="disablePrettyXML" value="true"/>
+  <ns1:parameter name="adminPassword" value="admin"/>
+  <ns1:parameter name="attachments.Directory" value=""/>
+  <ns1:parameter name="dotNetSoapEncFix" value="true"/>
+  <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <ns1:parameter name="sendXMLDeclaration" value="true"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:requestFlow>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="session"/>
+   </ns1:handler>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="request"/>
+    <ns1:parameter name="extension" value=".jwr"/>
+   </ns1:handler>
+  </ns1:requestFlow>
+ </ns1:globalConfiguration>
+ <ns1:handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <ns1:service name="AdminService" provider="java:MSG">
+  <ns1:parameter name="allowedMethods" value="AdminService"/>
+  <ns1:parameter name="enableRemoteAdmin" value="false"/>
+  <ns1:parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <ns1:namespace>http://xml.apache.org/axis/wsdd/</ns1:namespace>
+ </ns1:service>
+ <ns1:service name="Version" provider="java:RPC">
+  <ns1:parameter name="allowedMethods" value="getVersion"/>
+  <ns1:parameter name="className" value="org.apache.axis.Version"/>
+ </ns1:service>
+ <ns1:service name="PDASServices" provider="java:RPC" style="wrapped" use="literal">
+  <ns2:operation name="getString" qname="ns1:getString" returnQName="ns1:getStringReturn" returnType="xsd:string" soapAction="" xmlns:ns1="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
+   <ns2:parameter qname="ns1:name" type="xsd:string"/>
+  </ns2:operation>
+  <ns1:operation name="getCode" qname="ns2:getCode" returnQName="ns2:getCodeReturn" returnType="xsd:string" soapAction="" xmlns:ns2="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns2:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getAuthentication" qname="ns3:getAuthentication" returnQName="ns3:getAuthenticationReturn" returnType="xsd:string" soapAction="" xmlns:ns3="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns3:ID" type="xsd:string"/>
+   <ns1:parameter qname="ns3:password" type="xsd:string"/>
+   <ns1:parameter qname="ns3:AD_DOMAIN" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getTapeInfo" qname="ns4:getTapeInfo" returnQName="ns4:getTapeInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns4="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns4:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getOrderInfo" qname="ns5:getOrderInfo" returnQName="ns5:getOrderInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns5="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getVideoPageMetaInfo" qname="ns6:getVideoPageMetaInfo" returnQName="ns6:getVideoPageMetaInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns6="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns6:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="cancelJob" qname="ns7:cancelJob" returnQName="ns7:cancelJobReturn" returnType="xsd:int" soapAction="" xmlns:ns7="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns7:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteBoardInfo" qname="ns8:deleteBoardInfo" soapAction="" xmlns:ns8="http://webservices.das.app.com">
+   <ns1:parameter qname="ns8:BoardId" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="getScenario" qname="ns9:getScenario" returnQName="ns9:getScenarioReturn" returnType="xsd:string" soapAction="" xmlns:ns9="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns9:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getStorageIP" qname="ns10:getStorageIP" returnQName="ns10:getStorageIPReturn" returnType="xsd:string" soapAction="" xmlns:ns10="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getMediaInfo" qname="ns11:getMediaInfo" returnQName="ns11:getMediaInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns11="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns11:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="logHistory" qname="ns12:logHistory" returnQName="ns12:logHistoryReturn" returnType="xsd:string" soapAction="" xmlns:ns12="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns12:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateBoardInfo" qname="ns13:updateBoardInfo" returnQName="ns13:updateBoardInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns13="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns13:boardInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertBoardInfo" qname="ns14:insertBoardInfo" returnQName="ns14:insertBoardInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns14="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns14:boardInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getVideoPageContentsInfoList" qname="ns15:getVideoPageContentsInfoList" returnQName="ns15:getVideoPageContentsInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns15="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns15:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="insertContentsMappinfo" qname="ns16:insertContentsMappinfo" returnQName="ns16:insertContentsMappinfoReturn" returnType="xsd:int" soapAction="" xmlns:ns16="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns16:masterId" type="xsd:long"/>
+   <ns1:parameter qname="ns16:contentMappInfo" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getPreviewInfo" qname="ns17:getPreviewInfo" returnQName="ns17:getPreviewInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns17="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns17:master_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="getPreviewAttachInfo" qname="ns18:getPreviewAttachInfo" returnQName="ns18:getPreviewAttachInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns18="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns18:master_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="insertErrorInfo" qname="ns19:insertErrorInfo" returnQName="ns19:insertErrorInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns19="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns19:errorRegisterDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPhotoinfo" qname="ns20:insertPhotoinfo" returnQName="ns20:insertPhotoinfoReturn" returnType="xsd:int" soapAction="" xmlns:ns20="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns20:photoInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertCornerinfo" qname="ns21:insertCornerinfo" returnQName="ns21:insertCornerinfoReturn" returnType="xsd:string" soapAction="" xmlns:ns21="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns21:masterId" type="xsd:long"/>
+   <ns1:parameter qname="ns21:cornerInfo" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertMyCatalog" qname="ns22:insertMyCatalog" returnQName="ns22:insertMyCatalogReturn" returnType="xsd:int" soapAction="" xmlns:ns22="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns22:myCatalogDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteMyCatalog" qname="ns23:deleteMyCatalog" returnQName="ns23:deleteMyCatalogReturn" returnType="xsd:int" soapAction="" xmlns:ns23="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns23:myCatalogDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertAnnotinfo" qname="ns24:insertAnnotinfo" returnQName="ns24:insertAnnotinfoReturn" returnType="xsd:string" soapAction="" xmlns:ns24="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns24:masterId" type="xsd:long"/>
+   <ns1:parameter qname="ns24:annotInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertCodeInfo" qname="ns25:insertCodeInfo" returnQName="ns25:insertCodeInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns25="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns25:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateCodeInfo" qname="ns26:updateCodeInfo" returnQName="ns26:updateCodeInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns26="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns26:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteCodeInfo" qname="ns27:deleteCodeInfo" returnQName="ns27:deleteCodeInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns27="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns27:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertScenario" qname="ns28:insertScenario" returnQName="ns28:insertScenarioReturn" returnType="xsd:int" soapAction="" xmlns:ns28="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns28:scenarioDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteScenario" qname="ns29:deleteScenario" returnQName="ns29:deleteScenarioReturn" returnType="xsd:int" soapAction="" xmlns:ns29="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns29:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="insertRelationMaster" qname="ns30:insertRelationMaster" returnQName="ns30:insertRelationMasterReturn" returnType="xsd:int" soapAction="" xmlns:ns30="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns30:parent_master_id" type="xsd:long"/>
+   <ns1:parameter qname="ns30:child_master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="deleteRelationMaster" qname="ns31:deleteRelationMaster" returnQName="ns31:deleteRelationMasterReturn" returnType="xsd:int" soapAction="" xmlns:ns31="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns31:parent_master_id" type="xsd:long"/>
+   <ns1:parameter qname="ns31:child_master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getRelationMaster" qname="ns32:getRelationMaster" returnQName="ns32:getRelationMasterReturn" returnType="xsd:string" soapAction="" xmlns:ns32="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns32:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getRelationTotaly" qname="ns33:getRelationTotaly" returnQName="ns33:getRelationTotalyReturn" returnType="xsd:string" soapAction="" xmlns:ns33="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns33:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getMyCatalogBySort" qname="ns34:getMyCatalogBySort" returnQName="ns34:getMyCatalogBySortReturn" returnType="xsd:string" soapAction="" xmlns:ns34="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns34:myCatalogDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deletePhotoFiles" qname="ns35:deletePhotoFiles" returnQName="ns35:deletePhotoFilesReturn" returnType="xsd:string" soapAction="" xmlns:ns35="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns35:photoInfo" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertAttachFile" qname="ns36:insertAttachFile" returnQName="ns36:insertAttachFileReturn" returnType="xsd:string" soapAction="" xmlns:ns36="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns36:attachFileInfo" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateDownCartState" qname="ns37:updateDownCartState" returnQName="ns37:updateDownCartStateReturn" returnType="xsd:int" soapAction="" xmlns:ns37="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns37:cartNo" type="xsd:long"/>
+   <ns1:parameter qname="ns37:cartState" type="xsd:string"/>
+   <ns1:parameter qname="ns37:title" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateDownCart" qname="ns38:updateDownCart" returnQName="ns38:updateDownCartReturn" returnType="xsd:int" soapAction="" xmlns:ns38="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns38:downCartDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateCartContInfo" qname="ns39:updateCartContInfo" returnQName="ns39:updateCartContInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns39="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns39:cartContDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateStCartContInfo" qname="ns40:updateStCartContInfo" returnQName="ns40:updateStCartContInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns40="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns40:cartContDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateDatastatCd" qname="ns41:updateDatastatCd" returnQName="ns41:updateDatastatCdReturn" returnType="xsd:int" soapAction="" xmlns:ns41="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns41:masterID" type="xsd:long"/>
+   <ns1:parameter qname="ns41:secArchId" type="xsd:string"/>
+   <ns1:parameter qname="ns41:secArchNm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateModUserid" qname="ns42:updateModUserid" returnQName="ns42:updateModUseridReturn" returnType="xsd:int" soapAction="" xmlns:ns42="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns42:masterId" type="xsd:long"/>
+   <ns1:parameter qname="ns42:userId" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateSDIngestStatus" qname="ns43:updateSDIngestStatus" returnQName="ns43:updateSDIngestStatusReturn" returnType="xsd:int" soapAction="" xmlns:ns43="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns43:itemId" type="xsd:string"/>
+   <ns1:parameter qname="ns43:ingestStatus" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertTapeinfo" qname="ns44:insertTapeinfo" returnQName="ns44:insertTapeinfoReturn" returnType="xsd:string" soapAction="" xmlns:ns44="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns44:masterId" type="xsd:long"/>
+   <ns1:parameter qname="ns44:IDhead" type="xsd:string"/>
+   <ns1:parameter qname="ns44:userId" type="xsd:string"/>
+   <ns1:parameter qname="ns44:year" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getLogRcdPeriod" qname="ns45:getLogRcdPeriod" returnQName="ns45:getLogRcdPeriodReturn" returnType="xsd:int" soapAction="" xmlns:ns45="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns45:dasEqId" type="xsd:int"/>
+   <ns1:parameter qname="ns45:dasEqPsCd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteAllCartInfo" qname="ns46:deleteAllCartInfo" soapAction="" xmlns:ns46="http://webservices.das.app.com">
+   <ns1:parameter qname="ns46:cartNo" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="deleteContentFiles" qname="ns47:deleteContentFiles" returnQName="ns47:deleteContentFilesReturn" returnType="xsd:string" soapAction="" xmlns:ns47="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns47:days" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="deleteKfrmFiles" qname="ns48:deleteKfrmFiles" returnQName="ns48:deleteKfrmFilesReturn" returnType="xsd:string" soapAction="" xmlns:ns48="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns48:krfmFileList" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteCartInfoList" qname="ns49:deleteCartInfoList" soapAction="" xmlns:ns49="http://webservices.das.app.com">
+   <ns1:parameter qname="ns49:cartNo" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns49:seq" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="deleteContentItemList" qname="ns50:deleteContentItemList" soapAction="" xmlns:ns50="http://webservices.das.app.com">
+   <ns1:parameter qname="ns50:masterIdGRP" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="getAnnotInfoInfoList" qname="ns51:getAnnotInfoInfoList" returnQName="ns51:getAnnotInfoInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns51="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns51:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getCartContList" qname="ns52:getCartContList" returnQName="ns52:getCartContListReturn" returnType="xsd:string" soapAction="" xmlns:ns52="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns52:cartNo" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getAttachFileInfoList" qname="ns53:getAttachFileInfoList" returnQName="ns53:getAttachFileInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns53="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns53:mothrId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getClipHeaderImgInfo" qname="ns54:getClipHeaderImgInfo" returnQName="ns54:getClipHeaderImgInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns54="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns54:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getContentsInfo" qname="ns55:getContentsInfo" returnQName="ns55:getContentsInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns55="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns55:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getCornerInfoList" qname="ns56:getCornerInfoList" returnQName="ns56:getCornerInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns56="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns56:masterId" type="xsd:long"/>
+   <ns1:parameter qname="ns56:keyWord" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getIngestServerList" qname="ns57:getIngestServerList" returnQName="ns57:getIngestServerListReturn" returnType="xsd:string" soapAction="" xmlns:ns57="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns57:clfCd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSDIngestStatusInfo" qname="ns58:getSDIngestStatusInfo" returnQName="ns58:getSDIngestStatusInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns58="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns58:tapeItemId" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSDTapeInfoList" qname="ns59:getSDTapeInfoList" returnQName="ns59:getSDTapeInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns59="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns59:reqNum" type="xsd:string"/>
+   <ns1:parameter qname="ns59:pgmNm" type="xsd:string"/>
+   <ns1:parameter qname="ns59:IngestStatus" type="xsd:string"/>
+   <ns1:parameter qname="ns59:OnAirDateSearch" type="xsd:boolean"/>
+   <ns1:parameter qname="ns59:OnAirDateStart" type="xsd:string"/>
+   <ns1:parameter qname="ns59:OnAirDateEnd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getProgramInfoList" qname="ns60:getProgramInfoList" returnQName="ns60:getProgramInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns60="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns60:pgmNm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getManagementInfo" qname="ns61:getManagementInfo" returnQName="ns61:getManagementInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns61="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns61:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getModDatastatcd" qname="ns62:getModDatastatcd" returnQName="ns62:getModDatastatcdReturn" returnType="xsd:string" soapAction="" xmlns:ns62="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns62:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getPhotoInfoList" qname="ns63:getPhotoInfoList" returnQName="ns63:getPhotoInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns63="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns63:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getReflectionInfoList" qname="ns64:getReflectionInfoList" returnQName="ns64:getReflectionInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns64="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns64:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getCommonInfoList" qname="ns65:getCommonInfoList" returnQName="ns65:getCommonInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns65="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns65:clfCd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMetadataInfo" qname="ns66:getMetadataInfo" returnQName="ns66:getMetadataInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns66="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns66:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getErrorInfoList" qname="ns67:getErrorInfoList" returnQName="ns67:getErrorInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns67="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns67:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getModeUserInfoList" qname="ns68:getModeUserInfoList" returnQName="ns68:getModeUserInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns68="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns68:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getPgmInfoFromName" qname="ns69:getPgmInfoFromName" returnQName="ns69:getPgmInfoFromNameReturn" returnType="xsd:string" soapAction="" xmlns:ns69="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns69:programInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getPgmInfoFromName2" qname="ns70:getPgmInfoFromName2" returnQName="ns70:getPgmInfoFromName2Return" returnType="xsd:string" soapAction="" xmlns:ns70="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns70:pgmNm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getLastPgmInfoXmllist" qname="ns71:getLastPgmInfoXmllist" returnQName="ns71:getLastPgmInfoXmllistReturn" returnType="xsd:string" soapAction="" xmlns:ns71="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns71:programDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getLastPgmInfolist" qname="ns72:getLastPgmInfolist" returnQName="ns72:getLastPgmInfolistReturn" returnType="xsd:string" soapAction="" xmlns:ns72="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns72:pgmNm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getPlayMediaInfo" qname="ns73:getPlayMediaInfo" returnQName="ns73:getPlayMediaInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns73="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns73:CTI_ID" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getPlayContentInfo" qname="ns74:getPlayContentInfo" returnQName="ns74:getPlayContentInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns74="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns74:MasterID" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="deleteAttachFile" qname="ns75:deleteAttachFile" returnQName="ns75:deleteAttachFileReturn" returnType="xsd:int" soapAction="" xmlns:ns75="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns75:attachFilename" type="xsd:string"/>
+   <ns1:parameter qname="ns75:file_type" type="xsd:string"/>
+   <ns1:parameter qname="ns75:clf_cd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPhotoDownInfo" qname="ns76:insertPhotoDownInfo" returnQName="ns76:insertPhotoDownInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns76="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns76:Photo" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertERPTapeInfo" qname="ns77:insertERPTapeInfo" returnQName="ns77:insertERPTapeInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns77="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns77:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateERPTapeInfo" qname="ns78:updateERPTapeInfo" returnQName="ns78:updateERPTapeInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns78="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns78:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDownCartList" qname="ns79:getDownCartList" returnQName="ns79:getDownCartListReturn" returnType="xsd:string" soapAction="" xmlns:ns79="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns79:ReqUsrID" type="xsd:string"/>
+   <ns1:parameter qname="ns79:DateStart" type="xsd:string"/>
+   <ns1:parameter qname="ns79:DateEnd" type="xsd:string"/>
+   <ns1:parameter qname="ns79:down_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getBasicPageInfo" qname="ns80:getBasicPageInfo" returnQName="ns80:getBasicPageInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns80="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns80:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="recreateWMV_NM" qname="ns81:recreateWMV_NM" returnQName="ns81:recreateWMV_NMReturn" returnType="xsd:string" soapAction="" xmlns:ns81="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns81:ct_id" type="xsd:long"/>
+   <ns1:parameter qname="ns81:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="recreateWMV_KFRM" qname="ns82:recreateWMV_KFRM" returnQName="ns82:recreateWMV_KFRMReturn" returnType="xsd:string" soapAction="" xmlns:ns82="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns82:ct_id" type="xsd:long"/>
+   <ns1:parameter qname="ns82:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="unlockByUserID" qname="ns83:unlockByUserID" returnQName="ns83:unlockByUserIDReturn" returnType="xsd:int" soapAction="" xmlns:ns83="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns83:strUserID" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMergedFilenames" qname="ns84:getMergedFilenames" returnQName="ns84:getMergedFilenamesReturn" returnType="xsd:string" soapAction="" xmlns:ns84="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns84:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getMasterDataTotaly" qname="ns85:getMasterDataTotaly" returnQName="ns85:getMasterDataTotalyReturn" returnType="xsd:string" soapAction="" xmlns:ns85="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns85:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMasterDataAll" qname="ns86:getMasterDataAll" returnQName="ns86:getMasterDataAllReturn" returnType="xsd:string" soapAction="" xmlns:ns86="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns86:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getRelationScean" qname="ns87:getRelationScean" returnQName="ns87:getRelationSceanReturn" returnType="xsd:string" soapAction="" xmlns:ns87="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns87:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="multiLockUnlock" qname="ns88:multiLockUnlock" returnQName="ns88:multiLockUnlockReturn" returnType="xsd:int" soapAction="" xmlns:ns88="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns88:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getStoryboardData" qname="ns89:getStoryboardData" returnQName="ns89:getStoryboardDataReturn" returnType="xsd:string" soapAction="" xmlns:ns89="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns89:masterId" type="xsd:long"/>
+   <ns1:parameter qname="ns89:Keyword" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateOutEmployeeRole" qname="ns90:updateOutEmployeeRole" returnQName="ns90:updateOutEmployeeRoleReturn" returnType="xsd:int" soapAction="" xmlns:ns90="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns90:nonEmployeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertNonEmployeeRole" qname="ns91:insertNonEmployeeRole" returnQName="ns91:insertNonEmployeeRoleReturn" returnType="xsd:int" soapAction="" xmlns:ns91="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns91:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getTotalChangelist" qname="ns92:getTotalChangelist" returnQName="ns92:getTotalChangelistReturn" returnType="xsd:string" soapAction="" xmlns:ns92="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns92:programDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getEmployeeList" qname="ns93:getEmployeeList" returnQName="ns93:getEmployeeListReturn" returnType="xsd:string" soapAction="" xmlns:ns93="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns93:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateEmployeeRole" qname="ns94:updateEmployeeRole" returnQName="ns94:updateEmployeeRoleReturn" returnType="xsd:int" soapAction="" xmlns:ns94="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns94:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateEmployeeRoleYN" qname="ns95:updateEmployeeRoleYN" returnQName="ns95:updateEmployeeRoleYNReturn" returnType="xsd:int" soapAction="" xmlns:ns95="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns95:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertEmployeeRole" qname="ns96:insertEmployeeRole" returnQName="ns96:insertEmployeeRoleReturn" returnType="xsd:string" soapAction="" xmlns:ns96="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns96:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDisCardList" qname="ns97:getDisCardList" returnQName="ns97:getDisCardListReturn" returnType="xsd:string" soapAction="" xmlns:ns97="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns97:discardDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getHyenDisCardList" qname="ns98:getHyenDisCardList" returnQName="ns98:getHyenDisCardListReturn" returnType="xsd:string" soapAction="" xmlns:ns98="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns98:discardDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getHyenUseList" qname="ns99:getHyenUseList" returnQName="ns99:getHyenUseListReturn" returnType="xsd:string" soapAction="" xmlns:ns99="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns99:discardDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getJanrCodeList" qname="ns100:getJanrCodeList" returnQName="ns100:getJanrCodeListReturn" returnType="xsd:string" soapAction="" xmlns:ns100="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns100:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSearchRelationInfo" qname="ns101:getSearchRelationInfo" returnQName="ns101:getSearchRelationInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns101="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns101:programDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSubsiServerList" qname="ns102:getSubsiServerList" returnQName="ns102:getSubsiServerListReturn" returnType="xsd:string" soapAction="" xmlns:ns102="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns102:subsiInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertSubsiServer" qname="ns103:insertSubsiServer" returnQName="ns103:insertSubsiServerReturn" returnType="xsd:int" soapAction="" xmlns:ns103="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns103:subsiInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateSubsiServer" qname="ns104:updateSubsiServer" returnQName="ns104:updateSubsiServerReturn" returnType="xsd:int" soapAction="" xmlns:ns104="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns104:subsiInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_COL_TBL_List" qname="ns105:getSTAT_COL_TBL_List" returnQName="ns105:getSTAT_COL_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns105="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns105:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_ARRA_TBL_List" qname="ns106:getSTAT_ARRA_TBL_List" returnQName="ns106:getSTAT_ARRA_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns106="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns106:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="completeArchive" qname="ns107:completeArchive" returnQName="ns107:completeArchiveReturn" returnType="xsd:string" soapAction="" xmlns:ns107="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns107:job_status" type="xsd:string"/>
+   <ns1:parameter qname="ns107:cti_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getTmStatusAll" qname="ns108:getTmStatusAll" returnQName="ns108:getTmStatusAllReturn" returnType="xsd:int" soapAction="" xmlns:ns108="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns108:getTmStatusAll" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateTmStatusAll" qname="ns109:updateTmStatusAll" returnQName="ns109:updateTmStatusAllReturn" returnType="xsd:int" soapAction="" xmlns:ns109="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns109:getTmStatusAll" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getAttachPhotoList" qname="ns110:getAttachPhotoList" returnQName="ns110:getAttachPhotoListReturn" returnType="xsd:string" soapAction="" xmlns:ns110="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns110:photInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updatPhotoCount" qname="ns111:updatPhotoCount" returnQName="ns111:updatPhotoCountReturn" returnType="xsd:int" soapAction="" xmlns:ns111="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns111:photInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updatAuthorInfo" qname="ns112:updatAuthorInfo" returnQName="ns112:updatAuthorInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns112="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns112:authorDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertAttachPhotoinfo" qname="ns113:insertAttachPhotoinfo" returnQName="ns113:insertAttachPhotoinfoReturn" returnType="xsd:int" soapAction="" xmlns:ns113="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns113:photoInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDepInfoList" qname="ns114:getDepInfoList" returnQName="ns114:getDepInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns114="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns114:depInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDepCocdInfo" qname="ns115:getDepCocdInfo" returnQName="ns115:getDepCocdInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns115="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns115:cocd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateRoleInfo" qname="ns116:updateRoleInfo" returnQName="ns116:updateRoleInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns116="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns116:roleInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getAuthorInfoList" qname="ns117:getAuthorInfoList" returnQName="ns117:getAuthorInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns117="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns117:authorDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getERPAppointList" qname="ns118:getERPAppointList" returnQName="ns118:getERPAppointListReturn" returnType="xsd:string" soapAction="" xmlns:ns118="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns118:erpappointDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getERPAppointMaxSeq" qname="ns119:getERPAppointMaxSeq" returnQName="ns119:getERPAppointMaxSeqReturn" returnType="xsd:string" soapAction="" xmlns:ns119="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="insertERPAppoint" qname="ns120:insertERPAppoint" returnQName="ns120:insertERPAppointReturn" returnType="xsd:int" soapAction="" xmlns:ns120="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns120:erpappointDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateTotalChange" qname="ns121:updateTotalChange" returnQName="ns121:updateTotalChangeReturn" returnType="xsd:int" soapAction="" xmlns:ns121="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns121:totalChangeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getUseInfoList" qname="ns122:getUseInfoList" returnQName="ns122:getUseInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns122="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns122:useInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getProgramInfo" qname="ns123:getProgramInfo" returnQName="ns123:getProgramInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns123="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns123:title" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getParentsInfo" qname="ns124:getParentsInfo" returnQName="ns124:getParentsInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns124="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns124:pgm_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getStorageInfo" qname="ns125:getStorageInfo" returnQName="ns125:getStorageInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns125="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns125:storageDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getPreProcessing" qname="ns126:getPreProcessing" returnQName="ns126:getPreProcessingReturn" returnType="xsd:string" soapAction="" xmlns:ns126="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns126:preProcessingDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getArchPreProcessing" qname="ns127:getArchPreProcessing" returnQName="ns127:getArchPreProcessingReturn" returnType="xsd:string" soapAction="" xmlns:ns127="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns127:conditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertCopyMetadat" qname="ns128:insertCopyMetadat" returnQName="ns128:insertCopyMetadatReturn" returnType="xsd:int" soapAction="" xmlns:ns128="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns128:metadataMstInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPdsPgmInfoAll" qname="ns129:insertPdsPgmInfoAll" returnQName="ns129:insertPdsPgmInfoAllReturn" returnType="xsd:int" soapAction="" xmlns:ns129="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns129:pdsInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPdsPgmInfo" qname="ns130:insertPdsPgmInfo" returnQName="ns130:insertPdsPgmInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns130="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns130:pdsInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPdsPgmUserInfo" qname="ns131:insertPdsPgmUserInfo" returnQName="ns131:insertPdsPgmUserInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns131="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns131:pgmUserInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPdsMappInfo" qname="ns132:insertPdsMappInfo" returnQName="ns132:insertPdsMappInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns132="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns132:pdsMappDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertNLEandDTL" qname="ns133:insertNLEandDTL" returnQName="ns133:insertNLEandDTLReturn" returnType="xsd:int" soapAction="" xmlns:ns133="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns133:ct_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="deleteNLEForDown" qname="ns134:deleteNLEForDown" returnQName="ns134:deleteNLEForDownReturn" returnType="xsd:int" soapAction="" xmlns:ns134="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns134:cart_no" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="insertERPUserInfo" qname="ns135:insertERPUserInfo" returnQName="ns135:insertERPUserInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns135="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns135:erpappointDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPassword" qname="ns136:insertPassword" returnQName="ns136:insertPasswordReturn" returnType="xsd:string" soapAction="" xmlns:ns136="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns136:pawd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateInitPassword" qname="ns137:updateInitPassword" returnQName="ns137:updateInitPasswordReturn" returnType="xsd:string" soapAction="" xmlns:ns137="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns137:user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getRelationLink" qname="ns138:getRelationLink" returnQName="ns138:getRelationLinkReturn" returnType="xsd:string" soapAction="" xmlns:ns138="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns138:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="updateERPAppoint" qname="ns139:updateERPAppoint" returnQName="ns139:updateERPAppointReturn" returnType="xsd:int" soapAction="" xmlns:ns139="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns139:erpappointDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertOtherUserInfo" qname="ns140:insertOtherUserInfo" returnQName="ns140:insertOtherUserInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns140="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns140:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertOtherDepInfo" qname="ns141:insertOtherDepInfo" returnQName="ns141:insertOtherDepInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns141="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns141:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getOtherEmployeeList" qname="ns142:getOtherEmployeeList" returnQName="ns142:getOtherEmployeeListReturn" returnType="xsd:string" soapAction="" xmlns:ns142="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns142:sbs_user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getOhterDepInfoList" qname="ns143:getOhterDepInfoList" returnQName="ns143:getOhterDepInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns143="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns143:cocd" type="xsd:string"/>
+   <ns1:parameter qname="ns143:dept_cd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMainKeyList" qname="ns144:getMainKeyList" returnQName="ns144:getMainKeyListReturn" returnType="xsd:string" soapAction="" xmlns:ns144="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="insertPDSArchive" qname="ns145:insertPDSArchive" returnQName="ns145:insertPDSArchiveReturn" returnType="xsd:int" soapAction="" xmlns:ns145="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns145:pdasArchiveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertIfCmsArchive" qname="ns146:insertIfCmsArchive" returnQName="ns146:insertIfCmsArchiveReturn" returnType="xsd:string" soapAction="" xmlns:ns146="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns146:pdasArchiveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateArrange2" qname="ns147:updateArrange2" returnQName="ns147:updateArrange2Return" returnType="xsd:string" soapAction="" xmlns:ns147="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns147:master_id" type="xsd:long"/>
+   <ns1:parameter qname="ns147:user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getRepBaseInfo" qname="ns148:getRepBaseInfo" returnQName="ns148:getRepBaseInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns148="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns148:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="isValidUserWithToken" qname="ns149:isValidUserWithToken" returnQName="ns149:isValidUserWithTokenReturn" returnType="xsd:string" soapAction="" xmlns:ns149="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns149:TokenDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertReqJobTC" qname="ns150:insertReqJobTC" returnQName="ns150:insertReqJobTCReturn" returnType="xsd:string" soapAction="" xmlns:ns150="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns150:tcBeanDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertReqComTc" qname="ns151:insertReqComTc" returnQName="ns151:insertReqComTcReturn" returnType="xsd:string" soapAction="" xmlns:ns151="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns151:tcBeanDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPdsFolderAll2" qname="ns152:insertPdsFolderAll2" returnQName="ns152:insertPdsFolderAll2Return" returnType="xsd:string" soapAction="" xmlns:ns152="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns152:user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPdsFolderAll" qname="ns153:insertPdsFolderAll" returnQName="ns153:insertPdsFolderAllReturn" returnType="xsd:int" soapAction="" xmlns:ns153="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="insertNdsFolderAll" qname="ns154:insertNdsFolderAll" returnQName="ns154:insertNdsFolderAllReturn" returnType="xsd:string" soapAction="" xmlns:ns154="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns154:user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSupHeadList" qname="ns155:getSupHeadList" returnQName="ns155:getSupHeadListReturn" returnType="xsd:string" soapAction="" xmlns:ns155="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns155:COCD" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getAttachFileInfo" qname="ns156:getAttachFileInfo" returnQName="ns156:getAttachFileInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns156="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns156:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="updateErrorDownCart" qname="ns157:updateErrorDownCart" returnQName="ns157:updateErrorDownCartReturn" returnType="xsd:int" soapAction="" xmlns:ns157="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns157:downCartDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSearchTextForKey" qname="ns158:getSearchTextForKey" returnQName="ns158:getSearchTextForKeyReturn" returnType="xsd:string" soapAction="" xmlns:ns158="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns158:searchInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getBoardAtaachInfo" qname="ns159:getBoardAtaachInfo" returnQName="ns159:getBoardAtaachInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns159="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns159:boardId" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="insertBoardAtaachInfo" qname="ns160:insertBoardAtaachInfo" returnQName="ns160:insertBoardAtaachInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns160="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns160:FileInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateBoardAtaachInfo" qname="ns161:updateBoardAtaachInfo" returnQName="ns161:updateBoardAtaachInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns161="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns161:FileInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateRsv_Prd_DD" qname="ns162:updateRsv_Prd_DD" returnQName="ns162:updateRsv_Prd_DDReturn" returnType="xsd:string" soapAction="" xmlns:ns162="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns162:rsv_prd_cd" type="xsd:string"/>
+   <ns1:parameter qname="ns162:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="deleteBoardAttachFile" qname="ns163:deleteBoardAttachFile" returnQName="ns163:deleteBoardAttachFileReturn" returnType="xsd:int" soapAction="" xmlns:ns163="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns163:attachFilename" type="xsd:string"/>
+   <ns1:parameter qname="ns163:fl_path" type="xsd:string"/>
+   <ns1:parameter qname="ns163:boardId" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="getSupHtpoList" qname="ns164:getSupHtpoList" returnQName="ns164:getSupHtpoListReturn" returnType="xsd:string" soapAction="" xmlns:ns164="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns164:COCD" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSupHeadList2" qname="ns165:getSupHeadList2" returnQName="ns165:getSupHeadList2Return" returnType="xsd:string" soapAction="" xmlns:ns165="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns165:deptcd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDepinfoList" qname="ns166:getDepinfoList" returnQName="ns166:getDepinfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns166="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns166:deptcd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDepinfoForuserList" qname="ns167:getDepinfoForuserList" returnQName="ns167:getDepinfoForuserListReturn" returnType="xsd:string" soapAction="" xmlns:ns167="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns167:deptcd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getApproveInfoList" qname="ns168:getApproveInfoList" returnQName="ns168:getApproveInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns168="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns168:ApprveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getApproveInfo" qname="ns169:getApproveInfo" returnQName="ns169:getApproveInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns169="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns169:ApprveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertApproveInfo" qname="ns170:insertApproveInfo" returnQName="ns170:insertApproveInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns170="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns170:ApprveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteApproveInfo" qname="ns171:deleteApproveInfo" soapAction="" xmlns:ns171="http://webservices.das.app.com">
+   <ns1:parameter qname="ns171:xml" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="deleteApproveInfo2" qname="ns172:deleteApproveInfo2" returnQName="ns172:deleteApproveInfo2Return" returnType="xsd:int" soapAction="" xmlns:ns172="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns172:user_no" type="xsd:string"/>
+   <ns1:parameter qname="ns172:dept_cd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getProgramInfo2" qname="ns173:getProgramInfo2" returnQName="ns173:getProgramInfo2Return" returnType="xsd:string" soapAction="" xmlns:ns173="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns173:title" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="recreateKFRMforClient" qname="ns174:recreateKFRMforClient" returnQName="ns174:recreateKFRMforClientReturn" returnType="xsd:string" soapAction="" xmlns:ns174="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns174:ct_id" type="xsd:long"/>
+   <ns1:parameter qname="ns174:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="recreateKFRMMainSean" qname="ns175:recreateKFRMMainSean" returnQName="ns175:recreateKFRMMainSeanReturn" returnType="xsd:string" soapAction="" xmlns:ns175="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns175:master_id" type="xsd:long"/>
+   <ns1:parameter qname="ns175:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getEmployeeListForApp" qname="ns176:getEmployeeListForApp" returnQName="ns176:getEmployeeListForAppReturn" returnType="xsd:string" soapAction="" xmlns:ns176="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns176:dep_cd" type="xsd:string"/>
+   <ns1:parameter qname="ns176:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getBoardInfoForPopUp" qname="ns177:getBoardInfoForPopUp" returnQName="ns177:getBoardInfoForPopUpReturn" returnType="xsd:string" soapAction="" xmlns:ns177="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns177:today" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updatePhotInfo" qname="ns178:updatePhotInfo" returnQName="ns178:updatePhotInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns178="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns178:photoInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getRoleForLogin" qname="ns179:getRoleForLogin" returnQName="ns179:getRoleForLoginReturn" returnType="xsd:string" soapAction="" xmlns:ns179="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns179:user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertArchiveReq" qname="ns180:insertArchiveReq" returnQName="ns180:insertArchiveReqReturn" returnType="xsd:int" soapAction="" xmlns:ns180="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns180:archiveReqDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateArchiveReq" qname="ns181:updateArchiveReq" returnQName="ns181:updateArchiveReqReturn" returnType="xsd:string" soapAction="" xmlns:ns181="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns181:archiveReqDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertComArchivereq" qname="ns182:insertComArchivereq" returnQName="ns182:insertComArchivereqReturn" returnType="xsd:string" soapAction="" xmlns:ns182="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns182:archiveReqDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertNleArchive" qname="ns183:insertNleArchive" returnQName="ns183:insertNleArchiveReturn" returnType="xsd:int" soapAction="" xmlns:ns183="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns183:nleDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testServiceTest" qname="ns184:testServiceTest" returnQName="ns184:testServiceTestReturn" returnType="xsd:string" soapAction="" xmlns:ns184="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns184:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testDownloadService" qname="ns185:testDownloadService" returnQName="ns185:testDownloadServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns185="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns185:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testReportService" qname="ns186:testReportService" returnQName="ns186:testReportServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns186="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns186:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testGetResArchieve" qname="ns187:testGetResArchieve" returnQName="ns187:testGetResArchieveReturn" returnType="xsd:string" soapAction="" xmlns:ns187="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns187:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testNleIngestService" qname="ns188:testNleIngestService" returnQName="ns188:testNleIngestServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns188="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns188:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testGetResDelete" qname="ns189:testGetResDelete" returnQName="ns189:testGetResDeleteReturn" returnType="xsd:string" soapAction="" xmlns:ns189="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns189:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testGetResCopy" qname="ns190:testGetResCopy" returnQName="ns190:testGetResCopyReturn" returnType="xsd:string" soapAction="" xmlns:ns190="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns190:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testFileIngestService" qname="ns191:testFileIngestService" returnQName="ns191:testFileIngestServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns191="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns191:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testGetResUpdate" qname="ns192:testGetResUpdate" returnQName="ns192:testGetResUpdateReturn" returnType="xsd:string" soapAction="" xmlns:ns192="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns192:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testGetResRestore" qname="ns193:testGetResRestore" returnQName="ns193:testGetResRestoreReturn" returnType="xsd:string" soapAction="" xmlns:ns193="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns193:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testArchiveService" qname="ns194:testArchiveService" returnQName="ns194:testArchiveServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns194="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns194:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getCartInfoForUser" qname="ns195:getCartInfoForUser" returnQName="ns195:getCartInfoForUserReturn" returnType="xsd:string" soapAction="" xmlns:ns195="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns195:cartItemDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getRoleInfoList" qname="ns196:getRoleInfoList" returnQName="ns196:getRoleInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns196="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns196:roleInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteMasterScean" qname="ns197:deleteMasterScean" returnQName="ns197:deleteMasterSceanReturn" returnType="xsd:string" soapAction="" xmlns:ns197="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns197:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="deleteMasterScean2" qname="ns198:deleteMasterScean2" returnQName="ns198:deleteMasterScean2Return" returnType="xsd:string" soapAction="" xmlns:ns198="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns198:deleteDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateRetryArchive" qname="ns199:updateRetryArchive" returnQName="ns199:updateRetryArchiveReturn" returnType="xsd:string" soapAction="" xmlns:ns199="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns199:seq" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="insertCornerContinfo" qname="ns200:insertCornerContinfo" returnQName="ns200:insertCornerContinfoReturn" returnType="xsd:string" soapAction="" xmlns:ns200="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns200:cn_id" type="xsd:long"/>
+   <ns1:parameter qname="ns200:cnInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deletePDSArchive" qname="ns201:deletePDSArchive" returnQName="ns201:deletePDSArchiveReturn" returnType="xsd:string" soapAction="" xmlns:ns201="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns201:deleteDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateDataStatCd" qname="ns202:updateDataStatCd" returnQName="ns202:updateDataStatCdReturn" returnType="xsd:string" soapAction="" xmlns:ns202="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns202:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getClipInfoList" qname="ns203:getClipInfoList" returnQName="ns203:getClipInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns203="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns203:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getStorageCheck" qname="ns204:getStorageCheck" returnQName="ns204:getStorageCheckReturn" returnType="xsd:string" soapAction="" xmlns:ns204="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns204:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateIngestStatus" qname="ns205:updateIngestStatus" returnQName="ns205:updateIngestStatusReturn" returnType="xsd:string" soapAction="" xmlns:ns205="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns205:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getCocdForChennel" qname="ns206:getCocdForChennel" returnQName="ns206:getCocdForChennelReturn" returnType="xsd:string" soapAction="" xmlns:ns206="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns206:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getChennelInfo" qname="ns207:getChennelInfo" returnQName="ns207:getChennelInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns207="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns207:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getArchiveRoute" qname="ns208:getArchiveRoute" returnQName="ns208:getArchiveRouteReturn" returnType="xsd:string" soapAction="" xmlns:ns208="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns208:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getAutoArchvieList" qname="ns209:getAutoArchvieList" returnQName="ns209:getAutoArchvieListReturn" returnType="xsd:string" soapAction="" xmlns:ns209="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns209:autoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateAutoArchvie" qname="ns210:updateAutoArchvie" returnQName="ns210:updateAutoArchvieReturn" returnType="xsd:int" soapAction="" xmlns:ns210="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns210:autoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertManualArchive" qname="ns211:insertManualArchive" returnQName="ns211:insertManualArchiveReturn" returnType="xsd:int" soapAction="" xmlns:ns211="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns211:media_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMetadatInfoList" qname="ns212:getMetadatInfoList" returnQName="ns212:getMetadatInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns212="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns212:conditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertRoleInfo" qname="ns213:insertRoleInfo" returnQName="ns213:insertRoleInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns213="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns213:roleInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertComMedia" qname="ns214:insertComMedia" returnQName="ns214:insertComMediaReturn" returnType="xsd:string" soapAction="" xmlns:ns214="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns214:tcBeanDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getRoleInfoForChennel" qname="ns215:getRoleInfoForChennel" returnQName="ns215:getRoleInfoForChennelReturn" returnType="xsd:string" soapAction="" xmlns:ns215="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns215:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getArchiveStatusList" qname="ns216:getArchiveStatusList" returnQName="ns216:getArchiveStatusListReturn" returnType="xsd:string" soapAction="" xmlns:ns216="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns216:archiveInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getManualArchiveInfo" qname="ns217:getManualArchiveInfo" returnQName="ns217:getManualArchiveInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns217="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns217:manualArchiveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertDownCartInfo" qname="ns218:insertDownCartInfo" returnQName="ns218:insertDownCartInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns218="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns218:downCartDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertCartContInfo" qname="ns219:insertCartContInfo" returnQName="ns219:insertCartContInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns219="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns219:cartContDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertStDownCartInfo" qname="ns220:insertStDownCartInfo" returnQName="ns220:insertStDownCartInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns220="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns220:downCartDO_cartContDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertStCartContInfo" qname="ns221:insertStCartContInfo" returnQName="ns221:insertStCartContInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns221="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns221:cartContDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getLogInOutInfo" qname="ns222:getLogInOutInfo" returnQName="ns222:getLogInOutInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns222="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns222:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateStDownCart" qname="ns223:updateStDownCart" returnQName="ns223:updateStDownCartReturn" returnType="xsd:int" soapAction="" xmlns:ns223="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns223:downCartDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getArchiveInfo" qname="ns224:getArchiveInfo" returnQName="ns224:getArchiveInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns224="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns224:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="changePriority" qname="ns225:changePriority" returnQName="ns225:changePriorityReturn" returnType="xsd:int" soapAction="" xmlns:ns225="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns225:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getManualDeleteList" qname="ns226:getManualDeleteList" returnQName="ns226:getManualDeleteListReturn" returnType="xsd:string" soapAction="" xmlns:ns226="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns226:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateCopyRequest" qname="ns227:updateCopyRequest" returnQName="ns227:updateCopyRequestReturn" returnType="xsd:string" soapAction="" xmlns:ns227="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns227:useInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateMediaCilpStatus" qname="ns228:updateMediaCilpStatus" returnQName="ns228:updateMediaCilpStatusReturn" returnType="xsd:int" soapAction="" xmlns:ns228="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns228:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateWmvStatus" qname="ns229:updateWmvStatus" returnQName="ns229:updateWmvStatusReturn" returnType="xsd:string" soapAction="" xmlns:ns229="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns229:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getGroupForMaster" qname="ns230:getGroupForMaster" returnQName="ns230:getGroupForMasterReturn" returnType="xsd:string" soapAction="" xmlns:ns230="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns230:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getSceanInfoForIfCms" qname="ns231:getSceanInfoForIfCms" returnQName="ns231:getSceanInfoForIfCmsReturn" returnType="xsd:string" soapAction="" xmlns:ns231="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns231:ct_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getManualJobinfo" qname="ns232:getManualJobinfo" returnQName="ns232:getManualJobinfoReturn" returnType="xsd:string" soapAction="" xmlns:ns232="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns232:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDowninfoForIfCms" qname="ns233:getDowninfoForIfCms" returnQName="ns233:getDowninfoForIfCmsReturn" returnType="xsd:string" soapAction="" xmlns:ns233="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns233:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateEquipMentStatus" qname="ns234:updateEquipMentStatus" returnQName="ns234:updateEquipMentStatusReturn" returnType="xsd:int" soapAction="" xmlns:ns234="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns234:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="isVideoReleateYN" qname="ns235:isVideoReleateYN" returnQName="ns235:isVideoReleateYNReturn" returnType="xsd:string" soapAction="" xmlns:ns235="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns235:master_id" type="xsd:long"/>
+   <ns1:parameter qname="ns235:ct_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getSchedulerList" qname="ns236:getSchedulerList" returnQName="ns236:getSchedulerListReturn" returnType="xsd:string" soapAction="" xmlns:ns236="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns236:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDownloadRequestList" qname="ns237:getDownloadRequestList" returnQName="ns237:getDownloadRequestListReturn" returnType="xsd:string" soapAction="" xmlns:ns237="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns237:commonDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDownloadRequestDetailList" qname="ns238:getDownloadRequestDetailList" returnQName="ns238:getDownloadRequestDetailListReturn" returnType="xsd:string" soapAction="" xmlns:ns238="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns238:cartNo" type="xsd:string"/>
+   <ns1:parameter qname="ns238:user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateDownloadRequestDetail" qname="ns239:updateDownloadRequestDetail" returnQName="ns239:updateDownloadRequestDetailReturn" returnType="xsd:int" soapAction="" xmlns:ns239="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns239:cartContDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_TOTAL_TBL_List" qname="ns240:getSTAT_TOTAL_TBL_List" returnQName="ns240:getSTAT_TOTAL_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns240="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns240:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_DISUSE_TBL_List" qname="ns241:getSTAT_DISUSE_TBL_List" returnQName="ns241:getSTAT_DISUSE_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns241="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns241:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_GNR_USE_TBL_List" qname="ns242:getSTAT_GNR_USE_TBL_List" returnQName="ns242:getSTAT_GNR_USE_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns242="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns242:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_GNR_USE2_TBL_List" qname="ns243:getSTAT_GNR_USE2_TBL_List" returnQName="ns243:getSTAT_GNR_USE2_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns243="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns243:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PGM_USE_TBL_List" qname="ns244:getSTAT_PGM_USE_TBL_List" returnQName="ns244:getSTAT_PGM_USE_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns244="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns244:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PHOT_COL_TBL_List" qname="ns245:getSTAT_PHOT_COL_TBL_List" returnQName="ns245:getSTAT_PHOT_COL_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns245="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns245:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PHOT_REG_TBL_List" qname="ns246:getSTAT_PHOT_REG_TBL_List" returnQName="ns246:getSTAT_PHOT_REG_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns246="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns246:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PHOT_TOTAL_List" qname="ns247:getSTAT_PHOT_TOTAL_List" returnQName="ns247:getSTAT_PHOT_TOTAL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns247="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns247:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PHOT_PGM_TOTAL_List" qname="ns248:getSTAT_PHOT_PGM_TOTAL_List" returnQName="ns248:getSTAT_PHOT_PGM_TOTAL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns248="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns248:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PHOT_DISUSE_TBL_List" qname="ns249:getSTAT_PHOT_DISUSE_TBL_List" returnQName="ns249:getSTAT_PHOT_DISUSE_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns249="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns249:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PHOT_USE_TBL_List" qname="ns250:getSTAT_PHOT_USE_TBL_List" returnQName="ns250:getSTAT_PHOT_USE_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns250="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns250:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_GNR_ARCH_TBL_List" qname="ns251:getSTAT_GNR_ARCH_TBL_List" returnQName="ns251:getSTAT_GNR_ARCH_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns251="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns251:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PGM_ARCH_TBL_List" qname="ns252:getSTAT_PGM_ARCH_TBL_List" returnQName="ns252:getSTAT_PGM_ARCH_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns252="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns252:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_DEPT_USE_TBL_List" qname="ns253:getSTAT_DEPT_USE_TBL_List" returnQName="ns253:getSTAT_DEPT_USE_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns253="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns253:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_DEPT_ARCH_TBL_List" qname="ns254:getSTAT_DEPT_ARCH_TBL_List" returnQName="ns254:getSTAT_DEPT_ARCH_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns254="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns254:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PGM_ARCH_DTL_TBL_List" qname="ns255:getSTAT_PGM_ARCH_DTL_TBL_List" returnQName="ns255:getSTAT_PGM_ARCH_DTL_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns255="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns255:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_PGM_ARCH_REQ_TBL_List" qname="ns256:getSTAT_PGM_ARCH_REQ_TBL_List" returnQName="ns256:getSTAT_PGM_ARCH_REQ_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns256="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns256:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPdsPgmUserInfoAll" qname="ns257:insertPdsPgmUserInfoAll" returnQName="ns257:insertPdsPgmUserInfoAllReturn" returnType="xsd:int" soapAction="" xmlns:ns257="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns257:pgmUserInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMyDownloadRequestList" qname="ns258:getMyDownloadRequestList" returnQName="ns258:getMyDownloadRequestListReturn" returnType="xsd:string" soapAction="" xmlns:ns258="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns258:commonDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMyDownloadAprroveList" qname="ns259:getMyDownloadAprroveList" returnQName="ns259:getMyDownloadAprroveListReturn" returnType="xsd:string" soapAction="" xmlns:ns259="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns259:commonDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertRealEmployeeRole" qname="ns260:insertRealEmployeeRole" returnQName="ns260:insertRealEmployeeRoleReturn" returnType="xsd:int" soapAction="" xmlns:ns260="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns260:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updatePDSArchiveStatus" qname="ns261:updatePDSArchiveStatus" returnQName="ns261:updatePDSArchiveStatusReturn" returnType="xsd:int" soapAction="" xmlns:ns261="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns261:pdasArchiveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateIfCmsArchiveStatus" qname="ns262:updateIfCmsArchiveStatus" returnQName="ns262:updateIfCmsArchiveStatusReturn" returnType="xsd:string" soapAction="" xmlns:ns262="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns262:pdasArchiveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateRealEmployeeRole" qname="ns263:updateRealEmployeeRole" returnQName="ns263:updateRealEmployeeRoleReturn" returnType="xsd:int" soapAction="" xmlns:ns263="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns263:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateRealEmployeeRoleYN" qname="ns264:updateRealEmployeeRoleYN" returnQName="ns264:updateRealEmployeeRoleYNReturn" returnType="xsd:int" soapAction="" xmlns:ns264="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns264:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateRealEmployeeRoleCharYN" qname="ns265:updateRealEmployeeRoleCharYN" returnQName="ns265:updateRealEmployeeRoleCharYNReturn" returnType="xsd:string" soapAction="" xmlns:ns265="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns265:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSearchTextForDetail" qname="ns266:getSearchTextForDetail" returnQName="ns266:getSearchTextForDetailReturn" returnType="xsd:string" soapAction="" xmlns:ns266="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns266:searchInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="recreateWMV_NMforClient" qname="ns267:recreateWMV_NMforClient" returnQName="ns267:recreateWMV_NMforClientReturn" returnType="xsd:string" soapAction="" xmlns:ns267="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns267:ct_id" type="xsd:long"/>
+   <ns1:parameter qname="ns267:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="recreateWMV_NMforMainSean" qname="ns268:recreateWMV_NMforMainSean" returnQName="ns268:recreateWMV_NMforMainSeanReturn" returnType="xsd:string" soapAction="" xmlns:ns268="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns268:master_id" type="xsd:long"/>
+   <ns1:parameter qname="ns268:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="recreateWMV_KFRMforClient" qname="ns269:recreateWMV_KFRMforClient" returnQName="ns269:recreateWMV_KFRMforClientReturn" returnType="xsd:string" soapAction="" xmlns:ns269="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns269:ct_id" type="xsd:long"/>
+   <ns1:parameter qname="ns269:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="recreateWMV_KFRMMainSean" qname="ns270:recreateWMV_KFRMMainSean" returnQName="ns270:recreateWMV_KFRMMainSeanReturn" returnType="xsd:string" soapAction="" xmlns:ns270="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns270:master_id" type="xsd:long"/>
+   <ns1:parameter qname="ns270:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testDeleteContentService" qname="ns271:testDeleteContentService" returnQName="ns271:testDeleteContentServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns271="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns271:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testIngestReportService" qname="ns272:testIngestReportService" returnQName="ns272:testIngestReportServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns272="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns272:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testArchiveReportService" qname="ns273:testArchiveReportService" returnQName="ns273:testArchiveReportServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns273="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns273:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testAddClipInfoService" qname="ns274:testAddClipInfoService" returnQName="ns274:testAddClipInfoServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns274="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns274:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testArchiveSchedulerService" qname="ns275:testArchiveSchedulerService" returnQName="ns275:testArchiveSchedulerServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns275="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns275:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="testDeleteClipInfoService" qname="ns276:testDeleteClipInfoService" returnQName="ns276:testDeleteClipInfoServiceReturn" returnType="xsd:string" soapAction="" xmlns:ns276="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns276:arg0" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateRetryArchiveByCtId" qname="ns277:updateRetryArchiveByCtId" returnQName="ns277:updateRetryArchiveByCtIdReturn" returnType="xsd:string" soapAction="" xmlns:ns277="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns277:ct_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getApproveInfoForChennel" qname="ns278:getApproveInfoForChennel" returnQName="ns278:getApproveInfoForChennelReturn" returnType="xsd:string" soapAction="" xmlns:ns278="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns278:ApprveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertApproveInfoForChennel" qname="ns279:insertApproveInfoForChennel" returnQName="ns279:insertApproveInfoForChennelReturn" returnType="xsd:int" soapAction="" xmlns:ns279="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns279:ApprveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getApproveInfoListForChennel" qname="ns280:getApproveInfoListForChennel" returnQName="ns280:getApproveInfoListForChennelReturn" returnType="xsd:string" soapAction="" xmlns:ns280="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns280:ApprveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteApproveInfoForChennel" qname="ns281:deleteApproveInfoForChennel" soapAction="" xmlns:ns281="http://webservices.das.app.com">
+   <ns1:parameter qname="ns281:xml" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="insertIfCmsDownCartInfo" qname="ns282:insertIfCmsDownCartInfo" returnQName="ns282:insertIfCmsDownCartInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns282="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns282:downCartDO_cartContDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateIfCmsDownloadApprove" qname="ns283:updateIfCmsDownloadApprove" returnQName="ns283:updateIfCmsDownloadApproveReturn" returnType="xsd:string" soapAction="" xmlns:ns283="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns283:cartContDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getRoleForLoginInMonitoring" qname="ns284:getRoleForLoginInMonitoring" returnQName="ns284:getRoleForLoginInMonitoringReturn" returnType="xsd:string" soapAction="" xmlns:ns284="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns284:user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateRoleInfoForMonitoring" qname="ns285:updateRoleInfoForMonitoring" returnQName="ns285:updateRoleInfoForMonitoringReturn" returnType="xsd:int" soapAction="" xmlns:ns285="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns285:roleInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMyArchiveRequestList" qname="ns286:getMyArchiveRequestList" returnQName="ns286:getMyArchiveRequestListReturn" returnType="xsd:string" soapAction="" xmlns:ns286="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns286:commonDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getGroupForMasterForClient" qname="ns287:getGroupForMasterForClient" returnQName="ns287:getGroupForMasterForClientReturn" returnType="xsd:string" soapAction="" xmlns:ns287="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns287:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getRoleCodeForMonitoring" qname="ns288:getRoleCodeForMonitoring" returnQName="ns288:getRoleCodeForMonitoringReturn" returnType="xsd:string" soapAction="" xmlns:ns288="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getAuthorForMonitoring" qname="ns289:getAuthorForMonitoring" returnQName="ns289:getAuthorForMonitoringReturn" returnType="xsd:string" soapAction="" xmlns:ns289="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns289:role_cd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getRistClfInfoListForTime" qname="ns290:getRistClfInfoListForTime" returnQName="ns290:getRistClfInfoListForTimeReturn" returnType="xsd:string" soapAction="" xmlns:ns290="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns290:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateRistClfInfoListForTime" qname="ns291:updateRistClfInfoListForTime" returnQName="ns291:updateRistClfInfoListForTimeReturn" returnType="xsd:string" soapAction="" xmlns:ns291="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns291:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertRistClfInfoListForTime" qname="ns292:insertRistClfInfoListForTime" returnQName="ns292:insertRistClfInfoListForTimeReturn" returnType="xsd:string" soapAction="" xmlns:ns292="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns292:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteRistClfInfoListForTime" qname="ns293:deleteRistClfInfoListForTime" returnQName="ns293:deleteRistClfInfoListForTimeReturn" returnType="xsd:string" soapAction="" xmlns:ns293="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns293:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDepinfoForuserListFormonitoring" qname="ns294:getDepinfoForuserListFormonitoring" returnQName="ns294:getDepinfoForuserListFormonitoringReturn" returnType="xsd:string" soapAction="" xmlns:ns294="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns294:deptcd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_DOWN_COCD_USE_TBL_List" qname="ns295:getSTAT_DOWN_COCD_USE_TBL_List" returnQName="ns295:getSTAT_DOWN_COCD_USE_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns295="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns295:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateMetadataStatusCd" qname="ns296:updateMetadataStatusCd" returnQName="ns296:updateMetadataStatusCdReturn" returnType="xsd:int" soapAction="" xmlns:ns296="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns296:masterID" type="xsd:long"/>
+   <ns1:parameter qname="ns296:statCd" type="xsd:string"/>
+   <ns1:parameter qname="ns296:modrid" type="xsd:string"/>
+   <ns1:parameter qname="ns296:moddt" type="xsd:string"/>
+   <ns1:parameter qname="ns296:lock_stat_cd" type="xsd:string"/>
+   <ns1:parameter qname="ns296:error_stat_cd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getContentsPreInfoList" qname="ns297:getContentsPreInfoList" returnQName="ns297:getContentsPreInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns297="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns297:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getCornerHeaderImgInfo" qname="ns298:getCornerHeaderImgInfo" returnQName="ns298:getCornerHeaderImgInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns298="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns298:ctId" type="xsd:long"/>
+   <ns1:parameter qname="ns298:cnId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getFLIngestCommonCodeList" qname="ns299:getFLIngestCommonCodeList" returnQName="ns299:getFLIngestCommonCodeListReturn" returnType="xsd:string" soapAction="" xmlns:ns299="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getFlIngestLastCommandList" qname="ns300:getFlIngestLastCommandList" returnQName="ns300:getFlIngestLastCommandListReturn" returnType="xsd:string" soapAction="" xmlns:ns300="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getSDIngestCommonCodeList" qname="ns301:getSDIngestCommonCodeList" returnQName="ns301:getSDIngestCommonCodeListReturn" returnType="xsd:string" soapAction="" xmlns:ns301="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getSDIngestRefreshTapeInfo" qname="ns302:getSDIngestRefreshTapeInfo" returnQName="ns302:getSDIngestRefreshTapeInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns302="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns302:tapeId" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getTapeOutIngestCartItemInfo" qname="ns303:getTapeOutIngestCartItemInfo" returnQName="ns303:getTapeOutIngestCartItemInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns303="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns303:cartNo" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getPgmContentsInfoList" qname="ns304:getPgmContentsInfoList" returnQName="ns304:getPgmContentsInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns304="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns304:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getKeyFrameInfoInfoList" qname="ns305:getKeyFrameInfoInfoList" returnQName="ns305:getKeyFrameInfoInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns305="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns305:ctId" type="xsd:long"/>
+   <ns1:parameter qname="ns305:fromSeq" type="xsd:int"/>
+   <ns1:parameter qname="ns305:toSeq" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="getLastPgmInfolistByPgmId" qname="ns306:getLastPgmInfolistByPgmId" returnQName="ns306:getLastPgmInfolistByPgmIdReturn" returnType="xsd:string" soapAction="" xmlns:ns306="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns306:pgmId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getLastPgmInfolistByPgmId2" qname="ns307:getLastPgmInfolistByPgmId2" returnQName="ns307:getLastPgmInfolistByPgmId2Return" returnType="xsd:string" soapAction="" xmlns:ns307="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns307:pgmId" type="xsd:long"/>
+   <ns1:parameter qname="ns307:brd_dd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getPgmInfoFromMasterid" qname="ns308:getPgmInfoFromMasterid" returnQName="ns308:getPgmInfoFromMasteridReturn" returnType="xsd:string" soapAction="" xmlns:ns308="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns308:episNo" type="xsd:int"/>
+   <ns1:parameter qname="ns308:pgmId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="insertPhotoDownloadInfo" qname="ns309:insertPhotoDownloadInfo" returnQName="ns309:insertPhotoDownloadInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns309="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns309:Phot_ID" type="xsd:long"/>
+   <ns1:parameter qname="ns309:REQ_ID" type="xsd:string"/>
+   <ns1:parameter qname="ns309:PGM_ID" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="updateContentMediaInfo" qname="ns310:updateContentMediaInfo" returnQName="ns310:updateContentMediaInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns310="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns310:master_ID" type="xsd:long"/>
+   <ns1:parameter qname="ns310:aud_type_cd" type="xsd:string"/>
+   <ns1:parameter qname="ns310:record_type_cd" type="xsd:string"/>
+   <ns1:parameter qname="ns310:me_cd" type="xsd:string"/>
+   <ns1:parameter qname="ns310:color_cd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateDatacdWithMasterid_XML" qname="ns311:updateDatacdWithMasterid_XML" returnQName="ns311:updateDatacdWithMasterid_XMLReturn" returnType="xsd:int" soapAction="" xmlns:ns311="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns311:strXML" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getOutsiderEmployeeRoleList" qname="ns312:getOutsiderEmployeeRoleList" returnQName="ns312:getOutsiderEmployeeRoleListReturn" returnType="xsd:string" soapAction="" xmlns:ns312="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns312:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="deleteScreenAuthentication" qname="ns313:deleteScreenAuthentication" returnQName="ns313:deleteScreenAuthenticationReturn" returnType="xsd:int" soapAction="" xmlns:ns313="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns313:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getVideoPageInfo" qname="ns314:getVideoPageInfo" returnQName="ns314:getVideoPageInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns314="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns314:masterId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getFilePathInfo" qname="ns315:getFilePathInfo" returnQName="ns315:getFilePathInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns315="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns315:contentId" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getBill" qname="ns316:getBill" returnQName="ns316:getBillReturn" returnType="xsd:int" soapAction="" xmlns:ns316="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns316:bill" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="getDecryption" qname="ns317:getDecryption" returnQName="ns317:getDecryptionReturn" returnType="xsd:string" soapAction="" xmlns:ns317="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns317:strSSOKey" type="xsd:string"/>
+   <ns1:parameter qname="ns317:strMacHex" type="xsd:string"/>
+   <ns1:parameter qname="ns317:strSSOText" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getEncription" qname="ns318:getEncription" returnQName="ns318:getEncriptionReturn" returnType="xsd:string" soapAction="" xmlns:ns318="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns318:strSSOKey" type="xsd:string"/>
+   <ns1:parameter qname="ns318:strMacHex" type="xsd:string"/>
+   <ns1:parameter qname="ns318:strSSOEnc" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getLogin" qname="ns319:getLogin" returnQName="ns319:getLoginReturn" returnType="xsd:string" soapAction="" xmlns:ns319="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns319:userId" type="xsd:string"/>
+   <ns1:parameter qname="ns319:password" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getCartInfo" qname="ns320:getCartInfo" returnQName="ns320:getCartInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns320="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns320:cartNo" type="xsd:long"/>
+   <ns1:parameter qname="ns320:reqUserId" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getBoardInfo" qname="ns321:getBoardInfo" returnQName="ns321:getBoardInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns321="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns321:boardDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getCodeList" qname="ns322:getCodeList" returnQName="ns322:getCodeListReturn" returnType="xsd:string" soapAction="" xmlns:ns322="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns322:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getCodeInfo" qname="ns323:getCodeInfo" returnQName="ns323:getCodeInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns323="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns323:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getScenario2" qname="ns324:getScenario2" returnQName="ns324:getScenario2Return" returnType="xsd:string" soapAction="" xmlns:ns324="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns324:senario" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMyCatalog" qname="ns325:getMyCatalog" returnQName="ns325:getMyCatalogReturn" returnType="xsd:string" soapAction="" xmlns:ns325="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns325:myCatalogDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateVd_qlty" qname="ns326:updateVd_qlty" returnQName="ns326:updateVd_qltyReturn" returnType="xsd:int" soapAction="" xmlns:ns326="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns326:ctID" type="xsd:int"/>
+   <ns1:parameter qname="ns326:vd_qlty" type="xsd:string"/>
+   <ns1:parameter qname="ns326:asp_rto_cd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getTapeOutIngestCommonCodeList" qname="ns327:getTapeOutIngestCommonCodeList" returnQName="ns327:getTapeOutIngestCommonCodeListReturn" returnType="xsd:string" soapAction="" xmlns:ns327="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getTapeOutIngestDownCartInfoList" qname="ns328:getTapeOutIngestDownCartInfoList" returnQName="ns328:getTapeOutIngestDownCartInfoListReturn" returnType="xsd:string" soapAction="" xmlns:ns328="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns328:reqUserId" type="xsd:string"/>
+   <ns1:parameter qname="ns328:resolution" type="xsd:int"/>
+   <ns1:parameter qname="ns328:reqDtChk" type="xsd:boolean"/>
+   <ns1:parameter qname="ns328:reqDt" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_DEPT_ARCH_DTL_TBL_List" qname="ns329:getSTAT_DEPT_ARCH_DTL_TBL_List" returnQName="ns329:getSTAT_DEPT_ARCH_DTL_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns329="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns329:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSTAT_DEPT_ARCH_REQ_TBL_List" qname="ns330:getSTAT_DEPT_ARCH_REQ_TBL_List" returnQName="ns330:getSTAT_DEPT_ARCH_REQ_TBL_ListReturn" returnType="xsd:string" soapAction="" xmlns:ns330="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns330:statisticsConditionDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getPgm_cd" qname="ns331:getPgm_cd" returnQName="ns331:getPgm_cdReturn" returnType="xsd:string" soapAction="" xmlns:ns331="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getUserAuthCD" qname="ns332:getUserAuthCD" returnQName="ns332:getUserAuthCDReturn" returnType="xsd:string" soapAction="" xmlns:ns332="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns332:UserID" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="recreateWMV" qname="ns333:recreateWMV" returnQName="ns333:recreateWMVReturn" returnType="xsd:string" soapAction="" xmlns:ns333="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns333:cti_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="recreateKFRM" qname="ns334:recreateKFRM" returnQName="ns334:recreateKFRMReturn" returnType="xsd:string" soapAction="" xmlns:ns334="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns334:ct_id" type="xsd:long"/>
+   <ns1:parameter qname="ns334:user_nm" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getBoardList" qname="ns335:getBoardList" returnQName="ns335:getBoardListReturn" returnType="xsd:string" soapAction="" xmlns:ns335="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns335:boardInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="amendPassword" qname="ns336:amendPassword" returnQName="ns336:amendPasswordReturn" returnType="xsd:int" soapAction="" xmlns:ns336="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns336:userId" type="xsd:string"/>
+   <ns1:parameter qname="ns336:beforePasswd" type="xsd:string"/>
+   <ns1:parameter qname="ns336:afterPasswd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertDisuse" qname="ns337:insertDisuse" returnQName="ns337:insertDisuseReturn" returnType="xsd:int" soapAction="" xmlns:ns337="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns337:discardDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="cancelDisuse" qname="ns338:cancelDisuse" returnQName="ns338:cancelDisuseReturn" returnType="xsd:int" soapAction="" xmlns:ns338="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns338:master_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="cancelDisuse2" qname="ns339:cancelDisuse2" returnQName="ns339:cancelDisuse2Return" returnType="xsd:int" soapAction="" xmlns:ns339="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns339:master_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertUse" qname="ns340:insertUse" returnQName="ns340:insertUseReturn" returnType="xsd:int" soapAction="" xmlns:ns340="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns340:discardDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="creatBcode" qname="ns341:creatBcode" returnQName="ns341:creatBcodeReturn" returnType="xsd:int" soapAction="" xmlns:ns341="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns341:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="creatMcode" qname="ns342:creatMcode" returnQName="ns342:creatMcodeReturn" returnType="xsd:int" soapAction="" xmlns:ns342="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns342:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="creatScode" qname="ns343:creatScode" returnQName="ns343:creatScodeReturn" returnType="xsd:int" soapAction="" xmlns:ns343="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns343:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateBcode" qname="ns344:updateBcode" returnQName="ns344:updateBcodeReturn" returnType="xsd:int" soapAction="" xmlns:ns344="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns344:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateMcode" qname="ns345:updateMcode" returnQName="ns345:updateMcodeReturn" returnType="xsd:int" soapAction="" xmlns:ns345="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns345:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateScode" qname="ns346:updateScode" returnQName="ns346:updateScodeReturn" returnType="xsd:int" soapAction="" xmlns:ns346="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns346:codeDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getPgmList" qname="ns347:getPgmList" returnQName="ns347:getPgmListReturn" returnType="xsd:string" soapAction="" xmlns:ns347="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns347:programInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getPgmInfo" qname="ns348:getPgmInfo" returnQName="ns348:getPgmInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns348="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns348:pgm_cd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getParentsCD" qname="ns349:getParentsCD" returnQName="ns349:getParentsCDReturn" returnType="xsd:string" soapAction="" xmlns:ns349="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns349:pgm_cd" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertPgmcd" qname="ns350:insertPgmcd" returnQName="ns350:insertPgmcdReturn" returnType="xsd:int" soapAction="" xmlns:ns350="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns350:programInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updatePgmcd" qname="ns351:updatePgmcd" returnQName="ns351:updatePgmcdReturn" returnType="xsd:int" soapAction="" xmlns:ns351="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns351:programInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getCopyList" qname="ns352:getCopyList" returnQName="ns352:getCopyListReturn" returnType="xsd:string" soapAction="" xmlns:ns352="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns352:copyDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertCopy" qname="ns353:insertCopy" returnQName="ns353:insertCopyReturn" returnType="xsd:int" soapAction="" xmlns:ns353="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns353:copyDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateCopy" qname="ns354:updateCopy" returnQName="ns354:updateCopyReturn" returnType="xsd:int" soapAction="" xmlns:ns354="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns354:copyDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertAddTask" qname="ns355:insertAddTask" returnQName="ns355:insertAddTaskReturn" returnType="xsd:string" soapAction="" xmlns:ns355="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns355:addTask" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="completeDown" qname="ns356:completeDown" returnQName="ns356:completeDownReturn" returnType="xsd:string" soapAction="" xmlns:ns356="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns356:num" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="getTmStatus" qname="ns357:getTmStatus" returnQName="ns357:getTmStatusReturn" returnType="xsd:string" soapAction="" xmlns:ns357="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns357:TaskID" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="getPhotoList" qname="ns358:getPhotoList" returnQName="ns358:getPhotoListReturn" returnType="xsd:string" soapAction="" xmlns:ns358="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns358:master_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="getDepInfo" qname="ns359:getDepInfo" returnQName="ns359:getDepInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns359="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getDepList" qname="ns360:getDepList" returnQName="ns360:getDepListReturn" returnType="xsd:string" soapAction="" xmlns:ns360="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns360:depInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertDepInfo" qname="ns361:insertDepInfo" returnQName="ns361:insertDepInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns361="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns361:depInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateDepInfo" qname="ns362:updateDepInfo" returnQName="ns362:updateDepInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns362="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns362:depInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getAvailable" qname="ns363:getAvailable" returnQName="ns363:getAvailableReturn" returnType="xsd:string" soapAction="" xmlns:ns363="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getTodayList" qname="ns364:getTodayList" returnQName="ns364:getTodayListReturn" returnType="xsd:string" soapAction="" xmlns:ns364="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns364:todayDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getGoodList" qname="ns365:getGoodList" returnQName="ns365:getGoodListReturn" returnType="xsd:string" soapAction="" xmlns:ns365="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns365:goodDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getScanDisk" qname="ns366:getScanDisk" returnQName="ns366:getScanDiskReturn" returnType="xsd:string" soapAction="" xmlns:ns366="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="insertMetadat" qname="ns367:insertMetadat" returnQName="ns367:insertMetadatReturn" returnType="xsd:int" soapAction="" xmlns:ns367="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns367:metadataMstInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertDTL" qname="ns368:insertDTL" returnQName="ns368:insertDTLReturn" returnType="xsd:long" soapAction="" xmlns:ns368="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns368:ct_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="deleteNLE" qname="ns369:deleteNLE" returnQName="ns369:deleteNLEReturn" returnType="xsd:int" soapAction="" xmlns:ns369="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns369:ct_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getSearchText" qname="ns370:getSearchText" returnQName="ns370:getSearchTextReturn" returnType="xsd:string" soapAction="" xmlns:ns370="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns370:searchInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMainList" qname="ns371:getMainList" returnQName="ns371:getMainListReturn" returnType="xsd:string" soapAction="" xmlns:ns371="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="updateAccept" qname="ns372:updateAccept" returnQName="ns372:updateAcceptReturn" returnType="xsd:string" soapAction="" xmlns:ns372="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns372:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="updateArrange" qname="ns373:updateArrange" returnQName="ns373:updateArrangeReturn" returnType="xsd:string" soapAction="" xmlns:ns373="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns373:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getPDSList" qname="ns374:getPDSList" returnQName="ns374:getPDSListReturn" returnType="xsd:string" soapAction="" xmlns:ns374="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns374:PdsDownDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getNDSList" qname="ns375:getNDSList" returnQName="ns375:getNDSListReturn" returnType="xsd:string" soapAction="" xmlns:ns375="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns375:NdsDownDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="isValidUser" qname="ns376:isValidUser" returnQName="ns376:isValidUserReturn" returnType="xsd:string" soapAction="" xmlns:ns376="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns376:TokenDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateTcState" qname="ns377:updateTcState" returnQName="ns377:updateTcStateReturn" returnType="xsd:string" soapAction="" xmlns:ns377="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns377:tcBeanDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updatePasswd" qname="ns378:updatePasswd" returnQName="ns378:updatePasswdReturn" returnType="xsd:int" soapAction="" xmlns:ns378="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns378:employeeInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getRoleCode" qname="ns379:getRoleCode" returnQName="ns379:getRoleCodeReturn" returnType="xsd:string" soapAction="" xmlns:ns379="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="updateEdtrId" qname="ns380:updateEdtrId" returnQName="ns380:updateEdtrIdReturn" returnType="xsd:int" soapAction="" xmlns:ns380="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns380:code" type="xsd:string"/>
+   <ns1:parameter qname="ns380:ct_ids" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getAnnotCode" qname="ns381:getAnnotCode" returnQName="ns381:getAnnotCodeReturn" returnType="xsd:string" soapAction="" xmlns:ns381="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="insertMediaId" qname="ns382:insertMediaId" returnQName="ns382:insertMediaIdReturn" returnType="xsd:string" soapAction="" xmlns:ns382="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="insertNLEDTL" qname="ns383:insertNLEDTL" returnQName="ns383:insertNLEDTLReturn" returnType="xsd:int" soapAction="" xmlns:ns383="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns383:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertDtlInfo" qname="ns384:insertDtlInfo" returnQName="ns384:insertDtlInfoReturn" returnType="xsd:int" soapAction="" xmlns:ns384="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns384:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getManualInfo" qname="ns385:getManualInfo" returnQName="ns385:getManualInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns385="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns385:manualArchiveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="insertManual" qname="ns386:insertManual" returnQName="ns386:insertManualReturn" returnType="xsd:int" soapAction="" xmlns:ns386="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns386:manualArchiveDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getSceanInfo" qname="ns387:getSceanInfo" returnQName="ns387:getSceanInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns387="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns387:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="getBaseInfo" qname="ns388:getBaseInfo" returnQName="ns388:getBaseInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns388="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns388:master_id" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="updateMetadat" qname="ns389:updateMetadat" returnQName="ns389:updateMetadatReturn" returnType="xsd:int" soapAction="" xmlns:ns389="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns389:metadataMstInfoDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getLogInfo" qname="ns390:getLogInfo" returnQName="ns390:getLogInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns390="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns390:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDtlInfo" qname="ns391:getDtlInfo" returnQName="ns391:getDtlInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns391="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns391:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getTCinfo" qname="ns392:getTCinfo" returnQName="ns392:getTCinfoReturn" returnType="xsd:string" soapAction="" xmlns:ns392="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns392:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getTminfo" qname="ns393:getTminfo" returnQName="ns393:getTminfoReturn" returnType="xsd:string" soapAction="" xmlns:ns393="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns393:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDetailInfo" qname="ns394:getDetailInfo" returnQName="ns394:getDetailInfoReturn" returnType="xsd:string" soapAction="" xmlns:ns394="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns394:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="manualDelete" qname="ns395:manualDelete" returnQName="ns395:manualDeleteReturn" returnType="xsd:int" soapAction="" xmlns:ns395="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns395:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getErroeList" qname="ns396:getErroeList" returnQName="ns396:getErroeListReturn" returnType="xsd:string" soapAction="" xmlns:ns396="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns396:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getServerList" qname="ns397:getServerList" returnQName="ns397:getServerListReturn" returnType="xsd:string" soapAction="" xmlns:ns397="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns397:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getJobList" qname="ns398:getJobList" returnQName="ns398:getJobListReturn" returnType="xsd:string" soapAction="" xmlns:ns398="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns398:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="tryAgain" qname="ns399:tryAgain" returnQName="ns399:tryAgainReturn" returnType="xsd:string" soapAction="" xmlns:ns399="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns399:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getDowninfo" qname="ns400:getDowninfo" returnQName="ns400:getDowninfoReturn" returnType="xsd:string" soapAction="" xmlns:ns400="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns400:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getJobStatus" qname="ns401:getJobStatus" returnQName="ns401:getJobStatusReturn" returnType="xsd:string" soapAction="" xmlns:ns401="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns401:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateReqCd" qname="ns402:updateReqCd" returnQName="ns402:updateReqCdReturn" returnType="xsd:string" soapAction="" xmlns:ns402="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns402:xml" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="updateDownloadRequestOutSourcingDetail" qname="ns403:updateDownloadRequestOutSourcingDetail" returnQName="ns403:updateDownloadRequestOutSourcingDetailReturn" returnType="xsd:int" soapAction="" xmlns:ns403="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns403:cartContDO" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMyDownloadRequestDetailList" qname="ns404:getMyDownloadRequestDetailList" returnQName="ns404:getMyDownloadRequestDetailListReturn" returnType="xsd:string" soapAction="" xmlns:ns404="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns404:cartNo" type="xsd:string"/>
+   <ns1:parameter qname="ns404:user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:operation name="getMyDownloadAprroveDetailList" qname="ns405:getMyDownloadAprroveDetailList" returnQName="ns405:getMyDownloadAprroveDetailListReturn" returnType="xsd:string" soapAction="" xmlns:ns405="http://webservices.das.app.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns405:cartNo" type="xsd:string"/>
+   <ns1:parameter qname="ns405:user_id" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="insertPDSArchive insertArchiveReq getApproveInfoList deleteBoardInfo getContentsInfo getErroeList deleteMasterScean2 creatBcode deleteNLE insertIfCmsArchive insertOtherUserInfo testGetResCopy deleteCartInfoList deleteContentItemList getTapeOutIngestCommonCodeList insertDownCartInfo getOutsiderEmployeeRoleList insertRelationMaster deleteMyCatalog getNDSList getMyCatalogBySort insertNonEmployeeRole updateCodeInfo getArchiveStatusList insertReqJobTC insertCodeInfo insertMyCatalog getKeyFrameInfoInfoList updateStDownCart getDepCocdInfo getScenario2 getString getDtlInfo getMainList getScenario getSearchText getSTAT_PHOT_USE_TBL_List updateRsv_Prd_DD getMyDownloadAprroveDetailList updateDatacdWithMasterid_XML insertAttachFile deleteMasterScean getClipHeaderImgInfo getManualInfo insertRealEmployeeRole getCodeList updateRealEmployeeRole getManagementInfo insertRoleInfo insertMediaId getTminfo insertPdsFolderAll getRepBaseInfo getReflectionInfoList getMyDownloadAprroveList getRoleCode getSTAT_PGM_USE_TBL_List getErrorInfoList getModDatastatcd insertPdsPgmUserInfoAll isValidUser getAuthentication updateRealEmployeeRoleYN updateEmployeeRole getJobStatus updateBoardAtaachInfo getScanDisk getMasterDataAll getSchedulerList deleteScreenAuthentication deleteRistClfInfoListForTime getProgramInfo2 updatAuthorInfo getRelationMaster getRoleCodeForMonitoring getVideoPageMetaInfo updateMediaCilpStatus insertPdsPgmInfo getRoleInfoList getPDSList getMainKeyList getOtherEmployeeList getDowninfo getTodayList deletePDSArchive insertCornerinfo getVideoPageContentsInfoList getApproveInfo getSDIngestCommonCodeList getStorageCheck recreateWMV_KFRMMainSean updateReqCd testAddClipInfoService getMyArchiveRequestList updateRistClfInfoListForTime insertOtherDepInfo updateRealEmployeeRoleCharYN getMetadataInfo updateScode getStorageInfo insertAddTask getAvailable getCartInfo insertTapeinfo updateVd_qlty getGoodList testArchiveReportService getSTAT_PGM_ARCH_DTL_TBL_List insertAttachPhotoinfo deleteContentFiles insertStCartContInfo getLastPgmInfolist getMyDownloadRequestDetailList getCornerInfoList insertNleArchive getAttachPhotoList getSTAT_ARRA_TBL_List getLogInfo getManualArchiveInfo updateRoleInfoForMonitoring updateOutEmployeeRole recreateKFRM insertCartContInfo cancelDisuse updateIngestStatus insertERPUserInfo getParentsCD updateBcode insertPdsMappInfo getSTAT_PGM_ARCH_TBL_List changePriority getOrderInfo updateERPAppoint getModeUserInfoList getFilePathInfo getPgmList insertMetadat testIngestReportService completeDown testGetResArchieve getBoardList updateTcState getMyDownloadRequestList testDeleteClipInfoService updateContentMediaInfo testReportService updatPhotoCount updateWmvStatus getPgmInfoFromName getLastPgmInfolistByPgmId2 cancelDisuse2 insertPdsPgmInfoAll insertScenario insertPdsFolderAll2 getDepInfo updateModUserid testGetResDelete getLastPgmInfoXmllist updateDownCart insertApproveInfoForChennel getSupHtpoList getMergedFilenames getServerList getDetailInfo getPlayMediaInfo logHistory updateRetryArchive getSupHeadList2 getRistClfInfoListForTime updateInitPassword getArchiveRoute getBoardInfo getRelationTotaly insertPgmcd updateERPTapeInfo getDecryption getEmployeeList insertReqComTc getHyenDisCardList deleteRelationMaster getLogRcdPeriod insertPassword testFileIngestService getManualJobinfo insertPhotoDownloadInfo getPhotoList getTCinfo getEmployeeListForApp getAnnotCode getSubsiServerList getSearchTextForDetail updateTmStatusAll getDownloadRequestList insertNLEDTL getMetadatInfoList recreateWMV_KFRMforClient updateRetryArchiveByCtId deletePhotoFiles getSTAT_PHOT_PGM_TOTAL_List insertManualArchive getProgramInfo recreateWMV_NMforClient insertDisuse getOhterDepInfoList getParentsInfo getCartInfoForUser updateIfCmsArchiveStatus completeArchive testServiceTest getRoleForLoginInMonitoring insertSubsiServer getSearchRelationInfo getPgmInfoFromName2 updateStCartContInfo getTmStatus tryAgain amendPassword getTapeInfo updatePasswd updateRoleInfo getCopyList getPgmInfo updateSubsiServer insertComArchivereq deleteKfrmFiles updateIfCmsDownloadApprove deleteApproveInfo getTapeOutIngestDownCartInfoList getSTAT_DEPT_ARCH_DTL_TBL_List insertRistClfInfoListForTime getAttachFileInfo getMyCatalog getAnnotInfoInfoList getDowninfoForIfCms getSTAT_GNR_ARCH_TBL_List getDepinfoList getERPAppointList insertStDownCartInfo insertBoardAtaachInfo insertERPTapeInfo getProgramInfoList getFlIngestLastCommandList getSTAT_TOTAL_TBL_List insertDepInfo insertPdsPgmUserInfo getDepInfoList insertAnnotinfo getJanrCodeList getSTAT_DISUSE_TBL_List updatePDSArchiveStatus insertERPAppoint updateCopy getSceanInfo getCornerHeaderImgInfo getRoleForLogin getPlayContentInfo insertPhotoDownInfo updateArrange2 getPhotoInfoList getSTAT_PHOT_REG_TBL_List updateEdtrId getLogin updatePgmcd getEncription getMediaInfo getChennelInfo getStoryboardData getSTAT_DEPT_ARCH_REQ_TBL_List getCartContList getAuthorInfoList deleteAttachFile getSTAT_GNR_USE2_TBL_List updateArchiveReq getPreProcessing getDisCardList insertContentsMappinfo updateDownloadRequestOutSourcingDetail deleteBoardAttachFile getSTAT_PHOT_COL_TBL_List updateMetadataStatusCd deleteApproveInfo2 recreateKFRMforClient getApproveInfoForChennel getGroupForMaster insertNLEandDTL insertCornerContinfo getBoardInfoForPopUp updateErrorDownCart getGroupForMasterForClient getFLIngestCommonCodeList getVideoPageInfo getERPAppointMaxSeq getSceanInfoForIfCms getIngestServerList updateAutoArchvie getAttachFileInfoList updateDepInfo getSTAT_DEPT_ARCH_TBL_List unlockByUserID multiLockUnlock testDownloadService updateMcode getDownCartList updateMetadat testArchiveService updateDownloadRequestDetail insertEmployeeRole getRoleInfoForChennel recreateWMV_NMforMainSean getDownloadRequestDetailList updateEquipMentStatus getSTAT_PHOT_DISUSE_TBL_List getCocdForChennel insertNdsFolderAll updateCopyRequest getJobList getLogInOutInfo getBoardAtaachInfo getSTAT_DOWN_COCD_USE_TBL_List insertDTL deleteNLEForDown getTmStatusAll insertComMedia getBill insertPhotoinfo updateDatastatCd testNleIngestService getBasicPageInfo getManualDeleteList deleteCodeInfo cancelJob getSDIngestStatusInfo getStorageIP getSTAT_GNR_USE_TBL_List getDepinfoForuserList testArchiveSchedulerService getCommonInfoList recreateKFRMMainSean testDeleteContentService getSTAT_DEPT_USE_TBL_List creatScode getPgm_cd updateDownCartState insertCopyMetadat recreateWMV_NM getClipInfoList deleteApproveInfoForChennel updateTotalChange creatMcode updateArrange manualDelete getTotalChangelist getRelationLink updateDataStatCd updateCartContInfo updateAccept insertDtlInfo getPgmContentsInfoList insertUse getUserAuthCD recreateWMV_KFRM getCode getBaseInfo getHyenUseList getDepList updateEmployeeRoleYN getPreviewInfo getRelationScean getSearchTextForKey getPreviewAttachInfo getSTAT_PHOT_TOTAL_List getSDIngestRefreshTapeInfo getPgmInfoFromMasterid deleteScenario testGetResUpdate insertIfCmsDownCartInfo getAuthorForMonitoring getCodeInfo getTapeOutIngestCartItemInfo getSupHeadList updatePhotInfo isValidUserWithToken getApproveInfoListForChennel insertManual getDepinfoForuserListFormonitoring getSTAT_COL_TBL_List deleteAllCartInfo getUseInfoList isVideoReleateYN testGetResRestore getAutoArchvieList getArchiveInfo getContentsPreInfoList getLastPgmInfolistByPgmId getArchPreProcessing insertErrorInfo updateSDIngestStatus getSDTapeInfoList recreateWMV getMasterDataTotaly insertCopy updateBoardInfo insertBoardInfo insertApproveInfo getSTAT_PGM_ARCH_REQ_TBL_List"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="PDASServices"/>
+  <ns1:parameter name="className" value="com.app.das.webservices.PDASServices"/>
+  <ns1:parameter name="wsdlServicePort" value="PDASServices"/>
+  <ns1:parameter name="schemaQualified" value="http://webservices.das.app.com"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://webservices.das.app.com"/>
+  <ns1:parameter name="wsdlServiceElement" value="PDASServicesService"/>
+ </ns1:service>
+ <ns1:transport name="http">
+  <ns1:requestFlow>
+   <ns1:handler type="URLMapper"/>
+   <ns1:handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </ns1:requestFlow>
+  <ns1:parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <ns1:parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </ns1:transport>
+ <ns1:transport name="local">
+  <ns1:responseFlow>
+   <ns1:handler type="LocalResponder"/>
+  </ns1:responseFlow>
+ </ns1:transport>
+</ns1:deployment>

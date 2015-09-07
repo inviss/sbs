@@ -1,0 +1,10 @@
+#Fri Jul 27 22:11:02 KST 2012
+eclipse.preferences.version=1
+encoding//src/com/sbs/ifcms/service/Service.java=UTF-8
+encoding//src/com/sbs/ifcms/service/ServiceLocator.java=UTF-8
+encoding//src/com/sbs/ifcms/service/ServicePortType.java=UTF-8
+encoding//src/com/sbs/ifcms/service/ServiceStub.java=UTF-8
+encoding//src/com/sbs/tm/service/Tansfer.java=UTF-8
+encoding//src/com/sbs/tm/service/TansferBindingStub.java=UTF-8
+encoding//src/com/sbs/tm/service/TansferPortType.java=UTF-8
+encoding/<project>=UTF-8
