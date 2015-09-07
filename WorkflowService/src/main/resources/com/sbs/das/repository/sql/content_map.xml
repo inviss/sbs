@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ContentMap">
+	<typeAlias alias="ContentMap" type="com.sbs.das.dto.ContentMapTbl"/>
+        
+    <resultMap id="ContentMapMap" class="ContentMap">
+		<result property="ctId" column="CT_ID" />
+		<result property="pgmId" column="PGM_ID" />
+		<result property="masterId" column="MASTER_ID" />
+		<result property="cnId" column="CN_ID" />
+		<result property="ctSeq" column="CT_SEQ" />
+		<result property="sDuration" column="S_DURATION" />
+		<result property="eDuration" column="E_DURATION" />
+		<result property="regDt" column="REG_DT" />
+		<result property="regrid" column="REGRID" />
+		<result property="modDt" column="MOD_DT" />
+		<result property="modrid" column="MODRID" />
+		<result property="cnSeq" column="CN_SEQ" />
+		<result property="delDd" column="DEL_DD" />
+		<result property="delYn" column="DEL_YN" />
+    </resultMap>
+    
+    <select id="findContentMap" resultMap="ContentMapMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM CONTENTS_MAPP_TBL
+         <dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="masterId">
+				MASTER_ID = #masterId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cnId">
+				CN_ID = #cnId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="ctId">
+				CT_ID = #ctId#
+	        </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+		</isEqual>
+    </select>
+    
+    <select id="getContentMapCount" resultClass="Integer" parameterClass="map">
+		SELECT  
+			count(*)
+		FROM CONTENTS_MAPP_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="masterId">
+				MASTER_ID = #masterId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cnId">
+				CN_ID = #cnId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="ctId">
+				CT_ID = #ctId#
+	        </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getContentMapObj" resultClass="ContentMap" parameterClass="map">
+		SELECT  
+			CT_ID as       ctId, 			
+			PGM_ID as      pgmId, 			
+			MASTER_ID as   masterId, 	
+			CN_ID as       cnId, 			
+			CT_SEQ as      ctSeq, 			
+			S_DURATION as  sDuration, 	
+			E_DURATION as  eDuration, 	
+			REG_DT as      regDt, 			
+			REGRID as      regrid, 		
+			MOD_DT as      modDt, 			
+			MODRID as      modrid, 		
+			CN_SEQ as      cnSeq, 			
+			DEL_DD as      delDd,
+			DEL_YN as      delYn
+		FROM CONTENTS_MAPP_TBL
+		<dynamic prepend="WHERE">
+	        <isNotNull prepend="AND" property="masterId">
+				MASTER_ID = #masterId#
+	        </isNotNull>
+	        <isNotNull prepend="AND" property="cnId">
+				CN_ID = #cnId#
+	        </isNotNull>
+	        <isNotNull prepend="AND" property="delDd">
+	        <![CDATA[
+				(DEL_DD is not null AND DEL_DD <> '')
+			]]>
+	        </isNotNull>
+	        <isNotNull prepend="AND" property="delYn">
+				DEL_YN = #delYn#
+	        </isNotNull>
+	        <isNotNull prepend="AND" property="ctId">
+				CT_ID = #ctId#
+	        </isNotNull>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <update id="updateContentMap" parameterClass="ContentMap">
+    	UPDATE CONTENTS_MAPP_TBL set modrid = #modrid#, mod_dt = #modDt#
+    	<isNotNull prepend="," property="sDuration">
+   			S_DURATION = #sDuration#
+   		</isNotNull>
+    	<isNotNull prepend="," property="eDuration">
+   			E_DURATION = #eDuration#
+   		</isNotNull>
+   		<isNotNull prepend="," property="delYn">
+   			DEL_YN = #delYn#
+   		</isNotNull>
+   		<dynamic prepend="WHERE">
+	        <isNotNull prepend="AND" property="masterId">
+				MASTER_ID = #masterId#
+	        </isNotNull>
+	        <isNotNull prepend="AND" property="ctId">
+				CT_ID = #ctId#
+	        </isNotNull>
+	        <isNotNull prepend="AND" property="delDd">
+	        <![CDATA[
+				(DEL_DD is not null AND DEL_DD <= #delDd#)
+			]]>
+	        </isNotNull>
+	        <isNotNull prepend="AND" property="delYn">
+	        	(DEL_YN is null OR DEL_YN = 'N')
+	        </isNotNull>
+        </dynamic>
+    </update>
+    
+    <insert id="insertContentMap" parameterClass="ContentMap">
+    	INSERT INTO CONTENTS_MAPP_TBL (
+			CT_ID, PGM_ID, MASTER_ID, CN_ID, CT_SEQ, S_DURATION, E_DURATION, REG_DT, REGRID, CN_SEQ, DEL_DD
+		)VALUES(
+			#ctId:NUMERIC:-9999#, #pgmId:NUMERIC:-9999#, #masterId:NUMERIC:-9999#, #cnId:NUMERIC:-9999#, #ctSeq:INTEGER:-9999#, #sDuration:NUMERIC:-9999#, #eDuration:NUMERIC:-9999#, #regDt:VARCHAR:NO_ENTRY#, #regrid:VARCHAR:NO_ENTRY#, #cnSeq:INTEGER:-9999#, #delDd:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    
+ </sqlMap>

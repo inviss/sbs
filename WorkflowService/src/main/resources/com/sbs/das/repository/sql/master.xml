@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Master">
+	<typeAlias alias="Master" type="com.sbs.das.dto.MasterTbl"/>
+        
+    <resultMap id="MasterMap" class="Master">
+		<result property="masterId"				column="MASTER_ID" />
+		<result property="pgmId"					column="PGM_ID" />
+		<result property="pgmCd"					column="PGM_CD" />
+		<result property="episNo"					column="EPIS_NO" />
+		<result property="title"					column="TITLE" />
+		<result property="ctgrLCd"				column="CTGR_L_CD" />
+		<result property="ctgrMCd"				column="CTGR_M_CD" />
+		<result property="ctgrSCd"				column="CTGR_S_CD" />
+		<result property="brdDd"					column="BRD_DD" />
+		<result property="finalBrdYn"			column="FINAL_BRD_YN" />
+		<result property="snps"						column="SNPS" />
+		<result property="keyWords"				column="KEY_WORDS" />
+		<result property="brdBgnHms"			column="BRD_BGN_HMS" />
+		<result property="brdEndHms"			column="BRD_END_HMS" />
+		<result property="brdLeng"				column="BRD_LENG" />
+		<result property="pgmRate"				column="PGM_RATE" />
+		<result property="drtNm"					column="DRT_NM" />
+		<result property="producerNm"			column="PRODUCER_NM" />
+		<result property="writerNm"				column="WRITER_NM" />
+		<result property="prdtInOutsCd"			column="PRDT_IN_OUTS_CD" />
+		<result property="prdtDeptCd"			column="PRDT_DEPT_CD" />
+		<result property="prdtDeptNm"			column="PRDT_DEPT_NM" />
+		<result property="orgPrdrNm"			column="ORG_PRDR_NM" />
+		<result property="mcNm"						column="MC_NM" />
+		<result property="castNm"					column="CAST_NM" />
+		<result property="cmrDrtNm"				column="CMR_DRT_NM" />
+		<result property="fmDt"						column="FM_DT" />
+		<result property="cmrPlace"				column="CMR_PLACE" />
+		<result property="spcInfo"				column="SPC_INFO" />
+		<result property="reqCd"					column="REQ_CD" />
+		<result property="secArchNm"			column="SEC_ARCH_NM" />
+		<result property="secArchId"			column="SEC_ARCH_ID" />
+		<result property="gathCoCd"				column="GATH_CO_CD" />
+		<result property="gathClfCd"			column="GATH_CLF_CD" />
+		<result property="archRegDd"			column="ARCH_REG_DD" />
+		<result property="arrgEndDt"			column="ARRG_END_DT" />
+		<result property="workPrioCd"			column="WORK_PRIO_CD" />
+		<result property="rsvPrdCd"				column="RSV_PRD_CD" />
+		<result property="cprtrNm"				column="CPRTR_NM" />
+		<result property="cprtType"				column="CPRT_TYPE" />
+		<result property="cprtTypeDsc"		column="CPRT_TYPE_DSC" />
+		<result property="viewGrCd"				column="VIEW_GR_CD" />
+		<result property="dlbrCd"					column="DLBR_CD" />
+		<result property="awardHstr"			column="AWARD_HSTR" />
+		<result property="rpimgKfrmSeq"		column="RPIMG_KFRM_SEQ" />
+		<result property="tapeId"					column="TAPE_ID" />
+		<result property="tapeItemId"			column="TAPE_ITEM_ID" />
+		<result property="tapeMediaClfCd" column="TAPE_MEDIA_CLF_CD" />
+		<result property="rsvPrdEndDd"		column="RSV_PRD_END_DD" />
+		<result property="delDd"					column="DEL_DD" />
+		<result property="useYn"					column="USE_YN" />
+		<result property="regrid"					column="REGRID" />
+		<result property="regDt"					column="REG_DT" />
+		<result property="modrid"					column="MODRID" />
+		<result property="modDt"					column="MOD_DT" />
+		<result property="gathDeptCd"			column="GATH_DEPT_CD" />
+		<result property="mcuid"					column="MCUID" />
+		<result property="rpimgCtId"      column="RPIMG_CT_ID" />
+		<result property="dataStatCd"     column="DATA_STAT_CD" />
+		<result property="ingRegDd"       column="ING_REG_DD" />
+		<result property="copyKeep"       column="COPY_KEEP" />
+		<result property="cleanKeep"      column="CLEAN_KEEP" />
+		<result property="musicInfo"      column="MUSIC_INFO" />
+		<result property="rstCont"        column="RST_CONT" />
+		<result property="rerun"          column="RERUN" />
+		<result property="acceptorId"     column="ACCEPTOR_ID" />
+		<result property="subTtl"         column="SUB_TTL" />
+		<result property="arrangeNm"      column="ARRANGE_NM" />
+		<result property="lockStatCd"     column="LOCK_STAT_CD" />
+		<result property="errorStatCd"    column="ERROR_STAT_CD" />
+		<result property="archRoute"      column="ARCH_ROUTE" />
+		<result property="pdsCmsPgmId"    column="PDS_CMS_PGM_ID" />
+		<result property="ristClfCd"      column="RIST_CLF_CD" />
+		<result property="acceptEndDd" 	  column="ACCEPT_END_DD" />
+		<result property="rpimgKfrmSeq"      column="RPIMG_KFRM_SEQ" />
+		<!-- 2012.05.04 -->
+		<result property="chennelCd" 	  column="CHENNEL_CD" />
+		<result property="cocd" 		  column="COCD" />
+		<result property="artist" 		  column="ARTIST" />
+		<result property="countryCd" 	  column="COUNTRY_CD" />
+		<result property="manualYn"    column="MANUAL_YN" />
+    </resultMap>
+    
+    <select id="findMaster" resultMap="MasterMap" parameterClass="map">
+		SELECT  
+			*
+		FROM METADAT_MST_TBL
+		WHERE (DEL_DD = '' or DEL_DD is null) and USE_YN = 'Y'
+		<isNotEmpty prepend="AND" property="tapeItemId">
+			RTRIM(TAPE_ITEM_ID) = #tapeItemId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="masterId">
+			MASTER_ID = #masterId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="episNo">
+			EPIS_NO = #episNo#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="reqCd">
+			REQ_CD = #reqCd#
+        </isNotEmpty>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getMasterCount" resultClass="Integer" parameterClass="map">
+		SELECT  
+			count(master_id)
+		FROM METADAT_MST_TBL
+		WHERE (DEL_DD = '' or DEL_DD is null)
+		<isNotEmpty prepend="AND" property="tapeItemId">
+			TAPE_ITEM_ID = #tapeItemId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="masterId">
+			MASTER_ID = #masterId#
+        </isNotEmpty>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+     <select id="getMasterMax" resultClass="long" parameterClass="map">
+		SELECT  
+			max(master_id)
+		FROM METADAT_MST_TBL
+		WHERE (DEL_DD = '' or DEL_DD is null) and USE_YN = 'Y'
+		<isNotEmpty prepend="AND" property="tapeItemId">
+			TAPE_ITEM_ID = #tapeItemId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="masterId">
+			MASTER_ID = #masterId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="mcuid">
+			MCUID = #mcuid#
+        </isNotEmpty>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getMasterObj" resultClass="Master" parameterClass="map">
+		SELECT  
+			MASTER_ID as           masterId,				
+			PGM_ID as              pgmId,					  
+			PGM_CD as              pgmCd,					  
+			EPIS_NO as             episNo,					
+			TITLE as               title,					  
+			CTGR_L_CD as           ctgrLCd,				  
+			CTGR_M_CD as           ctgrMCd,				  
+			CTGR_S_CD as           ctgrSCd,				  
+			BRD_DD as              brdDd,					  
+			FINAL_BRD_YN as        finalBrdYn,			
+			SNPS as                snps,						
+			KEY_WORDS as           keyWords,				
+			BRD_BGN_HMS as         brdBgnHms,			  
+			BRD_END_HMS as         brdEndHms,			  
+			BRD_LENG as            brdLeng,				  
+			PGM_RATE as            pgmRate,				  
+			DRT_NM as              drtNm,					  
+			PRODUCER_NM as         producerNm,			
+			WRITER_NM as           writerNm,				
+			PRDT_IN_OUTS_CD as     prdtInOutsCd,	  
+			PRDT_DEPT_CD as        prdtDeptCd,			
+			PRDT_DEPT_NM as        prdtDeptNm,			
+			ORG_PRDR_NM as         orgPrdrNm,			  
+			MC_NM as               mcNm,						
+			CAST_NM as             castNm,					
+			CMR_DRT_NM as          cmrDrtNm,				
+			FM_DT as               fmDt,						
+			CMR_PLACE as           cmrPlace,				
+			SPC_INFO as            spcInfo,				  
+			REQ_CD as              reqCd,					  
+			SEC_ARCH_NM as         secArchNm,			  
+			SEC_ARCH_ID as         secArchId,			  
+			GATH_CO_CD as          gathCoCd,				
+			GATH_CLF_CD as         gathClfCd,			  
+			ARCH_REG_DD as         archRegDd,			  
+			ARRG_END_DT as         arrgEndDt,			  
+			WORK_PRIO_CD as        workPrioCd,			
+			RSV_PRD_CD as          rsvPrdCd,				
+			CPRTR_NM as            cprtrNm,				  
+			CPRT_TYPE as           cprtType,				
+			CPRT_TYPE_DSC as       cprtTypeDsc,		  
+			VIEW_GR_CD as          viewGrCd,				
+			DLBR_CD as             dlbrCd,					
+			AWARD_HSTR as          awardHstr,			  
+			RPIMG_KFRM_SEQ as      rpimgKfrmSeq,		
+			TAPE_ID as             tapeId,					
+			TAPE_ITEM_ID as        tapeItemId,			
+			TAPE_MEDIA_CLF_CD as   tapeMediaClfCd,  
+			RSV_PRD_END_DD as      rsvPrdEndDd,		  
+			DEL_DD as              delDd,					  
+			USE_YN as              useYn,					  
+			REGRID as              regrid,					
+			REG_DT as              regDt,					  
+			MODRID as              modrid,					
+			MOD_DT as              modDt,					  
+			GATH_DEPT_CD as        gathDeptCd,			
+			MCUID as               mcuid,					  
+			RPIMG_CT_ID as         rpimgCtId,       
+			DATA_STAT_CD as        dataStatCd,      
+			ING_REG_DD as          ingRegDd,        
+			COPY_KEEP as           copyKeep,        
+			CLEAN_KEEP as          cleanKeep,       
+			MUSIC_INFO as          musicInfo,       
+			RST_CONT as            rstCont,         
+			RERUN as               rerun,           
+			ACCEPTOR_ID as         acceptorId,      
+			SUB_TTL as             subTtl,          
+			ARRANGE_NM as          arrangeNm,       
+			LOCK_STAT_CD as        lockStatCd,      
+			ERROR_STAT_CD as       errorStatCd,     
+			ARCH_ROUTE as          archRoute,       
+			PDS_CMS_PGM_ID as      pdsCmsPgmId,     
+			RIST_CLF_CD as         rishClfCd,
+			ARCH_ROUTE as 		   archRoute, 
+			PDS_CMS_PGM_ID as      pdsCmsPgmId, 
+			RIST_CLF_CD as         ristClfCd, 
+			ACCEPT_END_DD as       acceptEndDd,
+			CHENNEL_CD as          chennelCd,
+			COCD as                cocd,
+			ARTIST as              artist,
+			COUNTRY_CD as          countryCd
+		FROM METADAT_MST_TBL
+		WHERE (DEL_DD = '' or DEL_DD is null) and USE_YN = 'Y'
+		<isNotEmpty prepend="AND" property="tapeItemId">
+			RTRIM(TAPE_ITEM_ID) = #tapeItemId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="masterId">
+			MASTER_ID = #masterId#
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="reqCd">
+			REQ_CD = #reqCd#
+        </isNotEmpty>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getMasterNewId" resultClass="long">
+    	SELECT NEXTVAL FOR SEQ_MASTER_ID AS SEQUENCE FROM  SYSIBM.SYSDUMMY1
+    </select>
+    
+    <select id="getCocd" resultClass="String">
+    	SELECT
+			mst.COCD
+		FROM CONTENTS_LOC_TBL loc
+			inner JOIN CONTENTS_INST_TBL cti ON loc.CTI_ID = cti.CTI_ID
+		    inner JOIN CONTENTS_TBL ct ON cti.CT_ID = ct.CT_ID
+		    inner JOIN (SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL GROUP BY master_id, ct_id) MAP ON ct.ct_id = map.ct_id 
+		    inner JOIN METADAT_MST_TBL mst ON map.master_id = mst.master_id
+		WHERE cti.CTI_FMT LIKE '1%' AND loc.obj_name = #objName#
+		GROUP BY mst.COCD, mst.RPIMG_CT_ID
+    </select>
+    
+    <update id="updateMasterArchRegDay" parameterClass="map">
+		update metadat_mst_tbl set arch_reg_dd = #archRegDd#
+		where (DEL_DD = '' or DEL_DD is null) and master_id = (
+			select
+				master.master_id
+			from contents_inst_tbl cti
+				   inner join contents_tbl ct on cti.ct_id = ct.ct_id
+			   inner join contents_mapp_tbl map on ct.ct_id = map.ct_id
+			   inner join metadat_mst_tbl master on master.master_id = map.master_id
+			where cti.cti_id = #ctiId#
+			group by master.master_id
+		)
+    </update>
+    
+    <update id="updateMaster" parameterClass="Master">
+    	UPDATE METADAT_MST_TBL SET MODRID = #modrid#
+    		<isNotNull prepend="," property="modDt">
+				MOD_DT = #modDt#
+	        </isNotNull>
+	    	<isNotNull prepend="," property="rpimgCtId">
+				RPIMG_CT_ID = #rpimgCtId#
+	        </isNotNull>
+	        <isNotNull prepend="," property="dataStatCd">
+				DATA_STAT_CD = #dataStatCd#
+	        </isNotNull>
+	        <isNotNull prepend="," property="errorStatCd">
+				ERROR_STAT_CD = #errorStatCd#
+	        </isNotNull>
+	        <isNotNull prepend="," property="delDd">
+				DEL_DD = #delDd#
+	        </isNotNull>
+	        <isNotNull prepend="," property="ingRegDd">
+				ING_REG_DD = #ingRegDd#
+	        </isNotNull>
+	        <isNotNull prepend="," property="lockStatCd">
+				LOCK_STAT_CD = #lockStatCd#
+	        </isNotNull>
+	        <isNotNull prepend="," property="archRegDd">
+				ARCH_REG_DD = #archRegDd#
+	        </isNotNull>
+	        <isNotNull prepend="," property="spcInfo">
+				SPC_INFO = #spcInfo#
+	        </isNotNull>
+	        <isNotNull prepend="," property="chennelCd">
+				CHENNEL_CD = #chennelCd#
+	        </isNotNull>
+	        <isNotNull prepend="," property="cocd">
+				COCD = #cocd#
+	        </isNotNull>
+	        <isNotNull prepend="," property="manualYn">
+                MANUAL_YN = #manualYn#
+            </isNotNull>
+            <isNotNull prepend="," property="rpimgKfrmSeq">
+				RPIMG_KFRM_SEQ = #rpimgKfrmSeq#
+	        </isNotNull>
+			<isNotNull prepend="," property="ristClfCd">
+				RIST_CLF_CD = #ristClfCd#
+	        </isNotNull>
+        WHERE MASTER_ID = #masterId#
+    </update>
+    
+    <insert id="insertMaster" parameterClass="Master">
+    	INSERT INTO METADAT_MST_TBL (
+    		MASTER_ID, PGM_ID, PGM_CD, EPIS_NO, TITLE, CTGR_L_CD, CTGR_M_CD, CTGR_S_CD, BRD_DD, FINAL_BRD_YN,
+    		SNPS, KEY_WORDS, BRD_BGN_HMS, BRD_END_HMS, BRD_LENG, PGM_RATE, DRT_NM, PRODUCER_NM, WRITER_NM, PRDT_IN_OUTS_CD,
+    		PRDT_DEPT_CD, PRDT_DEPT_NM, ORG_PRDR_NM, MC_NM, CAST_NM, CMR_DRT_NM, FM_DT, CMR_PLACE, SPC_INFO, REQ_CD,
+    		SEC_ARCH_NM, SEC_ARCH_ID, GATH_CO_CD, GATH_CLF_CD, ARCH_REG_DD, ARRG_END_DT, WORK_PRIO_CD, RSV_PRD_CD, CPRTR_NM, CPRT_TYPE,
+    		CPRT_TYPE_DSC, VIEW_GR_CD, DLBR_CD, AWARD_HSTR, RPIMG_KFRM_SEQ, TAPE_ID, TAPE_ITEM_ID, TAPE_MEDIA_CLF_CD, RSV_PRD_END_DD, DEL_DD,
+    		USE_YN, REGRID, REG_DT, MODRID, MOD_DT, GATH_DEPT_CD, MCUID, RPIMG_CT_ID, DATA_STAT_CD, ING_REG_DD,
+    		COPY_KEEP, CLEAN_KEEP, MUSIC_INFO, RST_CONT, RERUN, ACCEPTOR_ID, SUB_TTL, ARRANGE_NM, LOCK_STAT_CD, ERROR_STAT_CD,
+    		ARCH_ROUTE, PDS_CMS_PGM_ID, RIST_CLF_CD, ACCEPT_END_DD, CHENNEL_CD, COCD, ARTIST, COUNTRY_CD,MANUAL_YN
+    	) VALUES (
+    		#masterId:NUMERIC:-9999#, #pgmId:NUMERIC:-9999#, #pgmCd:VARCHAR:NO_ENTRY#, #episNo:INTEGER:-9999#, #title:VARCHAR:NO_ENTRY#, #ctgrLCd:VARCHAR:NO_ENTRY#, #ctgrMCd:VARCHAR:NO_ENTRY#, #ctgrSCd:VARCHAR:NO_ENTRY#, #brdDd:VARCHAR:NO_ENTRY#, #finalBrdYn:VARCHAR:NO_ENTRY#,
+			#snps:VARCHAR:NO_ENTRY#, #keyWords:VARCHAR:NO_ENTRY#, #brdBgnHms:VARCHAR:NO_ENTRY#, #brdEndHms:VARCHAR:NO_ENTRY#, #brdLeng:VARCHAR:NO_ENTRY#, #pgmRate:VARCHAR:NO_ENTRY#, #drtNm:VARCHAR:NO_ENTRY#, #producerNm:VARCHAR:NO_ENTRY#, #writerNm:VARCHAR:NO_ENTRY#, #prdtInOutsCd:VARCHAR:NO_ENTRY#,
+			#prdtDeptCd:VARCHAR:NO_ENTRY#, #prdtDeptNm:VARCHAR:NO_ENTRY#, #orgPrdrNm:VARCHAR:NO_ENTRY#, #mcNm:VARCHAR:NO_ENTRY#, #castNm:VARCHAR:NO_ENTRY#, #cmrDrtNm:VARCHAR:NO_ENTRY#, #fmDt:VARCHAR:NO_ENTRY#, #cmrPlace:VARCHAR:NO_ENTRY#, #spcInfo:VARCHAR:NO_ENTRY#, #reqCd:VARCHAR:NO_ENTRY#,
+			#secArchNm:VARCHAR:NO_ENTRY#, #secArchId:VARCHAR:NO_ENTRY#, #gathCoCd:VARCHAR:NO_ENTRY#, #gathClfCd:VARCHAR:NO_ENTRY#, #archRegDd:VARCHAR:NO_ENTRY#, #arrgEndDt:VARCHAR:NO_ENTRY#, #workPrioCd:VARCHAR:NO_ENTRY#, #rsvPrdCd:VARCHAR:NO_ENTRY#, #cprtrNm:VARCHAR:NO_ENTRY#, #cprtType:VARCHAR:NO_ENTRY#,
+			#cprtTypeDsc:VARCHAR:NO_ENTRY#, #viewGrCd:VARCHAR:NO_ENTRY#, #dlbrCd:VARCHAR:NO_ENTRY#, #awardHstr:VARCHAR:NO_ENTRY#, #rpimgKfrmSeq:INTEGER:0#, #tapeId:VARCHAR:NO_ENTRY#, #tapeItemId:VARCHAR:NO_ENTRY#, #tapeMediaClfCd:VARCHAR:NO_ENTRY#, #rsvPrdEndDd:VARCHAR:NO_ENTRY#, #delDd:VARCHAR:NO_ENTRY#,
+			#useYn:VARCHAR:NO_ENTRY#, #regrid:VARCHAR:NO_ENTRY#, #regDt:VARCHAR:NO_ENTRY#, #modrid:VARCHAR:NO_ENTRY#, #modDt:VARCHAR:NO_ENTRY#, #gathDeptCd:VARCHAR:NO_ENTRY#, #mcuid:VARCHAR:NO_ENTRY#, #rpimgCtId:NUMERIC:0#, #dataStatCd:VARCHAR:NO_ENTRY#, #ingRegDd:VARCHAR:NO_ENTRY#,
+			#copyKeep:VARCHAR:NO_ENTRY#, #cleanKeep:VARCHAR:NO_ENTRY#, #musicInfo:VARCHAR:NO_ENTRY#, #rstCont:VARCHAR:NO_ENTRY#, #rerun:VARCHAR:NO_ENTRY#, #acceptorId:VARCHAR:NO_ENTRY#, #subTtl:VARCHAR:NO_ENTRY#, #arrangeNm:VARCHAR:NO_ENTRY#, #lockStatCd:VARCHAR:NO_ENTRY#, #errorStatCd:VARCHAR:NO_ENTRY#,
+			#archRoute:VARCHAR:NO_ENTRY#, #pdsCmsPgmId:VARCHAR:NO_ENTRY#, #ristClfCd:VARCHAR:NO_ENTRY#, #acceptEndDd:VARCHAR:NO_ENTRY#, #chennelCd:VARCHAR:NO_ENTRY#, #cocd:VARCHAR:NO_ENTRY#, #artist:VARCHAR:NO_ENTRY#, #countryCd:VARCHAR:NO_ENTRY#, #manualYn:VARCHAR:NO_ENTRY#
+    	)
+    </insert>
+    
+ </sqlMap>

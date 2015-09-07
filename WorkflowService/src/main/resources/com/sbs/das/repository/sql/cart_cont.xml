@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CartCont">
+	<typeAlias alias="CartCont" type="com.sbs.das.dto.CartContTbl"/>
+        
+    <resultMap id="CartContMap" class="CartCont">
+		<result property="cartNo"	column="CART_NO" />
+		<result property="cartSeq"	column="CART_SEQ" />
+		<result property="ristClfCd"	column="RIST_CLF_CD" />
+		<result property="ctId"	column="CT_ID" />
+		<result property="ctiId"	column="CTI_ID" />
+		<result property="som"	column="SOM" />
+		<result property="eom"	column="EOM" />
+		<result property="duration"	column="DURATION" />
+		<result property="regDt"	column="REG_DT" />
+		<result property="regrid"	column="REGRID" />
+		<result property="modDt"	column="MOD_DT" />
+		<result property="modrid"	column="MODRID" />
+		<result property="ctgrLCd"	column="CTGR_L_CD" />
+		<result property="ctgrMCd"	column="CTGR_M_CD" />
+		<result property="ctgrSCd"	column="CTGR_S_CD" />
+		<result property="ctCont"	column="CT_CONT" />
+		<result property="ctNm"	column="CT_NM" />
+		<result property="masterId"	column="MASTER_ID" />
+		<result property="downYn"	column="DOWN_YN" />
+		<result property="downDt"	column="DOWN_DT" />
+		<result property="sFrame"	column="S_FRAME" />
+		<result property="apprYn"	column="APPR_YN" />
+		<result property="appCont"	column="APP_CONT" />
+		<result property="downVol"	column="DOWN_VOL" />
+		<result property="errorState"	column="ERROR_STATE" />
+		<result property="vdQlty"	column="VD_QLTY" />
+		<result property="aspRtoCd"	column="ASP_RTO_CD" />
+		<result property="downStat"	column="DOWN_STAT" />
+		<result property="outsourcingYn"	column="OUTSOURCING_YN" />
+		<result property="outsourcingApprove"	column="OUTSOURCING_APPROVE" />
+		<result property="downTyp"	column="DOWN_TYP" />
+		<result property="reqCont"	column="REQ_CONT" />
+		<result property="delYn"	column="DEL_YN" />
+		<result property="mediaId"	column="MEDIA_ID" />
+    </resultMap>
+    
+    <select id="findCartCont" resultMap="CartContMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM CART_CONT_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="cartNo">
+		         CART_NO = #cartNo#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="cartSeq">
+		         CART_SEQ = #cartSeq#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="downYn">
+		         DOWN_YN = #downYn#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="apprYn">
+		         APPR_YN = #apprYn#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="startDt">
+		         REG_DT between #startDt# and #endDt#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getCartContCount" resultClass="Integer" parameterClass="map">
+	     SELECT  
+             count(*)
+         FROM CART_CONT_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="cartNo">
+	         CART_NO = #cartNo#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cartSeq">
+	         CART_SEQ = #cartSeq#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="downYn">
+	         DOWN_YN = #downYn#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="apprYn">
+	         APPR_YN = #"apprYn"#
+	        </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getCartContObj" resultClass="CartCont" parameterClass="map">
+		SELECT  
+			CART_NO as             cartNo, 						
+			CART_SEQ as            cartSeq, 						
+			RIST_CLF_CD as         ristClfCd, 					
+			CT_ID as               ctId, 							
+			CTI_ID as              ctiId, 							
+			SOM as                 som, 								
+			EOM as                 eom, 								
+			DURATION as            duration, 					
+			REG_DT as              regDt, 							
+			REGRID as              regrid, 						
+			MOD_DT as              modDt, 							
+			MODRID as              modrid, 						
+			CTGR_L_CD as           ctgrLCd, 						
+			CTGR_M_CD as           ctgrMCd, 						
+			CTGR_S_CD as           ctgrSCd, 						
+			CT_CONT as             ctCont, 						
+			CT_NM as               ctNm, 							
+			MASTER_ID as           masterId, 					
+			DOWN_YN as             downYn, 						
+			DOWN_DT as             downDt, 						
+			S_FRAME as             sFrame, 						
+			APPR_YN as             apprYn, 						
+			APP_CONT as            appCont, 						
+			DOWN_VOL as            downVol, 						
+			ERROR_STATE as         errorState, 				
+			VD_QLTY as             vdQlty, 						
+			ASP_RTO_CD as          aspRtoCd, 					
+			DOWN_STAT as           downStat, 					
+			OUTSOURCING_YN as      outsourcingYn, 			
+			OUTSOURCING_APPROVE as outsourcingApprove, 
+			DOWN_TYP as            downTyp, 						
+			REQ_CONT as            reqCont, 						
+			DEL_YN as              delYn, 							
+			MEDIA_ID as            mediaId				
+         FROM CART_CONT_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="cartNo">
+	         CART_NO = #cartNo#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cartSeq">
+	         CART_SEQ = #cartSeq#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="downYn">
+	         DOWN_YN = #downYn#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="apprYn">
+	         APPR_YN = #apprYn#
+	        </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <update id="updateCartCont" parameterClass="CartCont">
+    	UPDATE CART_CONT_TBL set MOD_DT = #modDt#, MODRID = #modrid#
+   		<isNotNull prepend="," property="ctiId">
+   			CTI_ID = #ctiId#
+   		</isNotNull>
+   		<isNotNull prepend="," property="downYn">
+   			DOWN_YN = #downYn#
+   		</isNotNull>
+   		<isNotNull prepend="," property="downDt">
+   			DOWN_DT = #downDt#
+   		</isNotNull>
+   		<isNotNull prepend="," property="downVol">
+   			DOWN_VOL = #downVol#
+   		</isNotNull>
+   		<isNotNull prepend="," property="apprYn">
+         	APPR_YN = #apprYn#
+        </isNotNull>
+        <isNotNull prepend="," property="downStat">
+	        DOWN_STAT = #downStat#
+	    </isNotNull>
+    	<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="cartNo">
+	         	CART_NO = #cartNo#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cartSeq">
+	         	CART_SEQ = #cartSeq#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="ctiId">
+	         	CTI_ID = #ctiId#
+	        </isNotEmpty>
+        </dynamic>
+    </update>
+    
+    <insert id="insertCartCont" parameterClass="CartCont">
+    	INSERT INTO CART_CONT_TBL (
+		   CART_NO, CART_SEQ, RIST_CLF_CD, CT_ID, CTI_ID, SOM, EOM, DURATION, REG_DT, REGRID, MOD_DT, MODRID,
+		   CTGR_L_CD, CTGR_M_CD, CTGR_S_CD, CT_CONT, CT_NM, MASTER_ID, DOWN_YN, DOWN_DT, S_FRAME, APPV_YN
+		)VALUES(
+			#cartNo#, #cartSeq#, #ristClfCd#, #ctId#, #ctiId#, #som#, #eom#, #duration#, #regDt#, #regrid#, #modDt#, #modrid#,
+			#ctgrLCd#, #ctgrMCd#, #ctgrSCd#, #ctCont#, #ctNm#, #masterId#, #downYn#, #downDt#, #sFrame#, #apprYn#
+		)
+    </insert>
+    
+ </sqlMap>

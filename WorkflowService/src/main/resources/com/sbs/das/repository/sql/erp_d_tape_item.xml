@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ErpTapeItem">
+	<typeAlias alias="ErpTapeItem" type="com.sbs.das.dto.ErpTapeItemTbl"/>
+	
+    <resultMap id="ErpTapeItemMap" class="ErpTapeItem">
+		<result property="tapeItemId" column="TAPE_ITEM_ID" />
+		<result property="tapeId" column="TAPE_ID" />
+		<result property="scnCnt" column="SCN_CNT" />
+		<result property="tapeClf" column="TAPE_CLF" />
+		<result property="scnNo" column="SCN_NO" />
+		<result property="reqNo" column="REQ_NO" />
+		<result property="scnTtl" column="SCN_TTL" />
+		<result property="subTtl" column="SUB_TTL" />
+		<result property="rptr" column="RPTR" />
+		<result property="cmrMan" column="CMR_MAN" />
+		<result property="deptCd" column="DEPT_CD" />
+		<result property="cmrPlace" column="CMR_PLACE" />
+		<result property="cmrDd" column="CMR_DD" />
+		<result property="rstCont" column="RST_CONT" />
+		<result property="len" column="LEN" />
+		<result property="casting" column="CASTING" />
+		<result property="orgTtl" column="ORG_TTL" />
+		<result property="prdtCoNm" column="PRDT_CO_NM" />
+		<result property="dirt" column="DIRT" />
+		<result property="prdtYyyy" column="PRDT_YYYY" />
+		<result property="timeCd" column="TIME_CD" />
+		<result property="srisNo" column="SRIS_NO" />
+		<result property="episNo" column="EPIS_NO" />
+		<result property="brdDd" column="BRD_DD" />
+		<result property="keyWords" column="KEY_WORDS" />
+		<result property="photoMethod" column="PHOTO_METHOD" />
+		<result property="scnCont" column="SCN_CONT" />
+		<result property="musicInfo" column="MUSIC_INFO" />
+		<result property="snps" column="SNPS" />
+		<result property="audioCd" column="AUDIO_CD" />
+		<result property="colorCd" column="COLOR_CD" />
+		<result property="recordTypeCd" column="RECORD_TYPE_CD" />
+		<result property="meCd" column="ME_CD" />
+		<result property="cprtr" column="CPRTR" />
+		<result property="cprtType" column="CPRT_TYPE" />
+		<result property="wtchGrNm" column="WTCH_GR_NM" />
+		<result property="awardInfo" column="AWARD_INFO" />
+		<result property="accessRighter" column="ACCESS_RIGHTER" />
+		<result property="rightOwner" column="RIGHT_OWNER" />
+		<result property="licenseOption" column="LICENSE_OPTION" />
+		<result property="maxUsageCount" column="MAX_USAGE_COUNT" />
+		<result property="wtchGr" column="WTCH_GR" />
+		<result property="dlbrGr" column="DLBR_GR" />
+		<result property="keepPrtCd" column="KEEP_PRT_CD" />
+		<result property="dataStatCd" column="DATA_STAT_CD" />
+		<result property="regr" column="REGR" />
+		<result property="archiveDd" column="ARCHIVE_DD" />
+		<result property="mc" column="MC" />
+		<result property="author" column="AUTHOR" />
+		<result property="orgPrdr" column="ORG_PRDR" />
+		<result property="staff" column="STAFF" />
+		<result property="prdtTypeCd" column="PRDT_TYPE_CD" />
+		<result property="regDd" column="REG_DD" />
+		<result property="pgmNm" column="PGM_NM" />
+		<result property="dataKind" column="DATA_KIND" />
+		<result property="useGradeCd" column="USE_GRADE_CD" />
+		<result property="workStat" column="WORK_STAT" />
+		<result property="lockStat" column="LOCK_STAT" />
+		<result property="rltText1" column="RLT_TEXT1" />
+		<result property="rltText2" column="RLT_TEXT2" />
+		<result property="rltText3" column="RLT_TEXT3" />
+		<result property="rltFile1" column="RLT_FILE1" />
+		<result property="rltFile2" column="RLT_FILE2" />
+		<result property="rltFile3" column="RLT_FILE3" />
+		<result property="bgnTime" column="BGN_TIME" />
+		<result property="endTime" column="END_TIME" />
+		<result property="review" column="REVIEW" />
+		<result property="schdWeekDd" column="SCHD_WEEK_DD" />
+		<result property="pgmCd" column="PGM_CD" />
+		<result property="selCont" column="SEL_CONT" />
+		<result property="buyPrc" column="BUY_PRC" />
+		<result property="prdtr" column="PRDTR" />
+		<result property="gameNm" column="GAME_NM" />
+		<result property="cmntr" column="CMNTR" />
+		<result property="totCnt" column="TOT_CNT" />
+		<result property="buyCont" column="BUY_CONT" />
+		<result property="wordCd" column="WORD_CD" />
+		<result property="viewGr" column="VIEW_GR" />
+		<result property="rlyBrd" column="RLY_BRD" />
+		<result property="encodeYn" column="ENCODE_YN" />
+		<result property="encodeDd" column="ENCODE_DD" />
+		<result property="workSeq" column="WORK_SEQ" />
+		<result property="ingestYn" column="INGEST_YN" />
+		<result property="ingestStatus" column="INGEST_STATUS" />
+		<result property="ingestDd" column="INGEST_DD" />
+    </resultMap>
+    
+    <select id="findErpTapeItem" resultMap="ErpTapeItemMap" parameterClass="String">
+    <!--
+	     SELECT  
+            DAS.D_TAPEITEM_TBL.TAPE_ITEM_ID, DAS.D_TAPEITEM_TBL.TAPE_ID, DAS.D_TAPEITEM_TBL.SCN_CNT, DAS.D_TAPEITEM_TBL.TAPE_CLF, DAS.D_TAPEITEM_TBL.SCN_NO, DAS.D_TAPEITEM_TBL.REQ_NO, 
+            DAS.D_TAPEITEM_TBL.SCN_TTL, DAS.D_TAPEITEM_TBL.SUB_TTL, DAS.D_TAPEITEM_TBL.RPTR, DAS.D_TAPEITEM_TBL.CMR_MAN, DAS.D_TAPEITEM_TBL.DEPT_CD, DAS.D_TAPEITEM_TBL.CMR_PLACE, DAS.D_TAPEITEM_TBL.CMR_DD, DAS.D_TAPEITEM_TBL.RST_CONT,
+			DAS.D_TAPEITEM_TBL.LEN, DAS.D_TAPEITEM_TBL.CASTING, DAS.D_TAPEITEM_TBL.ORG_TTL, DAS.D_TAPEITEM_TBL.PRDT_CO_NM, DAS.D_TAPEITEM_TBL.DIRT, DAS.D_TAPEITEM_TBL.PRDT_YYYY, DAS.D_TAPEITEM_TBL.TIME_CD, 
+			DAS.D_TAPEITEM_TBL.SRIS_NO, DAS.D_TAPEITEM_TBL.EPIS_NO, DAS.D_TAPEITEM_TBL.BRD_DD, DAS.D_TAPEITEM_TBL.KEY_WORDS, DAS.D_TAPEITEM_TBL.PHOTO_METHOD, DAS.D_TAPEITEM_TBL.SCN_CONT, DAS.D_TAPEITEM_TBL.MUSIC_INFO,
+			DAS.D_TAPEITEM_TBL.SNPS, DAS.D_TAPEITEM_TBL.AUDIO_CD, DAS.D_TAPEITEM_TBL.COLOR_CD, DAS.D_TAPEITEM_TBL.RECORD_TYPE_CD, DAS.D_TAPEITEM_TBL.ME_CD, DAS.D_TAPEITEM_TBL.CPRTR, 
+			DAS.D_TAPEITEM_TBL.CPRT_TYPE, DAS.D_TAPEITEM_TBL.WTCH_GR_NM, DAS.D_TAPEITEM_TBL.AWARD_INFO, DAS.D_TAPEITEM_TBL.ACCESS_RIGHTER, DAS.D_TAPEITEM_TBL.RIGHT_OWNER, DAS.D_TAPEITEM_TBL.LICENSE_OPTION,
+			DAS.D_TAPEITEM_TBL.MAX_USAGE_COUNT, DAS.D_TAPEITEM_TBL.WTCH_GR, DAS.D_TAPEITEM_TBL.DLBR_GR, DAS.D_TAPEITEM_TBL.KEEP_PRT_CD, DAS.D_TAPEITEM_TBL.DATA_STAT_CD, DAS.D_TAPEITEM_TBL.REGR, 
+			DAS.D_TAPEITEM_TBL.ARCHIVE_DD, DAS.D_TAPEITEM_TBL.MC, DAS.D_TAPEITEM_TBL.AUTHOR, DAS.D_TAPEITEM_TBL.ORG_PRDR, DAS.D_TAPEITEM_TBL.STAFF, DAS.D_TAPEITEM_TBL.PRDT_TYPE_CD, DAS.D_TAPEITEM_TBL.REG_DD, DAS.D_TAPEITEM_TBL.PGM_NM,
+			DAS.D_TAPEITEM_TBL.DATA_KIND, DAS.D_TAPEITEM_TBL.USE_GRADE_CD, DAS.D_TAPEITEM_TBL.WORK_STAT, DAS.D_TAPEITEM_TBL.LOCK_STAT, DAS.D_TAPEITEM_TBL.RLT_TEXT1, DAS.D_TAPEITEM_TBL.RLT_TEXT2, 
+			DAS.D_TAPEITEM_TBL.RLT_TEXT3, DAS.D_TAPEITEM_TBL.RLT_FILE1, DAS.D_TAPEITEM_TBL.RLT_FILE2, DAS.D_TAPEITEM_TBL.RLT_FILE3, DAS.D_TAPEITEM_TBL.BGN_TIME, DAS.D_TAPEITEM_TBL.END_TIME,
+			DAS.D_TAPEITEM_TBL.REVIEW, DAS.D_TAPEITEM_TBL.SCHD_WEEK_DD, DAS.D_TAPEITEM_TBL.PGM_CD, DAS.D_TAPEITEM_TBL.SEL_CONT, DAS.D_TAPEITEM_TBL.BUY_PRC, DAS.D_TAPEITEM_TBL.PRDTR, 
+			DAS.D_TAPEITEM_TBL.GAME_NM, DAS.D_TAPEITEM_TBL.CMNTR, DAS.D_TAPEITEM_TBL.TOT_CNT, DAS.D_TAPEITEM_TBL.BUY_CONT, DAS.D_TAPEITEM_TBL.WORD_CD, DAS.D_TAPEITEM_TBL.VIEW_GR, DAS.D_TAPEITEM_TBL.RLY_BRD, DAS.D_TAPEITEM_TBL.ENCODE_YN,
+			DAS.D_TAPEITEM_TBL.ENCODE_DD, DAS.D_TAPEITEM_TBL.WORK_SEQ, DAS.D_TAPEITEM_TBL.INGEST_YN, DAS.D_TAPEITEM_TBL.INGEST_STATUS, DAS.D_TAPEITEM_TBL.INGEST_DD
+         FROM DAS.D_TAPEITEM_TBL
+         WHERE RTRIM(DAS.D_TAPEITEM_TBL.TAPE_ITEM_ID) = #tapeItemId#
+         with UR
+       -->
+        SELECT  
+            TAPE_ITEM_ID, TAPE_ID, SCN_CNT, TAPE_CLF, SCN_NO, REQ_NO, 
+            SCN_TTL, SUB_TTL, RPTR, CMR_MAN, DEPT_CD, CMR_PLACE, CMR_DD, RST_CONT,
+			LEN, CASTING, ORG_TTL, PRDT_CO_NM, DIRT, PRDT_YYYY, TIME_CD, 
+			SRIS_NO, EPIS_NO, BRD_DD, KEY_WORDS, PHOTO_METHOD, SCN_CONT, MUSIC_INFO,
+			SNPS, AUDIO_CD, COLOR_CD, RECORD_TYPE_CD, ME_CD, CPRTR, 
+			CPRT_TYPE, WTCH_GR_NM, AWARD_INFO, ACCESS_RIGHTER, RIGHT_OWNER, LICENSE_OPTION,
+			MAX_USAGE_COUNT, WTCH_GR, DLBR_GR, KEEP_PRT_CD, DATA_STAT_CD, REGR, 
+			ARCHIVE_DD, MC, AUTHOR, ORG_PRDR, STAFF, PRDT_TYPE_CD, REG_DD, PGM_NM,
+			DATA_KIND, USE_GRADE_CD, WORK_STAT, LOCK_STAT, RLT_TEXT1, RLT_TEXT2, 
+			RLT_TEXT3, RLT_FILE1, RLT_FILE2, RLT_FILE3, BGN_TIME, END_TIME,
+			REVIEW, SCHD_WEEK_DD, PGM_CD, SEL_CONT, BUY_PRC, PRDTR, 
+			GAME_NM, CMNTR, TOT_CNT, BUY_CONT, WORD_CD, VIEW_GR, RLY_BRD, ENCODE_YN,
+			ENCODE_DD, WORK_SEQ, INGEST_YN, INGEST_STATUS, INGEST_DD
+         FROM DAT.D_TAPEITEM_TBL
+         WHERE RTRIM(TAPE_ITEM_ID) = #tapeItemId#
+         with UR
+    </select>
+    
+    <select id="getErpTapeItemCount" resultClass="Integer" parameterClass="String">
+	     SELECT  
+             count(*)
+         FROM DAT.D_TAPEITEM_TBL
+		 WHERE RTRIM(TAPE_ITEM_ID) = #tapeItemId#
+         with UR
+    </select>
+    
+ </sqlMap>

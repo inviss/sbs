@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ContentInst">
+	<typeAlias alias="ContentInst" type="com.sbs.das.dto.ContentInstTbl"/>
+        
+    <resultMap id="ContentInstMap" class="ContentInst">
+		<result property="ctiId" column="CTI_ID" />
+		<result property="ctId" column="CT_ID" />
+		<result property="ctiFmt" column="CTI_FMT" />
+		<result property="archSteYn" column="ARCH_STE_YN" />
+		<result property="meCd" column="ME_CD" />
+		<result property="bitRt" column="BIT_RT" />
+		<result property="frmPerSec" column="FRM_PER_SEC" />
+		<result property="drpFrmYn" column="DRP_FRM_YN" />
+		<result property="vdHresol" column="VD_HRESOL" />
+		<result property="vdVresol" column="VD_VRESOL" />
+		<result property="colorCd" column="COLOR_CD" />
+		<result property="recordTypeCd" column="RECORD_TYPE_CD" />
+		<result property="audioYn" column="AUDIO_YN" />
+		<result property="audTypeCd" column="AUD_TYPE_CD" />
+		<result property="audLanCd" column="AUD_LAN_CD" />
+		<result property="audSampFrq" column="AUD_SAMP_FRQ" />
+		<result property="audioBdwt" column="AUDIO_BDWT" />
+		<result property="noiRducTypCd" column="NOI_RDUC_TYP_CD" />
+		<result property="ingestEqId" column="INGEST_EQ_ID" />
+		<result property="encQltyCd" column="ENC_QLTY_CD" />
+		<result property="encQltyDesc" column="ENC_QLTY_DESC" />
+		<result property="flPath" column="FL_PATH" />
+		<result property="wrkFileNm" column="ORG_FILE_NM" />
+		<result property="orgFileNm" column="ORG_FILE_NM" />
+		<result property="flSz" column="FL_SZ" />
+		<result property="regDt" column="REG_DT" />
+		<result property="regrid" column="REGRID" />
+		<result property="modDt" column="MOD_DT" />
+		<result property="modrid" column="MODRID" />
+		<result property="dtlYn" column="DTL_YN" />
+		<result property="etc" column="ETC" />
+		<result property="reWmvRegDt" column="RE_WMV_REG_DT" />
+		<result property="wmvYn" column="WMV_YN" />
+		<result property="reWmvRegDt" column="RE_WMV_REG_DT" />
+		<result property="wmvYn" column="WMV_YN" />
+		<result property="fileYn" column="FiLE_YN" />
+		<result property="outSystemId" column="OUT_SYSTEM_ID" />
+		<result property="catalogYn" column="CATALOG_YN" />
+    </resultMap>
+    
+    <select id="findContentInst" resultMap="ContentInstMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM CONTENTS_INST_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="ctiId">
+		         CTI_ID = #ctiId#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="ctId">
+		         CT_ID = #ctId#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="ctiFmt">
+		         CTI_FMT like #ctiFmt#
+	         </isNotEmpty>
+	         <isNotNull prepend="AND" property="vdVresol">
+		         VD_VRESOL = #vdVresol#
+	         </isNotNull>
+	         <isNotNull prepend="AND" property="vdHresol">
+		         VD_HRESOL = #vdHresol#
+	         </isNotNull>
+	         <isNotNull prepend="AND" property="startDt">
+	         <![CDATA[
+		         (OUT_SYSTEM_ID IS NOT NULL and OUT_SYSTEM_ID <> '') and substr(REG_DT,1,8) between #startDt# and #endDt#
+		     ]]>
+	         </isNotNull>
+         </dynamic>
+         with UR
+    </select>
+    
+    <select id="getContentInstCount" resultClass="Integer" parameterClass="map">
+		SELECT  
+			count(*)
+		FROM CONTENTS_INST_TBL
+		<dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="ctiId">
+		         CTI_ID = #ctiId#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="ctId">
+		         CT_ID = #ctId#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="ctiFmt">
+		         CTI_FMT like #ctiFmt#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getContentInstObj" resultClass="ContentInst" parameterClass="map">
+		SELECT  
+            CTI_ID as         ctiId, 				
+			CT_ID as          ctId, 				
+			CTI_FMT as        ctiFmt, 			
+			ARCH_STE_YN as    archSteYn, 		
+			ME_CD as          meCd, 				
+			BIT_RT as         bitRt, 				
+			FRM_PER_SEC as    frmPerSec, 		
+			DRP_FRM_YN as     drpFrmYn, 		
+			VD_HRESOL as      vdHresol, 		
+			VD_VRESOL as      vdVresol, 		
+			COLOR_CD as       colorCd, 			
+			RECORD_TYPE_CD as recordTypeCd, 
+			AUDIO_YN as       audioYn, 			
+			AUD_TYPE_CD as    audTypeCd,
+			AUD_LAN_CD as     audLanCd,
+			AUD_SAMP_FRQ as   audSampFrq, 		
+			AUDIO_BDWT as     audioBdwt, 		
+			NOI_RDUC_TYP_CD asnoiRducTypCd,  
+			INGEST_EQ_ID as   ingestEqId, 	
+			ENC_QLTY_CD as    encQltyCd, 		
+			ENC_QLTY_DESC as  encQltyDesc, 	
+			FL_PATH as        flPath, 			
+			WRK_FILE_NM as    wrkFileNm, 		
+			ORG_FILE_NM as    orgFileNm, 		
+			FL_SZ as          flSz, 				
+			REG_DT as         regDt, 				
+			REGRID as         regrid, 			
+			MOD_DT as         modDt, 				
+			MODRID as         modrid, 		
+			DTL_YN as 		  dtlYn,	
+			ETC as            etc, 					
+			RE_WMV_REG_DT as  reWmvRegDt, 	
+			WMV_YN as         wmvYn,
+			OUT_SYSTEM_ID as  outSystemId				
+		FROM CONTENTS_INST_TBL
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="ctiId">
+				CTI_ID = #ctiId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctId">
+				CT_ID = #ctId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctiFmt">
+				CTI_FMT like #ctiFmt#
+			</isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+			with UR
+         </isEqual>
+    </select>
+    
+    <select id="getMasterIdOnly" resultClass="long" parameterClass="long">
+    	SELECT map.MASTER_ID FROM CONTENTS_INST_TBL inst
+			inner JOIN CONTENTS_TBL ct ON inst.CT_ID = ct.CT_ID
+			inner JOIN CONTENTS_MAPP_TBL MAP ON ct.CT_ID = map.CT_ID
+		WHERE inst.CTI_ID = #ctiId#
+		FETCH FIRST 1 ROWS only
+    </select>
+    
+    <select id="getContentInstNewId" resultClass="long">
+    	SELECT NEXTVAL FOR SEQ_CTI_ID AS SEQUENCE FROM  SYSIBM.SYSDUMMY1
+    </select>
+    
+    <update id="updateContentInst" parameterClass="ContentInst">
+    	UPDATE CONTENTS_INST_TBL set MOD_DT=#modDt#
+    		<isNotNull prepend="," property="archSteYn">
+				ARCH_STE_YN = #archSteYn#
+			</isNotNull>
+			<isNotNull prepend="," property="outSystemId">
+				OUT_SYSTEM_ID = #outSystemId#
+			</isNotNull>
+			<isNotNull prepend="," property="dtlYn">
+				DTL_YN = #dtlYn#
+			</isNotNull>
+			<isGreaterThan prepend="," property="flSz" compareValue="0">
+				FL_SZ = #flSz#
+			</isGreaterThan>
+			<isNotNull prepend="," property="ctiFmt">
+				CTI_FMT = #ctiFmt#
+			</isNotNull>
+			<isNotNull prepend="," property="colorCd">
+				COLOR_CD = #colorCd#
+			</isNotNull>
+			<isNotNull prepend="," property="meCd">
+				ME_CD = #meCd#
+			</isNotNull>
+			<isNotNull prepend="," property="bitRt">
+				BIT_RT = #bitRt#
+			</isNotNull>
+			<isNotNull prepend="," property="drpFrmYn">
+				DRP_FRM_YN = #drpFrmYn#
+			</isNotNull>
+			<isNotNull prepend="," property="frmPerSec">
+				FRM_PER_SEC = #frmPerSec#
+			</isNotNull>
+			<isNotNull prepend="," property="vdHresol">
+				VD_HRESOL = #vdHresol#
+			</isNotNull>
+			<isNotNull prepend="," property="vdVresol">
+				VD_VRESOL = #vdVresol#
+			</isNotNull>
+			<isNotNull prepend="," property="drpFrmYn">
+				RECORD_TYPE_CD = #recodeTypeCd#
+			</isNotNull>
+			<isNotNull prepend="," property="orgFileNm">
+				ORG_FILE_NM = #orgFileNm#
+			</isNotNull>
+			<isNotNull prepend="," property="flPath">
+				FL_PATH = #flPath#
+			</isNotNull>
+			<isNotNull prepend="," property="etc">
+				ETC = #etc#
+			</isNotNull>
+   		WHERE CTI_ID = #ctiId#
+    </update>
+    
+    <insert id="insertContentInst" parameterClass="ContentInst">
+    	INSERT INTO CONTENTS_INST_TBL (
+    		CTI_ID, CT_ID, CTI_FMT, ARCH_STE_YN, ME_CD, BIT_RT, FRM_PER_SEC, DRP_FRM_YN, VD_HRESOL, VD_VRESOL, COLOR_CD, RECORD_TYPE_CD,
+    		AUDIO_YN, AUD_TYPE_CD, AUD_LAN_CD, AUD_SAMP_FRQ, AUDIO_BDWT, NOI_RDUC_TYP_CD, INGEST_EQ_ID, ENC_QLTY_CD, ENC_QLTY_DESC,
+    		FL_PATH, WRK_FILE_NM, ORG_FILE_NM, FL_SZ, REG_DT, REGRID, MOD_DT, MODRID, DTL_YN, ETC, RE_WMV_REG_DT, WMV_YN, FILE_YN, OUT_SYSTEM_ID,CATALOG_YN
+    	) VALUES (
+    		#ctiId:NUMERIC:-9999#, #ctId:NUMERIC:-9999#, #ctiFmt:VARCHAR:NO_ENTRY#, #archSteYn:VARCHAR:NO_ENTRY#, #meCd:VARCHAR:NO_ENTRY#, #bitRt:VARCHAR:NO_ENTRY#, #frmPerSec:VARCHAR:NO_ENTRY#, #drpFrmYn:VARCHAR:NO_ENTRY#, #vdHresol:INTEGER:-9999#, #vdVresol:INTEGER:-9999#, #colorCd:VARCHAR:NO_ENTRY#, #recordTypeCd:VARCHAR:NO_ENTRY#,
+    		#audioYn:VARCHAR:NO_ENTRY#, #audTypeCd:VARCHAR:NO_ENTRY#, #audLanCd:VARCHAR:NO_ENTRY#, #audSampFrq:VARCHAR:NO_ENTRY#, #audioBdwt:VARCHAR:NO_ENTRY#, #noiRducTypCd:VARCHAR:NO_ENTRY#, #ingestEqId:INTEGER:-9999#, #encQltyCd:VARCHAR:NO_ENTRY#, #encQltyDesc:VARCHAR:NO_ENTRY#,
+    		#flPath:VARCHAR:NO_ENTRY#, #wrkFileNm:VARCHAR:NO_ENTRY#, #orgFileNm:VARCHAR:NO_ENTRY#, #flSz:NUMERIC:-9999#, #regDt:VARCHAR:NO_ENTRY#, #regrid:VARCHAR:NO_ENTRY#, #modDt:VARCHAR:NO_ENTRY#, #modrid:VARCHAR:NO_ENTRY#, #dtlYn:VARCHAR:NO_ENTRY#, #etc:VARCHAR:NO_ENTRY#, #reWmvRegDt:VARCHAR:NO_ENTRY#, #wmvYn:VARCHAR:NO_ENTRY#, #fileYn:VARCHAR:NO_ENTRY#, #outSystemId:VARCHAR:NO_ENTRY#, #catalogYn:VARCHAR:NO_ENTRY#
+    	)
+    </insert>
+    
+    <delete id="deleteContentInst" parameterClass="string">
+    	DELETE FROM CONTENTS_INST_TBL
+    	<dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="ctiId">
+		         CTI_ID = #ctiId#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="ctId">
+		         CT_ID = #ctId#
+	         </isNotEmpty>
+         </dynamic>
+    </delete>
+    
+ </sqlMap>

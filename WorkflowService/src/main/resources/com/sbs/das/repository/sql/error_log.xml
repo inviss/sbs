@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ErrorLogInfo">
+	<typeAlias alias="ErrorLogInfo" type="com.sbs.das.dto.ErrorLogTbl"/>
+        
+    <resultMap id="ErrorLogInfoMap" class="ErrorLogInfo">
+		<result property="serverNm" column="SERVER_NM" />
+		<result property="errorType" column="ERROR_TYPE" />
+		<result property="regDt" column="REG_DT" />
+		<result property="errorCont" column="ERROR_CONT" />
+		<result property="jobId" column="JOB_ID" />
+		<result property="processId" column="PROCESS_ID" />
+		<result property="eqId" column="EQ_ID" />
+		<result property="key" column="KEY" />
+    </resultMap>
+    
+    <!--  
+    <update id="updateErrorLog" parameterClass="ErrorLogInfo">
+    	UPDATE ERROR_LOG_TBL set USE_YN = #useYn#
+   			<isNotNull prepend="," property="progress">
+		         PROGRESS = #progress#
+	        </isNotNull>
+	        <isNotNull prepend="," property="jobStatus">
+		         JOB_STATUS = #jobStatus#
+	        </isNotNull>
+   			<isNotNull prepend="," property="updtDtm">
+		         UPDT_DTM = #updtDtm#
+	        </isNotNull>
+	        <isNotNull prepend="," property="updtUser">
+		         UPDT_USER = #updtUser#
+	        </isNotNull>
+   			<isNotNull prepend="," property="cyn">
+		         CYN = #cyn#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupDt">
+		         BACKUP_DT = #backupDt#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupId">
+		         BACKUP_ID = #backupId#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupProgress">
+		         BACKUP_PROGRESS = #backupProgress#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupStatus">
+		         BACKUP_STATUS = #backupStatus#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupUsrid">
+		         BACKUP_USRID = #backupUsrid#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupYn">
+		         BACKUP_YN = #backupYn#
+	        </isNotNull>
+	        <isNotNull prepend="," property="changeProgress">
+		         CHANGE_PROGRESS = #changeProgress#
+	        </isNotNull>
+	        <isNotNull prepend="," property="changeStatus">
+		         CHANGE_STATUS = #changeStatus#
+	        </isNotNull>
+	        <isNotNull prepend="," property="changeUsrid">
+		         CHANGE_USRID = #changeUsrid#
+	        </isNotNull>
+	        <isNotNull prepend="," property="comments">
+		         COMMENTS = #comments#
+	        </isNotNull>
+    	WHERE OBJ_NAME = #objName#
+    </update>
+ 	-->
+ 	
+    <insert id="insertErrorLogInfo" parameterClass="ErrorLogInfo">
+    	INSERT INTO ERROR_LOG_TBL (
+		   SERVER_NM, ERROR_TYPE, REG_DT, ERROR_CONT, JOB_ID, PROCESS_ID, EQ_ID, KEY
+		)VALUES(
+			#serverNm:VARCHAR:NO_ENTRY#, #errorType:VARCHAR:NO_ENTRY#,#regDt:VARCHAR:NO_ENTRY#, #errorCont:VARCHAR:NO_ENTRY#,
+			#jobId:VARCHAR:NO_ENTRY#, #processId:VARCHAR:NO_ENTRY#, #eqId:NUMERIC:-9999#, #key:NUMERIC:-9999#
+		)
+    </insert>
+    
+ </sqlMap>

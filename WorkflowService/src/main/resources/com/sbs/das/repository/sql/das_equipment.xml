@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DasEquip">
+	<typeAlias alias="DasEquip" type="com.sbs.das.dto.DasEquipTbl"/>
+        
+    <resultMap id="DasEquipMap" class="DasEquip">
+		<result property="dasEqId"	column="DAS_EQ_ID" />
+		<result property="dasEqPsCd"	column="DAS_EQ_PS_CD" />
+		<result property="dasEqClfCd"	column="DAS_EQ_CLF_CD" />
+		<result property="dasEqSeq"	column="DAS_EQ_SEQ" />
+		<result property="dasEqNm"	column="DAS_EQ_NM" />
+		<result property="dasEqUseIp"	column="DAS_EQ_USE_IP" />
+		<result property="dasEqUsePort"	column="DAS_EQ_USE_PORT" />
+		<result property="dasEqUseUrl"	column="DAS_EQ_USE_URL" />
+		<result property="dasEqUseId"	column="DAS_EQ_USE_ID" />
+		<result property="dasEqUsePasswd"	column="DAS_EQ_USE_PASSWD" />
+		<result property="dasWorkstatCd"	column="DAS_WORKSTAT_CD" />
+		<result property="ctiId"	column="CTI_ID" />
+		<result property="outSystemId"	column="OUT_SYSTEM_ID" />
+		<result property="reqUsrid"	column="REQ_USRID" />
+		<result property="prgrs"	column="PRGRS" />
+		<result property="downVol"	column="DOWN_VOL" />
+		<result property="totalSize"	column="TOTAL_SIZE" />
+		<result property="logRcdPeriod"	column="LOG_RCD_PERIOD" />
+		<result property="useYn"	column="USE_YN" />
+		<result property="regrid"	column="REGRID" />
+		<result property="regDt"	column="REG_DT" />
+		<result property="modrid"	column="MODRID" />
+		<result property="modDt"	column="MOD_DT" />
+		<result property="flPath"	column="FL_PATH" />
+    </resultMap>
+
+	<select id="findEquip" resultMap="DasEquipMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM DAS_EQUIPMENT_TBL
+        <dynamic prepend="WHERE">
+        	<isNotEmpty prepend="AND" property="dasEqId">
+		    	DAS_EQ_ID = #dasEqId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="dasEqPsCd">
+		    	DAS_EQ_PS_CD = #dasEqPsCd#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="dasEqSeq">
+		    	DAS_EQ_SEQ = #dasEqSeq#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="dasEqClfCd">
+		    	DAS_EQ_CLF_CD = #dasEqClfCd#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="dasEqUseUrl">
+		    	DAS_EQ_USE_URL = #dasEqUseUrl#
+	        </isNotEmpty>
+        </dynamic>
+        <isEqual property="wait" compareValue="true">
+        	with UR
+       	</isEqual>
+    </select>
+    
+    <select id="getEquipCount" resultClass="Integer" parameterClass="map">
+	     SELECT  
+             count(*)
+         FROM DAS_EQUIPMENT_TBL
+         <dynamic prepend="WHERE">
+ 			<isNotEmpty prepend="AND" property="dasEqId">
+				DAS_EQ_ID = #dasEqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dasEqPsCd">
+				DAS_EQ_PS_CD = #dasEqPsCd#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dasEqClfCd">
+				DAS_EQ_CLF_CD = #dasEqClfCd#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dasEqUseUrl">
+				DAS_EQ_USE_URL = #dasEqUseUrl#
+			</isNotEmpty>
+ 		</dynamic>
+        with UR
+    </select>
+    
+    <select id="getEquipObj" resultClass="DasEquip" parameterClass="map">
+		SELECT  
+            DAS_EQ_ID as         dasEqId,				
+			DAS_EQ_PS_CD as      dasEqPsCd,			
+			DAS_EQ_CLF_CD as     dasEqClfCd,			
+			DAS_EQ_SEQ as        dasEqSeq,				
+			DAS_EQ_NM as         dasEqNm,				
+			DAS_EQ_USE_IP as     dasEqUseIp,			
+			DAS_EQ_USE_PORT as   dasEqUsePort,		
+			DAS_EQ_USE_URL as    dasEqUseUrl,		
+			DAS_EQ_USE_ID as     dasEqUseId,			
+			DAS_EQ_USE_PASSWD as dasEqUsePasswd,	
+			DAS_WORKSTAT_CD as   dasWorkstatCd,	
+			CTI_ID as            ctiId,					
+			OUT_SYSTEM_ID as     outSystemId,		
+			REQ_USRID as         reqUsrid,				
+			PRGRS as             prgrs,					
+			DOWN_VOL as          downVol,				
+			TOTAL_SIZE as        totalSize,			
+			LOG_RCD_PERIOD as    logRcdPeriod,		
+			USE_YN as            useYn,					
+			REGRID as            regrid,					
+			REG_DT as            regDt,					
+			MODRID as            modrid,					
+			MOD_DT as            modDt,					
+			FL_PATH as           flPath			
+		FROM DAS_EQUIPMENT_TBL
+		<dynamic prepend="WHERE">
+ 			<isNotEmpty prepend="AND" property="dasEqId">
+				DAS_EQ_ID = #dasEqId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dasEqPsCd">
+				DAS_EQ_PS_CD = #dasEqPsCd#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dasEqClfCd">
+				DAS_EQ_CLF_CD = #dasEqClfCd#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dasEqUseUrl">
+				DAS_EQ_USE_URL = #dasEqUseUrl#
+			</isNotEmpty>
+ 		</dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+		</isEqual>
+    </select>
+    
+    <update id="updateEquip" parameterClass="DasEquip">
+    	UPDATE DAS_EQUIPMENT_TBL SET MODRID = #modrid#, MOD_DT = #modDt#
+    		<isNotNull prepend="," property="dasWorkstatCd">
+   				DAS_WORKSTAT_CD = #dasWorkstatCd#
+   			</isNotNull>
+   			<isNotNull prepend="," property="ctiId">
+   				CTI_ID = #ctiId#
+   			</isNotNull>
+   			<isNotNull prepend="," property="outSystemId">
+   				OUT_SYSTEM_ID = #outSystemId#
+   			</isNotNull>
+   			<isNotNull prepend="," property="reqUsrid">
+   				REQ_USRID = #reqUsrid#
+   			</isNotNull>
+   			<isNotNull prepend="," property="prgrs">
+   				PRGRS = #prgrs#
+   			</isNotNull>
+   			<isNotNull prepend="," property="downVol">
+   				DOWN_VOL = #downVol#
+   			</isNotNull>
+   			<isNotNull prepend="," property="totalSize">
+   				TOTAL_SIZE = #totalSize#
+   			</isNotNull>
+   			<isNotNull prepend="," property="flPath">
+   				FL_PATH = #flPath#
+   			</isNotNull>
+		WHERE DAS_EQ_ID = #dasEqId# and DAS_EQ_PS_CD = #dasEqPsCd#
+    </update>
+    
+ </sqlMap>

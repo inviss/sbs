@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UpdateMeta">
+	<typeAlias alias="Master" type="com.sbs.das.dto.MasterTbl"/>
+	<resultMap id="MasterMap" class="Master">
+		<result property="masterId"				column="MASTER_ID" />
+	</resultMap>
+	
+    <select id="findMetaData" resultMap="MasterMap" parameterClass="string">
+	     SELECT  
+             mst.MASTER_ID
+         FROM METADAT_MST_TBL mst
+         WHERE mst.rpimg_ct_id = 435154 AND VALUE(mst.DEL_DD,'') = '' AND substr(mst.REG_DT,1,6) = #regDt#
+    </select>
+    
+    <select id="getCtMeta" resultClass="java.lang.Long" parameterClass="java.lang.Long">
+	    SELECT
+			min(map.ct_id)
+		FROM CONTENTS_TBL ct
+			inner JOIN CONTENTS_MAPP_TBL MAP ON ct.ct_id = map.ct_id
+		    inner JOIN METADAT_MST_TBL mst ON map.master_id = mst.MASTER_ID
+		WHERE mst.rpimg_ct_id = 435154 AND ct.CT_TYP = '003' AND VALUE(mst.DEL_DD,'') = '' AND VALUE(map.del_dd,'') = ''
+		    AND mst.MASTER_ID = #masterId# and map.ct_id is not null
+		WITH ur
+    </select>
+    
+    <update id="updateMetaData" parameterClass="map">
+    	UPDATE METADAT_MST_TBL set rpimg_Ct_id = #ctId# where master_id = #masterId#
+    </update>
+    
+    
+ </sqlMap>

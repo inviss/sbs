@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CopyInfo">
+	<typeAlias alias="CopyInfo" type="com.sbs.das.dto.CopyInfoTbl"/>
+	
+    <select id="getCopyInfoCount" resultClass="Integer" parameterClass="map">
+	     SELECT  
+             count(*)
+         FROM COPY_INFO_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="pgmId">
+	         PGM_ID = #pgmId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cmsPgmId">
+	         CMS_PGM_ID = #cmsPgmId#
+	        </isNotEmpty>
+        </dynamic>
+		with UR
+    </select>
+    
+    <select id="getCopyInfoObj" resultClass="CopyInfo" parameterClass="map">
+	     SELECT  
+             PGM_ID as pgmId,
+             COPY_YN as copyYn,
+             REG_ID as regId,
+             REG_DT as regDt,
+             CMS_PGM_ID as cmsPgmId
+         FROM COPY_INFO_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="pgmId">
+	         PGM_ID = #pgmId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cmsPgmId">
+	         CMS_PGM_ID = #cmsPgmId#
+	        </isNotEmpty>
+        </dynamic>
+		with UR
+    </select>
+    
+ </sqlMap>

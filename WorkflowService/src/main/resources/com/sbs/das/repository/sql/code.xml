@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Code">
+	<typeAlias alias="Code" type="com.sbs.das.dto.CodeTbl"/>
+        
+    <resultMap id="CodeMap" class="Code">
+		<result property="clfCd"	column="CLF_CD" />
+		<result property="sclCd"	column="SCL_CD" />
+		<result property="clfNm"	column="CLF_NM" />
+		<result property="desc"		column="DESC" />
+		<result property="rmk1"		column="RMK_1" />
+		<result property="rmk2"		column="RMK_2" />
+		<result property="regDt"	column="REG_DT" />
+		<result property="regrid"	column="REGRID" />
+		<result property="modDt"	column="MOD_DT" />
+		<result property="modrid"	column="MODRID" />
+		<result property="useYn"	column="USE_YN" />
+		<result property="gubun"	column="GUBUN" />
+    </resultMap>
+    
+    <select id="findCode" resultMap="CodeMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM CODE_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="clfCd">
+		         CLF_CD = #clfCd#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="sclCd">
+		         SCL_CD = #sclCd#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getCodeObj" resultClass="Code" parameterClass="map">
+		SELECT  
+			CLF_CD as clfCd,		 
+			SCL_CD as sclCd, 		 
+			CLF_NM as clfNm, 		 
+			DESC as  desc,		
+			RMK_1 as rmk1,	
+			RMK_2 as rmk2,	
+			REG_DT as regDt, 		 
+			REGRID as regrid, 	 
+			MOD_DT as modDt, 		 
+			MODRID as modrid, 	 
+			USE_YN as useYn, 		 
+			GUBUN as gubun 		
+		FROM CODE_TBL
+		<dynamic prepend="WHERE"> 
+			<isNotNull prepend="AND" property="clfCd">
+				CLF_CD = #clfCd#
+         	</isNotNull>
+         	<isNotNull prepend="AND" property="sclCd">
+				SCL_CD = #sclCd#
+         	</isNotNull>
+         	<isNotNull prepend="AND" property="desc">
+	         	DESC = #desc#
+         	</isNotNull>
+		</dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getSclCount" resultClass="Integer" parameterClass="map">
+	     SELECT  
+             count(SCL_CD)
+         FROM CODE_TBL
+		<dynamic prepend="WHERE"> 
+			<isNotNull prepend="AND" property="clfCd">
+				CLF_CD = #clfCd#
+         	</isNotNull>
+         	<isNotNull prepend="AND" property="desc">
+	         	DESC = #desc#
+         	</isNotNull>
+		</dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getDescCount" resultClass="Integer" parameterClass="map">
+	     SELECT  
+             count(DESC)
+         FROM CODE_TBL
+		<dynamic prepend="WHERE"> 
+			<isNotNull prepend="AND" property="clfCd">
+				CLF_CD = #clfCd#
+         	</isNotNull>
+         	<isNotNull prepend="AND" property="sclCd">
+				SCL_CD = #sclCd#
+         	</isNotNull>
+		</dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getRmkCount" resultClass="Integer" parameterClass="map">
+	     SELECT  
+             count(RMK_2)
+         FROM CODE_TBL
+		<dynamic prepend="WHERE"> 
+			<isNotNull prepend="AND" property="clfCd">
+				CLF_CD = #clfCd#
+         	</isNotNull>
+         	<isNotNull prepend="AND" property="sclCd">
+				SCL_CD = #sclCd#
+         	</isNotNull>
+		</dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <insert id="insertCode" parameterClass="Code">
+    	INSERT INTO CODE_TBL (
+		    CLF_CD, SCL_CD, CLF_NM, DESC, RMK_1, RMK_2, REG_DT, REGRID, MOD_DT, MODRID, USE_YN
+		)VALUES(
+			#clfCd#, #sclCd#, #clfNm#, #desc#, #rmk1#, #rmk2#, #regDt#, #regrid#, #modDt#, #modrid#, #useYn#
+		)
+    </insert>
+    
+ </sqlMap>

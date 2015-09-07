@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Scheduler">
+	<typeAlias alias="DeleteReq" type="com.sbs.das.dto.xml.DeleteRequest"/>
+    
+    <resultMap id="DeleteReqCtMap" class="DeleteReq">
+		<result property="ctId" column="CT_ID" />
+		<result property="m1Cnt" column="M1_CNT" />
+		<result property="m2Cnt" column="M2_CNT" />
+	</resultMap>
+	
+    <resultMap id="ArchCompDeleteMap" class="DeleteReq">
+		<result property="ctId" column="CT_ID" />
+		<result property="highCtiId" column="HIGH_CTI_ID" />
+		<result property="highPath" column="HIGH_PATH" />
+		<result property="highFlNm" column="HIGH_FL_NM" />
+		<result property="reqGb" column="REQ_GB" />
+	</resultMap>
+	
+	<resultMap id="DownCompDeleteMap" class="DeleteReq">
+		<result property="cartNo" column="CART_NO" />
+		<result property="cartSeq" column="CART_SEQ" />
+		<result property="highCtiId" column="HIGH_CTI_ID" />
+		<result property="highPath" column="HIGH_PATH" />
+		<result property="highFlNm" column="HIGH_FL_NM" />
+		<result property="reqGb" column="REQ_GB" />
+	</resultMap>
+	
+	<resultMap id="UserDeleteReqMap" class="DeleteReq">
+		<result property="ctId" column="CT_ID" />
+		<result property="highCtiId" column="HIGH_CTI_ID" />
+		<result property="lowCtiId" column="LOW_CTI_ID" />
+		<result property="highPath" column="HIGH_PATH" />
+		<result property="lowPath" column="LOW_PATH" />
+		<result property="highFlNm" column="HIGH_FL_NM" />
+		<result property="lowFlNm" column="LOW_FL_NM" />
+		<result property="archiveSteYn" column="ARCHIVE_STE_YN" />
+		<result property="kfrmPath" column="KFRM_PATH" />
+		<result property="reqGb" column="REQ_GB" />
+	</resultMap>
+	
+	<resultMap id="ContentMetaMap" class="DeleteReq">
+		<result property="ctId" column="CT_ID" />
+		<result property="highCtiId" column="HIGH_CTI_ID" />
+		<result property="lowCtiId" column="LOW_CTI_ID" />
+		<result property="highPath" column="HIGH_PATH" />
+		<result property="lowPath" column="LOW_PATH" />
+		<result property="highFlNm" column="HIGH_FL_NM" />
+		<result property="lowFlNm" column="LOW_FL_NM" />
+		<result property="archiveSteYn" column="ARCHIVE_STE_YN" />
+		<result property="kfrmPath" column="KFRM_PATH" />
+	</resultMap>
+	
+	 <resultMap id="ContentMap" class="Content">
+        <result property="ctId" column="CT_ID" />
+        <result property="ctSeq" column="CT_SEQ" />
+        <result property="ctTyp" column="CT_TYP" />
+        <result property="ctCla" column="CT_CLA" />
+        <result property="ctNm" column="CT_NM" />
+        <result property="cont" column="CONT" />
+        <result property="keyWords" column="KEY_WORDS" />
+        <result property="ctOwnDeptCd" column="CT_OWN_DEPT_CD" />
+        <result property="ctOwnDeptNm" column="CT_OWN_DEPT_NM" />
+        <result property="dataStatCd" column="DATA_STAT_CD" />
+        <result property="ctLeng" column="CT_LENG" />
+        <result property="vdQlty" column="VD_QLTY" />
+        <result property="aspRtoCd" column="ASP_RTO_CD" />
+        <result property="edtrid" column="EDTRID" />
+        <result property="kfrmPath" column="KFRM_PATH" />
+        <result property="kfrmPxCd" column="KFRM_PX_CD" />
+        <result property="totKfrmNums" column="TOT_KFRM_NUMS" />
+        <result property="useYn" column="USE_YN" />
+        <result property="delDd" column="DEL_DD" />
+        <result property="regDt" column="REG_DT" />
+        <result property="regrid" column="REGRID" />
+        <result property="modDt" column="MOD_DT" />
+        <result property="modrid" column="MODRID" />
+        <result property="duration" column="DURATION" />
+        <result property="mcuSeq" column="MCU_SEQ" />
+        <result property="cmsCtId" column="CMS_CT_ID" />
+        <result property="copyObjectYn" column="COPY_OBJECT_YN" />
+        <result property="useCont" column="USE_CONT" />
+        <result property="archiveYn" column="ARCHIVE_YN" />
+        <result property="mediaId" column="MEDIA_ID" />
+        <result property="delYn" column="DEL_YN" />
+    </resultMap>
+    
+    <select id="findArchCompDelete" resultMap="ArchCompDeleteMap" parameterClass="map">
+    <![CDATA[
+		SELECT
+			CT.CT_ID, INST.CTI_ID HIGH_CTI_ID, LOC.PATH HIGH_PATH, LOC.FILENAME HIGH_FL_NM, 'A' REQ_GB
+		FROM CONTENTS_LOC_TBL LOC
+			INNER JOIN CONTENTS_INST_TBL INST ON LOC.CTI_ID = INST.CTI_ID
+			INNER JOIN CONTENTS_TBL CT ON INST.CT_ID = CT.CT_ID
+		    INNER JOIN (SELECT MASTER_ID, CT_ID FROM CONTENTS_MAPP_tBL GROUP BY CT_ID, MASTER_ID ) MAP ON MAP.CT_ID = CT.CT_ID
+		    INNER JOIN METADAT_MST_TBL MST ON MST.MASTER_ID = MAP.MASTER_ID
+		WHERE LOC.JOB_STATUS = 'C' AND LOC.UPDT_DTM < #limitDay#
+			AND (INST.FL_PATH IS NOT NULL AND INST.FL_PATH <> '') AND (CT.DEL_YN IS NULL OR CT.DEL_YN = '' OR CT.DEL_YN = 'N')
+			AND NOT EXISTS (
+				SELECT 1 FROM CART_CONT_TBL CONT INNER JOIN ARIEL_INFO_TBL ARIEL ON CONT.CART_NO = ARIEL.CART_NO AND CONT.CART_SEQ = ARIEL.CART_SEQ
+				AND INST.CTI_ID = CONT.CTI_ID AND ARIEL.STATUS = 'I'
+			) AND MST.COCD=#coCd#
+		WITH UR
+	]]>
+    </select>
+    
+       <select id="findDownCompDelete" resultMap="DownCompDeleteMap" parameterClass="map">
+    <![CDATA[
+        SELECT
+			DOWN.CART_NO, DOWN.CART_SEQ, INST.CTI_ID HIGH_CTI_ID, DOWN.PATH HIGH_PATH, DOWN.FILENAME HIGH_FL_NM, 'D' REQ_GB
+		FROM CONTENTS_DOWN_TBL DOWN
+			LEFT OUTER JOIN CONTENTS_INST_TBL INST ON DOWN.CTI_ID = INST.CTI_ID
+			LEFT OUTER JOIN DOWN_CART_TBL cart on cart.CART_NO = DOWN.CART_NO
+			LEFT OUTER JOIN (select cocd, cart_no, down_Stat from CART_CONT_TBL group by cocd, cart_no, down_Stat) cont on DOWN.CART_NO = cont.CART_NO
+			LEFT OUTER JOIN ARIEL_INFO_TBL ARIEL  ON  DOWN.CART_NO = ARIEL.CART_NO AND DOWN.CART_SEQ = ARIEL.CART_SEQ 
+		WHERE 
+			(
+				DOWN.JOB_STATUS <> 'I' AND DOWN.UPDT_DTM < #limitDay# AND INST.CTI_FMT LIKE '1%'
+				AND (DOWN.DEL_DD IS NULL OR DOWN.DEL_DD = '') AND 
+				(
+					 (cart.DOWN_GUBUN = '004' and cont.DOWN_STAT = '009')
+					OR (cart.DOWN_GUBUN <> '004' and cont.DOWN_STAT = '007'
+						AND (ARIEL.STATUS = 'C' OR ARIEL.STATUS = 'E'))
+					OR cart.DOWN_GUBUN = '006'
+				)
+			) OR (DOWN.UPDT_DTM < #addLimitDay# AND INST.CTI_FMT LIKE '1%' AND (DOWN.DEL_DD IS NULL OR DOWN.DEL_DD = ''))
+		    AND cont.COCD = #coCd#
+		ORDER BY DOWN.NUM DESC
+		WITH UR
+    ]]>
+    </select>
+    
+    <select id="findScrappedDelete" resultMap="DeleteReqCtMap" parameterClass="map">
+    <![CDATA[
+		SELECT
+			MAP1.CT_ID, MAP1.CNT M1_CNT, VALUE(MAP2.CNT, 0) M2_CNT
+		FROM (
+			SELECT
+				MAP.COCD, MAP.CT_ID, COUNT(MAP.CT_ID) CNT
+			FROM (
+				SELECT MTB.COCD, MAPP.MASTER_ID, MAPP.CT_ID
+				FROM CONTENTS_MAPP_TBL MAPP
+                	INNER JOIN METADAT_MST_TBL MTB ON MTB.MASTER_ID = MAPP.MASTER_ID
+				WHERE 1=1 AND (MAPP.DEL_YN IS NULL OR MAPP.DEL_YN = 'N') AND MTB.COCD = #coCd#
+				GROUP BY MTB.COCD, MAPP.MASTER_ID, MAPP.CT_ID
+			) MAP
+			GROUP BY MAP.COCD, MAP.CT_ID
+		) MAP1 
+			INNER JOIN (
+				SELECT
+					MAP.COCD, MAP.CT_ID, COUNT(MAP.CT_ID) CNT
+				FROM (
+					SELECT MTB.COCD, MAPP.MASTER_ID, MAPP.CT_ID
+					FROM CONTENTS_MAPP_TBL MAPP
+                    	INNER JOIN METADAT_MST_TBL MTB ON MTB.MASTER_ID = MAPP.MASTER_ID
+					WHERE 1=1 AND (MAPP.DEL_YN IS NULL OR MAPP.DEL_YN = 'N')
+						AND (MAPP.DEL_DD IS NOT NULL AND MAPP.DEL_DD <> '') AND EXISTS (
+							SELECT 1 FROM CONTENTS_TBL CT  
+							WHERE CT.CT_ID = MAPP.CT_ID AND (CT.DEL_YN IS NULL OR CT.DEL_YN = 'N')
+						) AND MAPP.DEL_DD <= #limitDay# AND MTB.COCD = #coCd#
+					GROUP BY MTB.COCD, MAPP.MASTER_ID, MAPP.CT_ID
+				) MAP
+				GROUP BY MAP.COCD, MAP.CT_ID
+			) MAP2 ON MAP1.CT_ID = MAP2.CT_ID
+		WHERE 1=1 AND NOT EXISTS (
+			  SELECT 1 FROM CONTENTS_INST_TBL INST INNER JOIN CONTENTS_DOWN_TBL DOWN ON INST.CTI_ID = DOWN.CTI_ID
+			  WHERE MAP2.CT_ID = INST.CT_ID AND DOWN.JOB_STATUS = 'I' AND (DOWN.DEL_DD IS NULL OR DOWN.DEL_DD = '')
+		)
+		WITH UR
+	]]>
+    </select>
+    
+    <select id="getContentMeta" resultClass="DeleteReq" parameterClass="java.lang.Long">
+    <![CDATA[
+		SELECT
+			CT.CT_ID ctId, HIGH.CTI_ID highCtiId, LOW.CTI_ID lowCtiId, HIGH.FL_PATH highPath, 
+			(
+				CASE  
+				WHEN LEFT(CT.MEDIA_ID,1) = 'P' THEN HIGH.ORG_FILE_NM 
+				WHEN LEFT(CT.MEDIA_ID,1) = 'D' AND HIGH.ORG_FILE_NM IS NULL THEN  HIGH.WRK_FILE_NM
+				WHEN LEFT(CT.MEDIA_ID,1) = 'D' AND HIGH.ORG_FILE_NM IS NOT NULL THEN  HIGH.ORG_FILE_NM
+				WHEN LEFT(CT.MEDIA_ID,1) = 'M' AND HIGH.ORG_FILE_NM IS NULL THEN  HIGH.WRK_FILE_NM
+				WHEN LEFT(CT.MEDIA_ID,1) = 'M' AND HIGH.ORG_FILE_NM IS NOT NULL THEN  HIGH.ORG_FILE_NM
+				ELSE HIGH.WRK_FILE_NM 
+				END
+			) highFlNm,
+			LOW.FL_PATH lowPath, LOW.WRK_FILE_NM lowFlNm,  HIGH.ARCH_STE_YN archiveSteYn, CT.KFRM_PATH kfrmPath
+		FROM CONTENTS_TBL CT
+			LEFT OUTER JOIN CONTENTS_INST_TBL HIGH ON CT.CT_ID = HIGH.CT_ID  AND  HIGH.CTI_FMT LIKE '1%'
+			LEFT OUTER JOIN CONTENTS_INST_TBL LOW ON CT.CT_ID = LOW.CT_ID  AND  HIGH.CTI_FMT LIKE '3%'	 
+		WHERE CT.CT_ID = #ctId#
+		ORDER BY LOW.CTI_ID DESC
+        FETCH FIRST 1 ROWS only
+		WITH UR
+	]]>
+    </select>
+    
+    <select id="findContentMeta" resultMap="ContentMetaMap" parameterClass="java.lang.Long">
+    <![CDATA[
+		SELECT
+			CT.CT_ID, HIGH.CTI_ID HIGH_CTI_ID, LOW.CTI_ID LOW_CTI_ID, HIGH.FL_PATH HIGH_PATH, 
+			(
+				CASE  
+				WHEN LEFT(CT.MEDIA_ID,1) = 'P' THEN HIGH.ORG_FILE_NM 
+				WHEN LEFT(CT.MEDIA_ID,1) = 'D' AND HIGH.ORG_FILE_NM IS NULL THEN  HIGH.WRK_FILE_NM
+				WHEN LEFT(CT.MEDIA_ID,1) = 'D' AND HIGH.ORG_FILE_NM IS NOT NULL THEN  HIGH.ORG_FILE_NM
+				WHEN LEFT(CT.MEDIA_ID,1) = 'M' AND HIGH.ORG_FILE_NM IS NULL THEN  HIGH.WRK_FILE_NM
+				WHEN LEFT(CT.MEDIA_ID,1) = 'M' AND HIGH.ORG_FILE_NM IS NOT NULL THEN  HIGH.ORG_FILE_NM
+				ELSE HIGH.WRK_FILE_NM 
+				END
+			) HIGH_FL_NM,
+			LOW.FL_PATH LOW_PATH, LOW.WRK_FILE_NM LOW_FL_NM,  HIGH.ARCH_STE_YN, CT.KFRM_PATH
+		FROM CONTENTS_TBL CT
+			LEFT OUTER JOIN CONTENTS_INST_TBL HIGH ON CT.CT_ID = HIGH.CT_ID  AND  HIGH.CTI_FMT LIKE '1%'
+			LEFT OUTER JOIN CONTENTS_INST_TBL LOW ON CT.CT_ID = LOW.CT_ID  AND  HIGH.CTI_FMT NOT LIKE '1%'	 
+		WHERE CT.CT_ID = #ctId#
+		WITH UR
+	]]>
+    </select>
+    
+    <insert id="insertKwKlog" parameterClass="string">
+    	INSERT INTO KW_KLOG (
+		   TABLE_PK, TABLE_PK_FIELD, DML_TYPE, TABLE_PATH
+		)VALUES(
+			#masterId:VARCHAR:NO_ENTRY#, 'METADAT_MST_TBL_PK', 'U', 'V_DAS_PROGRAM'
+		)
+    </insert>
+    
+ </sqlMap>

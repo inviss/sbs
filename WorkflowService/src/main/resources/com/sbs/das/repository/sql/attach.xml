@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Attach">
+	<typeAlias alias="Attach" type="com.sbs.das.dto.AttachTbl"/>
+        
+    <resultMap id="AttachMap" class="Attach">
+		<result property ="mothrDataId" column="MOTHR_DATA_ID	  	" />
+		<result property ="seq" column="SEQ              " />
+		<result property ="attcFileTypeCd" column="ATTC_FILE_TYPE_CD" />
+		<result property ="attcClfCd" column="ATTC_CLF_CD      " />
+		<result property ="flNm" column="FL_NM            " />
+		<result property ="flSz" column="FL_SZ            " />
+		<result property ="flPath" column="FL_PATH          " />
+		<result property ="orgFileNm" column="ORG_FILE_NM      " />
+		<result property ="regDt" column="REG_DT           " />
+		<result property ="regrid" column="REGRID           " />
+		<result property ="modDt" column="MOD_DT           " />
+		<result property ="modrid" column="MODRID           " />
+		<result property ="captionType" column="CAPTION_TYPE     " />
+    </resultMap>
+    
+    <select id="findAttach" resultMap="AttachMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM ATTACH_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="masterId">
+		         MOTHR_DATA_ID = #masterId#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <insert id="insertAttach" parameterClass="Attach">
+    	<selectKey keyProperty="seq" resultClass="java.lang.Integer">
+    		select max(seq)+1 from ATTCH_TBL
+    	</selectKey>
+    	INSERT INTO ATTCH_TBL (
+		    MOTHR_DATA_ID, SEQ, ATTC_FILE_TYPE_CD, ATTC_CLF_CD, FL_NM, FL_SZ, FL_PATH, ORG_FILE_NM, REG_DT, REGRID, MOD_DT, MODRID, CAPTION_TYPE
+		)VALUES(
+			#mothrDataId:NUMERIC:-9999#, #seq:NUMERIC:-9999#, #attcFileTypeCd:VARCHAR:NO_ENTRY#, #attcClfCd:VARCHAR:NO_ENTRY#, 
+			#flNm:VARCHAR:NO_ENTRY#, #flSz:NUMERIC:-9999#, #flPath:VARCHAR:NO_ENTRY#, #orgFileNm:VARCHAR:NO_ENTRY#, #regDt:VARCHAR:NO_ENTRY#, 
+			#regrid:VARCHAR:NO_ENTRY#, #modDt:VARCHAR:NO_ENTRY#, #modrid:VARCHAR:NO_ENTRY#, #captionType:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    
+ </sqlMap>

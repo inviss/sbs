@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DownCart">
+	<typeAlias alias="DownCart" type="com.sbs.das.dto.DownCartTbl"/>
+        
+    <resultMap id="DownCartMap" class="DownCart">
+		<result property="cartNo"	column="CART_NO" />
+		<result property="dataClfCd"	column="DATA_CLF_CD" />
+		<result property="prioCd"	column="PRIO_CD" />
+		<result property="strgLoc"	column="STRG_LOC" />
+		<result property="ristYn"	column="RIST_YN" />
+		<result property="appCont"	column="APP_CONT" />
+		<result property="reqUsrid"	column="REQ_USRID" />
+		<result property="reqNm"	column="REQ_NM" />
+		<result property="reqDt"	column="REQ_DT" />
+		<result property="downDt"	column="DOWN_DT" />
+		<result property="appDt"	column="APP_DT" />
+		<result property="downSubj"	column="DOWN_SUBJ" />
+		<result property="gaurantorId"	column="GAURANTOR_ID" />
+		<result property="regDt"	column="REG_DT" />
+		<result property="regrid"	column="REGRID" />
+		<result property="modDt"	column="MOD_DT" />
+		<result property="modrid"	column="MODRID" />
+		<result property="deptCd"	column="DEPT_CD" />
+		<result property="vdQlty"	column="VD_QLTY" />
+		<result property="aspRtoCd"	column="ASP_RTO_CD" />
+		<result property="cartStat"	column="CART_STAT" />
+		<result property="downYn"	column="DOWN_YN" />
+		<result property="coCd"	column="CO_CD" />
+		<result property="segCd"	column="SEG_CD" />
+		<result property="downGubun"	column="DOWN_GUBUN" />
+		<result property="outStrgLoc"	column="OUT_STRG_LOC" />
+		<result property="outUserYn"	column="OUT_USER_YN" />
+		<result property="delYn"	column="DEL_YN" />
+		<result property="filePath"	column="FILE_PATH" />
+		<result property="category"	column="CATEGORY" />
+		<result property="storagename"	column="STORAGENAME" />
+		<result property="toReqCd"	column="TC_REQ_CD" />
+    </resultMap>
+    
+    <select id="findDownCart" resultMap="DownCartMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM DOWN_CART_TBL
+         WHERE CART_NO = #cartNo#
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getDownCart" resultClass="DownCart" parameterClass="map">
+		SELECT  
+			CART_NO   	as cartNo,
+			DATA_CLF_CD 	as dataClfCd,
+			PRIO_CD   	as prioCd,
+			STRG_LOC  	as strgLoc,
+			RIST_YN   	as ristYn,
+			APP_CONT  	as appCont,
+			REQ_USRID  	as reqUsrid,
+			REQ_NM   	as reqNm,
+			REQ_DT   	as reqD,
+			DOWN_DT   	as downDt,
+			APP_DT   	as appDt,
+			DOWN_SUBJ  	as downSubj,
+			GAURANTOR_ID	as gaurantorId,
+			REG_DT   	as regDt,
+			REGRID   	as regrid,
+			MOD_DT   	as modDt,
+			MODRID   	as modrid,
+			DEPT_CD   	as deptCd,
+			VD_QLTY   	as vdQlty,
+			ASP_RTO_CD 	as aspRtoCd,
+			CART_STAT  	as cartStat,
+			DOWN_YN   	as downYn,
+			CO_CD    	as coCd,
+			SEG_CD   	as segCd,
+			DOWN_GUBUN 	as downGubun,
+			OUT_STRG_LOC	as outStrgLoc,
+			OUT_USER_YN 	as outUserYn,
+			DEL_YN   	as delYn,
+			FILE_PATH  	as filePath,
+			CATEGORY  	as category,
+			STORAGENAME 	as storagename,
+			TC_REQ_CD  	as toReqCd
+         FROM DOWN_CART_TBL
+		 WHERE CART_NO = #cartNo#
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <update id="updateDownCart" parameterClass="DownCart">
+    	UPDATE DOWN_CART_TBL set MOD_DT = #modDt#, MODRID = #modrid#
+    	<isNotNull prepend="," property="strgLoc">
+    		STRG_LOC = #strgLoc#
+    	</isNotNull>
+    	<isNotNull prepend="," property="downYn">
+    		DOWN_YN = #downYn#
+    	</isNotNull>
+    	<isNotNull prepend="," property="downDt">
+    		DOWN_DT = #downDt#
+    	</isNotNull>
+    	<isNotNull prepend="," property="cartStat">
+    		CART_STAT = #cartStat#
+    	</isNotNull>
+    	<dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="cartNo">
+		         CART_NO = #cartNo#
+	         </isNotEmpty>
+         </dynamic>
+    </update>
+    
+    <update id="updateStrgLoc" parameterClass="DownCart">
+    	UPDATE DOWN_CART_TBL set STRG_LOC = #strgLoc# WHERE CART_NO = #cartNo#
+    </update>
+    
+    <update id="updateDownYn" parameterClass="DownCart">
+    	UPDATE DOWN_CART_TBL set DOWN_YN = #downYn#, DOWN_DT = #downDt# WHERE CART_NO = #cartNo#
+    </update>
+    
+    <update id="updateCartStat" parameterClass="DownCart">
+    	UPDATE DOWN_CART_TBL set CART_STAT = #cartStat#, MOD_DT = #modDt# WHERE CART_NO = #cartNo#
+    </update>
+    
+    <insert id="insertDownCart" parameterClass="DownCart">
+    	INSERT INTO CODE_TBL (
+		    CART_NO, DATA_CLF_CD, PRIO_CD, STRG_LOC, RIST_YN, APP_CONT, REQ_USRID, REQ_NM, REQ_DT, DOWN_DT,
+		    APP_DT, DOWN_SUBJ, GAURANTOR_ID, REG_DT, REGRID, MOD_DT, MODRID, DEPT_CD, VD_QLTY, ASP_RTO_CD,
+		    CART_STAT, DOWN_YN, CO_CD, SEG_CD
+		)VALUES(
+			#cartNo:NUMERIC:0#, #dataClfCd:VARCHAR:NO_ENTRY#, #prioCd:VARCHAR:NO_ENTRY#, #strgLoc:VARCHAR:NO_ENTRY#, #ristYn:VARCHAR:NO_ENTRY#, #appCont:VARCHAR:NO_ENTRY#, #reqUsrid:VARCHAR:NO_ENTRY#, #reqNm:VARCHAR:NO_ENTRY#, #reqDt:VARCHAR:NO_ENTRY#, #downDt:VARCHAR:NO_ENTRY#,
+			#appDt:VARCHAR:NO_ENTRY#, #downSubj:VARCHAR:NO_ENTRY#, #gaurantorId:VARCHAR:NO_ENTRY#, #regDt:VARCHAR:NO_ENTRY#, #regrid:VARCHAR:NO_ENTRY#, #modDt:VARCHAR:NO_ENTRY#, #modrid:VARCHAR:NO_ENTRY#, #deptCd:VARCHAR:NO_ENTRY#, #vdQlty:VARCHAR:NO_ENTRY#, #aspRtoCd:VARCHAR:NO_ENTRY#,
+			#cartStat:VARCHAR:NO_ENTRY#, #downYn:VARCHAR:NO_ENTRY#, #coCd:VARCHAR:NO_ENTRY#, #segCd:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    
+ </sqlMap>

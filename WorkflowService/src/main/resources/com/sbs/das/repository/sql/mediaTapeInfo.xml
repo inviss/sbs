@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MediaTapeInfo">
+	<typeAlias alias="MediaTapeInfo" type="com.sbs.das.dto.MediaTapeInfoTbl"/>
+        
+    <resultMap id="MediaTapeInfoMap" class="MediaTapeInfo">
+		<result property="chennelCd" column="CHENNEL_CD" />
+		<result property="ctgrLCd" column="CTGR_L_CD" />
+		<result property="tapeMediaClfCd" column="TAPE_MEDIA_CLF_CD" />
+		<result property="tapeLeng" column="TAPE_LENG" />
+		<result property="reqCd" column="REQ_CD" />
+		<result property="sceanNo" column="SCEAN_NO" />
+		<result property="title" column="TITLE" />
+		<result property="subTtl" column="SUB_TTL" />
+		<result property="episNo" column="EPIS_NO" />
+		<result property="brdDd" column="BRD_DD" />
+		<result property="cmrPlace" column="CMR_PLACE" />
+		<result property="vdQlty" column="VD_QLTY" />
+		<result property="viewGrCd" column="VIEW_GR_CD" />
+		<result property="cprtType" column="CPRT_TYPE" />
+		<result property="cprtTypeDsc" column="CPRT_TYPE_DSC" />
+		<result property="cprtNm" column="CPRT_NM" />
+		<result property="recordTypeCd" column="RECORD_TYPE_CD" />
+		<result property="ristClfCd" column="RIST_CLF_CD" />
+		<result property="ristClfRange" column="RIST_CLF_RANGE" />
+		<result property="rsvPrdCd" column="RSV_PRD_CD" />
+		<result property="prdtInOutsCd" column="PRDT_IN_OUTS_CD" />
+		<result property="orgPrdrNm" column="ORG_PRDR_NM" />
+		<result property="cont" column="CONT" />
+		<result property="spcInfo" column="SPC_INFO" />
+		<result property="artist" column="ARTIST" />
+		<result property="ctgrMCd" column="CTGR_M_CD" />
+		<result property="ctgrSCd" column="CTGR_S_CD" />
+		<result property="countryCd" column="COUNTRY_CD" />
+		<result property="keyWords" column="KEY_WORDS" />
+		<result property="drtNm" column="CRT_NM" />
+		<result property="cmrDrtNm" column="CMR_DRT_NM" />
+		<result property="mcNm" column="MC_NM" />
+		<result property="writerNm" column="WRITER_NM" />
+		<result property="ctCla" column="CT_CLA" />
+		<result property="seq" column="SEQ" />
+		<result property="producerNm" column="PRODUCER_NM" />
+		<result property="prdtDeptNm" column="PRDT_DEPT_NM" />
+    </resultMap>
+    
+    <select id="findMediaTapeInfo" resultMap="MediaTapeInfoMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM MEDIA_TAPEINFO_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="reqCd">
+		         REQ_CD = #reqCd#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="sceanNo">
+		         SCEAN_NO = #sceanNo#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="episNo">
+		         EPIS_NO = #episNo#
+	         </isNotEmpty>
+         </dynamic>
+         ORDER BY EPIS_NO ASC, SCEAN_NO ASC
+         with UR
+    </select>
+    
+    <select id="getMediaTapeInfo" resultClass="MediaTapeInfo" parameterClass="map">
+	     SELECT  
+         	CTGR_L_CD as ctgrLCd,
+			TAPE_MEDIA_CLF_CD as tapeMediaClfCd, 
+			TAPE_LENG as tapeLeng, 
+			REQ_CD as reqCd, 
+			SCEAN_NO as sceanNo,
+			TITLE as title, 
+			SUB_TTL as subTtl, 
+			EPIS_NO as episNo, 
+			BRD_DD as brdDd,
+			CMR_PLACE as cmrPlace, 
+			VD_QLTY as vdQlty, 
+			VIEW_GR_CD as viewGrCd,
+			CPRT_TYPE as cprtType, 
+			CPRT_TYPE_DSC as cprtTypeDsc,
+			CPRT_NM as cprtNm, 
+			RECORD_TYPE_CD as recordTypeCd, 
+			RIST_CLF_CD as ristClfCd, 
+			RIST_CLF_RANGE as ristClfRange, 
+			RSV_PRD_CD as rsvPrdCd, 
+			PRDT_IN_OUTS_CD as prdtInOutsCd, 
+			ORG_PRDR_NM as orgPrdrNm, 
+			CONT as cont, 
+			SPC_INFO as spcInfo, 
+			ARTIST as artist, 
+			CTGR_M_CD as ctgrMCd, 
+			CTGR_S_CD as ctgrSCd, 
+			COUNTRY_CD as countryCd, 
+			KEY_WORDS as keyWords, 
+			DRT_NM as drtNm, 
+			CMR_DRT_NM as cmrDrtNm, 
+			MC_NM as mcNm, 
+			WRITER_NM as writerNm, 
+			CT_CLA as ctCla, 
+			SEQ as seq, 
+			GUBUN as grbun, 
+			CHENNEL_CD as chennelCd,
+			PRODUCER_NM as producerNm,
+			PRDT_DEPT_NM as prdtDeptNm
+         FROM MEDIA_TAPEINFO_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="reqCd">
+		         REQ_CD = #reqCd#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="sceanNo">
+		         SCEAN_NO = #sceanNo#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="episNo">
+		         EPIS_NO = #episNo#
+	         </isNotEmpty>
+         </dynamic>
+         ORDER BY EPIS_NO ASC, SCEAN_NO ASC
+         with UR
+    </select>
+    
+    <delete id="deleteMediaTapeInfo" parameterClass="MediaTapeInfo">
+    	delete from MEDIA_TAPEINFO_TBL
+    	<dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="reqCd">
+		         REQ_CD = #reqCd#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="sceanNo">
+		         SCEAN_NO = #sceanNo#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="episNo">
+		         EPIS_NO = #episNo#
+	         </isNotEmpty>
+         </dynamic>
+    </delete>
+    
+    <insert id="insertMediaTapeInfo" parameterClass="MediaTapeInfo">
+    	<selectKey keyProperty="seq" resultClass="java.lang.Long">
+    		select nextval for SEQ_MEDIA_TAPE from sysibm.sysdummy1
+    	</selectKey>
+    	insert into MEDIA_TAPEINFO_TBL (
+    		SEQ, CHENNEL_CD, CTGR_L_CD, TAPE_MEDIA_CLF_CD, TAPE_LENG, REQ_CD, SCEAN_NO, TITLE, SUB_TTL, EPIS_NO, BRD_DD, CMR_PLACE, VD_QLTY,
+			VIEW_GR_CD, CPRT_TYPE, CPRT_TYPE_DSC, CPRT_NM, RECORD_TYPE_CD, RIST_CLF_CD, RIST_CLF_RANGE, RSV_PRD_CD, PRDT_IN_OUTS_CD, 
+			ORG_PRDR_NM, CONT, SPC_INFO, ARTIST, CTGR_M_CD, CTGR_S_CD, COUNTRY_CD, KEY_WORDS, DRT_NM, CMR_DRT_NM, MC_NM, WRITER_NM, CT_CLA,GUBUN,PRODUCER_NM,PRDT_DEPT_NM
+    	) values (
+    		#seq#, #chennelCd:VARCHAR:NO_ENTRY#, #ctgrLCd:VARCHAR:NO_ENTRY#, #tapeMediaClfCd:VARCHAR:NO_ENTRY#, #tapeLeng:VARCHAR:NO_ENTRY#, #reqCd:VARCHAR:NO_ENTRY#, #sceanNo:NUMERIC:-9999#, #title:VARCHAR:NO_ENTRY#, #subTtl:VARCHAR:NO_ENTRY#, #episNo:NUMERIC:-9999#, #brdDd:VARCHAR:NO_ENTRY#, #cmrPlace:VARCHAR:NO_ENTRY#,
+			#vdQlty:VARCHAR:NO_ENTRY#, #viewGrCd:VARCHAR:NO_ENTRY#, #cprtType:VARCHAR:NO_ENTRY#, #cprtTypeDsc:VARCHAR:NO_ENTRY#, #cprtNm:VARCHAR:NO_ENTRY#, #recordTypeCd:VARCHAR:NO_ENTRY#, #ristClfCd:VARCHAR:NO_ENTRY#, #ristClfRange:VARCHAR:NO_ENTRY#, #rsvPrdCd:VARCHAR:NO_ENTRY#, #prdtInOutsCd:VARCHAR:NO_ENTRY#,
+			#orgPrdrNm:VARCHAR:NO_ENTRY#, #cont:VARCHAR:NO_ENTRY#, #spcInfo:VARCHAR:NO_ENTRY#, #artist:VARCHAR:NO_ENTRY#, #ctgrMCd:VARCHAR:NO_ENTRY#, #ctgrSCd:VARCHAR:NO_ENTRY#, #countryCd:VARCHAR:NO_ENTRY#, #keyWords:VARCHAR:NO_ENTRY#, #drtNm:VARCHAR:NO_ENTRY#, #cmrDrtNm:VARCHAR:NO_ENTRY#, #mcNm:VARCHAR:NO_ENTRY#, #writerNm:VARCHAR:NO_ENTRY#,
+			#ctCla:VARCHAR:NO_ENTRY#, #gubun:VARCHAR:NO_ENTRY#, #producerNm:VARCHAR:NO_ENTRY#, #prdtDeptNm:VARCHAR:NO_ENTRY#
+    	)
+    </insert>
+    
+ </sqlMap>

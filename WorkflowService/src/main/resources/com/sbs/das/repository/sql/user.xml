@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+	<typeAlias alias="User" type="com.sbs.das.dto.UserInfoTbl"/>
+
+    <update id="updateUser" parameterClass="User">
+    	UPDATE USER_INFO_TBL set 
+   			MOD_DT = #modDt#
+   			<isNotNull prepend="," property="perRegNo">
+	         	PER_REG_NO = #perRegNo#
+	        </isNotNull>
+	        <isNotNull prepend="," property="mobile">
+	         	MOBILE = #mobile#
+	        </isNotNull>
+	        <isNotNull prepend="," property="deleteYn">
+	         	DELETE_YN = #deleteYn#
+	        </isNotNull>
+	    WHERE SBS_USER_ID = #sbsUserId#
+    </update>
+    
+ </sqlMap>

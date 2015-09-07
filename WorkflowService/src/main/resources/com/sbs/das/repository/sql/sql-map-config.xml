@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings enhancementEnabled="true" useStatementNamespaces="true" />
+	
+	<sqlMap resource="com/sbs/das/repository/sql/das_equipment.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/code.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/down_cart.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/cart_cont.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/content_down.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/content_loc.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/master.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/corner.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/content.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/content_inst.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/content_map.xml"/>
+	<!--  
+	<sqlMap resource="com/sbs/das/repository/sql/erp_d_tape_item.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/erp_d_tape.xml"/>
+	-->
+	<sqlMap resource="com/sbs/das/repository/sql/not_reported_msg.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/annotInfo.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/delete_scheduler.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/quartz_manager.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/copy_info.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/mediaTapeInfo.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/storage_info.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/error_log.xml"/>
+	
+	<sqlMap resource="com/sbs/das/repository/sql/mer_hist_tbl.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/batch_down.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/meta_update.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/user.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/attach.xml"/>
+	
+	<sqlMap resource="com/sbs/das/repository/sql/time_rist_set.xml"/>
+		
+</sqlMapConfig>

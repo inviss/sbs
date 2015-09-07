@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TimeRistSet">
+	<typeAlias alias="TimeRistSet" type="com.sbs.das.dto.TimeRistSetTbl"/>
+        
+    <resultMap id="TimeRistSetMap" class="TimeRistSet">
+		<result property="seq" column="SEQ" />
+		<result property="week" column="WEEK" />
+		<result property="sTime" column="S_TIME" />
+		<result property="eTime" column="E_TIME" />
+		<result property="ristClfCd" column="RIST_CLF_CD" />
+		<result property="regId" column="REG_ID" />
+		<result property="regDt" column="REG_DT" />
+		<result property="modId" column="MOD_ID" />
+		<result property="modDt" column="MOD_DT" />
+		<result property="pdsPgmId" column="PDS_PGM_ID" />
+    </resultMap>
+    
+    <select id="findTimeRistSet" resultMap="TimeRistSetMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM TIME_RIST_SET_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="nowtime">
+	         <![CDATA[
+		         S_TIME <= #nowtime# AND #nowtime# < E_TIME
+		     ]]>
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="week">
+		         WEEK = #week#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="seq">
+		         SEQ = #seq#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getTimeRistSet" resultClass="TimeRistSet" parameterClass="map">
+	     SELECT  
+             SEQ as seq,
+             WEEK as week,
+             S_TIME as sTime,
+             E_TIME as eTime,
+             RIST_CLF_CD as ristClfCd,
+             PDS_PGM_ID as pdsPgmId
+         FROM TIME_RIST_SET_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="nowtime">
+	         <![CDATA[
+		         S_TIME <= #nowtime# AND #nowtime# < E_TIME
+		     ]]>
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="week">
+		         WEEK = #week#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="seq">
+		         SEQ = #seq#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <insert id="insertTimeRistSet" parameterClass="TimeRistSet">
+    	<selectKey keyProperty="seq" resultClass="java.lang.Integer">
+    		select max(SEQ)+1 from TIME_RIST_SET_TBL
+    	</selectKey>
+    	INSERT INTO TIME_RIST_SET_TBL (
+		    SEQ, WEEK, S_TIME, E_TIME, RIST_CLF_CD, REG_DT, REG_ID
+		)VALUES(
+			#seq#, #week#, #sTime:VARCHAR:NO_ENTRY#, #eTime:VARCHAR:NO_ENTRY#, #ristClfCd:VARCHAR:NO_ENTRY#, #regDt:VARCHAR:NO_ENTRY#, #regId:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    
+ </sqlMap>

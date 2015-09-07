@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="NotReportMsg">
+	<typeAlias alias="NotReportMsg" type="com.sbs.das.dto.NotReportMsgTbl"/>
+        
+    <resultMap id="NotReportMsgMap" class="NotReportMsg">
+		<result property="uid"        column="UID" />       
+		<result property="dasEqClfCd"   column="DAS_EQ_CLF_CD" />
+		<result property="retryNo"   column="RETRY_NO" /> 
+		<result property="regDt"      column="REG_DT" />    
+		<result property="modDt"      column="MOD_DT" />    
+		<result property="host"       column="HOST" />      
+		<result property="port"       column="PORT" />      
+		<result property="msg"        column="MSG" />       
+		<result property="checkstamp" column="CHECKSTAMP" />
+    </resultMap>
+    
+    <select id="findNotReportMsg" resultMap="NotReportMsgMap" parameterClass="long">
+	     SELECT  
+             *
+         FROM NOT_REPORTED_MSG_TBL
+         <dynamic prepend="WHERE">
+         	 <isNotEmpty prepend="AND" property="uid">
+		         UID = #uid#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="dasEqClf">
+		         DAS_EQ_CLF_CD = #dasEqClf#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="checkstamp">
+		         CHECKSTAMP = #checkstamp#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getNotReportMsgObj" resultClass="NotReportMsg" parameterClass="map">
+	     SELECT  
+			UID as           uid,        
+			DAS_EQ_CLF_CD as dasEqClf,   
+			RETRY_NO as     retryNo,   
+			REG_DT as        regDt,      
+			MOD_DT as        modDt,      
+			HOST as          host,       
+			PORT as          port,       
+			MSG as           msg,        
+			CHECKSTAMP as    checkstamp
+		FROM NOT_REPORTED_MSG_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="uid">
+		         UID = #uid#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="dasEqClf">
+		         DAS_EQ_CLF_CD = #dasEqClf#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="checkstamp">
+		         CHECKSTAMP = #checkstamp#
+	         </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getOnly1NotReportMsgObj" resultClass="NotReportMsg" parameterClass="map">
+		SELECT  
+         	UID as           uid,        
+			DAS_EQ_CLF_CD as dasEqClf,   
+			RETRY_NO as     retryNo,   
+			REG_DT as        regDt,      
+			MOD_DT as        modDt,      
+			HOST as          host,       
+			PORT as          port,       
+			MSG as           msg,        
+			CHECKSTAMP as    checkstamp
+		FROM NOT_REPORTED_MSG_TBL
+		WHERE DAS_EQ_CLF_CD = #dasEqClf# AND (CHECKSTAMP='NO' or CHECKSTAMP='')
+		ORDER BY REG_DT FETCH FIRST 1 ROWS ONLY 
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <update id="updateNotReportMsg" parameterClass="NotReportMsg">
+    	UPDATE NOT_REPORTED_MSG_TBL set 
+   		<isNotEmpty prepend="," property="checkstamp">
+   			CHECKSTAMP = #checkstamp#
+   		</isNotEmpty>
+   		<isNotEmpty prepend="," property="dasEqClf">
+   			RETRY_NO = #dasEqClf#
+   		</isNotEmpty>
+   		<isNotEmpty prepend="," property="downYn">
+   			DOWN_YN = #downYn#
+   		</isNotEmpty>
+   		<isNotEmpty prepend="," property="downDt">
+   			MOD_DT = #downDt#
+   		</isNotEmpty>
+   		<isNotEmpty prepend="," property="downVol">
+   			MSG = #downVol#
+   		</isNotEmpty>
+    	<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="cartNo">
+	         	DAS_EQ_CLF_CD = #cartNo#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cartSeq">
+	         	CHECKSTAMP = #cartSeq#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="ctiId">
+	         	CTI_ID = #ctiId#
+	        </isNotEmpty>
+        </dynamic>
+    </update>
+    
+    <update id="updateCheckTampNotReportMsg" parameterClass="NotReportMsg">
+    	UPDATE NOT_REPORTED_MSG_TBL set CHECKSTAMP = #checkstamp#
+    	<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="dasEqClf">
+	         	DAS_EQ_CLF_CD = #dasEqClf#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="uid">
+	         	UID = #uid#
+	        </isNotEmpty>
+        </dynamic>
+    </update>
+    
+    <insert id="insertNotReportMsg" parameterClass="NotReportMsg">
+    	INSERT INTO NOT_REPORTED_MSG_TBL (
+			UID, DAS_EQ_CLF_CD, RETRY_NO, REG_DT, HOST, PORT, MSG, CHECKSTAMP
+		)VALUES(
+			#uid:VARCHAR:NO_ENTRY#, #dasEqClfCd:VARCHAR:NO_ENTRY#, #retryNo:NUMERIC:-9999#, #regDt:VARCHAR:NO_ENTRY#, #host:VARCHAR:NO_ENTRY#, #port:VARCHAR:NO_ENTRY#, #msg:VARCHAR:NO_ENTRY#, #checkstamp:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    
+ </sqlMap>

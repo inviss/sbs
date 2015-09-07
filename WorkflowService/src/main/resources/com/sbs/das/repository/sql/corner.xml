@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Corner">
+	<typeAlias alias="Corner" type="com.sbs.das.dto.CornerTbl"/>
+        
+    <resultMap id="CornerMap" class="Corner">
+		<result property="cnId" column="CN_ID" />
+		<result property="masterId" column="MASTER_ID" />
+		<result property="cnNm" column="CN_NM" />
+		<result property="cnTypeCd" column="CN_TYPE_CD" />
+		<result property="som" column="SOM" />
+		<result property="eom" column="EOM" />
+		<result property="cnInfo" column="CN_INFO" />
+		<result property="regDt" column="REG_DT" />
+		<result property="regrid" column="REGRID" />
+		<result property="modDt" column="MOD_DT" />
+		<result property="modrid" column="MODRID" />
+		<result property="duration" column="DURATION" />
+		<result property="rpimgCtId" column="RPIMG_CT_ID" />
+		<result property="sFrame" column="S_FRAME" />
+    </resultMap>
+    
+    <select id="findCorner" resultMap="CornerMap" parameterClass="long">
+	     SELECT  
+             *
+         FROM CORNER_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="cartNo">
+		         CART_NO = #cartNo#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="cartSeq">
+		         CART_SEQ = #cartSeq#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="downYn">
+		         DOWN_YN = #downYn#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="apprYn">
+		         APPR_YN = #apprYn#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getCornerCount" resultClass="Integer" parameterClass="map">
+		SELECT  
+			count(*)
+		FROM CORNER_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="masterId">
+	         MASTER_ID = #masterId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cnId">
+	         CN_ID = #cnId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cnTypeCd">
+	         CN_TYPE_CD = #cnTypeCd#
+	        </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getCornerMax" resultClass="long" parameterClass="map">
+		SELECT  
+			max(cn_id)
+		FROM CORNER_TBL
+		WHERE MASTER_ID = #masterId#
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getCornerObj" resultClass="Corner" parameterClass="map">
+		SELECT  
+			CN_ID as       cnId, 				
+			MASTER_ID as   masterId, 		
+			CN_NM as       cnNm, 				
+			CN_TYPE_CD as  cnTypeCd, 		
+			SOM as         som, 					
+			EOM as         eom, 					
+			CN_INFO as     cnInfo, 			
+			REG_DT as      regDt, 				
+			REGRID as      regrid, 			
+			MOD_DT as      modDt, 				
+			MODRID as      modrid, 			
+			DURATION as    duration, 		
+			RPIMG_CT_ID as rpimgCtId, 		
+			S_FRAME as     sFrame	
+		FROM CORNER_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="masterId">
+	         MASTER_ID = #masterId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cnId">
+	         CN_ID = #cnId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cnTypeCd">
+	         CN_TYPE_CD = #cnTypeCd#
+	        </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getCornerNewId" resultClass="long">
+    	SELECT NEXTVAL FOR SEQ_CN_ID AS SEQUENCE FROM  SYSIBM.SYSDUMMY1
+    </select>
+    
+    <update id="updateCorner" parameterClass="Corner">
+    	UPDATE CORNER_TBL set MOD_DT = #modDt#, MODRID = #modrid#
+   		<isNotNull prepend="," property="duration">
+   			DURATION = #duration#
+   		</isNotNull>
+   		<isNotNull prepend="," property="cnInfo">
+   			CN_INFO = #cnInfo#
+   		</isNotNull>
+   		<isNotNull prepend="," property="som">
+   			SOM = #som#
+   		</isNotNull>
+   		<isNotNull prepend="," property="eom">
+   			EOM = #eom#
+   		</isNotNull>
+    	WHERE CN_ID = #cnId#
+    </update>
+    
+    <insert id="insertCorner" parameterClass="Corner">
+    	INSERT INTO CORNER_TBL (
+		   CN_ID, MASTER_ID, CN_NM, CN_TYPE_CD, SOM, EOM, CN_INFO, RPIMG_KFRM_SEQ,
+		   REG_DT, REGRID, MOD_DT, MODRID, DURATION, RPIMG_CT_ID, S_FRAME
+		)VALUES(
+			#cnId:NUMERIC:-9999#, #masterId:NUMERIC:-9999#, #cnNm:VARCHAR:NO_ENTRY#, #cnTypeCd:VARCHAR:NO_ENTRY#, #som:VARCHAR:NO_ENTRY#, #eom:VARCHAR:NO_ENTRY#, #cnInfo:VARCHAR:NO_ENTRY#, #rpimgKfrmSeq:NUMBER:-9999#,
+			#regDt:VARCHAR:NO_ENTRY#, #regrid:VARCHAR:NO_ENTRY#, #modDt:VARCHAR:NO_ENTRY#, #modrid:VARCHAR:NO_ENTRY#, #duration:NUMERIC:-9999#, #rpimgCtId:INTEGER:-9999#, #sFrame:INTEGER:-9999#
+		)
+    </insert>
+    
+ </sqlMap>

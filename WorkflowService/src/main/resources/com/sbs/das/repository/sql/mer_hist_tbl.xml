@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MerHist">
+	<typeAlias alias="MerHist" type="com.sbs.das.dto.MerHistTbl"/>
+        
+    <resultMap id="MerHistMap" class="MerHist">
+		<result property="seq" column="SEQ" />
+		<result property="ctId" column="CT_ID" />
+		<result property="eqId" column="EQ_ID" />
+		<result property="kfrmPath" column="KFRM_PATH" />
+		<result property="regDtm" column="REG_DTM" />
+		<result property="status" column="STATUS" />
+		<result property="errCd" column="ERR_CD" />
+    </resultMap>
+    
+    <select id="findMerHist" resultMap="MerHistMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM MER_HIST_TBL
+         WHERE STATUS='W'
+         order by SEQ asc
+         FETCH FIRST 1 ROWS ONLY
+         with UR
+    </select>
+    
+    <select id="getMerHist" resultClass="MerHist" parameterClass="map">
+		SELECT  
+			SEQ as     		seq, 				
+			CT_ID as   		ctId, 		
+			EQ_ID as       	eqId, 				
+			KFRM_PATH as  	kfrmPath, 		
+			REG_DTM as      regDtm, 					
+			STATUS as       status, 					
+			ERR_CD as     	errCd
+			
+		FROM MER_HIST_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="seq">
+	        	SEQ = #seq#
+	        </isNotEmpty>
+        </dynamic>
+		with UR
+    </select>
+    
+    <update id="updateMerHist" parameterClass="MerHist">
+    	UPDATE MER_HIST_TBL set STATUS = #status#
+   		<isNotNull prepend="," property="ctId">
+   			CT_ID = #ctId#
+   		</isNotNull>
+   		<isNotNull prepend="," property="eqId">
+   			EQ_ID = #eqId#
+   		</isNotNull>
+   		<isNotNull prepend="," property="kfrmPath">
+   			KFRM_PATH = #kfrmPath#
+   		</isNotNull>
+   		<isNotNull prepend="," property="regDtm">
+   			REG_DTM = #regDtm#
+   		</isNotNull>
+   		<isNotNull prepend="," property="errCd">
+   			ERR_CD = #errCd#
+   		</isNotNull>
+    	WHERE SEQ = #seq#
+    </update>
+    
+    <insert id="insertMerHist" parameterClass="MerHist">
+    	<selectKey keyProperty="seq" resultClass="java.lang.Long">
+    		select nextval for SEQ_MER_ID from sysibm.sysdummy1
+    	</selectKey>
+    	INSERT INTO MER_HIST_TBL (
+		   SEQ, CT_ID, KFRM_PATH, REG_DTM, STATUS
+		)VALUES(
+			#seq:NUMBER:-9999#, #ctId:NUMBER:-9999#, #kfrmPath:VARCHAR:NO_ENTRY#, #regDtm:VARCHAR:NO_ENTRY#, #status:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    
+ </sqlMap>

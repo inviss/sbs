@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AnnotInfo">
+	<typeAlias alias="AnnotInfo" type="com.sbs.das.dto.AnnotInfoTbl"/>
+        
+    <resultMap id="AnnotInfoMap" class="AnnotInfo">
+		<result property="annotId" column="ANNOT_ID" />
+		<result property="cnId" column="CN_ID" />
+		<result property="ctId" column="CT_ID" />
+		<result property="masterId" column="MASTER_ID" />
+		<result property="annotClfCd" column="ANNOT_CLF_CD" />
+		<result property="annotClfCont" column="ANNOT_CLF_CONT" />
+		<result property="som" column="SOM" />
+		<result property="eom" column="EOM" />
+		<result property="cont" column="CONT" />
+		<result property="regrid" column="REGRID" />
+		<result property="regDt" column="REG_DT" />
+		<result property="modrid" column="MODRID" />
+		<result property="modDt" column="MOD_DT" />
+		<result property="duration" column="DURATION" />
+		<result property="sFrame" column="S_FRAME" />
+		<result property="gubun" column="GUBUN" />
+		<result property="entireYn" column="ENTIRE_YN" />
+    </resultMap>
+    <resultMap id="RistMap" class="AnnotInfo">		
+		<result property="masterId" column="MASTER_ID" />	
+		<result property="ctId" column="CT_ID" />	
+		<result property="cnId" column="CN_ID" />	
+    </resultMap>
+	<resultMap id="RistInfoMap" class="AnnotInfo">		
+		<result property="masterId" column="MASTER_ID" />
+		<result property="duration" column="DURATION" />
+		<result property="sFrame" column="S_FRAME" />
+		<result property="som" column="SOM" />
+		<result property="eom" column="EOM" />	
+		<result property="cnId" column="CN_ID" />
+		<result property="ctId" column="CT_ID" />
+    </resultMap>
+    <select id="findAnnotInfo" resultMap="AnnotInfoMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM ANNOT_INFO_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="cnId">
+		         CN_ID = #cnId#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="ctId">
+		         CT_ID = #ctId#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="masterId">
+		         MASTER_ID = #masterId#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <insert id="insertAnnotInfo" parameterClass="AnnotInfo">
+    	<selectKey keyProperty="annotId" resultClass="java.lang.Long">
+    		select nextval for SEQ_ANNOT_ID from sysibm.sysdummy1
+    	</selectKey>
+    	INSERT INTO ANNOT_INFO_TBL (
+		    ANNOT_ID, CN_ID, CT_ID, MASTER_ID, ANNOT_CLF_CD, SOM, EOM, REGRID, REG_DT, DURATION, GUBUN, ENTIRE_YN
+		)VALUES(
+			#annotId#, #cnId:NUMERIC:-9999#, #ctId:NUMERIC:-9999#, #masterId:NUMERIC:-9999#, #annotClfCd:VARCHAR:NO_ENTRY#, #som:VARCHAR:NO_ENTRY#, #eom:VARCHAR:NO_ENTRY#, #regrid:VARCHAR:NO_ENTRY#, #regDt:VARCHAR:NO_ENTRY#, #duration:NUMERIC:-9999#,  #gubun:VARCHAR:NO_ENTRY#,  #entireYn:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    <!-- 사용등급 벌크 등록 쿼리-->
+	<select id="findRistList" resultMap="RistMap" parameterClass="map">
+	     SELECT  
+              distinct
+			   mst.MASTER_ID ,map.CT_ID ,map.CN_ID
+			  FROM METADAT_MST_tBL MST 
+			  INNER JOIN CONTENTS_MAPP_TBL MAP ON MAP.MASTER_ID = MST.MASTER_ID
+             left outer JOIN ANNOT_INFO_TBL ANNOT ON ANNOT.MASTER_ID = MST.MASTER_ID
+           <![CDATA[
+		     WHERE MST.CHENNEL_CD='M'  AND SUBSTR(MST.reg_dt,1,8)>='20120630' AND SUBSTR(MST.reg_dt,1,8)<='20130228' 
+             AND VALUE(MST.DEL_dD ,'')=''  and annot.annot_clf_cd is null 
+ 			 
+			]]>
+      
+    </select>
+	
+	<select id="getRistInfo" resultMap="RistInfoMap" parameterClass="map">
+	     SELECT 
+		 MAP.MASTER_ID  
+		 ,MAP.CT_ID 
+		 ,MAP.CN_ID  
+		 ,COR.SOM  
+		 ,COR.EOM 
+		 ,COR.DURATION  
+		 ,COR.S_FRAME 
+		 
+		 FROM CONTENTS_MAPP_TBL MAP 
+		 INNER JOIN CORNER_TBL COR ON COR.CN_ID = MAP.CN_ID
+         <dynamic prepend="WHERE">
+         	 <isNotEmpty prepend="AND" property="ctId">
+		         MAP.CT_ID = #ctId#
+	         </isNotEmpty>
+			  <isNotEmpty prepend="AND" property="masterId">
+		         MAP.MASTER_ID = #masterId#
+	         </isNotEmpty>
+			   <isNotEmpty prepend="AND" property="cnId">
+		         MAP.CN_ID = #cnId#
+	         </isNotEmpty>
+		 </dynamic>
+         
+    </select>
+	 <!-- 사용등급 벌크 등록 쿼리 끝 -->
+ </sqlMap>

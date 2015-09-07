@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Content">
+	<typeAlias alias="Content" type="com.sbs.das.dto.ContentTbl"/>
+        
+    <resultMap id="ContentMap" class="Content">
+		<result property="ctId" column="CT_ID" />
+		<result property="ctSeq" column="CT_SEQ" />
+		<result property="ctTyp" column="CT_TYP" />
+		<result property="ctCla" column="CT_CLA" />
+		<result property="ctNm" column="CT_NM" />
+		<result property="cont" column="CONT" />
+		<result property="keyWords" column="KEY_WORDS" />
+		<result property="ctOwnDeptCd" column="CT_OWN_DEPT_CD" />
+		<result property="ctOwnDeptNm" column="CT_OWN_DEPT_NM" />
+		<result property="dataStatCd" column="DATA_STAT_CD" />
+		<result property="ctLeng" column="CT_LENG" />
+		<result property="vdQlty" column="VD_QLTY" />
+		<result property="aspRtoCd" column="ASP_RTO_CD" />
+		<result property="edtrid" column="EDTRID" />
+		<result property="kfrmPath" column="KFRM_PATH" />
+		<result property="kfrmPxCd" column="KFRM_PX_CD" />
+		<result property="totKfrmNums" column="TOT_KFRM_NUMS" />
+		<result property="useYn" column="USE_YN" />
+		<result property="delDd" column="DEL_DD" />
+		<result property="regDt" column="REG_DT" />
+		<result property="regrid" column="REGRID" />
+		<result property="modDt" column="MOD_DT" />
+		<result property="modrid" column="MODRID" />
+		<result property="duration" column="DURATION" />
+		<result property="mcuSeq" column="MCU_SEQ" />
+		<result property="cmsCtId" column="CMS_CT_ID" />
+		<result property="copyObjectYn" column="COPY_OBJECT_YN" />
+		<result property="useCont" column="USE_CONT" />
+		<result property="archiveYn" column="ARCHIVE_YN" />
+		<result property="mediaId" column="MEDIA_ID" />
+		<result property="delYn" column="DEL_YN" />
+		<result property="errorCont" column="ERROR_CONT" />
+    </resultMap>
+    
+    <parameterMap id="outProcedureMap" class="java.util.Map">
+    	<parameter property="mediaId" javaType="java.lang.String" jdbcType="VARCHAR" mode="OUT" />
+  	</parameterMap>
+  
+    <select id="findContent" resultMap="ContentMap" parameterClass="long">
+	     SELECT  
+             *
+         FROM CONTENTS_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="ctTyp">
+		         CT_TYP = #ctTyp#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="ctCla">
+		         CT_CLA = #ctCla#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getContentCount" resultClass="Integer" parameterClass="map">
+		SELECT  
+			count(*)
+		FROM CONTENTS_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="ctId">
+				CT_ID = #ctId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="mediaId">
+				MEDIA_ID = #mediaId#
+	        </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getContentObj" resultClass="Content" parameterClass="map">
+		SELECT  
+			CT_ID as          ctId, 				
+			CT_SEQ as         ctSeq, 				
+			CT_TYP as         ctTyp, 				
+			CT_CLA as         ctCla, 				
+			CT_NM as          ctNm, 				
+			CONT as           cont, 				
+			KEY_WORDS as      keyWords, 		
+			CT_OWN_DEPT_CD as ctOwnDeptCd, 	
+			CT_OWN_DEPT_NM as ctOwnDeptNm, 	
+			DATA_STAT_CD as   dataStatCd, 	
+			CT_LENG as        ctLeng, 			
+			VD_QLTY as        vdQlty, 			
+			ASP_RTO_CD as     aspRtoCd, 		
+			EDTRID as         edtrid, 			
+			KFRM_PATH as      kfrmPath, 		
+			KFRM_PX_CD as     kfrmPxCd, 		
+			TOT_KFRM_NUMS as  totKfrmNums, 	
+			USE_YN as         useYn, 				
+			DEL_DD as         delDd, 				
+			REG_DT as         regDt, 				
+			REGRID as         regrid, 			
+			MOD_DT as         modDt, 				
+			MODRID as         modrid, 			
+			DURATION as       duration, 		
+			MCU_SEQ as        mcuSeq, 			
+			CMS_CT_ID as      cmsCtId, 			
+			COPY_OBJECT_YN as copyObjectYn, 
+			USE_CONT as       useCont, 			
+			ARCHIVE_YN as     archiveYn, 		
+			MEDIA_ID as       mediaId, 			
+			DEL_YN as         delYn,
+			ERROR_CONT as	  errorCont
+		FROM CONTENTS_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="ctId">
+	         	CT_ID = #ctId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="mediaId">
+		         MEDIA_ID = #mediaId#
+	         </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getContentForInstObj" resultClass="Content" parameterClass="map">
+		SELECT  
+			CT.CT_ID as          ctId, 				
+			CT.CT_SEQ as         ctSeq, 				
+			CT.CT_TYP as         ctTyp, 				
+			CT.CT_CLA as         ctCla, 				
+			CT.CT_NM as          ctNm, 				
+			CT.CONT as           cont, 				
+			CT.KEY_WORDS as      keyWords, 		
+			CT.CT_OWN_DEPT_CD as ctOwnDeptCd, 	
+			CT.CT_OWN_DEPT_NM as ctOwnDeptNm, 	
+			CT.DATA_STAT_CD as   dataStatCd, 	
+			CT.CT_LENG as        ctLeng, 			
+			CT.VD_QLTY as        vdQlty, 			
+			CT.ASP_RTO_CD as     aspRtoCd, 		
+			CT.EDTRID as         edtrid, 			
+			CT.KFRM_PATH as      kfrmPath, 		
+			CT.KFRM_PX_CD as     kfrmPxCd, 		
+			CT.TOT_KFRM_NUMS as  totKfrmNums, 	
+			CT.USE_YN as         useYn, 				
+			CT.DEL_DD as         delDd, 				
+			CT.REG_DT as         regDt, 				
+			CT.REGRID as         regrid, 			
+			CT.MOD_DT as         modDt, 				
+			CT.MODRID as         modrid, 			
+			CT.DURATION as       duration, 		
+			CT.MCU_SEQ as        mcuSeq, 			
+			CT.CMS_CT_ID as      cmsCtId, 			
+			CT.COPY_OBJECT_YN as copyObjectYn, 
+			CT.USE_CONT as       useCont, 			
+			CT.ARCHIVE_YN as     archiveYn, 		
+			CT.MEDIA_ID as       mediaId, 			
+			CT.DEL_YN as         delYn,
+			CT.ERROR_CONT as	 errorCont
+		FROM CONTENTS_TBL CT
+			INNER JOIN CONTENTS_INST_TBL CTI ON CT.CT_ID = CTI.CT_ID
+		WHERE CTI.CTI_ID = #ctiId#
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getContentNewId" resultClass="long">
+    	SELECT NEXTVAL FOR SEQ_CT_ID AS SEQUENCE FROM  SYSIBM.SYSDUMMY1
+    </select>
+    
+    <update id="updateContent" parameterClass="Content">
+    	UPDATE CONTENTS_TBL set MODRID = #modrid#, MOD_DT = #modDt#
+   		<isNotNull prepend="," property="delDd">
+   			DEL_DD = #delDd#
+   		</isNotNull>
+   		<isNotNull prepend="," property="delYn">
+   			DEL_YN = #delYn#
+   		</isNotNull>
+   		<isNotNull prepend="," property="kfrmPath">
+   			KFRM_PATH = #kfrmPath#
+   		</isNotNull>
+		<isNotNull prepend="," property="mediaId">
+   			MEDIA_ID = #mediaId#
+   		</isNotNull>
+   		<isGreaterThan compareValue="0" prepend="," property="totKfrmNums">
+   			TOT_KFRM_NUMS = #totKfrmNums#
+   		</isGreaterThan>
+    	WHERE CT_ID = #ctId#
+    </update>
+    
+    <procedure id="getMediaID" parameterMap="outProcedureMap">
+    	{ call media_id (?) }
+  	</procedure>
+    
+    <insert id="insertContent" parameterClass="Content">
+    	INSERT INTO CONTENTS_TBL (
+		   CT_ID, CT_SEQ, CT_TYP, CT_CLA, CT_NM, CONT, KEY_WORDS, CT_OWN_DEPT_CD, CT_OWN_DEPT_NM, DATA_STAT_CD, CT_LENG, VD_QLTY, 
+		   ASP_RTO_CD, EDTRID, KFRM_PATH, KFRM_PX_CD, TOT_KFRM_NUMS, USE_YN, DEL_DD, REG_DT, REGRID, ARCHIVE_YN, MEDIA_ID, DEL_YN,
+		   DURATION, MCU_SEQ, COPY_OBJECT_YN, USE_CONT, ERROR_CONT
+		)VALUES(
+			#ctId:NUMERIC:-9999#, #ctSeq:INTEGER:-9999#, #ctTyp:VARCHAR:NO_ENTRY#, #ctCla:VARCHAR:NO_ENTRY#, #ctNm:VARCHAR:NO_ENTRY#, #cont:VARCHAR:NO_ENTRY#, #keyWords:VARCHAR:NO_ENTRY#, #ctOwnDeptCd:VARCHAR:NO_ENTRY#, #ctOwnDeptNm:VARCHAR:NO_ENTRY#, #dataStatCd:VARCHAR:NO_ENTRY#, #ctLeng:VARCHAR:NO_ENTRY#, #vdQlty:VARCHAR:NO_ENTRY#, 
+			#aspRtoCd:VARCHAR:NO_ENTRY#, #edtrid:VARCHAR:NO_ENTRY#, #kfrmPath:VARCHAR:NO_ENTRY#, #kfrmPxCd:VARCHAR:NO_ENTRY#, #totKfrmNums:INTEGER:-9999#, #useYn:VARCHAR:NO_ENTRY#, #delDd:VARCHAR:NO_ENTRY#, #regDt:VARCHAR:NO_ENTRY#, #regrid:VARCHAR:NO_ENTRY#, #archiveYn:VARCHAR:NO_ENTRY#, #mediaId:VARCHAR:NO_ENTRY#, #delYn:VARCHAR:NO_ENTRY#,
+			#duration:NUMERIC:-9999#, #mcuSeq:INTEGER:-9999#, #copyObjectYn:VARCHAR:NO_ENTRY#, #useCont:INTEGER:-9999#, #errorCont:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    
+ </sqlMap>

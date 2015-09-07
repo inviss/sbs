@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ErpTape">
+	<typeAlias alias="ErpTape" type="com.sbs.das.dto.ErpTapeTbl"/>
+	
+    <resultMap id="ErpTapeMap" class="ErpTape">
+		<result property="tapeId"	column="TAPE_ID" />
+		<result property="copyReqNo"	column="COPY_REQ_NO" />
+		<result property="oldReqNo"	column="OLD_REQ_NO" />
+		<result property="gathNo"	column="GATH_NO" />
+		<result property="title"	column="TITLE" />
+		<result property="tapeNum"	column="TAPE_NUM" />
+		<result property="gathNm"	column="GATH_NM" />
+		<result property="tapeKind"	column="TAPE_KIND" />
+		<result property="lentStat"	column="LENT_STAT" />
+		<result property="secGr"	column="SEC_GR" />
+		<result property="copyYn"	column="COPY_YN" />
+		<result property="copyKeep"	column="COPY_KEEP" />
+		<result property="keepDept"	column="KEEP_DEPT" />
+		<result property="keepLvl"	column="KEEP_LVL" />
+		<result property="rtgDd"	column="RTG_DD" />
+		<result property="modDd"	column="MOD_DD" />
+		<result property="gathDd"	column="GATH_DD" />
+		<result property="gathType"	column="GATH_TYPE" />
+		<result property="scnCnt"	column="SCN_CNT" />
+		<result property="lostStat"	column="LOST_STAT" />
+		<result property="reqNo"	column="REQ_NO" />
+		<result property="regStat"	column="REG_STAT" />
+		<result property="allWork_stat"	column="ALL_WORK_STAT" />
+		<result property="crteDd"	column="CRTE_DD" />
+		<result property="cleanReqNo"	column="CLEAN_REQ_NO" />
+		<result property="cleanKeep"	column="CLEAN_KEEP" />
+		<result property="hdYn"	column="HD_YN" />
+		<result property="ingestDd"	column="INGEST_DD" />
+    </resultMap>
+    
+    <select id="findErpTape" resultMap="ErpTapeMap" parameterClass="String">
+    <!--
+	     SELECT  
+             DAS.D_TAPE_TBL.TAPE_ID, DAS.D_TAPE_TBL.COPY_REQ_NO, DAS.D_TAPE_TBL.OLD_REQ_NO, DAS.D_TAPE_TBL.GATH_NO, DAS.D_TAPE_TBL.TITLE, DAS.D_TAPE_TBL.TAPE_NUM, 
+             DAS.D_TAPE_TBL.GATH_NM, DAS.D_TAPE_TBL.TAPE_KIND, DAS.D_TAPE_TBL.LENT_STAT, DAS.D_TAPE_TBL.SEC_GR, DAS.D_TAPE_TBL.COPY_YN, DAS.D_TAPE_TBL.COPY_KEEP,
+             DAS.D_TAPE_TBL.KEEP_DEPT, DAS.D_TAPE_TBL.KEEP_LVL, DAS.D_TAPE_TBL.RTG_DD, DAS.D_TAPE_TBL.MOD_DD, DAS.D_TAPE_TBL.GATH_DD, DAS.D_TAPE_TBL.GATH_TYPE, 
+             DAS.D_TAPE_TBL.SCN_CNT, DAS.D_TAPE_TBL.LOST_STAT, DAS.D_TAPE_TBL.REQ_NO, DAS.D_TAPE_TBL.REG_STAT, DAS.D_TAPE_TBL.ALL_WORK_STAT, DAS.D_TAPE_TBL.CRTE_DD, 
+             DAS.D_TAPE_TBL.CLEAN_REQ_NO, DAS.D_TAPE_TBL.CLEAN_KEEP, DAS.D_TAPE_TBL.HD_YN, DAS.D_TAPE_TBL.INGEST_DD
+         FROM DAS.D_TAPE_TBL
+         WHERE rtrim(DAS.D_TAPE_TBLTAPE_ID) = #tapeId#
+         with UR
+     -->
+    	SELECT  
+             TAPE_ID, COPY_REQ_NO, OLD_REQ_NO, GATH_NO, TITLE, TAPE_NUM, 
+             GATH_NM, TAPE_KIND, LENT_STAT, SEC_GR, COPY_YN, COPY_KEEP,
+             KEEP_DEPT, KEEP_LVL, RTG_DD, MOD_DD, GATH_DD, GATH_TYPE, 
+             SCN_CNT, LOST_STAT, REQ_NO, REG_STAT, ALL_WORK_STAT, CRTE_DD, 
+             CLEAN_REQ_NO, CLEAN_KEEP, HD_YN, INGEST_DD
+         FROM DAT.D_TAPE_TBL
+         WHERE rtrim(TAPE_ID) = #tapeId#
+         with UR
+    </select>
+    
+    <select id="getErpTapeCount" resultClass="Integer" parameterClass="String">
+	     SELECT  
+             count(*)
+         FROM DAT.D_TAPE_TBL
+		 WHERE rtrim(TAPE_ID) = #tapeId#
+         with UR
+    </select>
+    
+ </sqlMap>

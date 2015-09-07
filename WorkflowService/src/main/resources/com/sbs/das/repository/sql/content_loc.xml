@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ContentLoc">
+	<typeAlias alias="ContentLoc" type="com.sbs.das.dto.ContentLocTbl"/>
+        
+    <resultMap id="ContentLocMap" class="ContentLoc">
+		<result property="archiveProgress" column="ARCHIVE_PROGRESS"/> 
+		<result property="astatus" column="ASTATUS"/> 
+		<result property="backupDt" column="BACKUP_DT"/> 
+		<result property="backupId" column="BACKUP_ID"/> 
+		<result property="backupProgress" column="BACKUP_PROGRESS "/> 
+		<result property="backupStatus" column="BACKUP_STATUS"/> 
+		<result property="backupUsrid" column="BACKUP_USRID"/> 
+		<result property="backupYn" column="BACKUP_YN"/> 
+		<result property="changeProgress" column="CHANGE_PROGRESS "/> 
+		<result property="changeStatus" column="CHANGE_STATUS"/> 
+		<result property="changeUsrid" column="CHANGE_USRID"/> 
+		<result property="comments" column="COMMENTS"/> 
+		<result property="copyId" column="COPY_ID"/> 
+		<result property="copyProgress" column="COPY_PROGRESS"/> 
+		<result property="copyStatus" column="COPY_STATUS"/> 
+		<result property="copyUsrid" column="COPY_USRID"/> 
+		<result property="cprogress" column="CPROGRESS"/> 
+		<result property="ctiId" column="CTI_ID"/> 
+		<result property="cyn" column="CYN"/> 
+		<result property="cJobStatus" column="C_JOB_STATUS"/> 
+		<result property="downProgress" column="DOWN_PROGRESS"/> 
+		<result property="downStatus" column="DOWN_STATUS"/> 
+		<result property="downUsrid" column="DOWN_USRID"/> 
+		<result property="dstatus" column="DSTATUS"/> 
+		<result property="filename" column="FILENAME"/> 
+		<result property="jobStatus" column="JOB_STATUS"/> 
+		<result property="num" column="NUM"/> 
+		<result property="objName" column="OBJ_NAME"/> 
+		<result property="path" column="PATH"/> 
+		<result property="priority" column="PRIORITY"/> 
+		<result property="progress" column="PROGRESS"/> 
+		<result property="recorverId" column="RECORVER_ID"/> 
+		<result property="regDtm" column="REG_DTM"/> 
+		<result property="regUser" column="REG_USER"/> 
+		<result property="reqUser" column="REQ_USER"/> 
+		<result property="reCopyRegDt" column="RE_COPY_REG_DT"/> 
+		<result property="scount" column="SCOUNT"/> 
+		<result property="title" column="TITLE"/> 
+		<result property="updtDtm" column="UPDT_DTM"/> 
+		<result property="updtUser" column="UPDT_USER"/> 
+		<result property="url" column="URL"/> 
+		<result property="useYn" column="USE_YN"/>
+    </resultMap>
+    
+    <select id="findContentLoc" resultMap="ContentLocMap" parameterClass="map">
+		SELECT  
+             *
+		FROM CONTENTS_LOC_TBL
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="ctiId">
+				CTI_ID = #ctiId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="objName">
+				OBJ_NAME = #objName#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="jobStatus">
+				JOB_STATUS = #jobStatus#
+			</isNotEmpty>
+		</dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+		</isEqual>
+    </select>
+    
+    <select id="getContentLoc" resultClass="ContentLoc" parameterClass="map">
+    	SELECT  
+			ARCHIVE_PROGRESS as archiveProgress,
+			ASTATUS          as astatus,
+			BACKUP_DT        as backupDt,
+			BACKUP_ID        as backupId,
+			BACKUP_PROGRESS  as backupProgress,
+			BACKUP_STATUS    as backupStatus,
+			BACKUP_USRID     as backupUsrid,
+			BACKUP_YN        as backupYn,
+			CHANGE_PROGRESS  as changeProgress,
+			CHANGE_STATUS    as changeStatus,
+			CHANGE_USRID     as changeUsrid,
+			COMMENTS         as comments,
+			COPY_ID          as copyId,
+			COPY_PROGRESS    as copyProgress,
+			COPY_STATUS      as copyStatus,
+			COPY_USRID       as copyUsrid,
+			CPROGRESS        as cprogress,
+			CTI_ID           as ctiId,
+			CYN              as cyn,
+			C_JOB_STATUS     as cJobStatus,
+			DOWN_PROGRESS    as downProgress,
+			DOWN_STATUS      as downStatus,
+			DOWN_USRID       as downUsrid,
+			DSTATUS          as dstatus,
+			FILENAME         as filename,
+			JOB_STATUS       as jobStatus,
+			NUM              as num,
+			OBJ_NAME         as objName,
+			PATH             as path,
+			PRIORITY         as priority,
+			PROGRESS         as progress,
+			RECORVER_ID      as recorverId,
+			REG_DTM          as regDtm,
+			REG_USER         as regUser,
+			REQ_USER         as reqUser,
+			RE_COPY_REG_DT   as reCopyRegDt,
+			SCOUNT           as scount,
+			TITLE            as title,
+			UPDT_DTM         as updtDtm,
+			UPDT_USER        as updtUser,
+			URL              as url,
+			USE_YN           as useYn     
+		FROM CONTENTS_LOC_TBL
+		<dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="ctiId">
+		         CTI_ID = #ctiId#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="objName">
+		         OBJ_NAME = #objName#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="num">
+		         NUM = #num#
+	         </isNotEmpty>
+		</dynamic>
+		<isEqual property="wait" compareValue="true">
+         	with UR
+		</isEqual>
+    </select>
+    
+    <update id="updateContentLoc" parameterClass="ContentLoc">
+    	UPDATE CONTENTS_LOC_TBL set USE_YN='Y'
+   			<isNotNull prepend="," property="progress">
+		         PROGRESS = #progress#
+	        </isNotNull>
+	        <isNotNull prepend="," property="jobStatus">
+		         JOB_STATUS = #jobStatus#
+	        </isNotNull>
+   			<isNotNull prepend="," property="updtDtm">
+		         UPDT_DTM = #updtDtm#
+	        </isNotNull>
+	        <isNotNull prepend="," property="updtUser">
+		         UPDT_USER = #updtUser#
+	        </isNotNull>
+   			<isNotNull prepend="," property="cyn">
+		         CYN = #cyn#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupDt">
+		         BACKUP_DT = #backupDt#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupId">
+		         BACKUP_ID = #backupId#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupProgress">
+		         BACKUP_PROGRESS = #backupProgress#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupStatus">
+		         BACKUP_STATUS = #backupStatus#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupUsrid">
+		         BACKUP_USRID = #backupUsrid#
+	        </isNotNull>
+	        <isNotNull prepend="," property="backupYn">
+		         BACKUP_YN = #backupYn#
+	        </isNotNull>
+	        <isNotNull prepend="," property="changeProgress">
+		         CHANGE_PROGRESS = #changeProgress#
+	        </isNotNull>
+	        <isNotNull prepend="," property="changeStatus">
+		         CHANGE_STATUS = #changeStatus#
+	        </isNotNull>
+	        <isNotNull prepend="," property="changeUsrid">
+		         CHANGE_USRID = #changeUsrid#
+	        </isNotNull>
+	        <isNotNull prepend="," property="comments">
+		         COMMENTS = #comments#
+	        </isNotNull>
+	        <isNotNull prepend="," property="copyId">
+		         COPY_ID = #copyId#
+	        </isNotNull>
+	        <isNotNull prepend="," property="copyProgress">
+		         COPY_PROGRESS = #copyProgress#
+	        </isNotNull>
+	        <isNotNull prepend="," property="copyStatus">
+		         COPY_STATUS = #copyStatus#
+	        </isNotNull>
+	        <isNotNull prepend="," property="copyUsrid">
+		         COPY_USRID = #copyUsrid#
+	        </isNotNull>
+	        <isNotNull prepend="," property="cprogress">
+		         CPROGRESS = #cprogress#
+	        </isNotNull>
+	        <isNotNull prepend="," property="cJobStatus">
+		         C_JOB_STATUS = #cJobStatus#
+	        </isNotNull>
+	        <isNotNull prepend="," property="downProgress">
+		         DOWN_PROGRESS = #downProgress#
+	        </isNotNull>
+	        <isNotNull prepend="," property="downStatus">
+		         DOWN_STATUS = #downStatus#
+	        </isNotNull>
+	        <isNotNull prepend="," property="downUsrid">
+		         DOWN_USRID = #downUsrid#
+	        </isNotNull>
+	        <isNotNull prepend="," property="dstatus">
+		         DSTATUS = #dstatus#
+	        </isNotNull>
+	        <isNotNull prepend="," property="recorverId">
+		         RECORVER_ID = #recorverId#
+	        </isNotNull>
+	        <isNotNull prepend="," property="reCopyRegDt">
+		         RE_COPY_REG_DT = #reCopyRegDt#
+	        </isNotNull>
+	        <isNotNull prepend="," property="url">
+		         URL = #url#
+	        </isNotNull>
+	        <isNotNull prepend="," property="eqId">
+		         CHANGE_EQ_ID = #eqId#
+	        </isNotNull>
+    	WHERE OBJ_NAME = #objName#
+    </update>
+    
+    <insert id="insertContentLoc" parameterClass="ContentLoc">
+    	<selectKey keyProperty="num" resultClass="java.lang.Long">
+    		select nextval for SEQ_LOC_NUM from sysibm.sysdummy1
+    	</selectKey>
+    	INSERT INTO CONTENTS_LOC_TBL (
+    		NUM, CTI_ID, OBJ_NAME, JOB_STATUS, ASTATUS, REG_USER, REG_DTM, PATH, CYN, PROGRESS, SCOUNT, USE_YN,  FILENAME
+    	) VALUES (
+    		#num:NUMERIC:0#, #ctiId:NUMERIC:0#, #objName:VARCHAR:NO_ENTRY#, #jobStatus:VARCHAR:NO_ENTRY#, #astatus:VARCHAR:NO_ENTRY#, #regUser:VARCHAR:NO_ENTRY#, #regDtm:VARCHAR:NO_ENTRY#, #path:VARCHAR:NO_ENTRY#, #cyn:VARCHAR:NO_ENTRY#, #progress:VARCHAR:NO_ENTRY#, #scount:INTEGER:0#, #useYn:VARCHAR:NO_ENTRY#, #filename:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    
+ </sqlMap>

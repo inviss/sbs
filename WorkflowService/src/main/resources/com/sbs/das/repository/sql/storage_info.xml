@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="StorageInfo">
+	<typeAlias alias="StorageInfo" type="com.sbs.das.dto.StorageInfoTbl"/>
+        
+    <resultMap id="StorageInfoMap" class="StorageInfo">
+		<result property="path" column="PATH" />
+		<result property="folderNm" column="FOLDER_NM" />
+		<result property="totalVolume" column="TOTAL_VOLUME" />
+		<result property="useVolume" column="USE_VOLUME" />
+		<result property="passibleVolume" column="PASSIBLE_VOLUME" />
+		<result property="limit" column="LIMIT" />
+		<result property="desc" column="DESC" />
+		<result property="lastModified" column="LAST_MODIFIED" />
+    </resultMap>
+    
+    <select id="findStorageInfo" resultMap="StorageInfoMap" parameterClass="map">
+	     SELECT  
+             *
+         FROM STORAGE_INFO_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="path">
+		         PATH like #path#
+	         </isNotEmpty>
+         </dynamic>
+         order by PATH asc
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getStorageInfo" resultClass="StorageInfo" parameterClass="map">
+		SELECT  
+			PATH as       path, 				
+			FOLDER_NM as   folderNm, 		
+			TOTAL_VOLUME as       totalVolume, 				
+			USE_VOLUME as  useVolume, 		
+			PASSIBLE_VOLUME as         passibleVolume, 					
+			LIMIT as         limit, 					
+			DESC as     desc
+			
+		FROM STORAGE_INFO_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="path">
+	        	PATH = #path#
+	        </isNotEmpty>
+        </dynamic>
+        order by PATH asc
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <update id="updateStorageInfo" parameterClass="StorageInfo">
+    	UPDATE STORAGE_INFO_TBL set LAST_MODIFIED = #lastModified#
+   		<isNotNull prepend="," property="totalVolume">
+   			TOTAL_VOLUME = #totalVolume#
+   		</isNotNull>
+   		<isNotNull prepend="," property="useVolume">
+   			USE_VOLUME = #useVolume#
+   		</isNotNull>
+   		<isNotNull prepend="," property="passibleVolume">
+   			PASSIBLE_VOLUME = #passibleVolume#
+   		</isNotNull>
+   		<isNotNull prepend="," property="limit">
+   			LIMIT = #limit#
+   		</isNotNull>
+    	WHERE PATH = #path#
+    </update>
+    
+    <insert id="insertStorageInfo" parameterClass="StorageInfo">
+    	INSERT INTO STORAGE_INFO_TBL (
+		   PATH, FOLDER_NM, TOTAL_VOLUME, USE_VOLUME, PASSIBLE_VOLUME, LIMIT, DESC
+		)VALUES(
+			#path:VARCHAR:NO_ENTRY#, #folderNm:VARCHAR:NO_ENTRY#, #totalVolume:NUMBER:-9999#, #useVolume:NUMBER:-9999#, #passibleVolume:NUMBER:-9999#, #limit:VARCHAR:NO_ENTRY#, #desc:VARCHAR:NO_ENTRY#
+		)
+    </insert>
+    
+ </sqlMap>
