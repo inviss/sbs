@@ -1,0 +1,244 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>ifcms-parent</artifactId>
+		<groupId>com.sbs</groupId>
+		<version>1.0</version>
+		<relativePath>../ifcms-parent/pom.xml</relativePath>
+	</parent>
+	<groupId>kr.co.d2net</groupId>
+	<artifactId>das-search</artifactId>
+	<version>1.42a</version>
+	
+	<properties>
+		<slf.version>1.6.1</slf.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.sbs</groupId>
+			<artifactId>ifcms</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sbs</groupId>
+			<artifactId>ifcms-http</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- JAXB -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.1</version>
+		</dependency>
+		
+		<!-- log libarary -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Axis -->
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml</groupId>
+            <artifactId>jaxrpc</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml</groupId>
+            <artifactId>jaxrpc-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        
+        <!-- Test libarary -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		
+		
+		<!-- Eclipse Link -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+        
+        <dependency>
+			<groupId>stax</groupId>
+			<artifactId>stax-api</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+	</dependencies>
+	
+	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+	  			<inherited>true</inherited>
+	  			<groupId>org.apache.maven.plugins</groupId>
+	  			<artifactId>maven-source-plugin</artifactId>
+	  			<executions>
+	  				<execution>
+	  					<id>attach-sources</id>
+	  					<goals>
+	  						<goal>jar</goal>
+	  					</goals>
+	  				</execution>
+	  			</executions>
+	  		</plugin>
+	  		<plugin>
+	  			<groupId>org.apache.maven.plugins</groupId>
+	  			<artifactId>maven-compiler-plugin</artifactId>
+	  			<version>2.3.1</version>
+	  			<configuration>
+	  				<source>1.5</source>
+	  				<target>1.5</target>
+	  				<encoding>UTF-8</encoding>
+	  			</configuration>
+	  		</plugin>
+	  		<plugin>
+	  			<groupId>org.apache.maven.plugins</groupId>
+	  			<artifactId>maven-resources-plugin</artifactId>
+	  			<version>2.4.3</version>
+	  			<configuration>
+	  				<encoding>UTF-8</encoding>
+	  			</configuration>
+	  		</plugin>
+	  		<plugin>
+	  			<groupId>org.apache.maven.plugins</groupId>
+	  			<artifactId>maven-dependency-plugin</artifactId>
+	  			<executions>
+	  				<execution>
+	  					<id>install</id>
+	  					<phase>install</phase>
+	  					<goals>
+	  						<goal>sources</goal>
+	  					</goals>
+	  				</execution>
+	  			</executions>
+	  		</plugin>
+	  		<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-eclipse-plugin</artifactId>
+		        <configuration>
+					<downloadJavadocs>true</downloadJavadocs>
+					<downloadSources>true</downloadSources>
+					<additionalConfig>
+						<file>
+							<name>.settings/org.eclipse.core.resources.prefs</name>
+							<content>
+								<![CDATA[eclipse.preferences.version=1 encoding/<project>=UTF-8]]>
+							</content>
+						</file>
+					</additionalConfig>
+		        </configuration>
+			</plugin>
+			<plugin>
+				 <groupId>org.apache.maven.plugins</groupId>
+		  		<artifactId>maven-assembly-plugin</artifactId>
+		  		<configuration>
+		  			<descriptorRefs>
+		  				<descriptor>jar-with-dependencies</descriptor>
+		  			</descriptorRefs>
+		  		</configuration>
+		  	</plugin>
+		</plugins>
+	</build>
+  	<repositories>
+		<repository>
+			<id>com.springsource.repository.bundles.release</id>
+			<name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/release</url>
+		</repository>
+		<repository>
+			<id>com.springsource.repository.bundles.external</id>
+			<name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/external</url>
+		</repository>
+		<repository>
+			<id>mvn2</id>
+			<url>http://repo1.maven.org/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		
+		<repository>
+			<id>atlassian</id>
+			<url>http://maven.atlassian.com/repository/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		
+		<!-- jboss Repository -->
+		<repository>
+			<id>JBoss</id>
+			<name>JBoss Repsitory</name>
+			<layout>default</layout>
+			<url>http://repository.jboss.org/maven2</url>
+		</repository>
+		
+		<repository>
+			<id>EclipseLink Repo</id>
+			<url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+	</repositories>
+</project>
