@@ -4062,7 +4062,7 @@ public class ServiceNevigator implements Nevigator {
 			storageInfo.setPath(m2Prefix);
 			storageInfo.setFolderNm("고용량 스토리지");
 			storageInfo.setTotalVolume((Long)Utility.QUOTA_CHECK.get(m2Prefix));
-			das.addStorages(storageInfo); 
+			das.addStorages(storageInfo);
 
 			for(StorageInfoTbl storageInfoTbl : infoTbls) {
 
