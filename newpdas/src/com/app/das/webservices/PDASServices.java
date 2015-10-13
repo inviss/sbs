@@ -19,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.app.das.business.CodeBusinessProcessor;
@@ -7171,6 +7172,7 @@ public class PDASServices {
 
 	/**
 	 * 타 DB에서  부서 정보를 받아온다.
+	 * operation_type == status [C:생성, U:변경, D:삭제, S:동기화]
 	 * @param EmployeeDASRoleDO                                                                                                                                                                                              
 	 * @return                   
 	 * @throws DASException
@@ -7831,7 +7833,7 @@ public class PDASServices {
 	 * @throws RemoteException
 	 */
 	public String updateTcState(String tcBeanDO)throws RemoteException{
-		logger.info("#####updateTcState START#####  tcBeanDO : "   +tcBeanDO);
+		//logger.debug("#####updateTcState START#####  tcBeanDO : "   +tcBeanDO);
 		try {
 			ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 			TcBeanDOXML _doXML = new TcBeanDOXML();
@@ -9057,6 +9059,7 @@ public class PDASServices {
 		logger.debug("######insertPdasArchive########");
 		return 0;
 	}
+	
 	/**
 	 * ERP 정보를 테이블에 등록한다.(벌크)
 	 * @param ErpAppointDO                                                                                                                                                                                              
@@ -9066,16 +9069,16 @@ public class PDASServices {
 	public int getOrderInfo() throws RemoteException{
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
-			return insertERPUserInfo(_processor.getOrderInfo());
+			String retVal = _processor.getOrderInfo();
+			if(StringUtils.isBlank(retVal)) return -1;
+			else
+				return insertERPUserInfo(retVal);
 		} catch (Exception e) {
 			logger.error("getOrderInfo", e);
-			// TODO: handle exception
+			return 0;
 		}
-		return 0;
 	}
 
-
-	
 	
 	/**
 	 *테스트 함수들

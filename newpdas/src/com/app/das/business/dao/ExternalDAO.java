@@ -38233,7 +38233,10 @@ public class ExternalDAO extends AbstractDAO
 				item.setRpimgCtId(rs.getLong("RPIMG_CT_ID"));
 				item.setMetaRpimgKfrmSeq(rs.getLong("META_RPIMG_KFRM_SEQ"));
 				item.setMetaRpimgCtId(rs.getLong("META_RPIMG_CT_ID"));
-				item.setCnInfo(rs.getString("CN_INFO"));
+				
+				// 2015-10-12 Das Client에서 info 내용 끝부분에 공백이 있으면 오류가 발생함.
+				String cnInfo = rs.getString("CN_INFO");
+				item.setCnInfo(cnInfo == null ? "" : cnInfo.trim());
 				item.setCtId(rs.getLong("CT_ID"));
 				item.setCtNm(rs.getString("CT_NM"));
 				item.setRegDt(rs.getString("REG_DT"));
@@ -38247,7 +38250,10 @@ public class ExternalDAO extends AbstractDAO
 				item.setCtCla(rs.getString("CT_CLA"));
 				item.setTotKfrmNums(rs.getInt("TOT_KFRM_NUMS"));
 				item.setMediaId(rs.getString("MEDIA_ID"));
-				item.setCont(rs.getString("CONT"));
+				
+				// 2015-10-12 Das Client에서 info 내용 끝부분에 공백이 있으면 오류가 발생함.
+				String conf = rs.getString("CONT");
+				item.setCont(conf == null ? "" : conf.trim());
 				item.setCtiId(rs.getLong("CTI_ID"));
 				item.setIngestEqId(rs.getString("INGEST_EQ_ID"));
 				String hr = rs.getString("FL_PATH");
@@ -38304,7 +38310,10 @@ public class ExternalDAO extends AbstractDAO
 						annotInfo.setAnnotId(rs_annot.getLong("ANNOT_ID"));
 						annotInfo.setCtId(rs_annot.getLong("CT_ID"));
 						annotInfo.setAnnotClfCd(rs_annot.getString("ANNOT_CLF_CD"));
-						annotInfo.setAnnotClfCont(rs_annot.getString("ANNOT_CLF_CONT"));
+						
+						// 2015-10-12 Das Client에서 info 내용 끝부분에 공백이 있으면 오류가 발생함.
+						String annotClfConf = rs_annot.getString("ANNOT_CLF_CONT");
+						annotInfo.setAnnotClfCont(annotClfConf == null ? "" : annotClfConf.trim());
 						annotInfo.setSom(rs_annot.getString("SOM"));
 						annotInfo.setEom(rs_annot.getString("EOM"));
 						annotInfo.setGubun(rs_annot.getString("GUBUN"));

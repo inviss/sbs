@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.xml.rpc.holders.StringHolder;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.app.das.business.constants.CodeConstants;
@@ -614,7 +615,7 @@ public class EmployeeRoleBusinessProcessor
 	{
 		try 
 		{
-			if(condition.getSearchtype().equals("")){
+			if(StringUtils.isBlank(condition.getSearchtype())){
 				return userRoleDAO.selecEmployeeRoleList(condition);
 			}else if(condition.getSearchtype().equals("2")){
 

@@ -1688,8 +1688,18 @@ public class CommonUtl {
 
 		return args;
 	}
-
-
+	
+	/**
+	 * 특수문자를 제거한다.
+	 * // 가-힣 or 0-9 or a-z or A-Z or , or ! or _ or - or [] or () or :
+	 * @param value
+	 * @return
+	 */
+	public static String removeCharacter(String value) {
+		String match = "[^\\r\\n\\u003A\\u005F\\u002D\\u005B\\u005D\\uAC00-\\uD7A30-9a-zA-Z\\u002C\\u0021\\u0028-\\u0029\\s]";
+	    return value.replaceAll(match, " ");
+	}
+	
 	/**
 	 * Request를 Map형태로 변환
 	 *

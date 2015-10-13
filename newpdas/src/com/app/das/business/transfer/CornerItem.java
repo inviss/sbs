@@ -4,6 +4,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.app.das.util.AdaptorCDATA;
+import com.sun.xml.txw2.annotation.XmlCDATA;
 
 @XmlRootElement(name="corner")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -27,6 +31,7 @@ public class CornerItem {
 	private Long metaRpimgKfrmSeq;
 	@XmlElement(name="META_RPIMG_CT_ID")
 	private Long metaRpimgCtId;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="CN_INFO")
 	private String cnInfo;
 	@XmlElement(name="CT_ID")
@@ -55,6 +60,7 @@ public class CornerItem {
 	private Integer totKfrmNums;
 	@XmlElement(name="MEDIA_ID")
 	private String mediaId;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="CONT")
 	private String cont;
 	@XmlElement(name="CTI_ID")
@@ -143,9 +149,11 @@ public class CornerItem {
 	public void setRpimgCtId(Long rpimgCtId) {
 		this.rpimgCtId = rpimgCtId;
 	}
+	@XmlCDATA
 	public String getCnInfo() {
 		return cnInfo;
 	}
+	@XmlCDATA
 	public void setCnInfo(String cnInfo) {
 		this.cnInfo = cnInfo;
 	}
@@ -227,9 +235,11 @@ public class CornerItem {
 	public void setMediaId(String mediaId) {
 		this.mediaId = mediaId;
 	}
+	@XmlCDATA
 	public String getCont() {
 		return cont;
 	}
+	@XmlCDATA
 	public void setCont(String cont) {
 		this.cont = cont;
 	}

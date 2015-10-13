@@ -1,7 +1,3 @@
-package com.sbs.erp.service;
-
-import java.util.ResourceBundle;
-
 /**
  * OrderCallServiceServiceLocator.java
  *
@@ -9,11 +5,10 @@ import java.util.ResourceBundle;
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
+package com.sbs.erp.service;
 
 public class OrderCallServiceServiceLocator extends org.apache.axis.client.Service implements OrderCallServiceService {
 
-	private static ResourceBundle bundle = ResourceBundle.getBundle("das");
-	
     public OrderCallServiceServiceLocator() {
     }
 
@@ -27,7 +22,7 @@ public class OrderCallServiceServiceLocator extends org.apache.axis.client.Servi
     }
 
     // Use to get a proxy class for OrderCallService
-    private java.lang.String OrderCallService_address = bundle.getString("ERP_SOAP_URL");
+    private java.lang.String OrderCallService_address = "http://wise.sbs.co.kr/ErpOrderService/services/OrderCallService";
 
     public java.lang.String getOrderCallServiceAddress() {
         return OrderCallService_address;

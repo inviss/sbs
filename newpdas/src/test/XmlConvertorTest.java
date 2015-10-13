@@ -11,7 +11,7 @@ public class XmlConvertorTest {
 		try {
 			
 			ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
-			String xml =_processor.getSceanInfo(61102); //308578, 108014
+			String xml =_processor.getSceanInfo(308578); //308578, 108014, 323034
 			System.out.println(xml);
 			
 			/*

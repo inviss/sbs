@@ -6172,6 +6172,7 @@ public class ExternalStatement
 
 		int end_page=monitoringDO.getStart_page()+99;
 		buf.append("\n and " + end_page);
+		buf.append("\n with ur");
 
 
 		return buf.toString();	

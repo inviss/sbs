@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.app.das.util.AdaptorCDATA;
+import com.sun.xml.txw2.annotation.XmlCDATA;
 
 /**
  * 스토리보드
@@ -31,6 +35,7 @@ public class Corner {
 	@XmlElement(name="ct_nm")
 	private String ctNm;
 	@XmlElement(name="cn_info")
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	private String cnInfo;
 	@XmlElement(name="title")
 	private String title;
@@ -58,9 +63,11 @@ public class Corner {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	@XmlCDATA
 	public String getCnInfo() {
 		return cnInfo;
 	}
+	@XmlCDATA
 	public void setCnInfo(String cnInfo) {
 		this.cnInfo = cnInfo;
 	}

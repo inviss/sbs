@@ -4718,10 +4718,15 @@ public class ExternalBusinessProcessor
 			logger.debug("[getOrderInfo] start getOrderInfo Service");	
 		}
 		try {
+			String maxValue = externalDAO.selectERPAppointMaxSeqQuery();
+			if(logger.isDebugEnabled()) {
+				logger.debug("order max value : "+maxValue);
+			}
+			
 			OrderCallServiceProxy port = new OrderCallServiceProxy();
-			return port.getOrderInfoList(Integer.parseInt(externalDAO.selectERPAppointMaxSeqQuery()));
+			return port.getOrderInfoList(Integer.parseInt(maxValue));
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error("OrderCallService Error", e);
 		}
 		return "";
 	}

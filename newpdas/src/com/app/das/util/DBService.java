@@ -1,6 +1,7 @@
 package com.app.das.util;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javax.naming.NamingException;
@@ -42,6 +43,7 @@ public class DBService
 	 * @param jndiPoolName  특정 Connection Pool에 대한 JNDI Name
 	 * @return  Connection  Connection Pool로 부터 얻어진 Connection Object
 	 */
+	
 	public Connection getConnection() throws NamingException, SQLException 
 	{
 		Connection conn = null;
@@ -60,6 +62,27 @@ public class DBService
 			throw se;
 		}
 	}
+	
+	/*
+	public Connection getConnection() throws NamingException, SQLException
+	{
+		Connection conn = null;
+		try 
+		{
+			String url = "jdbc:db2://10.150.12.161:50000/dasdb";
+			String user = "das";
+			String password = "das";
+			
+			Class.forName("com.ibm.db2.jcc.DB2Driver").newInstance();
+			conn = DriverManager.getConnection(url, user, password);
+			return conn;
+		} 
+		catch (Exception ne) 
+		{
+			throw new NamingException(ne.getMessage());
+		}
+	}
+	*/
 	
 	/**
 	 * Connection Pool에 대한 JNDI Name으로 ERP DB Connection을 얻어서 반환한다.

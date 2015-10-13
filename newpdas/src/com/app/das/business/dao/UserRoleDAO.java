@@ -6379,6 +6379,9 @@ throw e;
 		buf.append("\n 	,SUP_HTPO_CD =?  ");
 		buf.append("\n 	,SUP_HTPO_NM = ? ");
 		buf.append("\n 	,SUP_HTPO_SEQ =? ");
+		if(infoDO.getStatus().equalsIgnoreCase("c")) {
+			buf.append("\n 	,USE_YN = 'Y' ");
+		}
 		buf.append("\n where   ");
 		buf.append("\n DEPT_CD = ?  ");
 		buf.append("\n and COCD = ?  ");
