@@ -23,5 +23,4 @@ public interface TansferPortType extends java.rmi.Remote {
      * ìììíë¥¼ ê°ì ¸ìµëë¤.
      */
     public java.lang.String getTaskStatus(java.lang.String request) throws java.rmi.RemoteException;
-    
 }

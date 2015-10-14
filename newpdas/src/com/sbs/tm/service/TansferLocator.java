@@ -7,14 +7,9 @@
 
 package com.sbs.tm.service;
 
-import java.util.ResourceBundle;
+public class TansferLocator extends org.apache.axis.client.Service implements Tansfer {
 
-public class TansferLocator extends org.apache.axis.client.Service implements  Tansfer {
-
-	private static ResourceBundle bundle = ResourceBundle.getBundle("das");
-	
     public TansferLocator() {
-    	
     }
 
 
@@ -27,9 +22,8 @@ public class TansferLocator extends org.apache.axis.client.Service implements  T
     }
 
     // Use to get a proxy class for TansferPort
-    //private java.lang.String TansferPort_address = "http://10.150.22.61:8070/TMService.php";
-   // private java.lang.String TansferPort_address = "http://10.30.23.48:8070/TMService.php";
-    private String TansferPort_address = bundle.getString("DAS_TM_URL");
+    private java.lang.String TansferPort_address = "http://10.150.22.61:8070/php";
+
     public java.lang.String getTansferPortAddress() {
         return TansferPort_address;
     }
@@ -45,10 +39,9 @@ public class TansferLocator extends org.apache.axis.client.Service implements  T
         TansferPortWSDDServiceName = name;
     }
 
-    public  TansferPortType getTansferPort() throws javax.xml.rpc.ServiceException {
+    public TansferPortType getTansferPort() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
-        	System.out.println("TansferPort_address=======>"+TansferPort_address);
             endpoint = new java.net.URL(TansferPort_address);
         }
         catch (java.net.MalformedURLException e) {
@@ -57,9 +50,9 @@ public class TansferLocator extends org.apache.axis.client.Service implements  T
         return getTansferPort(endpoint);
     }
 
-    public  TansferPortType getTansferPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public TansferPortType getTansferPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-             TansferBindingStub _stub = new  TansferBindingStub(portAddress, this);
+            TansferBindingStub _stub = new TansferBindingStub(portAddress, this);
             _stub.setPortName(getTansferPortWSDDServiceName());
             return _stub;
         }
@@ -79,8 +72,8 @@ public class TansferLocator extends org.apache.axis.client.Service implements  T
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if ( TansferPortType.class.isAssignableFrom(serviceEndpointInterface)) {
-                 TansferBindingStub _stub = new  TansferBindingStub(new java.net.URL(TansferPort_address), this);
+            if (TansferPortType.class.isAssignableFrom(serviceEndpointInterface)) {
+                TansferBindingStub _stub = new TansferBindingStub(new java.net.URL(TansferPort_address), this);
                 _stub.setPortName(getTansferPortWSDDServiceName());
                 return _stub;
             }

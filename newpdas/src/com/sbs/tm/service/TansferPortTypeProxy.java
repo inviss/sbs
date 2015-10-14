@@ -1,8 +1,8 @@
 package com.sbs.tm.service;
 
-public class TansferPortTypeProxy implements  TansferPortType {
+public class TansferPortTypeProxy implements TansferPortType {
   private String _endpoint = null;
-  private  TansferPortType tansferPortType = null;
+  private TansferPortType tansferPortType = null;
   
   public TansferPortTypeProxy() {
     _initTansferPortTypeProxy();
@@ -15,7 +15,7 @@ public class TansferPortTypeProxy implements  TansferPortType {
   
   private void _initTansferPortTypeProxy() {
     try {
-      tansferPortType = (new  TansferLocator()).getTansferPort();
+      tansferPortType = (new TansferLocator()).getTansferPort();
       if (tansferPortType != null) {
         if (_endpoint != null)
           ((javax.xml.rpc.Stub)tansferPortType)._setProperty("javax.xml.rpc.service.endpoint.address", _endpoint);
@@ -38,7 +38,7 @@ public class TansferPortTypeProxy implements  TansferPortType {
     
   }
   
-  public  TansferPortType getTansferPortType() {
+  public TansferPortType getTansferPortType() {
     if (tansferPortType == null)
       _initTansferPortTypeProxy();
     return tansferPortType;

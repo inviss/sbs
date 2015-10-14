@@ -10,7 +10,7 @@ package com.sbs.tm.service;
 public interface Tansfer extends javax.xml.rpc.Service {
     public java.lang.String getTansferPortAddress();
 
-    public  TansferPortType getTansferPort() throws javax.xml.rpc.ServiceException;
+    public TansferPortType getTansferPort() throws javax.xml.rpc.ServiceException;
 
-    public  TansferPortType getTansferPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
+    public TansferPortType getTansferPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
 }
