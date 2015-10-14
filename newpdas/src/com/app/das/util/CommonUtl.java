@@ -3305,13 +3305,9 @@ public class CommonUtl {
 		long frame;
 
 		hh = Integer.parseInt(timecode.substring(0, 2));     // 타임코드의 처음 2자리(시간)를 숫자로 변환
-		System.out.println(timecode.substring(0, 2));
 		mm = Integer.parseInt(timecode.substring(3, 5));   // 타임코드의 : 다음 2자리(분)를 숫자로 변환
-		System.out.println(timecode.substring(3, 5));
 		ss = Integer.parseInt(timecode.substring(6, 8));      // 타임코드의 : 다음 2자리(초)를 숫자로 변환
-		System.out.println(timecode.substring(6, 8));
 		ff = Integer.parseInt(timecode.substring(9)); ;     // 타임코드의 : 다음 2자리(프레임)를 숫자로 변환
-		System.out.println(timecode.substring(9)); 
 		m10 = mm / 10; // mm div 10;
 		m1 = mm % 10;
 		frame = hh * 107892 + m10 * 17982;
