@@ -4484,46 +4484,25 @@ public class ExternalBusinessProcessor
 		logger.debug("[DoAddTask][input num]"+num);
 		
 		String rtnValue="";
-		String xml="";
-		int errorcount =0;
-		xml = externalDAO.selectAddTaskForXml(num);
-		try {
-			String tmURL = dasHandler.getProperty("DAS_TM_URL");
-			logger.debug("[DoAddTask][TM_SOAP_URL]: "+tmURL);
-			
-			Tansfer transfer = new TansferLocator();
-			TansferPortType  port = transfer.getTansferPort(new URL(tmURL));
-			
-			rtnValue = port.addTask(xml);
-			return 		rtnValue;
-
-		} catch (RemoteException e) {
+		String xml = externalDAO.selectAddTaskForXml(num);
+		
+		String tmURL = dasHandler.getProperty("DAS_TM_URL");
+		logger.debug("[DoAddTask][TM_SOAP_URL]: "+tmURL);
+		
+		for(int i=0; i<3; i++) {
 			try {
-				errorcount=1;
-				logger.debug("###errorcount"+errorcount);
-				TansferPortTypeProxy port = new TansferPortTypeProxy();
+				Tansfer transfer = new TansferLocator();
+				TansferPortType  port = transfer.getTansferPort(new URL(tmURL));
+				
 				rtnValue = port.addTask(xml);
-				logger.debug("return value : "+rtnValue);
-				return 		rtnValue;
-			} catch (RemoteException e1) {
-				try {
-					errorcount=2;
-					logger.debug("###errorcount"+errorcount);
-					TansferPortTypeProxy port = new TansferPortTypeProxy();
-
-					rtnValue = port.addTask(xml);
-					logger.debug("return value : "+rtnValue);
-					return 		rtnValue;
-				} catch (RemoteException e2) {
-					// TODO Auto-generated catch block
-					logger.error("addtask error is "+e2);
-				}
+				break;
+			} catch (Exception e) {
+				logger.error("TM AddTask Error recount("+i+")", e);
+				continue;
 			}
-
-		} catch (Exception e) {
-			throw e;
 		}
-		return "";
+		
+		return rtnValue;
 	}
 
 	/**
