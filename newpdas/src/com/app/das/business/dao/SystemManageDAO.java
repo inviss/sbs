@@ -14726,8 +14726,8 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "");			//MODRID
 			stmt.setString(++index, "");	//MOD_DT
 			if(StringUtils.isNotEmpty(pdsInfoDO.getBrd_leng())){
-			long duration = commonUtl.changeTime(pdsInfoDO.getBrd_leng());
-			stmt.setLong(++index, duration);//DURATION
+				long duration = commonUtl.changeTime(pdsInfoDO.getBrd_leng());
+				stmt.setLong(++index, duration);//DURATION
 			}else{
 				stmt.setLong(++index, 0);//DURATION
 			}
@@ -14736,21 +14736,15 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "Y");	//ENTIRE_YN
 
 			updateCount = stmt.executeUpdate();
-
-
-			if (logger.isDebugEnabled()) 
-			{
+			if (logger.isDebugEnabled())  {
 				logger.debug("[Inserted Count]" + updateCount);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
-
-
 			con.commit();
 			return updateCount;
 		} 
