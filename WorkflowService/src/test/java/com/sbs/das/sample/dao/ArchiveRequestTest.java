@@ -592,7 +592,7 @@ public class ArchiveRequestTest extends BaseConfig {
 
 	 
 	//@Transactional
-  @Ignore
+    @Ignore
 	@Test
 	public void addClip() {
 		//mxf 영상 메타 삽입
@@ -4588,7 +4588,7 @@ public class ArchiveRequestTest extends BaseConfig {
 
 
 	@Transactional
-	@Ignore
+	//@Ignore
 	@Test
 	public void checkStorage() {
 		String xml ="<?xml version=\"1.0\" encoding=\"utf-8\"?><das><info><disk_path /></info></das>";
@@ -4926,6 +4926,7 @@ public class ArchiveRequestTest extends BaseConfig {
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void insertRistInfo(){
 		
@@ -4966,5 +4967,27 @@ public class ArchiveRequestTest extends BaseConfig {
 		}
 	}
 	
+	@Ignore
+	@Test
+	public void getRistInfo(){
+		try {
+			MasterTbl masterTbl = new MasterTbl();
+			TimeRistSetTbl timeRistSetTbl = addClipForTapeService.getTimeRistSet(5, "204440");
+			if(timeRistSetTbl != null) {
+				masterTbl.setRistClfCd(timeRistSetTbl.getRistClfCd());
 
+				// DAS Client에서 해당 시간에 입력된 pds_pgm_id를 입력해준다.
+				// 2014-07_07
+				masterTbl.setPdsCmsPgmId(timeRistSetTbl.getPdsPgmId());
+				if(logger.isDebugEnabled()) {
+					logger.debug("db rist_clf_cd: "+timeRistSetTbl.getRistClfCd());
+				}
+			} else {
+				masterTbl.setRistClfCd("007");
+			}
+			System.out.println(masterTbl.getRistClfCd());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
