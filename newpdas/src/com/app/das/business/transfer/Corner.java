@@ -37,6 +37,7 @@ public class Corner {
 	@XmlElement(name="cn_info")
 	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	private String cnInfo;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="title")
 	private String title;
 	@XmlElement(name="media_id")

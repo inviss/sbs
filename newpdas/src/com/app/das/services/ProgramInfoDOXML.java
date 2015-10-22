@@ -1,6 +1,7 @@
 package com.app.das.services;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -8,12 +9,16 @@ import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.ProgramInfoDO;
 import com.app.das.util.CommonUtl;
+import com.app.das.webservices.PDASServices;
 /**
  *   프로그램 메타 정보 관련 XML파서
  * @author asura207
  *
  */
 public class ProgramInfoDOXML extends DOXml {
+	
+	private Logger logger = Logger.getLogger(ProgramInfoDOXML.class);
+	
 	/**
 	 * xml해더
 	 */ 
@@ -548,6 +553,9 @@ public class ProgramInfoDOXML extends DOXml {
 
 	public String getSubXML3() {
 		ProgramInfoDO infoDO = (ProgramInfoDO)getDO();
+		if(logger.isInfoEnabled()) {
+			logger.info("total count: "+infoDO.getTotalpage());
+		}
 		StringBuffer _xml = new StringBuffer();	
 		_xml.append("<totalinfo> \n");
 		_xml.append("<" + XML_NODE_TOTALPAGE + ">" + infoDO.getTotalpage() + "</"  + XML_NODE_TOTALPAGE + "> \n");

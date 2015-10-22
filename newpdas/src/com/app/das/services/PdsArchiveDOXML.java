@@ -354,78 +354,27 @@ public class PdsArchiveDOXML extends DOXml{
 					infoDO.setEom(eom.trim());
 				}
 				else if(_nodeName2.equals(XML_NODE_VD_HRESOL)) {
-					// ''일경우 0을 넣어준다
-					if(_nodeValue2.trim().equals("")){
-						infoDO.setVd_hresol(0);
-					}else{
-						infoDO.setVd_hresol(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
-					}
-
+					infoDO.setVd_hresol(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue2, "0").replaceAll("[^0-9]", "")));
 				}	else if(_nodeName2.equals(XML_NODE_VD_VRESOL)) {
-
-					// ''일경우 0을 넣어준다
-					if(_nodeValue2.trim().equals("")){
-						infoDO.setVd_vresol(0);
-					}else{
-						infoDO.setVd_vresol(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
-					}
-
-					//infoDO.setVd_vresol(Integer.parseInt(_nodeValue2));
+					infoDO.setVd_vresol(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue2, "0").replaceAll("[^0-9]", "")));
 				}
 				else if(_nodeName2.equals(XML_NODE_FL_SZ)) {
-
-					// ''일경우 0을 넣어준다
-					if(_nodeValue2.trim().equals("")){
-						infoDO.setFl_sz(0);
-					}else{
-						infoDO.setFl_sz(Long.parseLong(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
-					}
-
-
-					//infoDO.setFl_sz(Long.parseLong(_nodeValue2));
+					infoDO.setFl_sz(Long.parseLong(StringUtils.defaultIfEmpty(_nodeValue2, "0").replaceAll("[^0-9]", "")));
 				}	
 
 				else if(_nodeName2.equals(XML_NODE_BIT_RT)) {
 					infoDO.setBit_rt(_nodeValue2);
 				}
 				else if(_nodeName2.equals(XML_NODE_AUD_SAMP_FRQ)) {
-
-
-					// ''일경우 0을 넣어준다
-					if(_nodeValue2.trim().equals("")){
-						infoDO.setAud_samp_frq(0);
-					}else{
-						infoDO.setAud_samp_frq(Float.parseFloat(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
-					}
-
-
-
-					//infoDO.setAud_samp_frq(Float.parseFloat(_nodeValue2));
+					infoDO.setAud_samp_frq(Float.parseFloat(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
 				}
 
 				else if(_nodeName2.equals(XML_NODE_AUD_BDWT)) {
-
-					// ''일경우 0을 넣어준다
-					if(_nodeValue2.trim().equals("")){
-						infoDO.setAudio_bdwt(0);
-					}else{
-						infoDO.setAudio_bdwt(Long.parseLong(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
-					}
-
-					//infoDO.setAudio_bdwt(Long.parseLong(_nodeValue2));
+					infoDO.setAudio_bdwt(Long.parseLong(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
 				}
 
 				else if(_nodeName2.equals(XML_NODE_EPIS_NO)) {
-
-					// ''일경우 0을 넣어준다
-					if(_nodeValue2.trim().equals("")){
-						infoDO.setEpis_no(0);
-					}else{
-						infoDO.setEpis_no(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
-					}
-
-					//infoDO.setEpis_no(Integer.parseInt(_nodeValue2));
-
+					infoDO.setEpis_no(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
 				}	else if(_nodeName2.equals(XML_NODE_PRODUCER_NM)) {
 					infoDO.setProducer_nm(_nodeValue2);
 				}

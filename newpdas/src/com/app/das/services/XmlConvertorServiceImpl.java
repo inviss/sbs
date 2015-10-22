@@ -13,9 +13,11 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
 
+import com.app.das.business.transfer.AttachItem;
 import com.app.das.business.transfer.Das;
 import com.app.das.business.transfer.MetaDataInfo;
 import com.app.das.business.transfer.Node;
+import com.app.das.business.transfer.Scheduler;
 import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
 
 public class XmlConvertorServiceImpl<T> implements XmlConvertorService<T> {
@@ -28,7 +30,9 @@ public class XmlConvertorServiceImpl<T> implements XmlConvertorService<T> {
 			return JAXBContext.newInstance(
 					Das.class,
 					Node.class,
-					MetaDataInfo.class
+					MetaDataInfo.class,
+					AttachItem.class,
+					Scheduler.class
 					);
 		} catch (JAXBException e) {
 			logger.error("initContext error", e);

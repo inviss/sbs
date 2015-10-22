@@ -3504,36 +3504,42 @@ public class PDASServices {
 	 */
 	public String getTotalChangelist(String programDO) throws Exception {
 		logger.info("######getTotalChangelist########"+programDO);
+		
+		StringBuffer _xml = new StringBuffer();
 		try {
 			ProgramInfoDOXML _doXML = new ProgramInfoDOXML();
 			ProgramInfoDO _doing = (ProgramInfoDO)_doXML.setDO(programDO);
 			ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 
-			List _infoList = _processor.getTotalChangelist(_doing);
-			List _infoList2 = _processor.getTotalChangelist(_doing);
-			if (_infoList != null && _infoList.size() > 0) {
-				Iterator _iter = _infoList.iterator();
-				Iterator _iter2 = _infoList2.iterator();
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
+			int totalCount  = _processor.getTotalChangeCount(_doing);
+			_doing.setTotalpage(totalCount);
+			if(logger.isInfoEnabled()) {
+				logger.info("totalCount : "+totalCount);
+			}
+			
+			List _infoList = null;
+			if(totalCount > 0) {
+				_infoList = _processor.getTotalChangelist(_doing);
+				
+				if (_infoList != null && _infoList.size() > 0) {
+					_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
+					Iterator _iter = _infoList.iterator();
 
-				ProgramInfoDOXML _do2 = new ProgramInfoDOXML();
-				_do2.setDO(_iter2.next());
-				_xml.append(_do2.getSubXML3());
+					_doXML.setDO(_doing);
+					_xml.append(_doXML.getSubXML3());
 
-				while (_iter.hasNext()) {
-					ProgramInfoDOXML _do = new ProgramInfoDOXML();
-					_do.setDO(_iter.next());
-					_xml.append(_do.getSubXML());
+					while (_iter.hasNext()) {
+						ProgramInfoDOXML _do = new ProgramInfoDOXML();
+						_do.setDO(_iter.next());
+						_xml.append(_do.getSubXML());
+					}
+					_xml.append("</das>");
 				}
-				_xml.append("</das>");
-			 
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getTotalChangelist", e);
 		}
-		return "";
+		return _xml.toString();
 	}
 
 
@@ -10332,19 +10338,16 @@ public class PDASServices {
 		long sTime1 = System.currentTimeMillis();
 		logger.info("######getBaseInfo######## master_id : " + master_id);
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		
+		String xml = "";
 		try {
-			String xml = _processor.getBaseInfo(master_id);
+			xml = _processor.getBaseInfo(master_id);
 		 
-			String return_xml =xml;
-
-			return_xml= return_xml.replaceAll( "'" ,"&apos;");
-			 
 			logger.info("######getBaseInfo end######## master_id : " + master_id);
-			return return_xml;
 		} catch (Exception e) {
 			logger.error("getBaseInfo", e);
 		}
-		return "";
+		return xml;
 	}
 	/**
 	 * 메타타이타 정보를 갱신한다.

@@ -4,6 +4,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.app.das.util.AdaptorCDATA;
 
 @XmlRootElement(name="meta")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -31,6 +34,7 @@ public class MetaDataInfo {
 	private String		brdDd;					// CHAR(8)				// 방송일자
 	@XmlElement(name="META_FINAL_BRD_YN")
 	private String		finalBrdYn;			// CHAR(1)				// 최종방송여부
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_SNPS")
 	private String		snps;					// LONGVARCHAR			// 시놉시스
 	@XmlElement(name="META_KEY_WORDS")
@@ -65,8 +69,10 @@ public class MetaDataInfo {
 	private String		cmrDrtNm;				// VARCHAR(30)			// 촬영감독명
 	@XmlElement(name="META_FM_DT")
 	private String		fmDt;					// CHAR(8) 				// 촬영일
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_CMR_PLACE")
 	private String		cmrPlace;				// VARCHAR(300)			// 촬영장소
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_SPC_INFO")
 	private String		spcInfo;				// LONGVARCHAR			// 특이사항
 	@XmlElement(name="META_REQ_CD")
@@ -91,12 +97,14 @@ public class MetaDataInfo {
 	private String		cprtrNm;				// VARCHAR(75)			// 저작권자명
 	@XmlElement(name="META_CPRT_TYPE")
 	private String 		cprtType;				// CHAR(3)				// 저작권형태코드
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_CPRT_TYPE_DSC")
 	private String		cprtTypeDsc;			// CHAR(3)				// 저작권형태설명
 	@XmlElement(name="META_VIEW_GR_CD")
 	private String		viewGrCd;				// CHAR(3)				// 시청등급코드
 	@XmlElement(name="META_DLBR_CD")
 	private String 		dlbrCd;				// CHAR(3)				// 심의결과코드
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_AWARD_HSTR")
 	private String		awardHstr;				// LONGVARCHAR			// 수상내역
 	@XmlElement(name="META_RPIMG_KFRM_SEQ")
@@ -135,8 +143,10 @@ public class MetaDataInfo {
 	private String 		copyKeep;				// CHAR(3)				// 부본보관
 	@XmlElement(name="META_CLEAN_KEEP")
 	private String 		cleanKeep;				// CHAR(3)				// 클린보관
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_MUSIC_INFO")
 	private String		musicInfo;				// VARCHAR(300)			// 음악정보
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_RST_CONT")
 	private String		rstCont;				// VARCHAR(1500)		// 제한사항
 	@XmlElement(name="META_RERUN")
@@ -212,6 +222,7 @@ public class MetaDataInfo {
 	@XmlElement(name="META_ANNOT_CLF_CD")
 	private String 		annotClfNm;			// CHAR(3)					// 사용제한 명
 
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_ANNOT_CLF_DESC")
 	private String 		annotClfCont;			// CHAR(3)					// 사용제한 내용
 
@@ -293,9 +304,11 @@ public class MetaDataInfo {
 	@XmlElement(name="META_ANNOT_CLF_DESC")
 	private String 		annotClfDesc;			// CHAR(3)					//
 
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="RESULT")
 	private String 		result;			// CHAR(3)					//
 
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="REASON")
 	private String 		reason;			// CHAR(3)					//
 

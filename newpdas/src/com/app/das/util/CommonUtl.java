@@ -1691,13 +1691,15 @@ public class CommonUtl {
 	
 	/**
 	 * 특수문자를 제거한다.
-	 * // 가-힣 or 0-9 or a-z or A-Z or , or ! or _ or - or [] or () or :
+	 * // 가-힣,0-9,a-z,A-Z,!,_,-,[],(),',",<,>,#,&,;,?,.,*,~,:
 	 * @param value
 	 * @return
 	 */
 	public static String removeCharacter(String value) {
-		String match = "[^\\r\\n\\u003A\\u005F\\u002D\\u005B\\u005D\\uAC00-\\uD7A30-9a-zA-Z\\u002C\\u0021\\u0028-\\u0029\\s]";
-	    return value.replaceAll(match, " ");
+		String match = "[^\\u007E\\u002A\\u0024\\u0025\\u002E\\u003F\\u0023\\u003B\\u002F\\u0026\\u0022\\u0027\\u003C\\u003E\\r\\n\\u003A\\u005F\\u002D\\u005B\\u005D\\uAC00-\\uD7A30-9a-zA-Z\\u002C\\u0021\\u0028-\\u0029\\s]";
+	    return transXmlText(value.replaceAll(match, " "));
+		//return value.replaceAll(match, " ");
+		//return value;
 	}
 	
 	/**

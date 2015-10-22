@@ -4,6 +4,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.app.das.util.AdaptorCDATA;
 
 @XmlRootElement(name="attach_item")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -11,6 +14,7 @@ public class AttachItem {
 	
 	@XmlElement(name="FL_NM")
 	private String flNm;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="DESC")
 	private String desc;
 	@XmlElement(name="FL_SZ")

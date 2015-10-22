@@ -22,7 +22,7 @@ public class TansferLocator extends org.apache.axis.client.Service implements Ta
     }
 
     // Use to get a proxy class for TansferPort
-    private java.lang.String TansferPort_address = "http://10.150.22.61:8070/php";
+    private java.lang.String TansferPort_address = "http://10.150.22.61:8070/TMService.php";
 
     public java.lang.String getTansferPortAddress() {
         return TansferPort_address;

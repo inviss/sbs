@@ -164,6 +164,9 @@ import com.sbs.das.web.Nevigator;
 import com.sbs.das.web.NevigatorProxy;
 import com.sbs.das.web.ServiceNevigatorService;
 import com.sbs.das.web.ServiceNevigatorServiceLocator;
+import com.sbs.tm.service.Tansfer;
+import com.sbs.tm.service.TansferLocator;
+import com.sbs.tm.service.TansferPortType;
 import com.sbs.tm.service.TansferPortTypeProxy;
 import com.sun.swing.internal.plaf.basic.resources.basic;
 /**
@@ -9272,8 +9275,25 @@ public class ExternalDAO extends AbstractDAO
 	public String addTaskByStorageClip(long cartNo,long cartSeq)throws Exception{
 		String xml="";
 		String rtnValue="";
-		int errorcount =0;
 		xml = selectAddTaskForXmlByStorageClip(cartNo,cartSeq);
+		
+		String tmURL = dasHandler.getProperty("DAS_TM_URL");
+		
+		for(int i=0; i<3; i++) {
+			try {
+				
+				Tansfer transfer = new TansferLocator();
+				TansferPortType  port = transfer.getTansferPort(new URL(tmURL));
+				rtnValue = port.addTaskPFR(xml);
+				
+				break;
+			} catch (Exception e) {
+				logger.error("addTaskByStorageClip retry ("+i+")", e);
+				continue;
+			}
+		}
+		
+		/*
 		try {
 			TansferPortTypeProxy port = new TansferPortTypeProxy();
 			rtnValue = port.addTaskPFR(xml);
@@ -9303,7 +9323,8 @@ public class ExternalDAO extends AbstractDAO
 			logger.error(cartNo);
 			logger.error(cartSeq);
 		}
-		return "";
+		*/
+		return rtnValue;
 	}
 	/**
 	 * task_id 기준으로 상태를 업테이트 한다
@@ -14533,6 +14554,42 @@ public class ExternalDAO extends AbstractDAO
 		}
 	}
 
+	public int selectTotalChangeCount(ProgramInfoDO programInfoDO) throws Exception
+	{
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try 
+		{
+
+
+			//Page에 따른 계산을 한다.
+			int page = programInfoDO.getPage();
+			if(page == 0)
+			{
+				page = 1;
+			}
+			con = DBService.getInstance().getConnection();
+			//logger.debug("######selectTotalChangelist######## con : " + con);
+
+			//총 조회 갯수를 구한다.
+			int totalCount  = getTotalCount(con, ExternalStatement.selectTotalChangelistQuery(programInfoDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT));
+
+
+			return totalCount;
+
+		} 
+
+		catch (Exception e) 
+		{
+
+			throw e;
+		}
+		finally
+		{
+			release(rs, stmt, con);
+		}
+	}
 	/**
 	 * 일괄 수정할 데이타를 조회한다.
 	 * @param programInfoDO
@@ -14565,11 +14622,10 @@ public class ExternalDAO extends AbstractDAO
 			//logger.debug("######selectTotalChangelist######## con : " + con);
 
 			//총 조회 갯수를 구한다.
-			int totalCount  = 
-				getTotalCount(con, ExternalStatement.selectTotalChangelistQuery(programInfoDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT));
+			//int totalCount  = getTotalCount(con, ExternalStatement.selectTotalChangelistQuery(programInfoDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT));
 
 
-			logger.debug("query : " + buf.toString());
+			//logger.debug("query : " + buf.toString());
 			stmt = con.prepareStatement(buf.toString());
 
 			int endNum = page * DASBusinessConstants.PageRowCount.BASIC_ROW_COUTN;
@@ -14608,7 +14664,7 @@ public class ExternalDAO extends AbstractDAO
 				item.setRecord_type_cd(rs.getString("RECORD_TYPE_CD"));
 				item.setAward_Hstr(rs.getString("AWARD_HSTR"));
 				item.setOrg_prdr_nm(rs.getString("ORG_PRDR_NM"));
-				item.setTotalpage(totalCount);			
+				//item.setTotalpage(totalCount);			
 				resultList.add(item);		
 			}		
 
@@ -23162,13 +23218,12 @@ public class ExternalDAO extends AbstractDAO
 							_xml = _xml + _do.getSubXMLForStorage();
 
 							if (logger.isDebugEnabled())
-								logger.debug("_xml" + _xml);
+								logger.debug("_xml : " + _xml);
 							createXmlDownForStorage(item2, _xml);
 						}
 
 					}
 				} catch (DASException e) {
-					// TODO: handle exception
 					logger.error(e);
 				}
 
@@ -37634,8 +37689,7 @@ public class ExternalDAO extends AbstractDAO
 		{
 
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######getBaseResult######## con : " + con);
-			logger.debug("query : " + buf.toString());
+			//logger.debug("query : " + buf.toString());
 			psmt = con.prepareStatement(buf.toString());    
 			int index = 0;			
 			psmt.setLong(++index, nMasterID);

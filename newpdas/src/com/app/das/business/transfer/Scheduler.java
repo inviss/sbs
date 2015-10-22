@@ -1,12 +1,12 @@
 package com.app.das.business.transfer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.app.das.util.AdaptorCDATA;
 
 /**
  * 첨부파일
@@ -27,6 +27,7 @@ public class Scheduler {
 	private String pattern;
 	@XmlElement(name="RUN_YN")
 	private String runYn;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="DESC")
 	private String desc;
 	

@@ -3229,6 +3229,25 @@ public class ExternalBusinessProcessor
 		}
 	}
 
+	public int getTotalChangeCount(ProgramInfoDO	programInfoDO) throws Exception
+	{
+		if(logger.isDebugEnabled())
+		{
+			logger.debug("[getLastPgmInfolist][Input ProgramInfoDO]" + programInfoDO);		
+		}
+
+		try 
+		{
+			return externalDAO.selectTotalChangeCount(programInfoDO);
+		} 
+		catch (Exception e)
+		{
+
+			throw e;
+		}
+
+	}
+	
 	/**
 	 * 일괄수정할 마스터 정보를 조회한다.
 	 * @param programInfoDO 마스터 정보 조회할 정보가 들어있는 beans

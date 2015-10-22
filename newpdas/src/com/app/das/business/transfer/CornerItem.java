@@ -15,6 +15,7 @@ public class CornerItem {
 	
 	@XmlElement(name="CN_ID")
 	private Long cnId;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="CN_NM")
 	private String cnNm;
 	@XmlElement(name="RPIMG_KFRM_SEQ")

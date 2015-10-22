@@ -1842,7 +1842,7 @@ public class SystemManageBusinessProcessor
 	/**
 	 * IFCMS 아카이브  ver 2.0
 	 * @param pdasArchiveDO                                                                                                                                                                                              
-	 * @return                   
+	 * @return : -1(이미등록), 0 (실패), 1 (성공)
 	 * @throws Exception 
 	 **/
 	public int insertIfCmsArchive(IfCmsArchiveDO pgmDO) throws Exception
@@ -1853,11 +1853,9 @@ public class SystemManageBusinessProcessor
 		}
 		try 
 		{
-			//프로그램 정보를 갱신한다.
-
-
+			// group_id 존재여부 체크
 			if(systemManageDAO.isThereGroupId(pgmDO.getGroup_id())||pgmDO.getGroup_id() ==0){
-				logger.debug("i`m here");
+				logger.info("group_id["+pgmDO.getGroup_id()+"] not exist! so go on~ ");
 				if(systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
 					int one =systemManageDAO.insertMetadatTblForIfCms(pgmDO);
 					int two =systemManageDAO.insertContentsInfoForIfCms(pgmDO);
@@ -1903,9 +1901,9 @@ public class SystemManageBusinessProcessor
 					//미디어id가 중복이라면 -1리턴
 					return -1;
 				}
-			}else{
-
-
+				
+			} else {
+				logger.info("group_id["+pgmDO.getGroup_id()+"] exist! so media_id["+pgmDO.getMedia_id()+"] try to check. ");
 				if(systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){	
 					long keyid  =systemManageDAO.getmaster_id(pgmDO.getGroup_id());
 					pgmDO.setMaster_id(keyid);
@@ -1927,12 +1925,9 @@ public class SystemManageBusinessProcessor
 					return -1;
 				}
 			}
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
+		}  catch (Exception e) {
+			logger.error("insertIfCmsArchive", e);
+			return 0;
 		}
 
 	}

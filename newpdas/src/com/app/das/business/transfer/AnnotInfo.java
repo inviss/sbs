@@ -4,6 +4,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.app.das.util.AdaptorCDATA;
 
 @XmlRootElement(name="annotinfo")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -15,6 +18,7 @@ public class AnnotInfo {
 	private Long ctId;
 	@XmlElement(name="ANNOT_CLF_CD")
 	private String annotClfCd;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="ANNOT_CLF_CONT")
 	private String annotClfCont;
 	@XmlElement(name="SOM")
@@ -26,6 +30,7 @@ public class AnnotInfo {
 	
 	@XmlElement(name="ANNOT_CLF_NM")
 	private String annotClfNm;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="ANNOT_CONT")
 	private String annotCont;
 	@XmlElement(name="ENTIRE_YN")

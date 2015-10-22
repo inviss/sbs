@@ -11592,12 +11592,13 @@ public class SystemManageDAO extends AbstractDAO
 			
 			String dateString = CalendarUtil.getDateTime("yyyyMMdd");
 			
-			while(rs.next())
-			{
+			while(rs.next()) {
+				logger.info("mapp find data");
 				item.setMaster_id(rs.getLong("master_id"));
 				item.setCt_id(rs.getLong("ct_id"));
-
 			}
+			
+			logger.info("master_id: "+item.getMaster_id());
 			index=0;
 			stmt2.setLong(++index	, item.getMaster_id());
 			updatecount =updatecount+ stmt2.executeUpdate();
@@ -11612,6 +11613,9 @@ public class SystemManageDAO extends AbstractDAO
 			if(updatecount>=1){
 				updatecount=1;
 				externalDAO.deletePDSJOb(item.getCt_id());
+				if(logger.isInfoEnabled()) {
+					logger.info("WorkflowService's Force DeleteMethod Call! - :"+item.getCt_id());
+				}
 			}else {
 				updatecount=0;	
 			}
@@ -14075,7 +14079,6 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-
 			if (logger.isDebugEnabled()) 
 			{
 				logger.debug("[Inserted Count]" + updateCount);
@@ -14095,16 +14098,13 @@ public class SystemManageDAO extends AbstractDAO
 
 		catch (Exception e) 
 		{
-			logger.error(buf.toString());
+			logger.error(e);
 
 			if(con != null)
 			{
 				try {
 					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+				} catch (SQLException e1) {}
 			}
 
 			
@@ -14113,13 +14113,12 @@ public class SystemManageDAO extends AbstractDAO
 		finally
 		{
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(con != null) {
+					con.setAutoCommit(true);
+					release(null, stmt, con);
+				}
+			} catch (SQLException e) {}
+			
 		}
 
 	}
@@ -14200,8 +14199,8 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, String.valueOf(pdsInfoDO.getBit_rt()));//BIT_RT
 			stmt.setString(++index, pdsInfoDO.getFrm_per_sec());//FRM_PER_SEC
 			stmt.setString(++index, "Y");//DRP_FRM_YN
-			stmt.setInt(++index, Integer.parseInt(pdsInfoDO.getVd_hresol()));//VD_HRESOL
-			stmt.setInt(++index, Integer.parseInt(pdsInfoDO.getVd_vresol()));	//	VD_VRESOL	
+			stmt.setInt(++index, Integer.parseInt(pdsInfoDO.getVd_hresol().replaceAll("[^0-9]", "")));  //VD_HRESOL
+			stmt.setInt(++index, Integer.parseInt(pdsInfoDO.getVd_vresol().replaceAll("[^0-9]", "")));	//VD_VRESOL	
 			stmt.setString(++index, "");//COLOR_CD
 			stmt.setString(++index, pdsInfoDO.getAudio_type());//RECORD_TYPE_CD
 			stmt.setString(++index, pdsInfoDO.getAudio_yn());//AUDIO_YN
@@ -14244,37 +14243,25 @@ public class SystemManageDAO extends AbstractDAO
 				throw exception;
 			}
 
-
 			con.commit();
+			
 			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
+		} catch (Exception e) {
+			logger.error(e);
 
-			if(con != null)
-			{
+			if(con != null) {
 				try {
 					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(con != null) {
+					con.setAutoCommit(true);
+					release(null, stmt, con);
+				}
+			} catch (SQLException e) {}
 		}
 
 	}
@@ -14396,37 +14383,30 @@ public class SystemManageDAO extends AbstractDAO
 				throw exception;
 			}
 
-
 			con.commit();
 			return updateCount;
 		} 
 		catch (Exception e) 
 		{
-			logger.error(buf.toString());
+			logger.error(e);
 
 			if(con != null)
 			{
 				try {
 					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+				} catch (SQLException e1) {}
 			}
-
 			
 			throw e;
 		}
 		finally
 		{
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(con != null) {
+					con.setAutoCommit(true);
+					release(null, stmt, con);
+				}
+			} catch (SQLException e) {}
 		}
 
 	}
@@ -14627,31 +14607,25 @@ public class SystemManageDAO extends AbstractDAO
 		} 
 		catch (Exception e) 
 		{
-			logger.error(buf.toString());
+			logger.error(e);
 
 			if(con != null)
 			{
 				try {
 					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+				} catch (SQLException e1) {}
 			}
 
-			
 			throw e;
 		}
 		finally
 		{
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(con != null) {
+					con.setAutoCommit(true);
+					release(null, stmt, con);
+				}
+			} catch (SQLException e) {}
 		}
 
 	}
@@ -14799,8 +14773,7 @@ public class SystemManageDAO extends AbstractDAO
 
 		StringBuffer buf = new StringBuffer();
 
-		buf.append("\n select count(1) FROM  das.metadat_mst_Tbl where group_id = '"
-				+ group_id + "' \n");
+		buf.append("\n select count(1) FROM  das.metadat_mst_Tbl where group_id = '"+ group_id + "' \n");
 		Connection con = null;
 		try {
 			con = DBService.getInstance().getConnection();
@@ -14815,7 +14788,7 @@ public class SystemManageDAO extends AbstractDAO
 				return true;
 			}
 		}  catch (Exception e) {
-			logger.error(buf.toString());
+			logger.error("isThereGroupId", e);
 
 			 throw e;
 		} finally {
