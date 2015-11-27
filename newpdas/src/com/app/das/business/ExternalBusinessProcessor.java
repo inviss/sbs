@@ -64,6 +64,7 @@ import com.app.das.business.transfer.ManualDeleteDO;
 import com.app.das.business.transfer.MediaArchiveDO;
 import com.app.das.business.transfer.MediaInfoDO;
 import com.app.das.business.transfer.MetaDataInfo;
+import com.app.das.business.transfer.MetaInfoDO;
 import com.app.das.business.transfer.MetadataMstInfoDO;
 import com.app.das.business.transfer.MonitoringDO;
 import com.app.das.business.transfer.NdsDownDO;
@@ -1719,6 +1720,12 @@ public class ExternalBusinessProcessor
 	 * @return MetaInfoDO를 포함하고 있는 DataObject
 	 * @throws Exception
 	 */
+	public List getNewMetadatInfoList(WorkStatusConditionDO conditionDO) throws Exception {
+		return externalDAO.selectNewMetadatInfoList(conditionDO);
+	}
+	
+	
+	@Deprecated
 	public List getMetadatInfoList(WorkStatusConditionDO conditionDO) throws Exception
 	{
 		if(logger.isDebugEnabled())
@@ -3236,9 +3243,10 @@ public class ExternalBusinessProcessor
 			logger.debug("[getLastPgmInfolist][Input ProgramInfoDO]" + programInfoDO);		
 		}
 
-		try 
+		try
 		{
-			return externalDAO.selectTotalChangeCount(programInfoDO);
+			return externalDAO.selectNewTotalChangeCount(programInfoDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT);
+			//return externalDAO.selectTotalChangeCount(programInfoDO);
 		} 
 		catch (Exception e)
 		{
@@ -3254,25 +3262,10 @@ public class ExternalBusinessProcessor
 	 * @return List
 	 * @throws Exception 
 	 */
-	public List getTotalChangelist(ProgramInfoDO	programInfoDO) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getLastPgmInfolist][Input ProgramInfoDO]" + programInfoDO);		
-		}
-
-		try 
-		{
-			return externalDAO.selectTotalChangelist(programInfoDO);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
-
+	public List getTotalChangelist(ProgramInfoDO	programInfoDO) throws Exception {
+			return externalDAO.selectNewTotalChangelist(programInfoDO, DASBusinessConstants.PageQueryFlag.NORMAL);
+			//return externalDAO.selectTotalChangelist(programInfoDO);
 	}
-
 
 
 	/**
@@ -4796,9 +4789,9 @@ public class ExternalBusinessProcessor
 		{						
 			externalDAO.deleteMasterSceanForMapp(deleteDO.getMaster_id());	
 			externalDAO.deleteMasterSceanForMst(deleteDO.getMaster_id());	
-			DiscardDO dis =  externalDAO.getDiscardInfo(deleteDO.getMaster_id());
+			DiscardDO dis =  externalDAO.getDiscardInfo(deleteDO.getMaster_id()); // metadat_mst_tbl에서 메타정보 수집
 			dis.setMasterId(deleteDO.getMaster_id());
-			dis.setDisuse_cont(deleteDO.getDel_cont());
+			dis.setDisuse_cont(deleteDO.getDel_cont()); // 폐기 요청 사유
 			dis.setReg_id(deleteDO.getReg_id());
 
 			disuseDAO.insertDisuseForMeta(dis);

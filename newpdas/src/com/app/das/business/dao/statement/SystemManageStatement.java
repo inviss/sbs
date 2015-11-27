@@ -1616,24 +1616,151 @@ if(!condition.getStart_reg_dt().equals("")||!condition.getEnd_reg_dt().equals(""
 		return buf.toString();
 	}		
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * 이용현황 정보 목록을 조회(총조회건수, 총길이) 한다.
 	 * @param condition 조회조건을 포함하고 있는 DataObject
 	 */
+	public static String selectUseInfoQuery(UseInfoDO condition, String flag) {
+		StringBuffer buf = new StringBuffer();
+		if(DASBusinessConstants.PageQueryFlag.NORMAL.equals(flag)) {
+			buf.append("\nSELECT * FROM (                                                                                                                                          ");
+			buf.append("\n    SELECT                                                                                                                                               ");
+			buf.append("\n    	ROW_NUMBER() OVER(ORDER BY  mst.master_id) AS ROWNUM,                                                                                               ");
+			buf.append("\n    	mst.cnt, mst.master_id, mst.RPIMG_CT_ID, loc.JOB_STATUS,                                                                                            ");
+			buf.append("\n		CODE.DESC,                                                                                                                                            ");
+			buf.append("\n		case                                                                                                                                                  ");
+			buf.append("\n			when  mst.ctgr_l_cd='100' then mst.TITLE                                                                                                            ");
+			buf.append("\n			when  mst.ctgr_l_cd ='200' and  mst.pgm_id !=0 then pgm.pgm_nm                                                                                      ");
+			buf.append("\n			else mst.TITLE                                                                                                                                      ");
+			buf.append("\n		end as title                                                                                                                                          ");
+			buf.append("\n		, mst.BRD_DD, mst.REG_DT,                                                                                                                             ");
+			buf.append("\n		mst.FM_DT,                                                                                                                                            ");
+			buf.append("\n		mst.CHENNEL_CD,                                                                                                                                       ");
+			buf.append("\n		case when loc.backup_status='C' THEN 'Y' ELSE 'N' END AS BACKUP_YN,                                                                                   ");
+			buf.append("\n		case when LOC.copy_status='C' THEN 'Y' ELSE 'N' END AS copy_object_yn,                                                                                ");
+			buf.append("\n		case when LOC.cyn='Y' THEN 'Y' ELSE 'N' END AS old_copy_object_yn,                                                                                    ");
+			buf.append("\n		mst.BRD_LENG, mst.MASTER_ID,value(mst.epis_no, '0') as epis_no                                                                                        ");
+			buf.append("\n    FROM (                                                                                                                                               ");
+			buf.append("\n    	SELECT                                                                                                                                              ");
+			buf.append("\n        	meta.*,                                                                                                                                         ");
+			buf.append("\n        	CART_USED_COUNT(meta.MASTER_ID) AS cnt                                                                                                          ");
+			buf.append("\n      FROM METADAT_MST_TBL meta                                                                                                                        ");
+			buf.append("\n			left outer join PGM_INFO_TBL pgm on meta.PGM_ID = pgm.PGM_ID                                                                                           ");
+			buf.append("\n    	WHERE 1=1 AND (meta.del_dd IS NULL OR meta.del_dd = '') AND NOT EXISTS (                                                                            ");
+			buf.append("\n        	SELECT 1 FROM DISCARD_INFO_TBL discard WHERE meta.master_id = discard.master_id                                                                 ");
+			buf.append("\n      )                                                                 																					");
+		} else {
+			buf.append("\nSELECT                                                                                                                                                    ");
+			buf.append("\n	COUNT(*) AS ccount, sum(t.sum_brd_leng)*29.97  as sum_brd_leng                                                                                          ");
+			buf.append("\nFROM (                                                                                                                                                    ");
+			buf.append("\n    SELECT                                                                                                                                                ");
+			buf.append("\n		CASE                                                                                                                                                  ");
+			buf.append("\n			WHEN mst.BRD_LENG IS NOT NULL AND mst.BRD_LENG <> ''                                                                                                ");
+			buf.append("\n			THEN bigint(SUBSTR(mst.BRD_LENG,1,2))*60*60+bigint(substr(mst.BRD_LENG,4,2))*60+bigint(substr(mst.BRD_LENG,7,2))                                    ");
+			buf.append("\n			ELSE 0                                                                                                                                              ");
+			buf.append("\n		END sum_brd_leng                                                                                                                                      ");
+			buf.append("\n    FROM (                                                                                                                                                ");
+			buf.append("\n    	SELECT                                                                                                                                              ");
+			buf.append("\n        	meta.*                                                                                                                                          ");
+			buf.append("\n      FROM METADAT_MST_TBL meta                                                                                                                         ");
+			buf.append("\n			left outer join PGM_INFO_TBL pgm on meta.PGM_ID = pgm.PGM_ID                                                                                           ");
+			buf.append("\n    	WHERE 1=1 AND (meta.del_dd IS NULL OR meta.del_dd = '') AND NOT EXISTS (                                                                            ");
+			buf.append("\n        	SELECT 1 FROM DISCARD_INFO_TBL discard WHERE meta.master_id = discard.master_id                                                                 ");
+			buf.append("\n      )                                                                 																					");
+		}
+		
+		// 등록일
+		if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getStart_reg_dt()) 
+				&& org.apache.commons.lang.StringUtils.isNotBlank(condition.getEnd_reg_dt())){
+			buf.append("\n    AND substr(meta.REG_DT,1,8) BETWEEN '"+condition.getStart_reg_dt()+"' AND '"+condition.getEnd_reg_dt()+"'											");
+		}
+		// 방송일 or 촬영일
+		if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getStart_brd_dd()) 
+				&& org.apache.commons.lang.StringUtils.isNotBlank(condition.getEnd_brd_dd())){
+			buf.append("\n    AND ((meta.brd_dd BETWEEN '"+condition.getStart_brd_dd()+"' AND '"+condition.getEnd_brd_dd()+"')													");
+			buf.append("\n    	OR (meta.fm_dt BETWEEN '"+condition.getStart_brd_dd()+"' AND '"+condition.getEnd_brd_dd()+"'))													");
+		}
+		// 제목
+		if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getTitle())){
+			buf.append("\n    AND (meta.title like '%"+condition.getTitle()+"%'  or pgm.pgm_nm like '"+condition.getTitle()+"')                                                ");
+		}
+		// 장르
+		if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getCtgr_l_cd())){
+			buf.append("\n    AND meta.ctgr_l_cd = '"+condition.getCtgr_l_cd()+"'                                                ");
+		}
+		// ------------------------- 코드검색 시작
+		if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getClf_cd())) {
+
+			// 보존기한
+			if("RSV".equals(condition.getClf_cd()) && org.apache.commons.lang.StringUtils.isNotBlank(condition.getScl_cd())) {
+				buf.append("\n    AND meta.rsv_prd_cd = '"+condition.getScl_cd()+"'                                                ");
+			}
+			// 저작권
+			if("CPRT".equals(condition.getClf_cd()) && org.apache.commons.lang.StringUtils.isNotBlank(condition.getScl_cd())) {
+				buf.append("\n    AND meta.cprt_type = '"+condition.getScl_cd()+"'                                                ");
+			}
+			// 시청등급
+			if("VIEW".equals(condition.getClf_cd()) && org.apache.commons.lang.StringUtils.isNotBlank(condition.getScl_cd())) {
+				buf.append("\n    AND meta.view_gr_cd = '"+condition.getScl_cd()+"'                                                ");
+			}
+			// 사용제한
+			if("USE_LIMIT".equals(condition.getClf_cd()) && org.apache.commons.lang.StringUtils.isNotBlank(condition.getScl_cd())) {
+				buf.append("\n    AND meta.rist_clf_cd = '"+condition.getScl_cd()+"'                                                ");
+			}
+		}
+		// ------------------------ 코드 검색 종료
+		// 회사 구분
+		if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getCocd())){
+			buf.append("\n    AND meta.cocd = '"+condition.getCocd()+"'                                                ");
+		}
+		// 채널 구분
+		if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getChennel())){
+			buf.append("\n    AND meta.chennel_cd = '"+condition.getChennel()+"'                                                ");
+		}
+		buf.append("\n    ) mst                                                                                                                                                 ");
+		buf.append("\n    	inner JOIN (select master_id, ct_id from CONTENTS_MAPP_TBL WHERE del_yn = 'N' group by master_id, ct_id) mapp ON mapp.MASTER_ID = mst.MASTER_ID     ");
+		buf.append("\n    	inner join contents_tbl ct on mapp.CT_ID = ct.CT_ID                                                                                                 ");
+		buf.append("\n    	inner JOIN CONTENTS_INST_TBL inst ON ct.CT_ID = inst.CT_ID AND inst.CTI_FMT LIKE '1%'                                                               ");
+		buf.append("\n      left outer JOIN CONTENTS_LOC_TBL loc ON inst.CTI_ID = loc.CTI_ID                                                                                  ");
+		buf.append("\n		left outer join PGM_INFO_TBL pgm on pgm.PGM_ID = mst.PGM_ID                                                                                           ");
+		buf.append("\n      inner join CODE_TBL CODE on CODE.SCL_CD=mst.CTGR_L_CD  AND CLF_CD = 'P002'                                                                        ");
+		buf.append("\n    WHERE 1=1                                                                                                                               ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getClf_cd())) {
+			/*
+			 * 20121221 최효정과장 요청사항
+			 * 복본여부 N 으로 검색시 : copy복본= N AND H.264복본 = N 으로 검색
+			 * 복본여부 Y 로 검색시   : copy복본= Y OR  H.264복본 = Y 으로 검색
+			 */
+			// 복본여부
+			if("COPY".equals(condition.getClf_cd()) && org.apache.commons.lang.StringUtils.isNotBlank(condition.getScl_cd())) {
+				if("Y".equals(condition.getScl_cd())) {
+					buf.append("\n    AND (loc.cyn = '"+condition.getScl_cd()+"'" + " OR LOC.copy_status = 'C')                                                ");
+				} else {
+					buf.append("\n    AND value(loc.cyn,'N') = '"+condition.getScl_cd()+"'" + " AND value(LOC.copy_status,'N') <> 'C'                                                ");
+				}
+			}
+			// 화질
+			if("VP".equals(condition.getClf_cd()) && org.apache.commons.lang.StringUtils.isNotBlank(condition.getScl_cd())) {
+				buf.append("\n    AND ct.vd_qlty = '"+condition.getScl_cd()+"'                                                ");
+			}
+			// 종횡비
+			if("ASP".equals(condition.getClf_cd()) && org.apache.commons.lang.StringUtils.isNotBlank(condition.getScl_cd())) {
+				buf.append("\n    AND ct.asp_rto_cd = '"+condition.getScl_cd()+"'                                                ");
+			}
+			// 콘텐츠 구분
+			if("CT_CLA".equals(condition.getClf_cd()) && org.apache.commons.lang.StringUtils.isNotBlank(condition.getScl_cd())) {
+				buf.append("\n    AND ct.ct_cla = '"+condition.getScl_cd()+"'                                                ");
+			}
+		}
+		if(DASBusinessConstants.PageQueryFlag.NORMAL.equals(flag)) {
+			buf.append("\n    ORDER BY mst.cnt desc, title asc, mst.BRD_DD asc, mst.FM_DT asc, mst.REG_DT DESC");
+		}
+		buf.append("\n) t                                                                                                		");
+		
+		return buf.toString();
+	}
+	
+	@Deprecated
 	public static String selectUseInfoList2(UseInfoDO condition)
 	{
 		//SystemManageConditionDO condition = new SystemManageConditionDO();
@@ -1922,7 +2049,7 @@ buf.append("\n   AND ");
 
 
 
-
+		System.out.println(buf.toString());
 		return buf.toString();
 	}		
 
@@ -1969,33 +2096,33 @@ buf.append("\n   AND ");
 		buf.append("\n   ELSE 'N'    ");
 		buf.append("\n   END AS ARCHIVE_RE    ");
 		buf.append("\n   ,CASE       ");
-		buf.append("\n     WHEN MEAT.ARCH_ROUTE IN ( 'OL','OA','DP','DE','D')  and INST_MXF.fl_path <>''   THEN  'Y'        ");
-		buf.append("\n   WHEN MEAT.ARCH_ROUTE = 'P' THEN  'N'    ");
-		buf.append("\n   ELSE 'N'    ");
+		buf.append("\n     WHEN (MEAT.ARCH_ROUTE LIKE 'O%' OR MEAT.ARCH_ROUTE LIKE 'D%') and INST_MXF.fl_path <>'' THEN 'Y'        ");
+		buf.append("\n     WHEN MEAT.ARCH_ROUTE = 'P' THEN  'N'    ");
+		buf.append("\n     ELSE 'N'    ");
 		buf.append("\n   END AS HIGH_QUAL    ");		
-		buf.append("\n ,value ((SELECT wmv_yn FROM CONTENTS_INST_TBL B WHERE B.CTI_ID=INST_WMV.CTI_ID AND B.CTI_FMT LIKE '3%'),'N') AS WMV ");
-		buf.append("\n ,value ((SELECT catalog_yn FROM CONTENTS_INST_TBL B WHERE B.CTI_ID=INST_WMV.CTI_ID AND B.CTI_FMT LIKE '3%'),'N') AS catalog_yn  ");
-		buf.append("\n ,value ((SELECT cyn FROM (SELECT CYN, CTI_ID ,USE_YN FROM CONTENTS_LOC_TBL GROUP BY CYN, CTI_ID,USE_YN) D WHERE D.CTI_ID=INST_MXF.CTI_ID AND  D.USE_YN='Y' ),'N') AS OLD_COPY  ");
-		buf.append("\n ,CASE WHEN LOC.COPY_STATUS='C' THEN 'Y' ELSE 'N' END COPY ");	
-		buf.append("\n ,VALUE (INST_MXF.ETC,'') AS ETC ");
+		buf.append("\n , CASE WHEN INST_WMV.cti_id IS NOT NULL AND INST_WMV.FL_PATH IS NOT NULL THEN 'Y' ELSE 'N' END AS wmv ");
+		buf.append("\n , CASE WHEN INST_WMV.cti_id IS NOT NULL AND INST_WMV.CATALOG_YN IS NOT NULL THEN 'Y' ELSE 'N' END AS catalog_yn  ");
+		buf.append("\n , VALUE(loc.CYN, 'N') OLD_COPY  ");
+		buf.append("\n , CASE WHEN LOC.COPY_STATUS='C' THEN 'Y' ELSE 'N' END COPY ");	
+		buf.append("\n , VALUE (INST_MXF.ETC,'') AS ETC ");
 
-		buf.append("\n ,value(meat.epis_no,0) as epis_no ");
-		buf.append("\n ,case when meat.CTGR_L_CD='100' then meat.FM_DT ");
-		buf.append("\n when meat.CTGR_L_CD='200' then meat.BRD_DD ");
-		buf.append("\n  else '' end as brd_dd ");
+		buf.append("\n , value(meat.epis_no,0) as epis_no ");
+		buf.append("\n , case when meat.CTGR_L_CD='100' then meat.FM_DT ");
+		buf.append("\n   when meat.CTGR_L_CD='200' then meat.BRD_DD ");
+		buf.append("\n   else '' end as brd_dd ");
 		buf.append("\n  ,INST_MXF.MOD_DT ");
 		buf.append("\n  ,case when loc.backup_status='C' THEN 'Y' ELSE 'N' END AS backup_yn ");
 		buf.append("\n  ,meat.CHENNEL_CD ");
 
 		buf.append("\n FROM  METADAT_MST_TBL MEAT ");
 
-		buf.append("\n   INNER JOIN (select MASTER_ID,CT_ID FROM CONTENTS_MAPP_TBL where del_dd ='' GROUP BY MASTER_ID,CT_ID) MAPP   ON  MEAT.MASTER_ID=MAPP.MASTER_ID   ");
-		buf.append("\n  INNER JOIN CONTENTS_TBL CON ON  CON.CT_ID=MAPP.CT_ID  ");
+		buf.append("\n   INNER JOIN (select MASTER_ID,CT_ID FROM CONTENTS_MAPP_TBL where del_yn = 'N' and value(del_dd, '') = '' GROUP BY MASTER_ID, CT_ID) MAPP ON  MEAT.MASTER_ID=MAPP.MASTER_ID   ");
+		buf.append("\n   INNER JOIN CONTENTS_TBL CON ON CON.CT_ID = MAPP.CT_ID  ");
 		buf.append("\n   LEFT OUTER JOIN CONTENTS_INST_TBL INST_WMV ON  INST_WMV.CT_ID=MAPP.CT_ID   AND INST_WMV.CTI_FMT LIKE '3%' ");
 		buf.append("\n 	 LEFT OUTER JOIN CONTENTS_INST_TBL INST_MXF  ON INST_MXF.CT_ID=MAPP.CT_ID AND INST_MXF.CTI_FMT LIKE '1%'  ");
-		buf.append("\n 	 LEFT OUTER JOIN (select cti_id,job_status,CYN,backup_status,copy_status  from CONTENTS_LOC_TBL group by cti_id,job_status,CYN,backup_status,copy_status  )  LOC ON INST_MXF.CTI_ID=LOC.CTI_ID  ");
-		buf.append("\n 	  LEFT OUTER JOIN USER_INFO_TBL USER ON  USER.SBS_USER_ID=INST_MXF.REGRID ");
-		buf.append("\n 	  LEFT OUTER JOIN PGM_INFO_TBL PGM ON PGM.PGM_ID = MEAT.PGM_ID ");
+		buf.append("\n 	 LEFT OUTER JOIN CONTENTS_LOC_TBL LOC ON INST_MXF.CTI_ID=LOC.CTI_ID  ");
+		buf.append("\n 	 LEFT OUTER JOIN USER_INFO_TBL USER ON  USER.SBS_USER_ID=INST_MXF.REGRID ");
+		buf.append("\n 	 LEFT OUTER JOIN PGM_INFO_TBL PGM ON PGM.PGM_ID = MEAT.PGM_ID ");
 
 		/** 검색조건*/
 		if(!condition.getArchive_path().equals("")||!condition.getWhatdd().equals("")||!condition.getTitle().equals("")||!condition.getReq_nm().equals("")){
@@ -2034,18 +2161,13 @@ buf.append("\n   AND ");
 				}
 				buf.append("\n 	 ) ");
 			}
+			
 			//2012.4.24 조회조건 추가
 			if(!condition.getCocd().equals("")){
-
 				buf.append("\n  AND MEAT.cocd like  '" + condition.getCocd()+"%'");
-
-
 			}
 			if(!condition.getChennel().equals("")){
-
 				buf.append("\n   AND MEAT.chennel_cd like  '" + condition.getChennel()+"%'");
-
-
 			}
 
 			/** 기간 검색*/
@@ -2054,56 +2176,43 @@ buf.append("\n   AND ");
 					buf.append("\n  and  ");
 				}
 				if(condition.getWhatdd().equals("BRD")){
-					if(!condition.getStart_dd().equals("")){
-						buf.append("\n   MEAT.BRD_DD >=  '" + condition.getStart_dd()+"'");
-					}
-					if(!condition.getEnd_dd().equals("")){
-						buf.append("\n  AND MEAT.BRD_DD <=  '" + condition.getEnd_dd()+"'");
+					if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getStart_dd()) && 
+							org.apache.commons.lang.StringUtils.isNotBlank(condition.getEnd_dd())) {
+						buf.append("\n   substr(MEAT.BRD_DD,1,8) between  '" + condition.getStart_dd()+"' and '" + condition.getEnd_dd()+"'");
 					}
 				}
 				if(condition.getWhatdd().equals("FM")){
-					if(!condition.getStart_dd().equals("")){
-						buf.append("\n   MEAT.FM_DT >=  '" + condition.getStart_dd()+"'");
-					}
-					if(!condition.getEnd_dd().equals("")){
-						buf.append("\n  AND MEAT.FM_DT <=  '" + condition.getEnd_dd()+"'");
+					if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getStart_dd()) && 
+							org.apache.commons.lang.StringUtils.isNotBlank(condition.getEnd_dd())) {
+						buf.append("\n   substr(MEAT.FM_DT,1,8) between  '" + condition.getStart_dd()+"' and '" + condition.getEnd_dd()+"'");
 					}
 				}
 				if(condition.getWhatdd().equals("WMV")){
-					if(!condition.getStart_dd().equals("")){
-						buf.append("\n   INST_WMV.RE_WMV_REG_DT >=  '" + condition.getStart_dd()+"000000'");
-					}
-					if(!condition.getEnd_dd().equals("")){
-						buf.append("\n  AND INST_WMV.RE_WMV_REG_DT <=  '" + condition.getEnd_dd()+"999999'");
+					if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getStart_dd()) && 
+							org.apache.commons.lang.StringUtils.isNotBlank(condition.getEnd_dd())) {
+						buf.append("\n   substr(INST_WMV.RE_WMV_REG_DT,1,8) between  '" + condition.getStart_dd()+"' and '" + condition.getEnd_dd()+"'");
 					}
 				}
 				if(condition.getWhatdd().equals("COPY")){
-
-					if(!condition.getStart_dd().equals("")){
-						buf.append("\n   INST_MXF.MOD_DT >=  '" + condition.getStart_dd()+"000000'");
-					}
-					if(!condition.getEnd_dd().equals("")){
-						buf.append("\n  AND INST_MXF.MOD_DT <=  '" + condition.getEnd_dd()+"999999'");
+					if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getStart_dd()) && 
+							org.apache.commons.lang.StringUtils.isNotBlank(condition.getEnd_dd())) {
+						buf.append("\n   substr(INST_MXF.MOD_DT,1,8) between  '" + condition.getStart_dd()+"' and '" + condition.getEnd_dd()+"'");
 					}
 					buf.append("\n  and  loc.cyn ='Y' ");
 				}
 
 
 				if(condition.getWhatdd().equals("CT")){
-					if(!condition.getStart_dd().equals("")){
-						buf.append("\n   CON.MOD_DT >=  '" + condition.getStart_dd()+"000000'");
-					}
-					if(!condition.getEnd_dd().equals("")){
-						buf.append("\n  AND CON.MOD_DT <=  '" + condition.getEnd_dd()+"999999'");
+					if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getStart_dd()) &&
+							org.apache.commons.lang.StringUtils.isNotBlank(condition.getEnd_dd())) {
+						buf.append("\n   substr(CON.MOD_DT, 1, 8) between  '" + condition.getStart_dd()+"' and '" + condition.getEnd_dd()+"'");
 					}
 				}
 
 				if(condition.getWhatdd().equals("REG")){
-					if(!condition.getStart_dd().equals("")){
-						buf.append("\n   substr(MEAT.ING_REG_DD,1,8) >=  '" + condition.getStart_dd()+"'");
-					}
-					if(!condition.getEnd_dd().equals("")){
-						buf.append("\n  AND substr(MEAT.ING_REG_DD,1,8) <=  '" + condition.getEnd_dd()+"'");
+					if(org.apache.commons.lang.StringUtils.isNotBlank(condition.getStart_dd())
+							&& org.apache.commons.lang.StringUtils.isNotBlank(condition.getEnd_dd())){
+						buf.append("\n   substr(MEAT.REG_DT,1,8) between  '" + condition.getStart_dd()+"' and '" + condition.getEnd_dd()+"'");
 					}
 				}
 
@@ -2117,6 +2226,7 @@ buf.append("\n   AND ");
 				} 
 				buf.append("\n   MEAT.TITLE LIKE  '%" + condition.getTitle()+"%'");
 			}
+			
 			/** 요청자명*/
 			if(!condition.getReq_id().equals("")){
 
@@ -2290,29 +2400,17 @@ buf.append("\n   AND ");
 	 * 마스터ID를 조회한다(미디어id)
 	 * @param media_id 미디어id
 	 */
-	public static String selectMaster_idQuery(String media_id)
-	{
+	public static String selectMaster_idQuery(String media_id) {
 
 		StringBuffer buf = new StringBuffer();
-		buf.append("\n select ");
-		buf.append("\n  map.master_id     ");
-
-		buf.append("\n  from contents_mapp_tbl map  ");
-		buf.append("\n 	inner join contents_tbl ct on map.ct_id=ct.CT_ID    ");
-		buf.append("\n  where ct.media_id= '"+media_id+"' ");
-		buf.append("\n  order by ct.REG_DT desc ");
-		buf.append("\n  fetch first 1 rows only   ");
+		buf.append("\n SELECT mapp.master_id ");
+		buf.append("\n FROM CONTENTS_MAPP_TBL mapp     ");
+		buf.append("\n 		inner JOIN CONTENTS_TBL ct ON mapp.ct_id = ct.ct_id  ");
+		buf.append("\n WHERE ct.media_id = ? ORDER BY mapp.REG_DT DESC ");
+		buf.append("\n FETCH FIRST 1 ROWS only with ur   ");
 
 		return buf.toString();
 	}
-
-
-
-
-
-
-
-
 
 	/**
 	 * 마스터ID를 조회한다(그룹id)

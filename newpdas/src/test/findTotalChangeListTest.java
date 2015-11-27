@@ -47,13 +47,12 @@ public class findTotalChangeListTest {
 						ProgramInfoDOXML _do = new ProgramInfoDOXML();
 						_do.setDO(_iter.next());
 						_xml.append(_do.getSubXML());
-						break;
 					}
 					_xml.append("</das>");
 				}
 			}
 			
-			System.out.println(_xml.toString());
+			//System.out.println(_xml.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

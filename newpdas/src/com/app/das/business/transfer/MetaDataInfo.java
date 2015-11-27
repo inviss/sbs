@@ -18,10 +18,12 @@ public class MetaDataInfo {
 	private Long		pgmId;					// BIGINT				// 프로그램ID
 	@XmlElement(name="PGM_PGM_CD")
 	private String		pgmCd;					// CHAR(8)				// 프로그램코드
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="PGM_PGM_NM")
 	private String      pgmNm;
 	@XmlElement(name="META_EPIS_NO")
 	private String		episNo;					// INTEGER				// 회차
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="TITLE")
 	private String 		title;					// VARCHAR(150)			// 타이틀
 	@XmlElement(name="META_CTGR_L_CD")
@@ -37,6 +39,7 @@ public class MetaDataInfo {
 	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_SNPS")
 	private String		snps;					// LONGVARCHAR			// 시놉시스
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_KEY_WORDS")
 	private String		keyWords;				// LONGVARCHAR			// 키워드
 	@XmlElement(name="META_BRD_BGN_HMS")
@@ -153,12 +156,15 @@ public class MetaDataInfo {
 	private String		rerun;					// VARCHAR(300)			// 재방송
 	@XmlElement(name="META_ACCEPTOR_ID")
 	private String		acceptorId;			// VARCHAR(15)			// 검수자 ID
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_SUB_TTL")
 	private String		subTtl;				// VARCHAR(300)			// 부제
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_ARRANGE_NM")
 	private String		arrangeNm;				// VARCHAR(80)			// 편성명
 	@XmlElement(name="META_ACCEPTOR_NM")
 	private String metaAcceptorNm;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_SCENARIO_TITLE")
 	private String metaScenarioTitle;
 	@XmlElement(name="META_PRDT_DEPT_CD")
@@ -193,6 +199,7 @@ public class MetaDataInfo {
 	private String metaVdHresol;
 	@XmlElement(name="META_VD_VRESOL")
 	private String metaVdVresol;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_PREVIEW_SUBJ")
 	private String metaPreviewSubj;
 	@XmlElement(name="META_HRESOL")
@@ -247,6 +254,7 @@ public class MetaDataInfo {
 	@XmlElement(name="META_ACCEPTOR_NM")
 	private String 		acceptorNm;			// CHAR(3)					// 승인자명
 
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_SCENARIO_TITLE")
 	private String 		scenarioTitle;			// CHAR(3)					// 대본명
 
@@ -286,6 +294,7 @@ public class MetaDataInfo {
 	private String 		vdHresol;			// CHAR(3)					//
 	@XmlElement(name="META_VD_VRESOL")
 	private String 		vdVresol;			// CHAR(3)					//
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_PREVIEW_SUBJ")
 	private String 		previewSubj;			// CHAR(3)					//
 	@XmlElement(name="META_HRESOL")
@@ -301,6 +310,7 @@ public class MetaDataInfo {
 
 	@XmlElement(name="META_ANNOT_CLF_CD")
 	private String 		annotClfCd;			// CHAR(3)					//
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_ANNOT_CLF_DESC")
 	private String 		annotClfDesc;			// CHAR(3)					//
 

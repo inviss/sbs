@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -34,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 import org.jdom.CDATA;
 import org.jdom.Document;
@@ -1688,20 +1690,22 @@ public class CommonUtl {
 
 		return args;
 	}
-	
+
 	/**
-	 * 특수문자를 제거한다.
+	 * 특수문자를 제거한다. 아래는 허용 문자
 	 * // 가-힣,0-9,a-z,A-Z,!,_,-,[],(),',",<,>,#,&,;,?,.,*,~,:
+	 * // 한자['한중일 통합 한자 및 확장-A', '한중일 호환용 한자'], 일어['히라가나', '가타카나', '가타카나 음성 확장']
+	 * // \\u3400-\\u4DBF\\u4E00-\\u9FBF\\uF900-\\uFAFF\\u3040-\\u31FF
 	 * @param value
 	 * @return
 	 */
 	public static String removeCharacter(String value) {
-		String match = "[^\\u007E\\u002A\\u0024\\u0025\\u002E\\u003F\\u0023\\u003B\\u002F\\u0026\\u0022\\u0027\\u003C\\u003E\\r\\n\\u003A\\u005F\\u002D\\u005B\\u005D\\uAC00-\\uD7A30-9a-zA-Z\\u002C\\u0021\\u0028-\\u0029\\s]";
-	    return transXmlText(value.replaceAll(match, " "));
+		String match = "[^\\u3400-\\u4DBF\\u4E00-\\u9FBF\\uF900-\\uFAFF\\u3040-\\u31FF\\u007E\\u002A\\u0024\\u0025\\u002E\\u003F\\u0023\\u003B\\u002F\\u0026\\u0022\\u0027\\u003C\\u003E\\r\\n\\u003A\\u005F\\u002D\\u005B\\u005D\\uAC00-\\uD7A30-9a-zA-Z\\u002C\\u0021\\u0028-\\u0029\\s]";
+		return transXmlText(value.replaceAll(match, " "));
 		//return value.replaceAll(match, " ");
 		//return value;
 	}
-	
+
 	/**
 	 * Request를 Map형태로 변환
 	 *
@@ -3306,10 +3310,11 @@ public class CommonUtl {
 		int hh, mm, m10, m1, ss, ff;
 		long frame;
 
-		hh = Integer.parseInt(timecode.substring(0, 2));     // 타임코드의 처음 2자리(시간)를 숫자로 변환
+		hh = Integer.parseInt(timecode.substring(0, 2));   // 타임코드의 처음 2자리(시간)를 숫자로 변환
 		mm = Integer.parseInt(timecode.substring(3, 5));   // 타임코드의 : 다음 2자리(분)를 숫자로 변환
-		ss = Integer.parseInt(timecode.substring(6, 8));      // 타임코드의 : 다음 2자리(초)를 숫자로 변환
-		ff = Integer.parseInt(timecode.substring(9)); ;     // 타임코드의 : 다음 2자리(프레임)를 숫자로 변환
+		ss = Integer.parseInt(timecode.substring(6, 8));   // 타임코드의 : 다음 2자리(초)를 숫자로 변환
+		ff = Integer.parseInt(timecode.substring(9));      // 타임코드의 : 다음 2자리(프레임)를 숫자로 변환
+
 		m10 = mm / 10; // mm div 10;
 		m1 = mm % 10;
 		frame = hh * 107892 + m10 * 17982;
@@ -3374,5 +3379,58 @@ public class CommonUtl {
 		return str;
 	}
 
+	/**
+	 * <pre>
+	 * 요청한 파일 객체를 참조하여 해당 컨텐츠를 삭제처리한다.
+	 * </pre>
+	 * @param file
+	 */
+	public static void fileForceDelete(File file) {
+		try {
+			if(SystemUtils.IS_OS_WINDOWS) {
+				//logger.debug("windows file delete!! - "+file.getAbsolutePath());
+				//FileUtils.forceDeleteOnExit(file);
+			} else {
+				Process proc = null;
+				if(file.isDirectory()) {
+					proc = Runtime.getRuntime().exec("rm -rf "+file.getAbsolutePath());
+					proc.waitFor();
+
+					if(proc.exitValue() != 0) {
+						logger.error("folder delete error! - ["+file.getAbsolutePath()+"] : ");
+						BufferedReader err = new BufferedReader(new InputStreamReader(proc.getErrorStream ()));
+						while (err.ready())
+							logger.error(err.readLine());
+						err.close();
+					}
+				} else {
+					if(file.getAbsolutePath().toLowerCase().endsWith(".jpg")) {
+						String filePath = file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf("."));
+						proc = Runtime.getRuntime().exec("rm -rf "+file.getAbsolutePath());
+						proc.waitFor();
+						if(proc.exitValue() != 0) {
+							logger.error("file delete error! - ["+file.getAbsolutePath()+"] : ");
+							BufferedReader err = new BufferedReader(new InputStreamReader(proc.getErrorStream ()));
+							while (err.ready())
+								logger.error(err.readLine());
+							err.close();
+						}
+					} else {
+						proc = Runtime.getRuntime().exec("rm -rf "+file.getAbsolutePath());
+						proc.waitFor();
+						if(proc.exitValue() != 0) {
+							logger.error("file delete error! - ["+file.getAbsolutePath()+"] : ");
+							BufferedReader err = new BufferedReader(new InputStreamReader(proc.getErrorStream ()));
+							while (err.ready())
+								logger.error(err.readLine());
+							err.close();
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			logger.error("delete error", e);
+		}
+	}
 
 }

@@ -27,6 +27,7 @@ public class AttachItem {
 	private String attcFileType;
 	@XmlElement(name="ATTC_CLF_CD")
 	private String attcClfCd;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="ORG_FILE_NM")
 	private String orgFileNm;
 	@XmlElement(name="CAPTION_TYPE")

@@ -1,16 +1,21 @@
 package com.app.das.business;
 
+import java.io.File;
 import java.rmi.RemoteException;
+import java.sql.Connection;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.app.das.business.dao.CodeInfoDAO;
 import com.app.das.business.dao.ExternalDAO;
 import com.app.das.business.dao.SystemManageDAO;
-import com.app.das.business.dao.UserRoleDAO;
 import com.app.das.business.exception.DASException;
 import com.app.das.business.transfer.ArchiveInfoDO;
+import com.app.das.business.transfer.AttachFileInfoDO;
+import com.app.das.business.transfer.AttachItem;
 import com.app.das.business.transfer.CodeDO;
 import com.app.das.business.transfer.CopyInfoDO;
 import com.app.das.business.transfer.DASCommonDO;
@@ -23,18 +28,15 @@ import com.app.das.business.transfer.PdsArchiveDO;
 import com.app.das.business.transfer.PdsMappDO;
 import com.app.das.business.transfer.PgmInfoDO;
 import com.app.das.business.transfer.PgmUserInfoDO;
-import com.app.das.business.transfer.PreviewDO;
 import com.app.das.business.transfer.ProgramInfoDO;
 import com.app.das.business.transfer.StorageDO;
 import com.app.das.business.transfer.SubsiInfoDO;
 import com.app.das.business.transfer.SystemManageConditionDO;
-import com.app.das.business.transfer.TcBeanDO;
 import com.app.das.business.transfer.UseInfoDO;
 import com.app.das.log.DasPropHandler;
-import com.app.das.log.ErrorPropHandler;
-import com.app.das.services.PreviewNoteDOXML;
-import com.app.das.services.SubsiInfoDOXML;
-import com.app.das.util.StringUtils;
+import com.app.das.util.CalendarUtil;
+import com.app.das.util.CommonUtl;
+import com.app.das.util.DBService;
 
 
 /**
@@ -47,6 +49,7 @@ public class SystemManageBusinessProcessor
 	private static SystemManageDAO systemManageDAO = SystemManageDAO.getInstance();
 	private static ExternalDAO externalDAO = ExternalDAO.getInstance();
 	private static CodeInfoDAO	codeInfoDAO = CodeInfoDAO.getInstance();
+	private static DasPropHandler dasHandler = DasPropHandler.getInstance();
 
 	private Logger logger = Logger.getLogger(SystemManageBusinessProcessor.class);
 
@@ -95,7 +98,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-			
+
 			throw e;
 		}
 	}
@@ -119,7 +122,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-			
+
 			throw e;
 		}
 	}
@@ -147,7 +150,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-		
+
 			throw e;
 		}
 	}
@@ -174,7 +177,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-			
+
 
 			throw e;
 		}
@@ -200,7 +203,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-		
+
 
 			throw e;
 		}
@@ -228,7 +231,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-			
+
 			throw e;
 		}
 	}
@@ -254,7 +257,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-	
+
 
 			throw e;
 		}
@@ -324,7 +327,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-			
+
 			throw e;
 		}
 	}
@@ -465,7 +468,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-		
+
 			throw e;
 		}
 	}
@@ -517,7 +520,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-		
+
 			throw e;
 		}
 	}
@@ -545,7 +548,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-	
+
 			throw e;
 		}
 	}
@@ -818,7 +821,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
@@ -845,7 +848,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 
@@ -872,7 +875,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e)
 		{
-			
+
 
 			throw e;
 		}
@@ -932,7 +935,7 @@ public class SystemManageBusinessProcessor
 
 		catch (Exception e)
 		{
-			
+
 
 			throw e;
 		}
@@ -971,6 +974,27 @@ public class SystemManageBusinessProcessor
 	 * @return
 	 * @throws Exception 
 	 */
+	public List getNewUseInfoList(UseInfoDO condition, String flag) throws Exception
+	{
+		if(logger.isDebugEnabled())
+		{
+			logger.debug("[getUseInfoList][UseInfoDO]" + condition.toString());
+		}
+
+		try 
+		{
+			return systemManageDAO.selectNewUseInfoList(condition, flag);
+
+
+		} 
+		catch (Exception e)
+		{
+
+			throw e;
+		}
+	}
+	
+	@Deprecated
 	public List getUseInfoList(UseInfoDO condition) throws Exception
 	{
 		if(logger.isDebugEnabled())
@@ -986,9 +1010,14 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
+	}
+	
+	public UseInfoDO getUseInfoCount(UseInfoDO condition, String flag) throws Exception {
+		
+		return systemManageDAO.selectUseInfoCount(condition, flag);
 	}
 
 	/**
@@ -1012,7 +1041,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
@@ -1154,8 +1183,8 @@ public class SystemManageBusinessProcessor
 	{
 		try 
 		{
-			
-			
+
+
 			return systemManageDAO.selectGoodMediaList();
 
 
@@ -1334,11 +1363,72 @@ public class SystemManageBusinessProcessor
 	}
 
 	/**
+	 * PDS에서아카이브 요청시 메타 등록 처리 부분을 재구성 했음.
+	 * 등록 과정 중 오류가 발생하면 메타 데이타를 모두 롤백 처리하고
+	 * 요청 클라이언트에게 오류 메세지를 전달함.
+	 * 성공: 1, Media_id 존재: -1, 오류: 오류 메세지
+	 * 2105.10.28 강명성
+	 * @param pgmDO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertNewPdasArchive(PdsArchiveDO pgmDO) throws Exception
+	{
+
+		if(systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
+			Connection conn = null;
+			try {
+				conn = DBService.getInstance().getConnection();
+				conn.setAutoCommit(false);
+				pgmDO.setConn(conn);
+
+				systemManageDAO.insertMetadatTbl(pgmDO);
+				systemManageDAO.insertContentsInfo(pgmDO);
+				systemManageDAO.insertConInstInfoForHigh(pgmDO);
+				systemManageDAO.insertConInstInfoForLow(pgmDO);
+				systemManageDAO.insertCornerInfo(pgmDO);
+				systemManageDAO.insertContentsMappInfo(pgmDO);
+				systemManageDAO.insertPdasArchive(pgmDO);
+				systemManageDAO.insertAnnotInfo(pgmDO);
+
+				// 2015.10.27
+				// corner_search_tbl 에 코너정보 입력 <== 향후 사용 안해도 됨. function 을 만들었음
+				// corner_concat <== v_das_program 에서 함수호출
+				try {
+					systemManageDAO.insertCornerInfoForProceduer(Long.valueOf(pgmDO.getMaster_id()).intValue());
+				} catch (Exception e) {
+					logger.error("corner search add error", e);
+				}
+
+				externalDAO.updatemetatbl(pgmDO);
+
+			} catch (Exception e) {
+				if(conn != null) {
+					logger.error("insertPdasArchive2 all rollback!!! - media_id: "+pgmDO.getMedia_id());
+					conn.rollback();
+				}
+				throw e;
+			} finally {
+				if(conn != null) {
+					conn.commit();
+					conn.setAutoCommit(true);
+					conn.close();
+
+					pgmDO.setConn(null);
+				}
+			}
+		} else return -1; // media_id 중복
+
+		return 1;
+	}
+
+	/**
 	 * PDAS 아카이브  
 	 * @param pdasArchiveDO                                                                                                                                                                                              
 	 * @return                   
 	 * @throws Exception 
 	 **/
+	@Deprecated
 	public int insertPdasArchive(PdsArchiveDO pgmDO) throws Exception
 	{
 		if(logger.isDebugEnabled())
@@ -1365,15 +1455,21 @@ public class SystemManageBusinessProcessor
 					long ma = pgmDO.getMaster_id();
 					String tmp_ma = String.valueOf(ma);
 					int master_id = Integer.parseInt(tmp_ma);
+
+					// corner_search_tbl 에 코너정보 입력 <== 향후 사용 안해도 됨. function 을 만들었음
+					// corner_concat <== v_das_program 에서 함수호출
 					systemManageDAO.insertCornerInfoForProceduer(master_id);
+
 					externalDAO.updatemetatbl(pgmDO);
-					int result = one+two+three+four+five+seven+nine;
+					int result = one+two+three+four+five+seven+nine+ten;
+
 					if(result >= 4){
 						return 1;
 					}else{
 						return 0;	
 					}
 				}
+
 			}else if(!pgmDO.getCocd().equals("")){
 
 				if(systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
@@ -1387,12 +1483,17 @@ public class SystemManageBusinessProcessor
 					int seven =systemManageDAO.insertPdasArchive(pgmDO);
 
 					int ten =systemManageDAO.insertAnnotInfo(pgmDO);
+
 					long ma = pgmDO.getMaster_id();
 					String tmp_ma = String.valueOf(ma);
 					int master_id = Integer.parseInt(tmp_ma);
+
+					// corner_search_tbl 에 코너정보 입력 <== 향후 사용 안해도 됨. function 을 만들었음
+					// corner_concat <== v_das_program 에서 함수호출
 					systemManageDAO.insertCornerInfoForProceduer(master_id);
+
 					externalDAO.updatemetatbl(pgmDO);
-					int result = one+two+three+four+five+seven+nine;
+					int result = one+two+three+four+five+seven+nine+ten;
 				}
 				return 1;
 			}
@@ -1610,7 +1711,7 @@ public class SystemManageBusinessProcessor
 			if(systemManageDAO.isThereMediaId(media_id)){
 				//프로그램 정보를 갱신한다.
 				ManualArchiveDO manualArchiveDO = externalDAO.getManualInfo(media_id);
-			
+
 				int one =systemManageDAO.insertMetadatTbl(manualArchiveDO);
 				int two =systemManageDAO.insertContentsInfo(manualArchiveDO);
 				int three =systemManageDAO.insertConInstInfoForHigh(manualArchiveDO);
@@ -1778,7 +1879,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e)
 		{
-	
+
 			throw e;
 		}
 
@@ -1838,13 +1939,95 @@ public class SystemManageBusinessProcessor
 	}
 
 
+	/**
+	 * IFCMS에서아카이브 요청시 메타 등록 처리 부분을 재구성 했음.
+	 * 등록 과정 중 오류가 발생하면 메타 데이타를 모두 롤백 처리하고
+	 * 요청 클라이언트에게 오류 메세지를 전달함.
+	 * 성공: 1, Media_id 존재: -1, 오류: 오류 메세지
+	 * 2105.10.28 강명성
+	 * @param pgmDO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertNewIfCmsArchive(IfCmsArchiveDO pgmDO) throws Exception
+	{
+		Connection conn = null;
+		try {
+			if(systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
 
+				conn = DBService.getInstance().getConnection();
+				conn.setAutoCommit(false);
+
+				pgmDO.setConn(conn);
+
+				boolean isGroupId = false;
+				if(systemManageDAO.isThereGroupId(pgmDO.getGroup_id()) || pgmDO.getGroup_id() == 0){
+					systemManageDAO.insertMetadatTblForIfCms(pgmDO);
+				} else {
+					isGroupId = true;
+					long keyid  =systemManageDAO.getmaster_id(pgmDO.getGroup_id());
+					pgmDO.setMaster_id(keyid);
+				}
+
+				systemManageDAO.insertContentsInfoForIfCms(pgmDO);
+				systemManageDAO.insertConInstInfoForHigh(pgmDO);
+				systemManageDAO.insertConInstInfoForLow(pgmDO);
+				systemManageDAO.insertCornerInfo(pgmDO);
+				systemManageDAO.insertContentsMappInfo(pgmDO);
+				systemManageDAO.insertAnnotInfo(pgmDO);
+
+				if(!isGroupId){
+					if(!pgmDO.getPreview_kr().equals("")){
+						systemManageDAO.insertPreveiw_Info(pgmDO);
+					}
+					if(!pgmDO.getCaption_cn().equals("")){
+						pgmDO.setType("013");
+						systemManageDAO.insertAttachFile(pgmDO);
+					}
+					if(!pgmDO.getCaption_en().equals("")){
+						pgmDO.setType("012");
+						systemManageDAO.insertAttachFile(pgmDO);
+					}
+					if(!pgmDO.getCaption_jp().equals("")){
+						pgmDO.setType("011");
+						systemManageDAO.insertAttachFile(pgmDO);
+					}
+					if(!pgmDO.getCaption_kr().equals("")){
+						pgmDO.setType("010");
+						systemManageDAO.insertAttachFile(pgmDO);
+					}
+				}
+
+				// 코너 정보를 프로시저를 통해 별도의 테이블에 저장하고 있음. 검색엔진을 위한 작업임.
+				systemManageDAO.insertCornerInfoForProceduer(Long.valueOf(pgmDO.getMaster_id()).intValue());
+
+				externalDAO.updatemetatbl(pgmDO);
+			} else return -1;
+		} catch (Exception e) {
+			if(conn != null) conn.rollback();
+			logger.error("insertIfCmsArchive all rollback!!! - media_id: "+pgmDO.getMedia_id());
+			throw e;
+		} finally {
+			if(conn != null) {
+				try {
+					conn.setAutoCommit(true);
+					conn.close();
+
+					pgmDO.setConn(null);
+				} catch (Exception e2) {}
+			}
+		}
+
+		return 1;
+	}
+	
 	/**
 	 * IFCMS 아카이브  ver 2.0
 	 * @param pdasArchiveDO                                                                                                                                                                                              
 	 * @return : -1(이미등록), 0 (실패), 1 (성공)
 	 * @throws Exception 
 	 **/
+	@Deprecated
 	public int insertIfCmsArchive(IfCmsArchiveDO pgmDO) throws Exception
 	{
 		if(logger.isDebugEnabled())
@@ -1854,7 +2037,7 @@ public class SystemManageBusinessProcessor
 		try 
 		{
 			// group_id 존재여부 체크
-			if(systemManageDAO.isThereGroupId(pgmDO.getGroup_id())||pgmDO.getGroup_id() ==0){
+			if(systemManageDAO.isThereGroupId(pgmDO.getGroup_id())||pgmDO.getGroup_id() == 0){
 				logger.info("group_id["+pgmDO.getGroup_id()+"] not exist! so go on~ ");
 				if(systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
 					int one =systemManageDAO.insertMetadatTblForIfCms(pgmDO);
@@ -1895,13 +2078,14 @@ public class SystemManageBusinessProcessor
 					String tmp_ma = String.valueOf(ma);
 					int master_id = Integer.parseInt(tmp_ma);
 					systemManageDAO.insertCornerInfoForProceduer(master_id);
+
 					externalDAO.updatemetatbl(pgmDO);
 					return 1;
 				}else{
 					//미디어id가 중복이라면 -1리턴
 					return -1;
 				}
-				
+
 			} else {
 				logger.info("group_id["+pgmDO.getGroup_id()+"] exist! so media_id["+pgmDO.getMedia_id()+"] try to check. ");
 				if(systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){	
@@ -1913,10 +2097,13 @@ public class SystemManageBusinessProcessor
 					int four =systemManageDAO.insertCornerInfo(pgmDO);
 					int five =systemManageDAO.insertContentsMappInfo(pgmDO);
 					int ten =systemManageDAO.insertAnnotInfo(pgmDO);
+
 					long ma = pgmDO.getMaster_id();
 					String tmp_ma = String.valueOf(ma);
 					int master_id = Integer.parseInt(tmp_ma);
+
 					systemManageDAO.insertCornerInfoForProceduer(master_id);
+
 					externalDAO.updatemetatbl(pgmDO);
 					int result = two+three+four+five+nine;
 					return 1;
@@ -1926,8 +2113,7 @@ public class SystemManageBusinessProcessor
 				}
 			}
 		}  catch (Exception e) {
-			logger.error("insertIfCmsArchive", e);
-			return 0;
+			throw e;
 		}
 
 	}
@@ -1937,60 +2123,132 @@ public class SystemManageBusinessProcessor
 
 	/**
 	 * PDAS 아카이브  상태변환 ver 1.0
+	 * insertPDSArchive 호출을 통해서 입력된 프로그램에 대한 정보 업데이트.
+	 * MXF 영상 및 첨부파일이 정상적으로 존재할 경우 호출되어진다. state 값이 '000' 이면 정상
 	 * @param pdasArchiveDO                                                                                                                                                                                              
 	 * @return                   
 	 * @throws Exception 
 	 *  */
-	public int updatePDSArchiveStatus(PdsArchiveDO pgmDO) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
+	public int updatePDSArchiveStatus(PdsArchiveDO pgmDO) throws Exception {
+		if(logger.isDebugEnabled()) {
 			logger.debug("[PdsArchiveDO][Input pgmDO]" + pgmDO);
 		}
 
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			/**
-			 * BackendTC WMV & KFRM 생성 요청 하는곳.
-			 */
-			systemManageDAO.updatePDSArchiveStatus(pgmDO);
-			/**
-			 * 프리뷰 노트를 생성하는 곳
-			 *  */
-			long masterid  = systemManageDAO.selectMasterId(pgmDO.getMedia_id());
+		long masterid  = systemManageDAO.selectMasterId(pgmDO.getMedia_id());
+		if(masterid > 0) {
+
 			pgmDO.setMaster_id(masterid);
 
-			if(!pgmDO.getPreview_file_nm().equals("")||!pgmDO.getPreview_cont().equals("")){
-				int six =systemManageDAO.insertPreveiw_Info(pgmDO);
+			// 프로그램 상태 업데이트
+			int update = systemManageDAO.updatePDSArchiveStatus(pgmDO);
 
-			}
+			if(update > 0) {
+				// The Preview Note will insert
+				try {
+					if(StringUtils.isNotBlank(pgmDO.getPreview_file_nm()) 
+							|| StringUtils.isNotBlank(pgmDO.getPreview_cont())){
+						systemManageDAO.insertPreveiw_Info(pgmDO);
+					}
+				} catch (Exception e) {
+					logger.error("insert preview_note error", e);
+				}
+				
+				//ct_id, cti_id(low) 값을 얻어온다
+				PdsArchiveDO pgm = systemManageDAO.selectTcInfo(pgmDO.getMedia_id());
+				pgmDO.setCt_id(pgm.getCt_id());
+				pgmDO.setCti_idForlow(pgm.getCti_idForlow());
 
+				/*
+				 * PDS 아카이브 요청에서 첨부파일 형식으로 넘어오는 자료가 있을경우 File Type에 따라 후처리 작업을 한다.
+				 * 현재는 CG 편집용 압축파일만 전송하지만 추가 형식이 올 수도 있음
+				 * 2015.11.12
+				 */
+				if(pgmDO.getAttatches() != null && pgmDO.getAttatches().size() > 0) {
+					int size = pgmDO.getAttatches().size();
+					for(int i=0; i<size; i++) {
+						AttachItem item = (AttachItem)pgmDO.getAttatches().get(i);
+						try {
+							/*
+							 * CG 편집관련 파일(zip)을 아카이빙 하기위한 로직을 추가한다.
+							 * File Type 값이 '015' => CG 편집용 압축파일,  첨부파일유형코드 [P015]
+							 * /mp4/<년월>/<일>/<CT_ID>/CG/<org_file_name>.zip <= mp4 위치와 동일하게 설정해야 함.
+							 */
+							if(logger.isInfoEnabled()) {
+								logger.info("attach file_type: "+item.getAttcFileType()+", filename: "+pgmDO.getOrgFileName()+", filesize: "+pgmDO.getFilesize());
+							}
+							if(item.getAttcFileType().equals("015")) {
+								String path = !pgmDO.getStorage_path().startsWith("/") ? "/"+pgmDO.getStorage_path() : pgmDO.getStorage_path();
 
+								if(logger.isDebugEnabled()) {
+									logger.debug("org_attach_filepath: "+path);
+								}
+								File f = new File(path, pgmDO.getOrgFileName());
+								if(f.exists()) {
+									// /mp4/년월/일/CT_ID 아래에 CG 폴더를 생성하고 하위에 복사하면 됨.
+									String dateTime2 = CalendarUtil.getDateTime("yyyyMM/dd");
+									String cgPath ="/"+dasHandler.getProperty("WINMP4")+"/"+dateTime2+"/"+pgmDO.getCt_id()+"/CG";
 
-			//ct_id, cti_id(low) 값을 얻어온다
-			PdsArchiveDO pgm = systemManageDAO.selectTcInfo(pgmDO.getMedia_id());
-			pgmDO.setCt_id(pgm.getCt_id());
-			pgmDO.setCti_idForlow(pgm.getCti_idForlow());
+									File cg = new File(cgPath, pgmDO.getOrgFileName());
 
-			//tc job 등록한다.
+									// 폴더가 있는지 여부를 체크하여 없다면 폴더 생성
+									File parent = cg.getParentFile();
+									if(!parent.exists()) {
+										parent.mkdirs();
+									}
 
+									// CG 파일을 MP4 
+									FileUtils.copyFile(f, cg);
+									if(logger.isDebugEnabled()) {
+										logger.debug("new_attach_filepath: "+cg.getAbsolutePath());
+									}
 
-			systemManageDAO.insertPDS(pgmDO);
+									// attatch_tbl 테이블에 첨부파일 정보를 추가함.
+									// 파일 사이즈도 전달받음.
+									//pgmDO.setFilesize(f.length());
 
+									AttachFileInfoDO attach = new AttachFileInfoDO();
+									attach.setMothrDataId(pgmDO.getMaster_id());
+									attach.setAttcFileTypeCd(item.getAttcFileType());
+									attach.setAttcClfCd("001");
+									attach.setRegDt(CalendarUtil.getDateTime("yyyyMMddHHmmss"));
+									attach.setRegrid(pgmDO.getReq_id());
+									attach.setFileSize(pgmDO.getFilesize());
+									attach.setFileName(pgmDO.getOrgFileName());
+									attach.setOrgFileNm(pgmDO.getOrgFileName());
+									attach.setFilePath(cgPath);
 
-			return 1;
+									externalDAO.insertAttachFile(attach);
+									if(logger.isDebugEnabled()) {
+										logger.debug("attach_tbl inserted: "+pgmDO.getMaster_id()+", file_name: "+pgmDO.getOrgFileName());
+									}
 
+									// 한번 더 원 위치에 압축파일이 존재하는지 체크한 후 있다면 재삭제. 시스템 명령어 사용.
+									if(f.exists()) {
+										logger.debug("org_file delete : "+f.getAbsolutePath());
+										CommonUtl.fileForceDelete(f);
+									}
+								} else {
+									logger.error("attach file not exists! - "+f.getAbsolutePath());
+								}
 
-		} 
-		catch (Exception e)
-		{
+								// 추가 첨부파일이 온다면 아래에 정의하면 됨.
+							}
+						} catch (Exception e) {
+							//첨부파일 등록 오류가 나더라도 계속 진행한다.
+							logger.error("PDS Attach File Error", e);
+						}
+					}
+				}
 
-			throw e;
+				//tc job 등록한다.
+				systemManageDAO.insertPDS(pgmDO);
+				
+				return 1;
+			} else return 0;
+		} else {
+			return 0;
 		}
-
 	}
-
 
 
 	/**
@@ -2151,7 +2409,7 @@ public class SystemManageBusinessProcessor
 		} 
 		catch (Exception e) 
 		{
-			
+
 			throw e;
 		}
 		return "";

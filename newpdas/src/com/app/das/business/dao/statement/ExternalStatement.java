@@ -314,7 +314,7 @@ public class ExternalStatement
 		buf.append("\n FROM PDS_PGMINFO_TBL ");
 		//buf.append("\n   inner join DAS.METADAT_MST_TBL mst on pgm.PGM_ID=mst.PGM_ID  ");
 		if(!pgmNm.equals("")){
-			buf.append("\n where PROGRAM_NAME like '%"+pgmNm+"%'");
+			buf.append("\n where PROGRAM_NAME like ?");
 		}
 		buf.append("\n WITH UR	 ");
 
@@ -543,12 +543,137 @@ public class ExternalStatement
 
 		return buf.toString();
 	}
+	
 	/**
 	 * 일괄 수정할 데이타를 조회한다.
 	 * @param programInfoDO
 	 * @param searchFlag 조회조건
 	 * @throws DASException
 	 */
+	public static final String selectNewTotalChangelistQuery(ProgramInfoDO	programInfoDO, String searchFlag) {
+		StringBuffer buf = new StringBuffer();
+		buf.append("\nSELECT                                                                                                ");
+		if(DASBusinessConstants.PageQueryFlag.TOTAL_COUNT.equals(searchFlag )) {
+			buf.append("\n 	  count(1) "); 
+		} else {
+			buf.append("\n * FROM (                                                                        						");
+			buf.append("\n	 SELECT                                                                        						");
+			buf.append("\n mst.pgm_id,                                                                         ");
+			buf.append("\n mst.master_id,                                                                      ");
+			buf.append("\n (CASE mst.PGM_ID WHEN 0 THEN mst.TITLE ELSE pgm.PGM_NM END) AS title,               ");
+			buf.append("\n value(mst.pgm_cd,'') as pgm_Cd ,                                                    ");
+			buf.append("\n value(mst.epis_no, '0') as epis_no,                                                 ");
+			buf.append("\n (CASE mst.CTGR_L_CD WHEN '100' THEN mst.FM_DT ELSE mst.BRD_DD end) AS brd_dd,    	 ");
+			buf.append("\n mst.CTGR_L_CD,                                                                      ");
+			buf.append("\n mst.CTGR_M_CD,                                                                      ");
+			buf.append("\n mst.CTGR_S_CD,                                                                      ");
+			buf.append("\n value(mst.PRDT_DEPT_NM,'') as PRDT_DEPT_NM,                                         ");
+			buf.append("\n value(mst.ORG_PRDR_NM,'') as ORG_PRDR_NM,                                           ");
+			buf.append("\n mst.PRDT_IN_OUTS_CD,                                                                ");
+			buf.append("\n value(mst.CMR_PLACE,'') as CMR_PLACE,                                               ");
+			buf.append("\n value(mst.CPRT_TYPE,'') as CPRT_TYPE,                                               ");
+			buf.append("\n mst.RSV_PRD_CD,                                                                     ");
+			buf.append("\n value(mst.CPRT_TYPE_DSC,'') as CPRT_TYPE_DSC,                                       ");
+			buf.append("\n mst.DATA_STAT_CD,                                                                   ");
+			buf.append("\n value(mst.CPRTR_NM,'') as  CPRTR_NM, 	                                           ");
+			buf.append("\n value(mst.AWARD_HSTR ,'') as   AWARD_HSTR,                                          ");
+			buf.append("\n cti.RECORD_TYPE_CD,                                                                 ");
+			buf.append("\n ROW_NUMBER() OVER(ORDER BY mst.BRD_DD asc, mst.FM_DT ASC, mst.TITLE asc) AS rownum  ");
+		}
+		buf.append("\nFROM METADAT_MST_TBL mst                                                                              ");
+		buf.append("\n	inner JOIN CONTENTS_TBL ct ON mst.RPIMG_CT_ID = ct.CT_ID                                            ");
+		buf.append("\n    inner JOIN CONTENTS_INST_TBL cti ON ct.CT_ID = cti.CT_ID AND cti.CTI_FMT LIKE '1%'                ");
+		buf.append("\n    left outer JOIN PGM_INFO_TBL pgm ON mst.PGM_ID = pgm.PGM_ID                                       ");
+		buf.append("\n    left outer JOIN CODE_TBL code ON cti.RECORD_TYPE_CD = code.SCL_CD AND code.CLF_CD = 'A010'             ");
+		buf.append("\nWHERE 1=1 AND (mst.del_dd IS NULL OR mst.del_dd = '')                                                 ");
+		buf.append("\n    AND NOT EXISTS (                                                                                  ");
+		buf.append("\n    	SELECT 1 FROM DISCARD_INFO_TBL discard WHERE mst.master_id = discard.master_id                  ");
+		buf.append("\n    )                                                                                                 ");
+		buf.append("\n    AND NOT EXISTS (                                                                                  ");
+		buf.append("\n    	SELECT 1 FROM RELATION_MASTER rm WHERE rm.CHILD_MASTER_ID = mst.MASTER_ID                       ");
+		buf.append("\n    )                                                                                                 ");
+		
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getSearch_word())) {
+			buf.append("\n AND (mst.TITLE LIKE '%"+programInfoDO.getSearch_word()+"%'  OR mst.PRDT_DEPT_NM LIKE '%"+programInfoDO.getSearch_word()+"%') ");
+		}
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getDept_nm())) {
+			buf.append("\n AND mst.PRDT_DEPT_NM LIKE '%"+programInfoDO.getDept_nm()+"%' ");
+		}
+		
+		// 방송일 or 촬영일
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getBrdBgnDd())
+				&& org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getBrdEndDd())) {
+			buf.append("\n AND ((substr(mst.brd_dd, 1, 8) between '"+programInfoDO.getBrdBgnDd()+"' and '"+programInfoDO.getBrdEndDd()+"')");
+			buf.append("   	OR (substr(mst.fm_dt, 1, 8) between '"+programInfoDO.getBrdBgnDd()+"' and '"+programInfoDO.getBrdEndDd()+"'))");
+		}
+		
+		// 대분류, 중분류, 소분류
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getCtgrLCd())) {
+			buf.append("\n AND mst.ctgr_l_cd like '"+programInfoDO.getCtgrLCd()+"%' ");
+		}
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getCtgrMCd())) {
+			buf.append("\n AND mst.ctgr_m_cd like '"+programInfoDO.getCtgrMCd()+"%' ");
+		}
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getCtgrSCd())) {
+			buf.append("\n AND mst.ctgr_s_cd like '"+programInfoDO.getCtgrSCd()+"%' ");
+		}
+		
+		// 아카이브 경로
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getArchive_path())) {
+			String[] path = programInfoDO.getArchive_path().split(",");
+			
+			buf.append("\n AND ( ");
+			for(int i =0; i<path.length;i++){
+				if(i!=0){
+					buf.append("\n or ");
+				}
+				if(path[i].equals("D")) { // 매체변환
+					buf.append("\n mst.arch_route LIKE 'D%' ");
+				} else if(path[i].equals("O")) {
+					buf.append("\n mst.arch_route LIKE 'O%'");
+				} else if(path[i].equals("P")){
+					buf.append("\n mst.arch_route ='P'");
+				}
+			}
+			buf.append("\n ) ");
+		}
+		
+		// 회사 및 채널 검색
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getCocd())) {
+			buf.append("\n  AND mst.cocd like  '" + programInfoDO.getCocd()+"%'");
+		}
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getChennel())) {
+			buf.append("\n  AND mst.chennel_cd like  '" + programInfoDO.getChennel()+"%'");
+		}
+		
+		// 코드별 검색
+		if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getClf_cd())) {
+			if(org.apache.commons.lang.StringUtils.isNotBlank(programInfoDO.getScl_cd())) {
+				if("RSV".equals(programInfoDO.getClf_cd())) { //보존기한
+					buf.append("\n AND  mst.RSV_PRD_CD = '"+programInfoDO.getScl_cd()+"'");
+				} else if("CPRT".equals(programInfoDO.getClf_cd())) { // 저작권
+					buf.append("\n AND  mst.CPRT_TYPE = '"+programInfoDO.getScl_cd()+"'");
+				} else if("VIEW".equals(programInfoDO.getClf_cd())) { // 시청등급
+					buf.append("\n AND  mst.VIEW_GR_CD = '"+programInfoDO.getScl_cd()+"'");
+				} else if("VP".equals(programInfoDO.getClf_cd())) {  // 화질
+					buf.append("\n AND  ct.VD_QLTY = '"+programInfoDO.getScl_cd()+"'");
+				} else if("ASP".equals(programInfoDO.getClf_cd())) { // 종횡비
+					buf.append("\n AND  ct.ASP_RTO_CD = '"+programInfoDO.getScl_cd()+"'");
+				} else if("USE_LIMIT".equals(programInfoDO.getClf_cd())) { // 사용제한
+					buf.append("\n AND  mst.RIST_CLF_CD = '"+programInfoDO.getScl_cd()+"'");
+				}
+			}
+		}
+		if(DASBusinessConstants.PageQueryFlag.TOTAL_COUNT.equals(searchFlag )) {
+			
+		} else {
+			buf.append("\n ) t WHERE t.rownum between ? and ? ");
+		}
+		
+		return buf.toString();
+	}
+	
+	@Deprecated
 	public static final String selectTotalChangelistQuery(ProgramInfoDO	programInfoDO, String searchFlag)
 	{
 		StringBuffer buf = new StringBuffer();
@@ -1276,6 +1401,7 @@ public class ExternalStatement
 	/**
 	 * 메타데이터 검색결과의 갯수를 가져온다.
 	 */
+	@Deprecated
 	public static final String selectMetadatInfoQuery(WorkStatusConditionDO conditionDO)
 	{
 		StringBuffer buf = new StringBuffer();
@@ -4225,6 +4351,279 @@ public class ExternalStatement
 
 	}
 	  */
+	
+	public static final String selectNewMetadatInfoQuery(WorkStatusConditionDO conditionDO, String flag) {
+		StringBuffer buf = new StringBuffer();
+		
+		buf.append("\nSELECT                                                                                                                                            ");
+		if(DASBusinessConstants.PageQueryFlag.TOTAL_COUNT.equals(flag)) {
+			buf.append("\n	count(*) as CCOUNT,  bigint(sum(sum_brd_leng)*29.97)  as sum_brd_leng                                                                                                         ");
+		} else {
+			buf.append("\n	t.*, CT_ROWS_COUNT(t.master_id) count                                                                                                           ");
+		}
+		
+		buf.append("\nFROM (                                                                                                                                            ");
+		buf.append("\n	SELECT                                                                                                                                          ");
+		if(DASBusinessConstants.PageQueryFlag.TOTAL_COUNT.equals(flag)) {
+			buf.append("\n		CASE                                                                                                                                ");
+			buf.append("\n 			WHEN mst.BRD_LENG IS NOT NULL AND VALUE(mst.BRD_LENG, '') <> ''                                                                                                                             ");
+			buf.append("\n 				THEN bigint(SUBSTR(mst.BRD_LENG,1,2))*60*60+bigint(substr(mst.BRD_LENG,4,2))*60+bigint(substr(mst.BRD_LENG,7,2)) +bigint(substr(mst.BRD_LENG,10,2)/29.97)                                                                                                                                    ");
+			buf.append("\n 			ELSE 0                                                                                                            ");
+			buf.append("\n 		END AS sum_brd_leng                                                                                                             ");
+		} else {
+			buf.append("\n		mst.master_id,                                                                                                                                ");
+			buf.append("\n 		mst.tape_item_id,                                                                                                                             ");
+			buf.append("\n 		mst.mcuid,                                                                                                                                    ");
+			buf.append("\n 		mst.data_stat_cd as data_stat_cd,                                                                                                             ");
+			buf.append("\n 		mst.lock_stat_cd as lock_stat_cd,                                                                                                             ");
+			buf.append("\n 		mst.error_stat_cd as error_stat_cd,                                                                                                           ");
+			buf.append("\n 		code3.clf_nm as clf_nm,                                                                                                                       ");
+			buf.append("\n 		code3.desc as desc,                                                                                                                           ");
+			buf.append("\n 		case                                                                                                                                          ");
+			buf.append("\n 			when (mst.ctgr_l_cd='200') and ( mst.pgm_id <> 0 ) and pgm.pgm_nm is not null  then pgm.pgm_nm                                              ");
+			buf.append("\n 			when (mst.ctgr_l_cd='200') and (mst.pgm_id =0 or mst.pgm_id is null) then mst.title                                                         ");
+			buf.append("\n 			when mst.ctgr_l_cd='100' then mst.title                                                                                                     ");
+			buf.append("\n 			else  mst.title                                                                                                                             ");
+			buf.append("\n  		end as title,                                                                                                                               ");
+			buf.append("\n 		value (user.USER_NM, '') as USER_NM,                                                                                                          ");
+			buf.append("\n 		mst.reg_dt as reg_dt,                                                                                                                         ");
+			buf.append("\n 		value(mst.req_cd,'') as req_cd,                                                                                                               ");
+			buf.append("\n 		mst.brd_leng as brd_leng,                                                                                                                     ");
+			buf.append("\n 		case                                                                                                                                          ");
+			buf.append("\n 			when mst.ctgr_l_cd='200' then mst.brd_dd                                                                                                    ");
+			buf.append("\n 			when mst.ctgr_l_cd='100' then mst.fm_dt                                                                                                     ");
+			buf.append("\n 			else mst.brd_dd                                                                                                                             ");
+			buf.append("\n 		end as brd_dd,                                                                                                                                ");
+			buf.append("\n 		value(mst.epis_no,0) as epis_no,                                                                                                              ");
+			buf.append("\n 		mst.ing_reg_dd as ing_reg_dd,                                                                                                                 ");
+			buf.append("\n 		mst.arch_reg_dd as arch_reg_dd,                                                                                                               ");
+			buf.append("\n 		mst.ctgr_l_cd as ctgr_l_cd,                                                                                                                   ");
+			buf.append("\n 		mst.FM_DT as fm_dt,                                                                                                                           ");
+			buf.append("\n 		mst.modrid as modrid,                                                                                                                         ");
+			buf.append("\n  		value(mapp.CT_ID,0) as CT_ID ,                                                                                                              ");
+			buf.append("\n  		value(inst.CTI_ID ,0) as cti_id ,                                                                                                           ");
+			buf.append("\n  		code1.DESC AS CT_CLA_NM,                                                                                                                    ");
+			buf.append("\n  		code2.DESC AS CTGR_L_NM,                                                                                                                    ");
+			buf.append("\n 		DECODE(rm.PARENT_MASTER_ID, NULL, 'N','Y') AS LINK_PARENT                                                                                    ");
+			if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSortColume())){
+				buf.append("\n      ,ROW_NUMBER() OVER(ORDER BY mst."+conditionDO.getSortColume()+" "+conditionDO.getSortValue()+" ) AS rownum                                     ");
+			} else {
+				buf.append("\n    	,ROW_NUMBER() OVER(ORDER BY mst.ing_reg_dd DESC, mst.MASTER_ID asc) AS rownum                                                              ");
+			}
+		}
+		buf.append("\n	FROM METADAT_MST_TBL mst                                                                                                                        ");
+		buf.append("\n		INNER JOIN (SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL WHERE del_yn = 'N' AND VALUE(del_dd, '') = '' GROUP BY master_id, ct_id) mapp      ");
+		buf.append("\n	    	ON mst.MASTER_ID = mapp.MASTER_ID                                                                                                         ");
+		buf.append("\n	    INNER JOIN CONTENTS_TBL ct ON mapp.CT_ID = ct.CT_ID                                                                                         ");
+		buf.append("\n	    INNER JOIN CONTENTS_INST_TBL inst ON ct.CT_ID = inst.CT_ID AND inst.CTI_FMT LIKE '1%'                                                       ");
+		buf.append("\n	    LEFT OUTER JOIN PGM_INFO_TBL pgm ON mst.PGM_ID = pgm.PGM_ID                                                                                 ");
+		buf.append("\n	    LEFT OUTER JOIN RELATION_MASTER rm ON mst.MASTER_ID = rm.PARENT_MASTER_ID                                                                   ");
+		buf.append("\n	    LEFT OUTER JOIN CODE_TBL code1 ON code1.SCL_CD = ct.CT_CLA AND code1.CLF_CD='A001'                                                          ");
+		buf.append("\n	    LEFT OUTER JOIN CODE_TBL code2 ON code2.SCL_CD = mst.CTGR_L_CD AND code2.CLF_CD='P002'                                                      ");
+		buf.append("\n	    LEFT OUTER JOIN CODE_TBL code3 ON code3.SCL_CD = mst.DATA_STAT_CD AND code3.CLF_CD='P051'                                                   ");
+		buf.append("\n	    LEFT OUTER JOIN USER_INFO_TBL USER ON USER.SBS_USER_ID = mst.MODRID                                                                         ");
+		buf.append("\n	WHERE 1=1 AND ct.CT_TYP = '003'                                                                                                                  ");
+		buf.append("\n		AND NOT EXISTS (                                                                                                                              ");
+		buf.append("\n			SELECT 1 FROM DISCARD_INFO_TBL dis WHERE mst.MASTER_ID = dis.MASTER_ID                                                                      ");
+		buf.append("\n		)                                                                                                                                             ");
+		buf.append("\n	    AND NOT EXISTS (                                                                                                                            ");
+		buf.append("\n	    	SELECT 1 FROM RELATION_MASTER rel WHERE mst.MASTER_ID = rel.CHILD_MASTER_ID                                                               ");
+		buf.append("\n	    )                                                                                                                                           ");
+		buf.append("\n	    AND VALUE(mst.DEL_DD, '') = ''                                                                                                              ");
+		buf.append("\n	    AND (mst.MANUAL_YN = 'N' OR mst.MANUAL_YN IS null)                                                                                          ");
+		buf.append("\n		AND                                                                                                                                           ");
+		buf.append("\n	    ((                                                                                                                                          ");
+		buf.append("\n	    	VALUE(mst.ARCH_REG_DD, '') <> ''                                                                                                          ");
+		buf.append("\n	        OR (mst.MANUAL_YN='Y' AND inst.ARCH_STE_YN='Y')                                                                                         ");
+		buf.append("\n	        OR (mst.MANUAL_YN='Y' AND ct.MEDIA_ID like 'D%')                                                                                        ");
+		buf.append("\n	        OR (mst.ARCH_ROUTE LIKE 'P%')                                                                                                           ");
+		buf.append("\n	    ) OR (                                                                                                                                      ");
+		buf.append("\n	    	VALUE(mst.ARCH_REG_DD, '') <> ''                                                                                                          ");
+		buf.append("\n	        OR (mst.MANUAL_YN='Y' AND inst.ARCH_STE_YN='Y')                                                                                         ");
+		buf.append("\n	        OR (mst.MANUAL_YN='Y' AND ct.MEDIA_ID like 'D%')                                                                                        ");
+		buf.append("\n	        OR (mst.ARCH_ROUTE LIKE 'D%' AND mst.MANUAL_YN='N')                                                                                     ");
+		buf.append("\n	    ))                                                                                                                                          ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getMcuidYn())) {
+			String[] McuidYn =  conditionDO.getMcuidYn().split(",");
+			buf.append("\n AND ( ");
+			for(int i =0; i<McuidYn.length;i++){
+				if(i!=0){
+					buf.append("\n or ");
+				}
+				if(McuidYn[i].equals(DASBusinessConstants.SourceGubun.SDI)) { // 매체변환
+					buf.append("\n mst.arch_route LIKE 'D%' ");
+				} else if(McuidYn[i].equals(DASBusinessConstants.SourceGubun.ONAIR)) { // 주조
+					buf.append("\n mst.arch_route LIKE 'O%'");
+				} else if(McuidYn[i].equals(DASBusinessConstants.SourceGubun.PDS)) {
+					buf.append("\n mst.arch_route ='P'");
+				}
+			}
+			buf.append("\n ) ");
+		}
+		
+		// 프로그램 카테고리 조건
+		if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getCtgr_l_cd())) {
+			if("200".equals(conditionDO.getCtgr_l_cd())){
+				buf.append("\n  AND mst.CTGR_L_CD = '"+conditionDO.getCtgr_l_cd()+"' ");
+			} else {
+				buf.append("\n  AND mst.CTGR_L_CD <> '200' ");
+			}
+			//buf.append("\n  AND mst.CTGR_L_CD = '"+conditionDO.getCtgr_l_cd()+"' ");
+		}
+		
+		if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSearchCombo())) {
+			if(DASBusinessConstants.SearchCombo.ASP_RTO_CD.equals(conditionDO.getSearchCombo())){
+				if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSearchComboValue())) {
+					buf.append("\n  AND  ct.ASP_RTO_CD = '"+conditionDO.getSearchComboValue()+"' ");
+				} else {
+					buf.append("\n  AND  (ct.ASP_RTO_CD <> '' OR ct.ASP_RTO_CD IS NULL  )");	
+				}
+			} else if(DASBusinessConstants.SearchCombo.VD_QLTY.equals(conditionDO.getSearchCombo())) {
+				if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSearchComboValue())) {
+					buf.append("\n  AND  ct.VD_QLTY = '"+conditionDO.getSearchComboValue()+"' ");
+				} else {
+					buf.append("\n  AND  (ct.VD_QLTY <> '' OR ct.VD_QLTY IS NULL  )");	
+				}
+			} else if(DASBusinessConstants.SearchCombo.USE_LIMIT.equals(conditionDO.getSearchCombo())) {
+				buf.append("\n  AND  mst.rist_clf_Cd = '"+conditionDO.getSearchComboValue()+"' ");
+			} else if(DASBusinessConstants.SearchCombo.VIEW_GR_CD.equals(conditionDO.getSearchCombo())) {
+				if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSearchComboValue())) {
+					buf.append("\n  AND  mst.VIEW_GR_CD = '"+conditionDO.getSearchComboValue()+"' ");
+				} else {
+					buf.append("\n  AND ( OR mst.VIEW_GR_CD IS NULL or mst.VIEW_GR_CD = '' ) ");
+				}
+			} else if(DASBusinessConstants.SearchCombo.CPRT_TYPE.equals(conditionDO.getSearchCombo())) {
+				if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSearchComboValue())) {
+					buf.append("\n  AND  mst.CPRT_TYPE = '"+conditionDO.getSearchComboValue()+"' ");
+				} else {
+					buf.append("\n  AND ( mst.CPRT_TYPE IS NULL or mst.CPRT_TYPE = '')");	
+				}
+			} else if(DASBusinessConstants.SearchCombo.RSV_PRD_CD.equals(conditionDO.getSearchCombo())) {
+				if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSearchComboValue())) {
+					buf.append("\n  AND  mst.RSV_PRD_CD = '"+conditionDO.getSearchComboValue()+"' ");
+				} else {
+					buf.append("\n  AND  (mst.RSV_PRD_CD IS NULL or mst.RSV_PRD_CD = '' ) ");
+				}
+			} else if(DASBusinessConstants.SearchCombo.CT_CLA.equals(conditionDO.getSearchCombo())) {
+				if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSearchComboValue())) {
+					buf.append("\n  AND  ct.CT_CLA= '"+conditionDO.getSearchComboValue()+"' ");
+				} else {
+					buf.append("\n  AND  (ct.CT_CLA IS NULL or ct.CT_CLA = '') ");
+				}
+			} else if(DASBusinessConstants.SearchCombo.TAPE_KIND.equals(conditionDO.getSearchCombo())) {
+				if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSearchComboValue())) {
+					buf.append("\n  AND  mst.TAPE_MEDIA_CLF_CD= '"+conditionDO.getSearchComboValue()+"' ");
+				} else {
+					buf.append("\n  AND  (mst.TAPE_MEDIA_CLF_CD IS NULL or mst.TAPE_MEDIA_CLF_CD = '') ");
+				}
+			}
+		}
+		
+		if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getDateKind())) {
+			String[] dateGb = conditionDO.getDateKind().split(",");
+			for(int i=0; i < dateGb.length; i++) {
+				buf.append("\n  AND ");
+				if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getFromDate())) {
+					if (CodeConstants.WorkStatusDateFlag.REG_DATE.equals(String.valueOf(dateGb[i]))) {
+						buf.append("\n (SUBSTR(mst.REG_DT, 1, 8) between '"+conditionDO.getFromDate()+"' and '"+conditionDO.getToDate()+"')  ");
+					} else if (CodeConstants.WorkStatusDateFlag.SHOT_DATE.equals(String.valueOf(dateGb[i]))) {
+						buf.append("\n ( ");
+						buf.append("\n 		(SUBSTR(mst.fm_dt, 1, 8) between '"+conditionDO.getFromDate()+"' and '"+conditionDO.getToDate()+"')  ");
+						buf.append("\n 		or ");
+						buf.append("\n 		(SUBSTR(mst.brd_dd, 1, 8) between '"+conditionDO.getFromDate()+"' and '"+conditionDO.getToDate()+"')  ");
+						buf.append("\n ) ");
+					} else if(CodeConstants.WorkStatusDateFlag.COMPLET_DATE.equals(String.valueOf(dateGb[i]))) {
+						buf.append("\n (SUBSTR(mst.arrg_end_dt, 1, 8) between '"+conditionDO.getFromDate()+"' and '"+conditionDO.getToDate()+"')  ");
+					} else if(CodeConstants.WorkStatusDateFlag.ACCEPT_DATE.equals(String.valueOf(dateGb[i]))) {
+						buf.append("\n (SUBSTR(mst.accept_end_dd, 1, 8) between '"+conditionDO.getFromDate()+"' and '"+conditionDO.getToDate()+"')  ");
+					}
+				}
+			}
+		}
+		String dataStatCd = "";
+		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getArrangeBfYn())) {
+			dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? "'"+CodeConstants.DataStatusCode.ARRANGE_BEFORE+"'" : dataStatCd+","+"'"+CodeConstants.DataStatusCode.ARRANGE_BEFORE+"'";
+		}
+		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getArrangeIngYn())) {
+			/*dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? 
+					"'"+CodeConstants.DataStatusCode.ARRANGE_ING+"'"+","+"'"+CodeConstants.DataStatusCode.EDIT_ING+"'"+","+"'"+CodeConstants.DataStatusCode.PRE_EDIT+"'" 
+					: dataStatCd+","+"'"+CodeConstants.DataStatusCode.ARRANGE_ING+"'"+","+"'"+CodeConstants.DataStatusCode.EDIT_ING+"'"+","+"'"+CodeConstants.DataStatusCode.PRE_EDIT+"'"
+			;*/
+			dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? "'"+CodeConstants.DataStatusCode.ARRANGE_ING+"'" : dataStatCd+","+"'"+CodeConstants.DataStatusCode.ARRANGE_ING+"'";
+		}
+		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getArrangeCompYn())) {
+			dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? "'"+CodeConstants.DataStatusCode.ARRANGE_COMPLET+"'" : dataStatCd+","+"'"+CodeConstants.DataStatusCode.ARRANGE_COMPLET+"'";
+		}
+		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getCompletYn())) {
+			dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? "'"+CodeConstants.DataStatusCode.COMPLET+"'" : dataStatCd+","+"'"+CodeConstants.DataStatusCode.COMPLET+"'";
+		}
+		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getReOrdersYn())) {
+			dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? "'"+CodeConstants.DataStatusCode.RE_ORDERS+"'" : dataStatCd+","+"'"+CodeConstants.DataStatusCode.RE_ORDERS+"'";
+		}
+		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getArchiveYn())) {
+			dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? "'"+CodeConstants.DataStatusCode.ARCHIVE+"'" : dataStatCd+","+"'"+CodeConstants.DataStatusCode.ARCHIVE+"'";
+		}
+		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getSecondArchiveYn())) {
+			dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? "'"+CodeConstants.DataStatusCode.RE_ARCHIVE+"'" : dataStatCd+","+"'"+CodeConstants.DataStatusCode.RE_ARCHIVE+"'";
+		}
+		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getStartingYn())) {
+			dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? "'"+CodeConstants.DataStatusCode.STARTINGYN+"'" : dataStatCd+","+"'"+CodeConstants.DataStatusCode.STARTINGYN+"'";
+		}
+		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getErrorYn())) {
+			dataStatCd = (StringUtils.isEmpty(dataStatCd)) ? "'"+CodeConstants.DataStatusCode.ERROR+"'" : dataStatCd+","+"'"+CodeConstants.DataStatusCode.ERROR+"'";
+		}
+		
+		if(org.apache.commons.lang.StringUtils.isNotBlank(dataStatCd)) {
+			buf.append("\n AND mst.DATA_STAT_CD in ("+dataStatCd+")");
+		}
+		
+		if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getColumnName())
+				&& org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getSearchKey())) {
+			if("SEC_ARCH_NM".equals(conditionDO.getColumnName())) {
+				buf.append("\n and mst.SEC_ARCH_NM like '%" + conditionDO.getSearchKey() + "%'");
+			} else if("SEC_ARCH_ID".equals(conditionDO.getColumnName())) {
+				buf.append("\n and mst.SEC_ARCH_ID like '%" + conditionDO.getSearchKey() + "%'");
+			} else if("REQ_CD".equals(conditionDO.getColumnName())) {
+				buf.append("\n and mst.REQ_CD like '%" + conditionDO.getSearchKey() + "%'");
+			} else if("TITLE".equals(conditionDO.getColumnName())) {
+				buf.append("\n and (mst.TITLE like '%" + conditionDO.getSearchKey() + "%'");
+				buf.append(" or pgm.pgm_nm like '%" + conditionDO.getSearchKey() + "%')");
+			} else if("ACCEPTOR_ID".equals(conditionDO.getColumnName())) {
+				buf.append("\n and mst.ACCEPTOR_ID like '%" + conditionDO.getSearchKey() + "%'");
+			} else if("ACCEPTOR_NM".equals(conditionDO.getColumnName())) {
+				buf.append("\n and user.USER_NM like '%" + conditionDO.getSearchKey() + "%'");
+			} else if("MASTER_ID".equals(conditionDO.getColumnName())) {
+				buf.append("\n and mst.MASTER_ID = '" + conditionDO.getSearchKey() + "'");
+			}
+		}
+		
+		if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getArchiveYn())) {
+			if(conditionDO.getArchiveYn().equals("Y")){
+				buf.append(" AND value(mst.ARCH_REG_DD,'') <>'' ");	
+			} else {
+				buf.append(" AND value(mst.ARCH_REG_DD,'') ='' ");
+			}
+		}
+		
+		if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getCocd())) {
+			buf.append(" AND mst.cocd= '" +conditionDO.getCocd()+"'");
+		}
+		
+		if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getChennel())) {
+			buf.append(" AND mst.chennel_cd= '" +conditionDO.getChennel()+"'");	
+		}
+		
+		if(DASBusinessConstants.PageQueryFlag.TOTAL_COUNT.equals(flag)) {
+			buf.append("\n) AS t                                                                                                           ");
+		} else {
+			buf.append("\n) AS t WHERE T.ROWNUM BETWEEN "+conditionDO.getStartPos()+" AND "+conditionDO.getEndPos()+"                                                                                                           ");
+		}
+		buf.append("\nWITH ur                                                                                                                                           ");
+		
+		return buf.toString();
+	}
+	
+	@Deprecated
 	public static final String selectMetadatInfoQuery2(WorkStatusConditionDO conditionDO)
 	{
 		StringBuffer buf = new StringBuffer();
@@ -4233,7 +4632,7 @@ public class ExternalStatement
 		// row 수를 구분하려고 하면 그에 맞게 쿼리문을 수정한다.
 		if (conditionDO.getQueryResultCount() == false)
 		{
-			buf.append(" \n select * from (");
+			buf.append(" \n select t.*, CT_ROWS_COUNT(t.master_id) count from (");
 		}
 		else{
 			buf.append("\n select count(*) as CCOUNT ,sum(sum_brd_leng) as sum_brd_leng from ( ");
@@ -4263,7 +4662,7 @@ public class ExternalStatement
 		buf.append("\n ,k.cti_id ");
 		buf.append("\n ,k.CT_CLA_NM ");
 		buf.append("\n ,k.CTGR_L_NM ");
-		buf.append("\n ,k.COUNT ");
+		//buf.append("\n ,k.COUNT ");
 		buf.append("\n ,k.LINK_PARENT ");
 		buf.append("\n ,ROW_NUMBER() OVER( ");	
 
@@ -4307,7 +4706,7 @@ public class ExternalStatement
 		buf.append("\n  value(inst.CTI_ID ,0) as cti_id , ");
 		buf.append("\n  CODE.DESC AS CT_CLA_NM, ");
 		buf.append("\n  CODE2.DESC AS CTGR_L_NM, ");
-		buf.append("\n 	B.COUNT, ");
+		//buf.append("\n 	B.COUNT, ");
 		buf.append("\n 	DECODE(RMP.PARENT_MASTER_ID, NULL, 'N','Y') AS LINK_PARENT ");
 		if (!conditionDO.getQueryResultCount() == false)
 		{
@@ -4361,11 +4760,11 @@ public class ExternalStatement
 		//buf.append("\n   LEFT OUTER JOIN AUTO_ARCHVIE_TBL AUTO ON AUTO.SCL_CD =  CON.ct_cla  ");	
 		buf.append("\n left outer join PGM_INFO_TBL pgm on pgm.PGM_ID = a.PGM_ID  ");	
 		buf.append("\n  left outer join DAS.RELATION_MASTER as rmp on a.master_id = rmp.PARENT_MASTER_ID  ");	
-
+/*
 		buf.append("\n inner  JOIN ( select z.master_id, count(*) as COUNT  ");
 		buf.append("\n from (select distinct master_id, ct_id from das.contents_mapp_tbl mapp where ( mapp.del_dd = '' or mapp.del_dd is null)) z  ");
 		buf.append("\n group by z.master_id) B ON A.master_id = B.master_id ");
-
+*/
 		if(DASBusinessConstants.SearchCombo.ASP_RTO_CD.equals(conditionDO.getSearchCombo())
 				||DASBusinessConstants.SearchCombo.VD_QLTY.equals(conditionDO.getSearchCombo())){
 			buf.append("\n INNER JOIN (      ");
@@ -5286,11 +5685,11 @@ public class ExternalStatement
 		buf.append("\n where  1=1");
 
 		if(!programInfoDO.getPgmNm().equals("")){
-			buf.append("\n and pgm.PGM_NM like '%"+programInfoDO.getPgmNm()+"%'");
+			buf.append("\n and pgm.PGM_NM like ?");
 		}
 
 		if(!programInfoDO.getPgmCd().equals("")){
-			buf.append("\n and pgm.PGM_cd like '%"+programInfoDO.getPgmCd()+"%'");
+			buf.append("\n and pgm.PGM_cd like ?");
 		}
 		buf.append("\n order by pgm.pgm_nm asc 	 ");
 		buf.append("\n WITH UR	 ");
@@ -6048,6 +6447,7 @@ public class ExternalStatement
 	 * @return list 대본 정보 조회
 	 * @throws DASException
 	 */
+	@Deprecated
 	public static final String TCount(MonitoringDO monitoringDO)
 	{
 		StringBuffer buf = new StringBuffer();
@@ -6103,6 +6503,67 @@ public class ExternalStatement
 	 * @return                                                                                                                                                                                              
 	 * @throws DASException
 	 */
+	
+	public static final String selectTCinfoQuery(MonitoringDO monitoringDO, String flag) {
+		StringBuffer buf = new StringBuffer();
+		buf.append("\nSELECT                                                                                                               ");
+		if(DASBusinessConstants.PageQueryFlag.TOTAL_COUNT.equals(flag)) {
+			buf.append("\n  	count(*) as cnt                                                                                       ");
+		} else {
+			buf.append("\n  	a.*,                                                                                        ");
+		    buf.append("\n      VALUE(code1.DESC, '') job_status,                                                 ");
+		    buf.append("\n      VALUE(code2.DESC, '') down_status, value(eq.DAS_EQ_USE_IP,'') as tc_ip                           ");
+		}
+	    buf.append("\n  FROM (                                                                                                             ");
+	    buf.append("\n      SELECT                                                                                                         ");
+		buf.append("\n	         tc.SEQ, tc.REQ_CD, tc.PROGRESS, tc.PRIORITY, value(cdown.PROGRESS, '0') AS down_progress,                         ");
+	    buf.append("\n           tc.CT_ID, tc.CART_NO, tc.REG_DT, tc.TC_ID, tc.JOB_STATUS, value(user.user_nm,'') as req_nm,                                                 ");
+	    buf.append("\n           cart.REGRID, tc.JOB_STATUS down_status, mst.TITLE, TC.REG_DT AS REQ_DT,                                             ");
+	    buf.append("\n           ROW_NUMBER() OVER(ORDER BY cart.reg_dt desc) AS rownum                                                    ");
+	    buf.append("\n      FROM CART_CONT_TBL cart                                                                                              ");
+	    buf.append("\n      	inner JOIN DOWN_CART_TBL down ON cart.CART_NO = down.CART_NO                                                 ");
+	    buf.append("\n      	left outer JOIN CONTENTS_DOWN_TBL cdown ON cart.CART_NO = cdown.CART_NO AND cart.CART_SEQ = cdown.CART_SEQ   ");
+	    buf.append("\n      	left outer JOIN TC_JOB_TBL tc ON cart.CT_ID = tc.CT_ID                                                       ");
+	    buf.append("\n      	inner JOIN METADAT_MST_TBL mst ON cart.CT_ID = mst.RPIMG_CT_ID                                               ");
+	    buf.append("\n  		left outer JOIN USER_INFO_TBL user on user.SBS_USER_ID = cart.REGRID                                                  ");
+	    buf.append("\n      WHERE 1=1                                                                                                      ");
+	    buf.append("\n      	AND (down.DOWN_GUBUN='006' OR tc.REQ_CD LIKE 'CT%')                                                          ");
+	    
+	    if(org.apache.commons.lang.StringUtils.isNotBlank(monitoringDO.getReq_id())){
+			buf.append("\n  	AND user.sbs_user_id like '%"+monitoringDO.getReq_id()+"%' ");
+		}
+
+	    if(org.apache.commons.lang.StringUtils.isNotBlank(monitoringDO.getReq_nm())){
+			buf.append("\n  and user.user_nm like '%"+monitoringDO.getReq_nm()+"%' ");
+		}
+
+		if(org.apache.commons.lang.StringUtils.isNotBlank(monitoringDO.getStart_search_dd())){
+			buf.append("\n  and substr(tc.reg_dt,1,8) between '"+monitoringDO.getStart_search_dd()+"' and '"+monitoringDO.getEnd_serach_dd()+"'");
+		}
+
+		if(org.apache.commons.lang.StringUtils.isNotBlank(monitoringDO.getTitle())){
+			buf.append("\n  and mst.title like  '%"+monitoringDO.getTitle()+"%' ");
+		}
+		if(org.apache.commons.lang.StringUtils.isNotBlank(monitoringDO.getStatus())){
+			buf.append("\n  and (tc.JOB_STATUS ='"+monitoringDO.getStatus()+"' OR CDOWN.JOB_STATUS='"+monitoringDO.getStatus()+"') ");
+		}
+		
+	    buf.append("\n  ) a                                                                                                                ");
+	    buf.append("\n  left outer JOIN CODE_TBL code1 ON a.job_status = code1.SCL_CD AND code1.CLF_CD = 'P062'                            ");
+	    buf.append("\n  left outer JOIN CODE_TBL code2 ON a.down_status = code2.SCL_CD AND code2.CLF_CD = 'P062'                           ");
+	    
+	    buf.append("\n  left outer JOIN DAS_EQUIPMENT_TBL eq on a.TC_ID = eq.DAS_EQ_NM                                                     ");
+	    buf.append("\n  WHERE 1=1                                                                                                          ");
+	    buf.append("\n  	AND eq.USE_YN = 'Y'                                                                                              ");
+	    if(DASBusinessConstants.PageQueryFlag.NORMAL.equals(flag)) {
+	    	buf.append("\n  	AND a.ROWNUM BETWEEN "+monitoringDO.getStart_page()+" AND "+(monitoringDO.getStart_page()+99)+"                                                                                    ");
+	    }
+	    buf.append("\n with ur");
+		return buf.toString();
+	}
+	
+	
+	@Deprecated
 	public static final String selectTCinfo(MonitoringDO monitoringDO) 
 	{
 		StringBuffer buf = new StringBuffer();

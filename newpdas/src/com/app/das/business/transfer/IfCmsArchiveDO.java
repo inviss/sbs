@@ -1,5 +1,7 @@
 package com.app.das.business.transfer;
 
+import java.sql.Connection;
+
 import com.app.das.business.constants.Constants;
 import com.app.das.business.transfer.DTO;
 
@@ -10,6 +12,8 @@ import com.app.das.business.transfer.DTO;
  * 
  */
 public class IfCmsArchiveDO extends DTO {
+	
+	private Connection conn;
 	/**
 	 * 버전 
 	 */
@@ -553,6 +557,12 @@ public class IfCmsArchiveDO extends DTO {
 	
 	
 	
+	public Connection getConn() {
+		return conn;
+	}
+	public void setConn(Connection conn) {
+		this.conn = conn;
+	}
 	public String getPgm_nm() {
 		return pgm_nm;
 	}

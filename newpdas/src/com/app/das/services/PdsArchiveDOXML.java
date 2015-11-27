@@ -1,5 +1,8 @@
 package com.app.das.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -8,6 +11,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.app.das.business.transfer.AttachItem;
 import com.app.das.business.transfer.PdsArchiveDO;
 import com.app.das.log.DasPropHandler;
 import com.app.das.util.CommonUtl;
@@ -275,6 +279,16 @@ public class PdsArchiveDOXML extends DOXml{
 	 */
 	static public String XML_NODE_MARKIN= "markin"; 
 
+	static public String XML_ATTACH_FILE= "attach_tbl"; 
+
+	static public String XML_FILE_SIZE= "filesize";
+
+	static public String XML_ORG_FILENAME= "org_file_name";
+
+	static public String XML_FILE_TYPE= "attc_file_type_cd";
+
+	static public List attatches = new ArrayList();
+
 	public Object setDO(String _xml) {
 		logger.debug(_xml);
 		setDO(new PdsArchiveDO());
@@ -331,11 +345,8 @@ public class PdsArchiveDOXML extends DOXml{
 		int _length = _nodeList.getLength();
 		for(int i = 0; i < _length; i++) {
 			Node _node = _nodeList.item(i);
-			String _nodeName = _node.getNodeName() ;
-			//String _nodeValue = getNodeValue(_node);
-			String _nodeValue = getNodeValue(_node);
-			//System.out.println("######  _nodeName : " + _nodeName);
-			//System.out.println("######  _nodeValue :" + _nodeValue);
+			//			String _nodeName = _node.getNodeName() ;
+			//			String _nodeValue = getNodeValue(_node);
 			NodeList _nodeList2 =_node.getChildNodes();
 
 			for(int k = 0; k < _nodeList2.getLength(); k++) {
@@ -347,128 +358,74 @@ public class PdsArchiveDOXML extends DOXml{
 					String som = _nodeValue2.replace(';', ':');
 
 					infoDO.setSom(som.trim());
-				}
-
-				else if(_nodeName2.equals(XML_NODE_EOM)) {
+				} else if(_nodeName2.equals(XML_NODE_EOM)) {
 					String eom = _nodeValue2.replace(';', ':');
 					infoDO.setEom(eom.trim());
-				}
-				else if(_nodeName2.equals(XML_NODE_VD_HRESOL)) {
+				} else if(_nodeName2.equals(XML_NODE_VD_HRESOL)) {
 					infoDO.setVd_hresol(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue2, "0").replaceAll("[^0-9]", "")));
-				}	else if(_nodeName2.equals(XML_NODE_VD_VRESOL)) {
+				} else if(_nodeName2.equals(XML_NODE_VD_VRESOL)) {
 					infoDO.setVd_vresol(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue2, "0").replaceAll("[^0-9]", "")));
-				}
-				else if(_nodeName2.equals(XML_NODE_FL_SZ)) {
+				} else if(_nodeName2.equals(XML_NODE_FL_SZ)) {
 					infoDO.setFl_sz(Long.parseLong(StringUtils.defaultIfEmpty(_nodeValue2, "0").replaceAll("[^0-9]", "")));
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_BIT_RT)) {
+				} else if(_nodeName2.equals(XML_NODE_BIT_RT)) {
 					infoDO.setBit_rt(_nodeValue2);
-				}
-				else if(_nodeName2.equals(XML_NODE_AUD_SAMP_FRQ)) {
+				} else if(_nodeName2.equals(XML_NODE_AUD_SAMP_FRQ)) {
 					infoDO.setAud_samp_frq(Float.parseFloat(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
-				}
-
-				else if(_nodeName2.equals(XML_NODE_AUD_BDWT)) {
+				} else if(_nodeName2.equals(XML_NODE_AUD_BDWT)) {
 					infoDO.setAudio_bdwt(Long.parseLong(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
-				}
-
-				else if(_nodeName2.equals(XML_NODE_EPIS_NO)) {
+				} else if(_nodeName2.equals(XML_NODE_EPIS_NO)) {
 					infoDO.setEpis_no(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue2, "0")));
 				}	else if(_nodeName2.equals(XML_NODE_PRODUCER_NM)) {
 					infoDO.setProducer_nm(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_CMR_PLACE)) {
+				} else if(_nodeName2.equals(XML_NODE_CMR_PLACE)) {
 					infoDO.setCmr_place(_nodeValue2);
-				}
-				else if(_nodeName2.equals(XML_NODE_FM_DT)) {
+				} else if(_nodeName2.equals(XML_NODE_FM_DT)) {
 					String values = _nodeValue2.replace("-", "");
 					infoDO.setFm_dt(values);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_CPRT_NM)) {
+				} else if(_nodeName2.equals(XML_NODE_CPRT_NM)) {
 					infoDO.setCprt_nm(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_CPTR_CD)) {
+				} else if(_nodeName2.equals(XML_NODE_CPTR_CD)) {
 					infoDO.setCprt_cd(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_RIST_CLF_CD)) {
+				} else if(_nodeName2.equals(XML_NODE_RIST_CLF_CD)) {
 					infoDO.setRist_clf_cd(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_REQ_NM)) {
+				} else if(_nodeName2.equals(XML_NODE_REQ_NM)) {
 					infoDO.setReq_nm(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_REQ_ID)) {
+				} else if(_nodeName2.equals(XML_NODE_REQ_ID)) {
 					infoDO.setReq_id(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_REQ_DT)) {
+				} else if(_nodeName2.equals(XML_NODE_REQ_DT)) {
 					infoDO.setReq_dt(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_MEDIA_ID)) {
+				} else if(_nodeName2.equals(XML_NODE_MEDIA_ID)) {
 					infoDO.setMedia_id(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_RECORD_TYPE_CD)) {
+				} else if(_nodeName2.equals(XML_NODE_RECORD_TYPE_CD)) {
 					String recode_Cd = xmlutil.changRecordCode(_nodeValue2);
 
 					infoDO.setRecord_type_cd(recode_Cd);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_FRM_PER_SEC)) {
+				} else if(_nodeName2.equals(XML_NODE_FRM_PER_SEC)) {
 					infoDO.setFrm_per_sec(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_ORG_FILE_NM)) {
+				} else if(_nodeName2.equals(XML_NODE_ORG_FILE_NM)) {
 					infoDO.setOrg_file_nm(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_STORAGE_PATH)) {
+				} else if(_nodeName2.equals(XML_NODE_STORAGE_PATH)) {
 					String value = _nodeValue2.replaceAll(dasHandler.getProperty("ARCREQ"), dasHandler.getProperty("WINARCREQ"));
 
 					infoDO.setStorage_path(value.replace('\\', '/'));
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_DROP_YN)) {
+				} else if(_nodeName2.equals(XML_NODE_DROP_YN)) {
 					infoDO.setDrop_yn(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_CT_TYP)) {
+				} else if(_nodeName2.equals(XML_NODE_CT_TYP)) {
 					infoDO.setCt_typ(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_CT_LENG)) {
+				} else if(_nodeName2.equals(XML_NODE_CT_LENG)) {
 					String ct_leng = _nodeValue2.replace(';', ':');
 					infoDO.setCt_leng(ct_leng);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_ASP_RTO_CD)) {
+				} else if(_nodeName2.equals(XML_NODE_ASP_RTO_CD)) {
 					infoDO.setAsp_rto_cd(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_VD_QLTY)) {
+				} else if(_nodeName2.equals(XML_NODE_VD_QLTY)) {
 					infoDO.setVd_qulty(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_DATA_STAT)) {
+				} else if(_nodeName2.equals(XML_NODE_DATA_STAT)) {
 					infoDO.setData_stat(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_CT_CLA)) {
+				} else if(_nodeName2.equals(XML_NODE_CT_CLA)) {
 					infoDO.setCt_cla(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_CLIP_NM)) {
+				} else if(_nodeName2.equals(XML_NODE_CLIP_NM)) {
 					infoDO.setClip_nm(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_BRD_LENG)) {
+				} else if(_nodeName2.equals(XML_NODE_BRD_LENG)) {
 					infoDO.setBrd_leng(_nodeValue2);
 
 					// ''일경우 0을 넣어준다
@@ -477,9 +434,7 @@ public class PdsArchiveDOXML extends DOXml{
 					}else{
 						infoDO.setBrd_leng(_nodeValue2);
 					}
-				}
-
-				else if(_nodeName2.equals(XML_NODE_BRD_END_HMS)) {
+				} else if(_nodeName2.equals(XML_NODE_BRD_END_HMS)) {
 					//				logger.debug("XML_NODE_BRD_END_HMS start");
 					////				String value = _nodeValue2.substring(0,8);
 					//				logger.debug("XML_NODE_BRD_END_HMS end");
@@ -487,77 +442,50 @@ public class PdsArchiveDOXML extends DOXml{
 					// 00:00:00:00 값으로 들어오므로 8자리로 파싱
 					//	String value = _nodeValue2.substring(0,8);
 					infoDO.setBrd_end_hms(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_BRD_BGN_HMS)) {
+				} else if(_nodeName2.equals(XML_NODE_BRD_BGN_HMS)) {
 					// 00:00:00:00 값으로 들어오므로 8자리로 파싱
 					//	String value = _nodeValue2.substring(0,8);
 					infoDO.setBrd_bgn_hms(_nodeValue2);
-				}
-				else if(_nodeName2.equals(XML_NODE_BRD_DD)) {
+				} else if(_nodeName2.equals(XML_NODE_BRD_DD)) {
 					infoDO.setBrd_dd(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_TITLE)) {
+				} else if(_nodeName2.equals(XML_NODE_TITLE)) {
 
 					infoDO.setTitle(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_PGM_NM)) {
+				} else if(_nodeName2.equals(XML_NODE_PGM_NM)) {
 
 					infoDO.setPgm_nm(_nodeValue2);
-				}
-
-
-
-				else if(_nodeName2.equals(XML_NODE_PDS_PGM_ID)) {
+				} else if(_nodeName2.equals(XML_NODE_PDS_PGM_ID)) {
 					infoDO.setPds_cms_id(_nodeValue2);
-				}
-				else if(_nodeName2.equals(XML_NODE_MASTER_ID)) {
+				} else if(_nodeName2.equals(XML_NODE_MASTER_ID)) {
 					infoDO.setBrd_leng(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_CN_ID)) {
+				} else if(_nodeName2.equals(XML_NODE_CN_ID)) {
 					infoDO.setBrd_end_hms(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_CTI_ID)) {
+				} else if(_nodeName2.equals(XML_NODE_CTI_ID)) {
 					infoDO.setBrd_bgn_hms(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_CT_ID)) {
+				} else if(_nodeName2.equals(XML_NODE_CT_ID)) {
 					infoDO.setBrd_dd(_nodeValue2);
-				}	
-
-				else if(_nodeName2.equals(XML_NODE_STATUS)) {
+				} else if(_nodeName2.equals(XML_NODE_STATUS)) {
 					infoDO.setStatus(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_FL_PATH)) {
+				} else if(_nodeName2.equals(XML_NODE_FL_PATH)) {
 
 					String value = _nodeValue2.replaceAll(dasHandler.getProperty("ARCREQ"), dasHandler.getProperty("WINARCREQ"));
 
 					infoDO.setFl_path(value);
-				}
-				else if(_nodeName2.equals(XML_NODE_DELIBERATION_CD)) {
+				} else if(_nodeName2.equals(XML_NODE_DELIBERATION_CD)) {
 					String viewgr=xmlutil.changViewGrade(_nodeValue2);
 					infoDO.setView_gr_cd(viewgr);
-				}
-
-
-				else if(_nodeName2.equals(XML_NODE_PREVIEW_INFO)) {
+				} else if(_nodeName2.equals(XML_NODE_PREVIEW_INFO)) {
 
 					NodeList nList = _node2.getChildNodes();
 
 					int leng = nList.getLength();	
-					System.out.println(leng);
 					for(int q=0; q<leng ; q++){
 						Node nde = nList.item(q);
 						String nName = nde.getNodeName() ;
 						String nValue = getNodeValue(nde);
 
-						NamedNodeMap CpdAttr = nde.getAttributes();
-						String _nValue = getNodeValue(nde);
+						//						NamedNodeMap CpdAttr = nde.getAttributes();
+						//						String _nValue = getNodeValue(nde);
 						NodeList nList_1 = nde.getChildNodes();
 						int leng_1 = nList_1.getLength();	
 						if(nName.equals(XML_NODE_PREVIEW_FILE_NM)) {
@@ -566,8 +494,8 @@ public class PdsArchiveDOXML extends DOXml{
 								String nName_1 = nde_1.getNodeName() ;
 								String nValue_1 = getNodeValue(nde_1);
 
-								NamedNodeMap CpdAttr_1 = nde_1.getAttributes();
-								String _nValue_1 = getNodeValue(nde_1);
+								//								NamedNodeMap CpdAttr_1 = nde_1.getAttributes();
+								//								String _nValue_1 = getNodeValue(nde_1);
 
 								if(nName_1.equals(XML_NODE_ATTATCHEDFILE)) {
 
@@ -625,19 +553,42 @@ public class PdsArchiveDOXML extends DOXml{
 					// infoDO.setPreview_subj(preview_subj);							
 					infoDO.setPreview_cont(total);
 
-				}
-
-
-				else if(_nodeName2.equals(XML_NODE_ARCHIVECOMENTS)) {
+				} else if(_nodeName2.equals(XML_NODE_ARCHIVECOMENTS)) {
 					infoDO.setArchivecoments(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_CMR_DRT_NM)) {
+				} else if(_nodeName2.equals(XML_NODE_CMR_DRT_NM)) {
 					infoDO.setCmr_drt_nm(_nodeValue2);
-				}
-
-				else if(_nodeName2.equals(XML_NODE_ANNOT_CLF_CONT)) {
+				} else if(_nodeName2.equals(XML_NODE_ANNOT_CLF_CONT)) {
 					infoDO.setAnnot_clf_cont(_nodeValue2);
+				} else if(_nodeName2.equals(XML_ATTACH_FILE)) {
+					NodeList nList = _node2.getChildNodes();
+
+					AttachItem item = null;
+					
+					int leng = nList.getLength();	
+					for(int q=0; q<leng ; q++){
+						Node nde = nList.item(q);
+						String nName = nde.getNodeName() ;
+						String nValue = getNodeValue(nde);
+						
+						if(StringUtils.isNotBlank(nValue)) {
+							if(nName.equals(XML_ORG_FILENAME)) {
+								infoDO.setOrgFileName(nValue);
+							} else if(nName.equals(XML_FILE_TYPE)) {
+								infoDO.setAttcFileTypeCd(nValue);
+							} else if(nName.equals(XML_FILE_SIZE)) {
+								infoDO.setFilesize(Long.valueOf(nValue));
+							}
+						}
+					}
+					if(StringUtils.isNotBlank(infoDO.getAttcFileTypeCd())) {
+						item = new AttachItem();
+						item.setOrgFileNm(infoDO.getOrgFileName());
+						item.setAttcFileType(infoDO.getAttcFileTypeCd());
+						item.setFlSz(infoDO.getFilesize());
+						
+						infoDO.addAttatches(item);
+					}
+
 				}
 			}
 
@@ -662,19 +613,12 @@ public class PdsArchiveDOXML extends DOXml{
 			String _nodeName = _node.getNodeName() ;
 			String _nodeValue = CommonUtl.transXMLText(StringUtils.defaultIfEmpty(getNodeValue(_node), ""));
 
-			//logger.debug("######  _nodeName : " + _nodeName);
-			//logger.debug("######  _nodeValue :" + _nodeValue);
-
 			NodeList _nodeList2 =_node.getChildNodes();
 
 			for(int k = 0; k < _nodeList2.getLength(); k++) {
 				Node _node2 = _nodeList2.item(k);
-				String _nodeName2 = _node2.getNodeName() ;
+				//				String _nodeName2 = _node2.getNodeName() ;
 				String _nodeValue2 = CommonUtl.transXMLText(StringUtils.defaultIfEmpty(getNodeValue(_node2), ""));
-
-				//logger.debug("######  _nodeName : " + _nodeName2);
-				//logger.debug("######  _nodeValue :" + _nodeValue2);
-
 
 				if(_nodeName.equals(XML_NODE_SOM)) {
 					String som = _nodeValue.replace(';', ':');
@@ -703,7 +647,6 @@ public class PdsArchiveDOXML extends DOXml{
 						infoDO.setVd_vresol(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue, "0")));
 					}
 
-					//infoDO.setVd_vresol(Integer.parseInt(_nodeValue2));
 				}
 				else if(_nodeName.equals(XML_NODE_FL_SZ)) {
 
@@ -714,8 +657,6 @@ public class PdsArchiveDOXML extends DOXml{
 						infoDO.setFl_sz(Long.parseLong(StringUtils.defaultIfEmpty(_nodeValue, "0")));
 					}
 
-
-					//infoDO.setFl_sz(Long.parseLong(_nodeValue2));
 				}	
 
 				else if(_nodeName.equals(XML_NODE_BIT_RT)) {
@@ -731,9 +672,6 @@ public class PdsArchiveDOXML extends DOXml{
 						infoDO.setAud_samp_frq(Float.parseFloat(StringUtils.defaultIfEmpty(_nodeValue, "0")));
 					}
 
-
-
-					//infoDO.setAud_samp_frq(Float.parseFloat(_nodeValue2));
 				}
 
 				else if(_nodeName.equals(XML_NODE_AUD_BDWT)) {
@@ -745,7 +683,6 @@ public class PdsArchiveDOXML extends DOXml{
 						infoDO.setAudio_bdwt(Long.parseLong(StringUtils.defaultIfEmpty(_nodeValue, "0")));
 					}
 
-					//infoDO.setAudio_bdwt(Long.parseLong(_nodeValue2));
 				}
 
 				else if(_nodeName.equals(XML_NODE_EPIS_NO)) {
@@ -756,8 +693,6 @@ public class PdsArchiveDOXML extends DOXml{
 					}else{
 						infoDO.setEpis_no(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue, "0")));
 					}
-
-					//infoDO.setEpis_no(Integer.parseInt(_nodeValue2));
 
 				}	else if(_nodeName.equals(XML_NODE_PRODUCER_NM)) {
 					infoDO.setProducer_nm(_nodeValue);
@@ -931,7 +866,6 @@ public class PdsArchiveDOXML extends DOXml{
 					NodeList nList = _node2.getChildNodes();
 
 					int leng = nList.getLength();	
-					System.out.println(leng);
 					for(int q=0; q<leng ; q++){
 						Node nde = nList.item(q);
 						String nName = nde.getNodeName() ;
@@ -947,8 +881,8 @@ public class PdsArchiveDOXML extends DOXml{
 								String nName_1 = nde_1.getNodeName() ;
 								String nValue_1 = getNodeValue(nde_1);
 
-								NamedNodeMap CpdAttr_1 = nde_1.getAttributes();
-								String _nValue_1 = getNodeValue(nde_1);
+								//								NamedNodeMap CpdAttr_1 = nde_1.getAttributes();
+								//								String _nValue_1 = getNodeValue(nde_1);
 
 								if(nName_1.equals(XML_NODE_ATTATCHEDFILE)) {
 

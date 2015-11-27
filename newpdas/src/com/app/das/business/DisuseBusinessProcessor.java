@@ -23,9 +23,9 @@ import com.app.das.business.transfer.PageDO;
 public class DisuseBusinessProcessor 
 {
 	private static DisuseDAO disuseDAO = DisuseDAO.getInstance();
-	
+
 	private Logger logger = Logger.getLogger(DisuseBusinessProcessor.class);
-	
+
 	/**
 	 * 폐기대상 목록조회를 한다.
 	 * @param conditionDO 검색조건을 포함하고 있는 DataObject
@@ -43,16 +43,16 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			PageDO pageDO = disuseDAO.selectDisuseTargetList(conditionDO, commonDO);
-			
+
 			return pageDO;
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 폐기대상 1차 선정을 한다,(폐기정보 테이블에 저장한다)
 	 * @param disuseDOList 저장할 DisuseDO 정보를 포함하고 있는 DataObject
@@ -67,12 +67,12 @@ public class DisuseBusinessProcessor
 		} 
 		catch (Exception e)
 		{
-			
-			
+
+
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 폐기대상 목록조회를 한다.
 	 * @param conditionDO 검색조건을 포함하고 있는 DataObject
@@ -94,12 +94,12 @@ public class DisuseBusinessProcessor
 		} 
 		catch (Exception e)
 		{
-			
-			
+
+
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 폐기 1차 선정된 목록에서 폐기 의뢰를 하면 폐기구분을 폐기위원 검토중으로 바꾼다.
 	 * @param disuseDOList 수정할 DisuseDO 정보를 포함하고 있는 DataObject
@@ -113,19 +113,19 @@ public class DisuseBusinessProcessor
 			logger.debug("[updateDisuseInvestList][Input disuseDOList]" + disuseDOList);
 		}
 
-		
+
 		try 
 		{
 			disuseDAO.updateDisuseInvestList(disuseDOList, commonDO);
 		} 
 		catch (Exception e)
 		{
-			
-			
+
+
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 폐기위원 검토 목록에서 연장 처리를 한다.
 	 * @param disuseDOList 수정할 DisuseDO 정보를 포함하고 있는 DataObject
@@ -138,18 +138,18 @@ public class DisuseBusinessProcessor
 		{
 			logger.debug("[updateDisuseExtensionList][Input disuseDOList]" + disuseDOList);
 		}
-		
+
 		try 
 		{
 			disuseDAO.updateDisuseExtensionList(disuseDOList, commonDO);
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 폐기위원 검토 목록에서 폐기 검토 완료처리를 하고 폐기구분을 데이터 정보팀 심의 상태로 수정한다.
 	 * @param disuseDOList 수정할 DisuseDO 정보를 포함하고 있는 DataObject
@@ -162,19 +162,19 @@ public class DisuseBusinessProcessor
 		{
 			logger.debug("[updateDisuseInvestCompletList][Input disuseDOList]" + disuseDOList);
 		}
-		
+
 		try 
 		{
 			disuseDAO.updateDisuseInvestCompletList(disuseDOList, commonDO);
 		} 
 		catch (Exception e)
 		{
-			
-			
+
+
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 폐기목록에서 연장을 확정한다.(마스터 테이블의 보존기간 만료일을 수정한다.)
 	 * @param disuseDOList 수정할 DisuseDO 정보를 포함하고 있는 DataObject
@@ -187,19 +187,19 @@ public class DisuseBusinessProcessor
 		{
 			logger.debug("[updateDisuseExtensionCompletList][Input disuseDOList]" + disuseDOList);
 		}
-		
-		
+
+
 		try 
 		{
 			disuseDAO.updateDisuseExtensionCompletList(disuseDOList, commonDO);
 		} 
 		catch (Exception e)
 		{
-		
+
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 폐기 완료처리를 한다.
 	 * @param disuseDOList 수정할 DisuseDO 정보를 포함하고 있는 DataObject
@@ -212,20 +212,20 @@ public class DisuseBusinessProcessor
 		{
 			logger.debug("[updateDisuseCompletList][Input disuseDOList]" + disuseDOList);
 		}
-		
+
 		try 
 		{
 			disuseDAO.updateDisuseCompletList(disuseDOList, commonDO);
 		} 
 		catch (Exception e)
 		{
-			
-			
+
+
 			throw e;
 		}
-		
+
 	}
-	
+
 	/**
 	 * 폐기 취소 Process를 수행하기위한 폐기구분에 해당하는 목록 조회를 한다.
 	 * @param conditionDO 조회조건을 포함하고 있는 DataObject
@@ -238,18 +238,18 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			PageDO pageDO = disuseDAO.selectDisuseCancelList(conditionDO, commonDO);
-			
+
 			return pageDO;
 		} 
 		catch (Exception e)
 		{
-			
-			
+
+
 			throw e;
 		}
-		
+
 	}
-	
+
 	/**
 	 * 선택되어진 폐기구분에 해당하는 취소 Process를 수행한다.
 	 * @param disuseDOList  DisuseDO를 포함하고 있는 List
@@ -263,7 +263,7 @@ public class DisuseBusinessProcessor
 		{
 			logger.debug("[updateDisuseCalcelProcessorList][폐기구분코드]" + disuseClf);
 		}
-		
+
 		try 
 		{
 			//폐기구분코드가 1차성정이면 폐기정보 테이블에 있던 것을 삭제한다.
@@ -297,15 +297,15 @@ public class DisuseBusinessProcessor
 			}
 			else
 			{
-		        DASException exception = new DASException(ErrorConstants.NOT_INPUT_DISUSE_CODE, "폐기구분코드가 입력되지 않았습니다.");
-		        throw exception;
+				DASException exception = new DASException(ErrorConstants.NOT_INPUT_DISUSE_CODE, "폐기구분코드가 입력되지 않았습니다.");
+				throw exception;
 
 			}
-			
+
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 
@@ -323,22 +323,22 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			PageDO pageDO = disuseDAO.selectArchiveIngestList(conditionDO, commonDO);
-			
+
 			return pageDO;
 		} 
 		catch (Exception e)
 		{
-			
-			
+
+
 			throw e;
 		}
-		
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	/**
 	 * 폐기 정보를 목록 조회한다.
@@ -346,8 +346,8 @@ public class DisuseBusinessProcessor
 	 * @return
 	 * @throws Exception 
 	 */
-	
-	
+
+
 	public List getDisCardList(DiscardDO condition) throws Exception
 	{
 		if(logger.isDebugEnabled())
@@ -358,26 +358,26 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.getDisCardList(condition);
-			
-			
+
+
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 폐기 정보의 길이합, 조회건수를 조회한다.
 	 * @param condition 조회조건을 포함하고 있는 DataObject
 	 * @return
 	 * @throws Exception 
 	 */
-	
-	
+
+
 	public List getSumDiscard(DiscardDO condition) throws Exception
 	{
 		if(logger.isDebugEnabled())
@@ -388,17 +388,17 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.getSumDiscard(condition);
-			
-			
+
+
 		} 
 		catch (Exception e)
 		{
-			
-			
+
+
 			throw e;
 		}
 	}
-/*	public List getDisCardList(DiscardDO condition) throws DASException
+	/*	public List getDisCardList(DiscardDO condition) throws DASException
 	{
 		if(logger.isDebugEnabled())
 		{
@@ -408,27 +408,27 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.getDisCardList(condition);
-			
-			
+
+
 		} 
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			
+
 			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
 			if(!StringUtils.isEmpty(errorMsg))
 			{
 				e.setExceptionMsg(errorMsg);
 			}
 			logger.error(e.getExceptionMsg(), e);
-			
+
 			throw e;
 		}
 	}
-	*/
-	
-	
-	
+	 */
+
+
+
 	/**
 	 * 폐기 현황를 목록 조회한다.
 	 * @param condition 조회조건을 포함하고 있는 DataObject
@@ -445,26 +445,26 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.getHyenDisCardList(condition);
-			
-			
+
+
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 폐기 현황 정보의 길이합, 조회건수를 조회한다.
 	 * @param condition 조회조건을 포함하고 있는 DataObject
 	 * @return
 	 * @throws Exception 
 	 */
-	
-	
+
+
 	public List getSumHyenDiscard(DiscardDO condition) throws Exception
 	{
 		if(logger.isDebugEnabled())
@@ -475,15 +475,15 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.selectSumHyenDiscard(condition);
-			
-			
+
+
 		} 
 		catch (Exception e)
 		{
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 연장 현황를 목록 조회한다.
 	 * @param condition 조회조건을 포함하고 있는 DataObject
@@ -500,26 +500,26 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.getHyenUseList(condition);
-			
-			
+
+
 		} 
 		catch (Exception e)
 		{
-			
-			
+
+
 			throw e;
 		}
 	}
-	
-	
+
+
 	/**
 	 * 폐기 현황 정보의 길이합, 조회건수를 조회한다.
 	 * @param condition 조회조건을 포함하고 있는 DataObject
 	 * @return
 	 * @throws Exception 
 	 */
-	
-	
+
+
 	public List getSumHyenuse(DiscardDO condition) throws Exception
 	{
 		if(logger.isDebugEnabled())
@@ -530,51 +530,51 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.selectSumHyenuse(condition);
-			
-			
+
+
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
-	
-	
+
+
 	/**
 	 *  폐기 정보를 등록 한다.
 	 * @param roleDO 권한 정보가 포함되어 있는 DataObject
 	 * @param 
 	 * @throws Exception 
 	 */
-	
-	
+
+
 	public int[] insertDisuse(List roleDO)  throws Exception
 	{
 		try 
 		{
-			
+
 			if (roleDO != null && roleDO.size() > 0) {
-				
+
 				Iterator _iter = roleDO.iterator();
 				for(int i=0;i<roleDO.size();i++){
 					DiscardDO discard = (DiscardDO)roleDO.get(i);
 					if(discard.getMaster_id()!=0){
 						disuseDAO.deleteUse(discard.getMaster_id());
 					}
-					}
-		
+				}
+
 			}
 			return disuseDAO.insertDisuse(roleDO);
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
-	
-	
+
+
 	/**
 	 *  폐기 정보를 등록 한다.(영상선정에서 삭제시 사용)
 	 * @param roleDO 권한 정보가 포함되어 있는 DataObject
@@ -591,15 +591,15 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.insertDisuseForMeta(roleDO);
-		
+
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
-	
+
 	/**
 	 *  폐기 정보를 등록을 취소 한다. <-사용않함
 	 * @param master_id 마스터id
@@ -611,11 +611,11 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.cancelDisuse(master_id);
-		
+
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
@@ -630,26 +630,26 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.cancelDisuse2(master_id);
-		
+
 		} 
 		catch (Exception e)
 		{
-		
-			
+
+
 			throw e;
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 *  연장 정보를 등록 한다.
 	 * @param roleDO 권한 정보가 포함되어 있는 DataObject
 	 * @param 
 	 * @throws Exception 
 	 */
-	
-	
+
+
 	public int insertUse(List roleDO)  throws Exception
 	{
 		if(logger.isDebugEnabled()) 
@@ -659,25 +659,25 @@ public class DisuseBusinessProcessor
 
 		try 
 		{
-			
+
 			if (roleDO != null && roleDO.size() > 0) {
-				
+
 				Iterator _iter = roleDO.iterator();
 				for(int i=0;i<roleDO.size();i++){
 					DiscardDO discard = (DiscardDO)roleDO.get(i);
 					if(discard.getMaster_id()!=0){
 						disuseDAO.deleteUse(discard.getMaster_id());
 					}
-					}
-		
+				}
+
 			}
-			 disuseDAO.insertUse(roleDO);
+			disuseDAO.insertUse(roleDO);
 			return 1;
-		
+
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
@@ -691,24 +691,24 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.insertUse(roleDO);
-		
+
 		} 
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			
+
 			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
 			if(!StringUtils.isEmpty(errorMsg))
 			{
 				e.setExceptionMsg(errorMsg + e.getMessage());
 			}
 			logger.error(e.getExceptionMsg(), e);
-			
+
 			throw e;
 		}
 	}*/
-	
-	
+
+
 	/**
 	 * 연장 현황를 목록 조회한다.
 	 * @param condition 조회조건을 포함하고 있는 DataObject
@@ -725,24 +725,24 @@ public class DisuseBusinessProcessor
 		try 
 		{
 			return disuseDAO.getHyenUseList(condition);
-			
-			
+
+
 		} 
 		catch (Exception e)
 		{
-			
+
 			throw e;
 		}
 	}
-	
-	
-	
-	
-//	/**
-//	 * 폐기신청시 한번 연장되었던 존재를 폐기한다
-//	 * @param disuseDOList 수정할 DisuseDO 정보를 포함하고 있는 DataObject
-//	 * @param commonDO 공통정보
-//	 */
+
+
+
+
+	//	/**
+	//	 * 폐기신청시 한번 연장되었던 존재를 폐기한다
+	//	 * @param disuseDOList 수정할 DisuseDO 정보를 포함하고 있는 DataObject
+	//	 * @param commonDO 공통정보
+	//	 */
 	/*public void updateDisuseForExist(List disuseDOList) throws DASException
 	{
 	        int count = 0;
@@ -752,35 +752,35 @@ public class DisuseBusinessProcessor
 	        try{
 	        	con = DBService.getInstance().getConnection();
 	        	con.setAutoCommit(false);
-	        	
+
 	        	StringBuffer buf = new StringBuffer();
 	    		buf.append("\n update DAS.discard_info_tbl set app_cont = ? , DOWN_STAT = ? ");
 	    		buf.append("\n where CART_NO = ? AND CART_SEQ =  ? "  );
 	    		buf.append("\n WITH UR	 ");
-	    		
+
 	    		int cnt = 0;
 	    		stmt = LoggableStatement.getInstance(con, buf.toString());
 	    		stmt.setString(++cnt,_do.getApp_cont());
 	    		stmt.setString(++cnt,_do.getDown_stat());
 	    		stmt.setLong(++cnt, _do.getCartNo());
 	    		stmt.setLong(++cnt, _do.getCartSeq());
-	    		
+
 	            count = stmt.executeUpdate();
 
 	            if (count > 0) {
 	            	result = true;
 	            }
-	            
+
 	            con.setAutoCommit(true);
-	            
+
 	            return count;
-	            
+
 	    	}
 	        catch (NamingException e) 
 			{
 				// TODO 자동 생성된 catch 블록
 				e.printStackTrace();
-				
+
 		        DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "시스템 장애입니다.", e);
 		        throw exception;
 			}
@@ -788,7 +788,7 @@ public class DisuseBusinessProcessor
     		{
     			// TODO 자동 생성된 catch 블록
     			e.printStackTrace();
-    			
+
     	        if (logger.isDebugEnabled()) 
     	        {
     	                logger.debug("[NamingException]" + e);
@@ -808,7 +808,7 @@ public class DisuseBusinessProcessor
     		}finally{
     			release(null, stmt, con);
     		}
-	        
+
 	}*/
-	
+
 }

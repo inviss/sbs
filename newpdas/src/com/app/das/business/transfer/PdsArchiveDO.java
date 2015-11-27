@@ -1,7 +1,10 @@
 package com.app.das.business.transfer;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.app.das.business.constants.Constants;
-import com.app.das.business.transfer.DTO;
 
 /**
  * pds 아카이브 정보를 포함하고 있는 DataObject (ActiveX 와의 Webservice 연동처리용)
@@ -10,6 +13,8 @@ import com.app.das.business.transfer.DTO;
  * 
  */
 public class PdsArchiveDO extends DTO {
+	
+	private Connection conn = null;
 	/**
 	 * T/C 시작점
 	 */
@@ -301,10 +306,61 @@ public class PdsArchiveDO extends DTO {
 	 */
 	private String ctgr_l_cd = Constants.BLANK;
 	
+	private Long filesize;
+	
+	private String orgFileName;
+	
+	private String attcFileTypeCd;
+	
+	private List attatches = null;
 	
 	
+	public List getAttatches() {
+		return attatches;
+	}
+
+	public void setAttatches(List attatches) {
+		this.attatches = attatches;
+	}
 	
-	
+	public void addAttatches(Object attatche) {
+		if(this.attatches == null) {
+			this.attatches = new ArrayList();
+		}
+		this.attatches.add(attatche);
+	}
+
+	public Long getFilesize() {
+		return filesize;
+	}
+
+	public void setFilesize(Long filesize) {
+		this.filesize = filesize;
+	}
+
+	public String getOrgFileName() {
+		return orgFileName;
+	}
+
+	public void setOrgFileName(String orgFileName) {
+		this.orgFileName = orgFileName;
+	}
+
+	public String getAttcFileTypeCd() {
+		return attcFileTypeCd;
+	}
+
+	public void setAttcFileTypeCd(String attcFileTypeCd) {
+		this.attcFileTypeCd = attcFileTypeCd;
+	}
+
+	public Connection getConn() {
+		return conn;
+	}
+
+	public void setConn(Connection conn) {
+		this.conn = conn;
+	}
 
 	public String getCtgr_l_cd() {
 		return ctgr_l_cd;

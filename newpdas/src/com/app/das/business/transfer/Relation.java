@@ -4,6 +4,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.app.das.util.AdaptorCDATA;
 
 /**
  * 관련영상
@@ -22,10 +25,12 @@ public class Relation {
 	private String reqCd;
 	@XmlElement(name="REL_BRD_LENG")
 	private String brdLeng;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="REL_SUB_TTL")
 	private String subTtl;
 	@XmlElement(name="REL_ASP_RTO_CD")
 	private String aspRtoCd;
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="rel_preview_subj")
 	private String previewSubj;
 	@XmlElement(name="ct_id")

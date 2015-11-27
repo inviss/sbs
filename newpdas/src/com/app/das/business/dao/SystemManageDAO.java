@@ -88,7 +88,7 @@ import com.app.das.util.LoggableStatement;
 public class SystemManageDAO extends AbstractDAO 
 {
 	private Logger logger = Logger.getLogger(SystemManageDAO.class);
-	
+
 	private static SystemManageDAO systemManageDAO = SystemManageDAO.getInstance();
 	private static  UserRoleDAO userRoleDAO = UserRoleDAO.getInstance();
 	private static ExternalDAO externalDAO = ExternalDAO.getInstance();
@@ -190,7 +190,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(query);
 
-			
+
 			throw e;
 		}
 		finally
@@ -281,7 +281,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(query);
 
-			
+
 			throw e;
 		}
 		finally
@@ -375,7 +375,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(query);
 
-			
+
 			throw e;
 		}
 		finally
@@ -475,7 +475,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -582,7 +582,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -679,7 +679,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -770,7 +770,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -832,7 +832,7 @@ public class SystemManageDAO extends AbstractDAO
 				// TODO 자동 생성된 catch 블록
 				e1.printStackTrace();
 			}
-			
+
 			throw e;
 
 		}
@@ -888,7 +888,7 @@ public class SystemManageDAO extends AbstractDAO
 				// TODO 자동 생성된 catch 블록
 				e1.printStackTrace();
 			}
-			
+
 			throw e;
 
 		}
@@ -980,7 +980,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1100,7 +1100,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1145,7 +1145,7 @@ public class SystemManageDAO extends AbstractDAO
 				// TODO 자동 생성된 catch 블록
 				e1.printStackTrace();
 			}
-			
+
 			throw e;
 
 		}
@@ -1231,7 +1231,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1406,7 +1406,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-		
+
 			throw e;
 		}
 		finally
@@ -1469,7 +1469,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1519,7 +1519,7 @@ public class SystemManageDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 
 		}
@@ -1594,7 +1594,7 @@ public class SystemManageDAO extends AbstractDAO
 			logger.error(buf.toString());
 			logger.error(buf1.toString());
 
-			
+
 			throw e;
 
 		} 
@@ -1695,7 +1695,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -1781,7 +1781,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1862,7 +1862,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1961,7 +1961,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2049,7 +2049,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2138,7 +2138,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -2254,7 +2254,7 @@ public class SystemManageDAO extends AbstractDAO
 				resultList.add(item);
 
 				i++;
-				
+
 			}
 
 
@@ -2264,7 +2264,7 @@ public class SystemManageDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}
 		finally
@@ -2340,7 +2340,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2409,7 +2409,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(query);
 
-			
+
 			throw e;
 		}
 		finally
@@ -2465,7 +2465,7 @@ public class SystemManageDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(query);
-			
+
 			throw e;
 		}
 		finally
@@ -2523,7 +2523,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(query);
 
-			
+
 			throw e;
 		}
 		finally
@@ -2581,7 +2581,7 @@ public class SystemManageDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(query);
-			
+
 			throw e;
 		}
 		finally
@@ -2667,7 +2667,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -2771,7 +2771,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -2866,7 +2866,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2946,7 +2946,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -3033,7 +3033,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -3091,7 +3091,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -3171,7 +3171,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -3251,7 +3251,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -3345,7 +3345,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -3455,7 +3455,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -3570,6 +3570,76 @@ public class SystemManageDAO extends AbstractDAO
 	 * @return
 	 * @throws Exception 
 	 */
+	public List selectNewUseInfoList(UseInfoDO condition, String flag) throws Exception {
+		StringBuffer buf = new StringBuffer();
+		buf.append(SystemManageStatement.selectUseInfoQuery(condition, flag));
+		if(DASBusinessConstants.PageQueryFlag.NORMAL.equals(flag)) {
+			buf.append("\nWHERE t.ROWNUM BETWEEN ? AND ?                                          	");
+		}
+		buf.append("\nwith ur                                          	");
+
+		//Page에 따른 계산을 한다.
+		int page = condition.getPage();
+		if(page == 0) {
+			page = 1;
+		}
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBService.getInstance().getConnection();
+			logger.debug("query : " +buf.toString());
+
+			stmt = con.prepareStatement(buf.toString());
+			if(DASBusinessConstants.PageQueryFlag.NORMAL.equals(flag)) {
+				int endNum = page * DASBusinessConstants.PageRowCount.BASIC_ROW_COUTN;
+				int startNum = endNum - (DASBusinessConstants.PageRowCount.BASIC_ROW_COUTN -1);
+
+				int index = 0;
+				stmt.setInt(++index, startNum);
+				stmt.setInt(++index, endNum);
+			}
+			rs = stmt.executeQuery();
+
+			List resultList = new ArrayList();
+
+			while(rs.next()) {
+				UseInfoDO item = new UseInfoDO();
+
+				item.setDesc(rs.getString("DESC"));
+				item.setTitle(rs.getString("title"));
+
+				item.setBrd_dd(rs.getString("brd_dd"));
+				item.setFm_dd(rs.getString("fm_dt"));
+				item.setMaster_id(rs.getString("master_id"));
+				item.setReg_dt(rs.getString("reg_dt"));
+				item.setBrd_leng(rs.getString("BRD_LENG"));
+				item.setUse_cont(rs.getString("cnt"));
+				item.setCopy_object_yn(rs.getString("copy_object_yn"));
+				String epis = rs.getString("epis_no");
+				if(epis.trim().equals("0")){
+					item.setEpisno("");
+				}else{
+					item.setEpisno(rs.getString("epis_no"));
+				}
+				item.setBackup_yn(rs.getString("backup_yn"));	
+				item.setChennel(rs.getString("chennel_cd"));	
+				item.setCopy_status(rs.getString("old_copy_object_yn"));	
+
+				resultList.add(item);
+			}
+
+			return resultList;
+		} catch (Exception e) {
+			logger.error(buf.toString());
+			throw e;
+		} finally {
+			release(rs, stmt, con);
+		}
+	}
+
+	@Deprecated
 	public List selectUseInfoList(UseInfoDO condition) throws Exception
 	{
 
@@ -3649,7 +3719,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -3668,6 +3738,44 @@ public class SystemManageDAO extends AbstractDAO
 	 * @return
 	 * @throws Exception 
 	 */
+	public UseInfoDO selectUseInfoCount(UseInfoDO condition, String flag) throws Exception {
+		UseInfoDO useInfoDO = null;
+		StringBuffer buf = new StringBuffer();
+		buf.append(SystemManageStatement.selectUseInfoQuery(condition, flag));
+		buf.append("\nwith ur");
+
+		logger.debug("useInfo count : "+buf.toString());
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		UseInfoDO item = null;
+		try 
+		{
+			con = DBService.getInstance().getConnection();
+			stmt = con.prepareStatement(buf.toString());
+
+			int index = 0;
+
+			rs = stmt.executeQuery();
+
+			if(rs.next()) {
+				item = new UseInfoDO();
+				item.setTotal(rs.getInt("CCOUNT"));
+				item.setTotal_leng(rs.getLong("sum_brd_leng"));
+			}
+		} catch (Exception e) {
+			logger.error(buf.toString());
+			throw e;
+		} finally {
+			release(rs, stmt, con);
+		}
+
+		return item;
+	}
+
+	@Deprecated
 	public List selectUseInfoList2(UseInfoDO condition) throws Exception
 	{
 
@@ -3677,6 +3785,7 @@ public class SystemManageDAO extends AbstractDAO
 
 
 		buf.append(" with ur                                          	\n");
+		logger.debug(buf.toString());
 		//Page에 따른 계산을 한다.
 		int page = condition.getPage();
 		if(page == 0)
@@ -3708,6 +3817,7 @@ public class SystemManageDAO extends AbstractDAO
 				UseInfoDO item = new UseInfoDO();
 
 				item.setTotal(rs.getInt("CCOUNT"));
+				logger.debug("total count: "+item.getTotal());
 				item.setTotal_leng(rs.getLong("sum_brd_leng"));
 
 
@@ -3722,7 +3832,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -3782,7 +3892,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -3812,8 +3922,6 @@ public class SystemManageDAO extends AbstractDAO
 		StringBuffer buf = new StringBuffer();
 
 		buf.append(SystemManageStatement.selectArchiveStatusList(condition));
-
-
 
 		Connection con = null; 
 		PreparedStatement stmt = null;
@@ -3872,7 +3980,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -3942,7 +4050,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -4035,7 +4143,7 @@ public class SystemManageDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}
 		finally
@@ -4110,7 +4218,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -4175,7 +4283,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertPdsPgmInfoAll(List conditions) throws Exception
 	{
-	
+
 		StringBuffer buf = new StringBuffer();
 		StringBuffer buf2 = new StringBuffer();
 
@@ -4284,7 +4392,7 @@ public class SystemManageDAO extends AbstractDAO
 						}
 						pg.setPROGRAM_CODE(pgminfoDO.getPROGRAM_CODE());
 						pg.setPROGRAM_NAME(pgminfoDO.getPROGRAM_NAME());
-					
+
 						if(!isTherePgminfo("",pgminfoDO.getPROGRAM_CODE())){
 							insertApproveInfo(pg);
 						}
@@ -4343,7 +4451,7 @@ public class SystemManageDAO extends AbstractDAO
 								}
 								pg.setPROGRAM_CODE(pgminfoDO.getPROGRAM_CODE());
 								pg.setPROGRAM_NAME(pgminfoDO.getPROGRAM_NAME());
-								
+
 								if(!isTherePgminfo(pid[j],pgminfoDO.getPROGRAM_CODE())){
 									insertApproveInfo(pg);
 								}
@@ -4370,7 +4478,7 @@ public class SystemManageDAO extends AbstractDAO
 								stmt2.setString(++index, "");
 
 								stmt2.setString(++index, "Y");
-							
+
 								stmt2.executeUpdate();
 								//stmt2.executeUpdate();
 							}
@@ -4386,7 +4494,7 @@ public class SystemManageDAO extends AbstractDAO
 								pg.setPosition(pg.getPosition());
 								pg.setPROGRAM_CODE(pgminfoDO.getPROGRAM_CODE());
 								pg.setPROGRAM_NAME(pgminfoDO.getPROGRAM_NAME());
-								
+
 								if(!isTherePgminfo(cid[f],pgminfoDO.getPROGRAM_CODE())){
 									insertApproveInfo(pg);
 								}
@@ -4430,7 +4538,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-		
+
 			throw e;
 		}
 		finally
@@ -4567,7 +4675,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -4674,7 +4782,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -4798,7 +4906,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -4886,7 +4994,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -4943,7 +5051,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -4982,7 +5090,7 @@ public class SystemManageDAO extends AbstractDAO
 
 
 			int iTmp = stmt.executeUpdate();
-			
+
 
 
 			con.commit();
@@ -5003,7 +5111,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -5023,7 +5131,6 @@ public class SystemManageDAO extends AbstractDAO
 	 *  */
 	public int insertMetadatTbl(PdsArchiveDO pgmDO) throws Exception
 	{
-		logger.debug(pgmDO);
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into METADAT_MST_TBL (   ");
 		buf.append("\n MASTER_ID    ");
@@ -5117,9 +5224,12 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertMetadatTbl######## con : " + con);
-			con.setAutoCommit(false);
+			if(pgmDO.getConn() != null) {
+				con = pgmDO.getConn();
+			} else {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -5142,7 +5252,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "");//CTGR_M_CD
 			stmt.setString(++index,"");//CTGR_S_CD
 			if(StringUtils.isNotEmpty(pgmDO.getBrd_dd())){
-			stmt.setString(++index, pgmDO.getBrd_dd());//BRD_DD
+				stmt.setString(++index, pgmDO.getBrd_dd());//BRD_DD
 			}else{
 				stmt.setString(++index, "19000101");//BRD_DD
 			}
@@ -5169,9 +5279,9 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "");//CAST_NM
 			stmt.setString(++index,"");////CMR_DRT_NM
 			if(StringUtils.isNotEmpty(pgmDO.getFm_dt())){
-			stmt.setString(++index, pgmDO.getFm_dt());//FM_DT
+				stmt.setString(++index, pgmDO.getFm_dt());//FM_DT
 			}else{
-			stmt.setString(++index, "19000101");//FM_DT
+				stmt.setString(++index, "19000101");//FM_DT
 			}
 			stmt.setString(++index, pgmDO.getCmr_place());//CMR_PLACE
 			stmt.setString(++index, "");//SPC_INFO
@@ -5228,18 +5338,21 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "000");//ERROR_STAT_CD
 			stmt.setString(++index, "P");//ARCH_ROUTE
 			stmt.setString(++index, pgmDO.getRist_clf_cd());//RIST_CLF_CD
+
 			boolean result;
 			if(pgmDO.getCocd().equals("")){
 				result = systemManageDAO.getAutoArchvieList(pgmDO.getCt_cla(),"S","A","P");
 			}else{
 				result = systemManageDAO.getAutoArchvieList(pgmDO.getCt_cla(),pgmDO.getCocd(),pgmDO.getChennel(),"P");	
 			}
+
 			if(result){
 				stmt.setString(++index, "N");//MANUAL_YN
 			}else{
 				stmt.setString(++index, "Y");//MANUAL_YN	
 			}
 			stmt.setString(++index, pgmDO.getPds_cms_id());//pds_cms_id
+
 			if(pgmDO.getCocd().equals("")){
 				stmt.setString(++index, "S");//COCD
 				stmt.setString(++index, "A");//CHENNEL_CD
@@ -5250,55 +5363,36 @@ public class SystemManageDAO extends AbstractDAO
 
 			pgmDO.setMaster_id(masterid);
 
-
-
 			updateCount = stmt.executeUpdate();
-
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted insertMetadatTbl] " + masterid);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pgmDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pgmDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//return 0;
+				if(pgmDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+			if(pgmDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -5361,9 +5455,12 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertConInstInfoForHigh######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() != null) {
+				con = pdsInfoDO.getConn();
+			} else {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -5410,50 +5507,36 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted insertConInstInfoForHigh] " + cti_id);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -5468,7 +5551,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertConInstInfoForLow(PdsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -5514,11 +5597,13 @@ public class SystemManageDAO extends AbstractDAO
 
 		Connection con = null;
 		PreparedStatement stmt = null;
-		try 
-		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertConInstInfoForLow######## con : " + con);
-			con.setAutoCommit(false);
+		try {
+			if(pdsInfoDO.getConn() != null) {
+				con = pdsInfoDO.getConn();
+			} else {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -5566,50 +5651,36 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted insertConInstInfoForLow] " + cti_id);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -5629,7 +5700,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertContentsInfo (PdsArchiveDO pdsInfoDO) throws Exception
 	{
-	
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO CONTENTS_TBL (    ");
 		buf.append("\n CT_ID    ");
@@ -5677,9 +5748,12 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertContentsInfo######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() != null) {
+				con = pdsInfoDO.getConn();
+			} else {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -5723,53 +5797,36 @@ public class SystemManageDAO extends AbstractDAO
 			pdsInfoDO.setCt_id(ctid);
 
 			updateCount = stmt.executeUpdate();
-
-
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted insertContentsInfo] " + ctid);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0){
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -5783,7 +5840,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertCornerInfo(PdsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CORNER_TBL (    ");
 		buf.append("\n CN_ID    ");
@@ -5810,9 +5867,12 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertCornerInfo######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() != null) {
+				con = pdsInfoDO.getConn();
+			} else {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -5834,56 +5894,43 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, pdsInfoDO.getReq_id());//REGRID
 			stmt.setString(++index,"");//MOD_DT
 			stmt.setString(++index,  "");//MODRID
-			stmt.setLong(++index, 0);			//DURATION
+			stmt.setLong(++index, 0);	//DURATION
 			stmt.setLong(++index, 0);//RPIMG_CT_ID
 			stmt.setLong(++index,0);//S_FRAME
 
 			pdsInfoDO.setCn_id(cnid);
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted insertCornerInfo] " + cnid);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -5900,7 +5947,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertContentsMappInfo(PdsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_MAPP_TBL (    ");
 		buf.append("\n CT_ID    ");
@@ -5925,9 +5972,12 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertContentsMappInfo######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() != null) {
+				con = pdsInfoDO.getConn();
+			} else {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -5953,49 +6003,36 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
+			if (logger.isDebugEnabled()) {
 				logger.debug("[Inserted Count]" + updateCount);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -6043,7 +6080,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -6096,7 +6133,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -6144,7 +6181,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -6193,7 +6230,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -6242,7 +6279,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -6289,7 +6326,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -6337,7 +6374,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -6412,7 +6449,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -6504,7 +6541,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -6529,97 +6566,46 @@ public class SystemManageDAO extends AbstractDAO
 	 * @return                   
 	 * @throws Exception 
 	 *  */
-	public int updatePDSArchiveStatus(PdsArchiveDO pgmDO) throws Exception
-	{
-		logger.debug(pgmDO);
+	public int updatePDSArchiveStatus(PdsArchiveDO pgmDO) throws Exception {
 		StringBuffer buf = new StringBuffer();
-		buf.append("\n update  METADAT_MST_TBL set   ");
-
-		buf.append("\n DATA_STAT_CD = ?    ");
-		buf.append("\n where   master_id in  ");
-		buf.append("\n ( ");		
-		buf.append("\n select master_id from contents_mapp_tbl map  ");
-		buf.append("\n inner join contents_tbl con on map.ct_id=con.ct_id ");
-		buf.append("\n and con.media_id=? group by master_id ) ");
+		buf.append("\n update  METADAT_MST_TBL set DATA_STAT_CD = ?  where master_id = ?");
 
 		Connection con = null;
 		PreparedStatement stmt = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######updatePDSArchiveStatus######## con : " + con);
 			con.setAutoCommit(false);
-
 			stmt = con.prepareStatement(buf.toString());
 
 			int updateCount = 0;
-			int index=0;
 
-
-			index = 0;	
-
-			stmt.setString(++index, "001");//DATA_STAT_CD
-			stmt.setString(++index, pgmDO.getMedia_id());//MASTER_ID
-
+			stmt.setString(1, "001");//DATA_STAT_CD
+			stmt.setLong(2, pgmDO.getMaster_id());// media_id
 
 			updateCount = stmt.executeUpdate();
-			// ExternalDAO.updateContentsInst(item);
-			//ExternalDAO.updateContents(item);
 
-
-
-			if (logger.isDebugEnabled()) 
-			{
+			if (logger.isDebugEnabled()) {
 				logger.debug("[Inserted Count]" + updateCount);
 			}
 
-			if(updateCount == 0)
-			{
-				//여기서 에러를 던진다.
-				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
-				throw exception;
-			}
-
-
 			con.commit();
+			
 			return updateCount;
-		} 
-
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
 					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+				} catch (SQLException e1) { }
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
 				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} catch (SQLException e) {}
 			release(null, stmt, con);
 		}
 
 	}
-
-
-
-
-
 
 	/**
 	 * preview_tbl 에 집어넣는다
@@ -6667,13 +6653,9 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-
 			if(!pdsInfoDO.getPreview_file_nm().equals("")){
 				insertPreveiw_attach_Info(pdsInfoDO);
 			}
-
-
-
 
 			if (logger.isDebugEnabled()) 
 			{
@@ -6690,34 +6672,18 @@ public class SystemManageDAO extends AbstractDAO
 
 			con.commit();
 			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
 					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+				} catch (SQLException e1) { }
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
 				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} catch (SQLException e) { }
 			release(null, stmt, con);
-			//	return 0;
 		}
 
 	}
@@ -6731,7 +6697,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertPreveiw_Info(PdsArchiveDO pdsInfoDO,PreviewDO previewdo) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into PREVIEW_TBL (   ");
 		buf.append("\n   MASTER_ID   ");
@@ -6810,7 +6776,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -6922,7 +6888,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -6954,7 +6920,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertPdasArchive(PdsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into PDS_ARCHIVE_TBL (   ");
 		buf.append("\n   SOM   ");
@@ -7013,9 +6979,12 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertPdasArchive######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() != null) {
+				con = pdsInfoDO.getConn();
+			} else {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -7074,56 +7043,36 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-
-
-
-
-
-			if (logger.isDebugEnabled()) 
-			{
+			if (logger.isDebugEnabled()) {
 				logger.debug("[Inserted Count]" + updateCount);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//return 0;
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -7241,7 +7190,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -7299,7 +7248,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -7357,12 +7306,12 @@ public class SystemManageDAO extends AbstractDAO
 				Calendar calendar = Calendar.getInstance();		     
 				if(rsv_prd_cd.equals("000")){//영구
 					getRsv_prd_end_dd="99991231";
-					
+
 				} else if(rsv_prd_cd.equals("003")){//3일
 					calendar.setTime(date);
 					calendar.add(Calendar.DAY_OF_MONTH, +3);
 					getRsv_prd_end_dd=formatter.format(calendar.getTime());
-					  
+
 				}else if(rsv_prd_cd.equals("005")){//5일
 					calendar.setTime(date);
 					calendar.add(Calendar.DAY_OF_MONTH, +5);
@@ -7436,7 +7385,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -7531,7 +7480,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -7603,7 +7552,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -7622,10 +7571,12 @@ public class SystemManageDAO extends AbstractDAO
 	{
 
 		StringBuffer buf = new StringBuffer();
-		logger.debug("#########ct_cla :"+ct_cla);
-		logger.debug("#########cocd :"+cocd);
-		logger.debug("#########chennel :"+chennel);
-		logger.debug("#########arch_route :"+arch_route);
+		if(logger.isDebugEnabled()) {
+			logger.debug("#########ct_cla :"+ct_cla);
+			logger.debug("#########cocd :"+cocd);
+			logger.debug("#########chennel :"+chennel);
+			logger.debug("#########arch_route :"+arch_route);
+		}
 		buf.append(CodeInfoStatement.selecAutoArchvieList(ct_cla,cocd,chennel,arch_route));
 
 
@@ -7654,7 +7605,7 @@ public class SystemManageDAO extends AbstractDAO
 			String result="";
 			while(rs.next())
 			{
-				
+
 				return true;
 
 			}
@@ -7669,7 +7620,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -7714,7 +7665,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -7757,7 +7708,7 @@ public class SystemManageDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}
 		finally
@@ -7778,7 +7729,7 @@ public class SystemManageDAO extends AbstractDAO
 	 *  */
 	public int insertMetadatTbl(NleDO nleDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into METADAT_MST_TBL (   ");
 		buf.append("\n MASTER_ID    ");
@@ -7990,7 +7941,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -8014,7 +7965,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertContentsInfo (NleDO nleDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO CONTENTS_TBL (    ");
 		buf.append("\n CT_ID    ");
@@ -8140,7 +8091,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -8167,7 +8118,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertConInstInfoForHigh(NleDO nleDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -8295,7 +8246,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -8318,7 +8269,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertConInstInfoForLow(NleDO nleDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -8448,7 +8399,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -8560,7 +8511,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -8586,7 +8537,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertCornerInfo(NleDO nleDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CORNER_TBL (    ");
 		buf.append("\n CN_ID    ");
@@ -8684,7 +8635,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -8710,7 +8661,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertContentsMappInfo(NleDO nleDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_MAPP_TBL (    ");
 		buf.append("\n CT_ID    ");
@@ -8795,7 +8746,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -8840,7 +8791,7 @@ public class SystemManageDAO extends AbstractDAO
 			String ct_cla ="";
 			if(rs.next()){
 
-			 ct_cla = rs.getString("ct_cla");
+				ct_cla = rs.getString("ct_cla");
 			}
 
 
@@ -8851,7 +8802,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -8907,7 +8858,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -8961,7 +8912,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-		
+
 			throw e;
 		}
 		finally
@@ -9025,7 +8976,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -9071,7 +9022,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -9117,7 +9068,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -9140,7 +9091,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public void insertApproveInfo(PgmInfoDO pgmDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into DAS.APPROVE_INFO_TBL  ( ");
 		buf.append("\n   PGM_ID ");
@@ -9207,7 +9158,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-		
+
 			throw e;
 		}
 		finally
@@ -9282,7 +9233,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -9343,7 +9294,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(query);
 
-			
+
 			throw e;
 		}
 		finally
@@ -9357,50 +9308,32 @@ public class SystemManageDAO extends AbstractDAO
 	 * @return
 	 * @throws Exception 
 	 */
-	public long selectMasterId(String media_id) throws Exception
-	{
+	public long selectMasterId(String media_id) throws Exception {
 		String query = SystemManageStatement.selectMaster_idQuery(media_id);
 
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectMasterId######## con : " + con);
 			stmt = con.prepareStatement(query);
 
 			int index = 0;
-			//  stmt.setString(++index, pgm_cd);
-			//stmt.setString(++index, perRegNo);
-
-			// stmt.setString(++index, perRegNo);
-
-
+			stmt.setString(1, media_id);
+			
 			rs = stmt.executeQuery();
 			long masterid=0;
-			if(rs.next())
-			{
+			if(rs.next()) {
 				masterid = rs.getLong("master_id");
 
 				return masterid;
+			} else {
+				return 0;
 			}
-			else
-			{
-				DASException exception = new DASException(ErrorConstants.NOT_EXIST_USER, "해당 사용자가 존재하지 않습니다.");
-				throw exception;
-
-			}
-		} 
-		catch (Exception e) 
-		{
-			logger.error(query);
-
-			
+		} catch (Exception e) {
+			logger.error(e);
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
@@ -9444,7 +9377,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -9462,7 +9395,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertAnnotInfo(PdsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into das.Annot_Info_tbl (   ");
 		buf.append("\n   ANNOT_ID   ");
@@ -9493,9 +9426,12 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertAnnotInfo######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() != null) {
+				con = pdsInfoDO.getConn();
+			} else {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -9513,9 +9449,9 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, pdsInfoDO.getAnnot_clf_cont());//ANNOT_CLF_CONT
 			stmt.setString(++index, pdsInfoDO.getSom());			//SOM
 			if(StringUtils.isNotEmpty(pdsInfoDO.getEom())){
-			stmt.setString(++index, pdsInfoDO.getEom());	//EOM
+				stmt.setString(++index, pdsInfoDO.getEom());	//EOM
 			}else{
-				stmt.setString(++index, "00:00:00");	//EOM
+				stmt.setString(++index, "00:00:00:00");	//EOM
 			}
 			stmt.setString(++index, "");	//CONT
 			stmt.setString(++index, "D080009");	//REGRID
@@ -9523,56 +9459,50 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, dateTime);	//REG_DT			
 			stmt.setString(++index, "");			//MODRID
 			stmt.setString(++index, "");	//MOD_DT
-			stmt.setLong(++index, 0);//DURATION
+
+			if(StringUtils.isNotEmpty(pdsInfoDO.getBrd_leng())){
+				long duration = CommonUtl.changeTime(pdsInfoDO.getBrd_leng());
+				stmt.setLong(++index, duration);//DURATION
+			}else{
+				stmt.setLong(++index, 0);//DURATION
+			}
+
 			stmt.setLong(++index, 0);			//S_FRAME
 			stmt.setString(++index, "L");	//GUBUN
 			stmt.setString(++index, "Y");	//GUBUN
 			updateCount = stmt.executeUpdate();
 
 
-			if (logger.isDebugEnabled()) 
-			{
+			if (logger.isDebugEnabled()) {
 				logger.debug("[Inserted Count]" + updateCount);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//return 0;
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -9588,7 +9518,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int updateCopyRequest(long master_id) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		StringBuffer buf2 = new StringBuffer();
 
@@ -9650,7 +9580,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -9679,7 +9609,7 @@ public class SystemManageDAO extends AbstractDAO
 	 *  */
 	public int insertMetadatTbl(ManualArchiveDO pgmDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into METADAT_MST_TBL (   ");
 		buf.append("\n MASTER_ID    ");
@@ -9916,7 +9846,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -10066,7 +9996,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -10092,7 +10022,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertConInstInfoForHigh(ManualArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -10230,7 +10160,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -10256,7 +10186,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertConInstInfoForLow(ManualArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -10392,7 +10322,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -10418,7 +10348,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertCornerInfo(ManualArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CORNER_TBL (    ");
 		buf.append("\n CN_ID    ");
@@ -10515,7 +10445,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -10541,7 +10471,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertContentsMappInfo(ManualArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_MAPP_TBL (    ");
 		buf.append("\n CT_ID    ");
@@ -10625,7 +10555,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -10653,7 +10583,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertAnnotInfo(ManualArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into das.Annot_Info_tbl (   ");
 		buf.append("\n   ANNOT_ID   ");
@@ -10752,7 +10682,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -10878,7 +10808,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -10928,9 +10858,7 @@ public class SystemManageDAO extends AbstractDAO
 				return true;
 			}
 		}catch (Exception e) {
-			logger.error(buf.toString());
-
-			 throw e;
+			throw e;
 		} finally {
 			release(null, null, con);
 		}
@@ -10974,7 +10902,7 @@ public class SystemManageDAO extends AbstractDAO
 		}catch (Exception e) {
 			logger.error(buf.toString());
 
-			 throw e;
+			throw e;
 		} finally {
 			release(null, null, con);
 		}
@@ -11044,7 +10972,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -11123,7 +11051,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -11207,7 +11135,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -11279,7 +11207,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -11343,7 +11271,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -11361,7 +11289,7 @@ public class SystemManageDAO extends AbstractDAO
 	 *  */
 	public String DeletePDSArchiveStatus(DeleteDO pgmDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n update  das.contents_tbl set  media_id= ''  where media_id ='"+pgmDO.getMedia_id()+"'");
 
@@ -11411,7 +11339,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-		
+
 			throw e;
 		}
 		finally
@@ -11469,7 +11397,7 @@ public class SystemManageDAO extends AbstractDAO
 //			stmt4=LoggableStatement.getInstance(con, buf4.toString());
 //			stmt5=LoggableStatement.getInstance(con, buf5.toString());
 //			stmt6=LoggableStatement.getInstance(con, buf6.toString());
-			
+
 			stmt2 = con.prepareStatement(buf2.toString());
 			stmt3 = con.prepareStatement(buf3.toString());
 			stmt4 = con.prepareStatement(buf4.toString());
@@ -11535,7 +11463,7 @@ public class SystemManageDAO extends AbstractDAO
 					e1.printStackTrace();
 				}
 			}
-			
+
 			throw e;
 		}
 		finally
@@ -11550,7 +11478,7 @@ public class SystemManageDAO extends AbstractDAO
 		}
 	}
 
-*/
+	  */
 
 	public String deletePdsINfo(DeleteDO pgmDO)throws Exception{
 
@@ -11558,11 +11486,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		PreparedStatement stmt2 = null;
 		PreparedStatement stmt3 = null;
-		 
+
 		StringBuffer buf=new StringBuffer();
 		StringBuffer buf2=new StringBuffer();
 		StringBuffer buf3=new StringBuffer();
-		 
+
 		ResultSet rs = null;
 		try {
 			con=DBService.getInstance().getConnection();
@@ -11575,10 +11503,10 @@ public class SystemManageDAO extends AbstractDAO
 			stmt=con.prepareStatement(buf.toString());
 			//쿼리 로그 남기는 형식
 			//stmt2=LoggableStatement.getInstance(con, buf2.toString());
-	
+
 			stmt2 = con.prepareStatement(buf2.toString());
 			stmt3 = con.prepareStatement(buf3.toString());
-			 
+
 
 
 			int index=0;
@@ -11589,15 +11517,15 @@ public class SystemManageDAO extends AbstractDAO
 
 			List resultList = new ArrayList();
 			DeleteDO item = new DeleteDO();
-			
+
 			String dateString = CalendarUtil.getDateTime("yyyyMMdd");
-			
+
 			while(rs.next()) {
 				logger.info("mapp find data");
 				item.setMaster_id(rs.getLong("master_id"));
 				item.setCt_id(rs.getLong("ct_id"));
 			}
-			
+
 			logger.info("master_id: "+item.getMaster_id());
 			index=0;
 			stmt2.setLong(++index	, item.getMaster_id());
@@ -11606,7 +11534,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt3.setString(++index	, dateString);
 			stmt3.setLong(++index	, item.getCt_id());
 			updatecount =updatecount+  stmt3.executeUpdate();
-			
+
 
 
 			logger.debug(updatecount);
@@ -11626,7 +11554,7 @@ public class SystemManageDAO extends AbstractDAO
 			logger.error(buf.toString());
 			logger.error(buf2.toString());
 			logger.error(buf3.toString());
-			 
+
 
 			if(con != null)
 			{
@@ -11637,7 +11565,7 @@ public class SystemManageDAO extends AbstractDAO
 					e1.printStackTrace();
 				}
 			}
-			
+
 			throw e;
 		}
 		finally
@@ -11645,7 +11573,7 @@ public class SystemManageDAO extends AbstractDAO
 			release(null, stmt, null);
 			release(null, stmt2, null);
 			release(null, stmt3, null);
-			 
+
 
 		}
 	}
@@ -11656,6 +11584,7 @@ public class SystemManageDAO extends AbstractDAO
 	 * @throws Exception 
 	 * 
 	 */
+	@Deprecated
 	public String insertCornerInfoForProceduer(int master_id) throws Exception{
 		Connection con = null;
 		CallableStatement stmt = null;
@@ -11664,28 +11593,17 @@ public class SystemManageDAO extends AbstractDAO
 		buf.append(" CALL DAS.PRC_SET_CORNERDESC(?)");
 		try {
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertCornerInfoForProceduer######## con : " + con);
+
 			stmt = con.prepareCall(buf.toString());
 			stmt.setInt(1,master_id);
-			//stmt.registerOutParameter(1, Types.INTEGER);
 
 			stmt.execute();
-			//	mediaId = stmt.getString(1);
-
 			stmt.close();
 
 			return "1";
-		}
-		catch (Exception e) 
-		{
-
-			logger.error(buf.toString());
-		
+		} catch (Exception e) {
 			throw e;
-		} 
-
-		finally
-		{
+		} finally {
 			release(null, stmt, con);
 		}
 	}
@@ -11723,7 +11641,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -11766,7 +11684,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -11904,7 +11822,7 @@ public class SystemManageDAO extends AbstractDAO
 			storage =storage.replaceAll(dasHandler.getProperty("MP2"),dasHandler.getProperty("WINMP2"));
 			storage =storage.replaceAll(dasHandler.getProperty("ARCREQ"),dasHandler.getProperty("ARCREQ"));
 			storage =storage.replaceAll(dasHandler.getProperty("NEARLINE"),dasHandler.getProperty("WINNEARLINE")); 
-			
+
 
 
 			stmt.setString(++index, storage);//INPUT_HR
@@ -11963,7 +11881,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -11992,7 +11910,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public long insertConInstInfoForLowForMedia(TcBeanDO tcBeanDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -12121,7 +12039,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -12181,7 +12099,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -12241,7 +12159,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -12403,7 +12321,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -12468,7 +12386,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -12487,7 +12405,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int updateWmvInfo(WmvH264DO  item) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 
 
@@ -12568,7 +12486,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -12657,7 +12575,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -12725,7 +12643,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -12785,7 +12703,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -12845,7 +12763,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -12899,7 +12817,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -12959,7 +12877,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -13015,7 +12933,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -13130,7 +13048,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -13267,7 +13185,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -13295,7 +13213,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public long insertConInstInfoForLowForH264(TcBeanDO tcBeanDO) throws Exception
 	{
-	
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -13422,7 +13340,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -13450,7 +13368,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public long insertConInstInfoForH264InTC(TcBeanDO tcBeanDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -13584,7 +13502,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -13611,7 +13529,7 @@ public class SystemManageDAO extends AbstractDAO
 	 *  */
 	public int insertMetadatTblForIfCms(IfCmsArchiveDO pgmDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into METADAT_MST_TBL (   ");
 		buf.append("\n MASTER_ID    ");
@@ -13709,9 +13627,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertMetadatTblForIfCms######## con : " + con);
-			con.setAutoCommit(false);
+			if(pgmDO.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = pgmDO.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -13726,14 +13646,14 @@ public class SystemManageDAO extends AbstractDAO
 			String getRsv_prd_end_dd = "";
 
 			String distime = CalendarUtil.getDateTime("yyyyMMdd");
-	
+
 			SimpleDateFormat formatter = new SimpleDateFormat ("yyyyMMdd");
 
 			String dateString = distime;
-	
+
 
 			Date date = formatter.parse(dateString);	
-			
+
 			Calendar calendar = Calendar.getInstance();		     
 			if(pgmDO.getRetention_period().equals("000")){//영구
 				calendar.setTime(date);
@@ -13743,7 +13663,7 @@ public class SystemManageDAO extends AbstractDAO
 				calendar.setTime(date);
 				calendar.add(Calendar.DAY_OF_MONTH, +3);
 				getRsv_prd_end_dd=formatter.format(calendar.getTime());
-	    	  
+
 			}else if(pgmDO.getRetention_period().equals("005")){//5일
 				calendar.setTime(date);
 				calendar.add(Calendar.DAY_OF_MONTH, +5);
@@ -13806,7 +13726,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "");//BRD_BGN_HMS
 			stmt.setString(++index, "");//BRD_END_HMS
 			if(StringUtils.isNotEmpty(pgmDO.getBrd_leng())){
-			stmt.setString(++index,pgmDO.getBrd_leng());//BRD_LENG
+				stmt.setString(++index,pgmDO.getBrd_leng());//BRD_LENG
 			}else{
 				stmt.setString(++index,"00:00:00:00");//BRD_LENG
 			}
@@ -13823,7 +13743,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "");//CAST_NM
 			stmt.setString(++index,pgmDO.getDirector_shooting());////CMR_DRT_NM
 			if(StringUtils.isNotEmpty(pgmDO.getFm_dt())){
-			stmt.setString(++index, pgmDO.getFm_dt());//FM_DT
+				stmt.setString(++index, pgmDO.getFm_dt());//FM_DT
 			}else{
 				stmt.setString(++index, "19000101");//FM_DT
 			}
@@ -13884,7 +13804,7 @@ public class SystemManageDAO extends AbstractDAO
 			}
 			stmt.setString(++index, pgmDO.getLimited_use());//RIST_CLF_CD
 			boolean result;
-			
+
 			if(!pgmDO.getContents_class().equals("")||!pgmDO.getPublisher().equals("")){
 				result = getAutoArchvieList(pgmDO.getContents_class(),pgmDO.getPublisher(),pgmDO.getChannel_cd(),arch_route);
 			}else{
@@ -13913,64 +13833,40 @@ public class SystemManageDAO extends AbstractDAO
 
 			pgmDO.setMaster_id(masterid);
 
-
-
 			updateCount = stmt.executeUpdate();
-			logger.debug("[Inserted Count1]" + updateCount);
-
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count2]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted master_id]" + masterid);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pgmDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pgmDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//return 0;
-		}
+				if(pgmDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
 
+			if(pgmDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
+		}
 
 	}
-
-
-
-
 
 
 	/**
@@ -13981,7 +13877,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertContentsInfoForIfCms (IfCmsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO CONTENTS_TBL (    ");
 		buf.append("\n CT_ID    ");
@@ -14029,9 +13925,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertContentsInfoForIfCms######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = pdsInfoDO.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -14079,46 +13977,38 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted ct_id]" + ctid);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-
-		catch (Exception e) 
-		{
-			logger.error(e);
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
+					if(pdsInfoDO.getConn() == null) con.rollback();
 				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
 				if(con != null) {
-					con.setAutoCommit(true);
-					release(null, stmt, con);
+					if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
 				}
 			} catch (SQLException e) {}
-			
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -14131,7 +14021,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertConInstInfoForHigh(IfCmsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -14178,9 +14068,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertConInstInfoForHigh######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = pdsInfoDO.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -14231,35 +14123,35 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted high cti_id]" + cti_id);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
-			con.commit();
-			
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
+
 			return updateCount;
 		} catch (Exception e) {
-			logger.error(e);
-
 			if(con != null) {
 				try {
-					con.rollback();
+					if(pdsInfoDO.getConn() == null) con.rollback();
 				} catch (SQLException e1) {}
 			}
 			throw e;
 		} finally {
 			try {
 				if(con != null) {
-					con.setAutoCommit(true);
-					release(null, stmt, con);
+					if(pdsInfoDO.getConn() == null) {
+						con.setAutoCommit(true);
+						release(null, stmt, con);
+					} else
+						release(null, stmt, null);
 				}
 			} catch (SQLException e) {}
 		}
@@ -14274,7 +14166,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertConInstInfoForLow(IfCmsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_INST_TBL (    ");
 		buf.append("\n CTI_ID    ");
@@ -14322,9 +14214,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertConInstInfoForLow######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = pdsInfoDO.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -14371,40 +14265,36 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted low cti_id]" + cti_id);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
-			con.commit();
-			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(e);
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			if(con != null)
-			{
+			return updateCount;
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
+					if(pdsInfoDO.getConn() == null) con.rollback();
 				} catch (SQLException e1) {}
 			}
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
 				if(con != null) {
-					con.setAutoCommit(true);
-					release(null, stmt, con);
+					if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+
+					if(pdsInfoDO.getConn() == null)
+						release(null, stmt, con);
+					else
+						release(null, stmt, null);
 				}
 			} catch (SQLException e) {}
 		}
@@ -14421,7 +14311,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertCornerInfo(IfCmsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CORNER_TBL (    ");
 		buf.append("\n CN_ID    ");
@@ -14448,9 +14338,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertCornerInfo######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = pdsInfoDO.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -14479,50 +14371,36 @@ public class SystemManageDAO extends AbstractDAO
 
 			pdsInfoDO.setCn_id(cnid);
 			updateCount = stmt.executeUpdate();
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted corner id]" + cnid);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -14536,7 +14414,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertContentsMappInfo(IfCmsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n INSERT INTO DAS.CONTENTS_MAPP_TBL (    ");
 		buf.append("\n CT_ID    ");
@@ -14561,9 +14439,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertContentsMappInfo######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = pdsInfoDO.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -14589,41 +14469,36 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Inserted Count]" + updateCount);
+			if (logger.isDebugEnabled()) {
+				logger.debug("[Inserted mapp]" + updateCount);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(e);
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
+					if(pdsInfoDO.getConn() == null) con.rollback();
 				} catch (SQLException e1) {}
 			}
-
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
 				if(con != null) {
-					con.setAutoCommit(true);
-					release(null, stmt, con);
+					if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+
+					if(pdsInfoDO.getConn() == null)
+						release(null, stmt, con);
+					else
+						release(null, stmt, null);
 				}
 			} catch (SQLException e) {}
 		}
@@ -14638,7 +14513,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertAnnotInfo(IfCmsArchiveDO pdsInfoDO) throws Exception
 	{
-	
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into das.Annot_Info_tbl (   ");
 		buf.append("\n   ANNOT_ID   ");
@@ -14669,9 +14544,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertAnnotInfo######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = pdsInfoDO.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 			CommonUtl commonUtl = new CommonUtl();
@@ -14689,7 +14566,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, pdsInfoDO.getLimited_use_cont());//ANNOT_CLF_CONT
 			stmt.setString(++index, "00:00:00:00");			//SOM
 			if(StringUtils.isNotEmpty(pdsInfoDO.getBrd_leng())){
-			stmt.setString(++index, pdsInfoDO.getBrd_leng());	//EOM
+				stmt.setString(++index, pdsInfoDO.getBrd_leng());	//EOM
 			}else{
 				stmt.setString(++index, "00:00:00:00");	//EOM
 			}
@@ -14711,7 +14588,7 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 			if (logger.isDebugEnabled())  {
-				logger.debug("[Inserted Count]" + updateCount);
+				logger.debug("[Inserted annot]" + updateCount);
 			}
 
 			if(updateCount == 0) {
@@ -14719,36 +14596,27 @@ public class SystemManageDAO extends AbstractDAO
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
-			con.commit();
-			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-			
-			if(con != null)
-			{
-				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
-			}
 
-			
-			throw e;
-		}
-		finally
-		{
-			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
+
+			return updateCount;
+		} catch (Exception e) {
+			if(con != null) {
+				try {
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-			release(null, stmt, con);
-			//return 0;
+			throw e;
+		} finally {
+			try {
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -14790,7 +14658,7 @@ public class SystemManageDAO extends AbstractDAO
 		}  catch (Exception e) {
 			logger.error("isThereGroupId", e);
 
-			 throw e;
+			throw e;
 		} finally {
 			release(null, null, con);
 		}
@@ -14839,7 +14707,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -14859,7 +14727,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertPreveiw_Info(IfCmsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into PREVIEW_TBL (   ");
 		buf.append("\n   MASTER_ID   ");
@@ -14875,9 +14743,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertPreveiw_Info######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = pdsInfoDO.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -14898,57 +14768,38 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-
-
 			insertPreveiw_attach_Info(pdsInfoDO);
 
-
-
-
-
-			if (logger.isDebugEnabled()) 
-			{
+			if (logger.isDebugEnabled()) {
 				logger.debug("[Inserted Count]" + updateCount);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			release(null, stmt, con);
-			//	return 0;
+				if(pdsInfoDO.getConn() == null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, con);
 		}
 
 	}
@@ -14963,7 +14814,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertPreveiw_attach_Info(IfCmsArchiveDO pdsInfoDO) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into PREVIEW_ATTACH_TBL (   ");
 		buf.append("\n MASTER_ID    ");
@@ -14985,9 +14836,11 @@ public class SystemManageDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		try 
 		{
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertPreveiw_attach_Info######## con : " + con);
-			con.setAutoCommit(false);
+			if(pdsInfoDO.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = pdsInfoDO.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -15012,51 +14865,35 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index,pdsInfoDO.getRequest_id());
 
 
-
 			updateCount = stmt.executeUpdate();
 
-
-
-
-
-			if (logger.isDebugEnabled()) 
-			{
+			if (logger.isDebugEnabled()) {
 				logger.debug("[Inserted Count]" + updateCount);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "저장에 실패했습니다.");
 				throw exception;
 			}
 
+			if(pdsInfoDO.getConn() == null)
+				con.commit();
 
-			con.commit();
 			return updateCount;
-		} 
-
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(pdsInfoDO.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
-			release(null, stmt, con);
+		} finally {
+
+			if(pdsInfoDO.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}
@@ -15095,9 +14932,11 @@ public class SystemManageDAO extends AbstractDAO
 		try 
 		{
 
-			con = DBService.getInstance().getConnection();
-			//logger.debug("######insertAttachFile######## con : " + con);
-			con.setAutoCommit(false);
+			if(_do.getConn() == null) {
+				con = DBService.getInstance().getConnection();
+				con.setAutoCommit(false);
+			} else
+				con = _do.getConn();
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -15170,30 +15009,23 @@ public class SystemManageDAO extends AbstractDAO
 				stmt.executeUpdate();
 			}
 			int updatcount =1;
-			con.commit();
+
+			if(_do.getConn() == null)
+				con.commit();
 
 			return updatcount;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
+		} catch (Exception e) {
+			if(con != null) {
 				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+					if(_do.getConn() == null) con.rollback();
+				} catch (SQLException e1) {}
 			}
-
-			
 			throw e;
-		}
-		finally
-		{
-			release(null, stmt, con);
+		} finally {
+			if(_do.getConn() == null)
+				release(null, stmt, con);
+			else
+				release(null, stmt, null);
 		}
 
 	}	
@@ -15227,7 +15059,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -15316,7 +15148,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -15379,7 +15211,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(query);
 
-			
+
 			throw e;
 		}
 		finally
@@ -15438,7 +15270,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(query);
 
-			
+
 			throw e;
 		}
 		finally
@@ -15564,7 +15396,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -15583,7 +15415,7 @@ public class SystemManageDAO extends AbstractDAO
 	 */
 	public int insertHistoryInfo(UseInfoDO condition) throws Exception
 	{
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into ARCHIVE_HIST_TBL ( GUBUN,  JOB_ID, REQ_ID, REQ_DT)   ");
 
@@ -15648,7 +15480,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -15702,7 +15534,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -15757,7 +15589,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -15834,7 +15666,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -15894,7 +15726,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -15959,7 +15791,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -16021,7 +15853,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -16076,7 +15908,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -16130,7 +15962,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -16139,8 +15971,8 @@ public class SystemManageDAO extends AbstractDAO
 		}	
 	}
 
-	
-	
+
+
 
 	/**  
 	 * 정리완료처리한다
@@ -16169,12 +16001,12 @@ public class SystemManageDAO extends AbstractDAO
 			buf.append("\n WITH UR	");
 
 			stmt = con.prepareStatement(buf.toString());
-			 
+
 			int index = 0;
-			 
+
 
 			updateCount = stmt.executeUpdate();
- 
+
 
 
 			if (logger.isDebugEnabled()) 
@@ -16206,7 +16038,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
