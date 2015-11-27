@@ -12,10 +12,10 @@
 
 	<!-- ========================= DATABASE CONFIGURATION ========================= 
 	<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/dasdb"/>
-	
-	<jee:jndi-lookup id="dataSource" jndi-name="dasdb" />
 	-->
-	<!--  -->
+	<jee:jndi-lookup id="dataSource" jndi-name="dasdb" />
+	
+	<!--  
 	<bean id="dataSource"  class="com.mchange.v2.c3p0.ComboPooledDataSource"  destroy-method="close">
     	<property name="driverClass" value="${db2.driver}" />
     	<property name="jdbcUrl" value="${db2.url}" />
@@ -26,7 +26,7 @@
     	<property name="numHelperThreads" value="3" />
     	<property name="breakAfterAcquireFailure" value="true" />
   	</bean>
-  	
+  	-->
   	<!--  -->
   	<bean id="dataSource2"  class="com.mchange.v2.c3p0.ComboPooledDataSource"  destroy-method="close">
     	<property name="driverClass" value="${erp.driver}" />
