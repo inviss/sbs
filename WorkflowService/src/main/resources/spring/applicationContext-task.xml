@@ -76,10 +76,10 @@
 				<ref bean="userRequestContentDelTrigger" />
 				<ref bean="archivedContentDelTrigger" />
 				<ref bean="downloadedContentDelTrigger" />
-				<ref bean="storageCheckTrigger" />
-				<ref bean="highStorageQuotaCheckTrigger" />
 				-->
 				<!--  
+				<ref bean="storageCheckTrigger" />
+				<ref bean="highStorageQuotaCheckTrigger" />
 			    <ref bean="merUnCompressTrigger" />
 				-->
 			</list>
