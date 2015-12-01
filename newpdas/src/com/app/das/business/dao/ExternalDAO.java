@@ -36043,6 +36043,8 @@ public class ExternalDAO extends AbstractDAO
 				con.setAutoCommit(false);
 			} else
 				con = pad.getConn();
+			
+			stmt = con.prepareStatement(buf.toString());
 
 			int index = 0;
 			stmt.setLong(++index, 0);		
