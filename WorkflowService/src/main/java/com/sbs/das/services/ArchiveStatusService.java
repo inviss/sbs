@@ -1,5 +1,7 @@
 package com.sbs.das.services;
 
+import java.util.List;
+
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -127,5 +129,17 @@ public interface ArchiveStatusService {
 	public void updateBatchDown(ContentDownTbl contentDownTbl) throws ServiceException;
 	
 	public void insertBatchDown(ContentDownTbl contentDownTbl) throws ServiceException;
+	
+	/**
+	 * <pre>
+	 * 2015.12.11
+	 * 다운로드 요청번호 이전 데이타 중 해당 번호의 영상ID(CTI_ID)와 동일한 요청 건들 중
+	 * 진행중인 건이 있다면 모두 실패처리 한다. 24시간 이전 데이타에 한 함.
+	 * </pre>
+	 * @param ctiId
+	 * @return
+	 * @throws ServiceException
+	 */
+	public List<ContentDownTbl> findContentDown(ContentDownTbl contentDownTbl) throws ServiceException;
 	
 }

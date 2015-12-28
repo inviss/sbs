@@ -30,4 +30,6 @@ public interface ContentDownDao {
 	public void updateBatchDown(ContentDownTbl contentDownTbl) throws DaoRollbackException;
 	
 	public void insertBatchDown(ContentDownTbl contentDownTbl) throws DaoRollbackException;
+	
+	public void findContentDown(ContentDownTbl contentDownTbl) throws DaoRollbackException;
 }

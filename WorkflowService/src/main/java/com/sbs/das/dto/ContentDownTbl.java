@@ -16,7 +16,7 @@ public class ContentDownTbl extends BaseObject {
 	String regDtm;			//	VARCHAR(16),
 	String updtDtm;			//	VARCHAR(16),
 	String progress;		//	VARCHAR(4)	NOT NULL	DEFAULT '0',
-	String path;				//	VARCHAR(255),
+	String path;			//	VARCHAR(255),
 	String filename;		//	VARCHAR(255),
 	String begintc;			//	VARCHAR(11),
 	Integer scount;			//	INTEGER	NOT NULL	DEFAULT ,
@@ -26,11 +26,11 @@ public class ContentDownTbl extends BaseObject {
 	String useYn;			//	CHARACTER(1)	DEFAULT 'Y',
 	String title;			//	VARCHAR(300)
 	String delDd;			//  CHAR(8) DEFAULT '삭제일'
-	Long filesize;			// BIGINT
-	String tcStatus;        // CHAR(1) DEFAULT 'N' TC 작업상태
+	Long filesize;			//  BIGINT
+	String tcStatus;        //  CHAR(1) DEFAULT 'N' TC 작업상태
 	Long tcCtiId;
 	String tcPath;
-	String tcGb;			// CHAR(1) DEFAULT 'S' 작업구분 ['S': mp4, 'H': mxf]
+	String tcGb;			//  CHAR(1) DEFAULT 'S' 작업구분 ['S': mp4, 'H': mxf]
 	String dtlYn;
 
 	public String getDtlYn() {

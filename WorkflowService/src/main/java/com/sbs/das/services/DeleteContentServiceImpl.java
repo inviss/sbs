@@ -199,7 +199,7 @@ public class DeleteContentServiceImpl implements DeleteContentService {
 			logger.debug("update masterId: "+masterId);
 		}
 		if(masterId != null) {
-			deleteContentDao.insertKwKlog(masterId);
+			insertKwKlog(masterId);
 		}
 	}
 
@@ -226,6 +226,14 @@ public class DeleteContentServiceImpl implements DeleteContentService {
 		contentTbl.setCtId(ctId);
 		contentDao.updateContent(contentTbl);
 		
+	}
+	
+	public void insertKwKlog(Long masterId) throws ServiceException {
+		deleteContentDao.insertKwKlog(masterId);
+	}
+
+	public void deleteKwKlog(Long masterId) throws ServiceException {
+		deleteContentDao.deleteKwKlog(masterId);
 	}
 
 }

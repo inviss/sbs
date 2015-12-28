@@ -270,7 +270,6 @@ public class ServiceNevigator implements Nevigator {
 				}
 			}
 
-			logger.debug("***************************************: ");
 			/****************************************************************************************************/
 			/**************************************** Master Set ************************************************/
 			/****************************************************************************************************/
@@ -297,23 +296,20 @@ public class ServiceNevigator implements Nevigator {
 					masterTbl.setLockStatCd("N");
 					masterTbl.setModrid(regrid);
 					masterTbl.setMasterId(masterId);
+					
 					if(das.getDbTable().getContentInst().getCtiFmt().charAt(0) != '1') {
 						String rpImg = StringUtils.defaultIfEmpty(das.getDbTable().getMaster().getRpimgKfrmSeq(), "0");
 						masterTbl.setRpimgKfrmSeq(Integer.parseInt(rpImg));
 					}
-					if(StringUtils.isNotBlank(das.getDbTable().getMaster().getOnAirMediaApprove())){
-
+					
+					if(StringUtils.isNotBlank(das.getDbTable().getMaster().getOnAirMediaApprove())) {
 						masterTbl.setRistClfCd(das.getDbTable().getMaster().getOnAirMediaApprove());
-
-					}else if(StringUtils.isNotBlank(das.getDbTable().getMaster().getRistClfCd())){
-
+					} else if(StringUtils.isNotBlank(das.getDbTable().getMaster().getRistClfCd())) {
 						masterTbl.setRistClfCd(das.getDbTable().getMaster().getRistClfCd());
-
 					}else{
-
 						masterTbl.setRistClfCd("007");
-
 					}
+					
 					masterTbl.setAddClip(false);
 
 					workflow.put("master", masterTbl);
@@ -545,24 +541,38 @@ public class ServiceNevigator implements Nevigator {
 								}
 							}
 
-							// 일(1), 월(2), 화(3), 수(4), 목(5), 금(6), 토(7)
-							int week = cal.get(Calendar.DAY_OF_WEEK);
-
-							TimeRistSetTbl timeRistSetTbl = addClipForTapeService.getTimeRistSet(week, das.getDbTable().getMaster().getBrdBgnHms());
-							if(timeRistSetTbl != null) {
-								masterTbl.setRistClfCd(timeRistSetTbl.getRistClfCd());
-
-								// DAS Client에서 해당 시간에 입력된 pds_pgm_id를 입력해준다.
-								// 2014-07_07
-								masterTbl.setPdsCmsPgmId(timeRistSetTbl.getPdsPgmId());
-								if(logger.isDebugEnabled()) {
-									logger.debug("db rist_clf_cd: "+timeRistSetTbl.getRistClfCd());
-								}
+							if(StringUtils.isBlank(das.getDbTable().getMaster().getOnAirMediaApprove())) {
+								masterTbl.setRistClfCd(das.getDbTable().getMaster().getOnAirMediaApprove());
 							} else {
-								masterTbl.setRistClfCd("007");
+								// 일(1), 월(2), 화(3), 수(4), 목(5), 금(6), 토(7)
+								int week = cal.get(Calendar.DAY_OF_WEEK);
+
+								TimeRistSetTbl timeRistSetTbl = addClipForTapeService.getTimeRistSet(week, das.getDbTable().getMaster().getBrdBgnHms());
+								if(timeRistSetTbl != null) {
+									masterTbl.setRistClfCd(timeRistSetTbl.getRistClfCd());
+
+									// DAS Client에서 해당 시간에 입력된 pds_pgm_id를 입력해준다.
+									// 2014-07_07
+									masterTbl.setPdsCmsPgmId(timeRistSetTbl.getPdsPgmId());
+									if(logger.isDebugEnabled()) {
+										logger.debug("db rist_clf_cd: "+timeRistSetTbl.getRistClfCd());
+									}
+								} else {
+									masterTbl.setRistClfCd("007");
+								}
+							}
+							if(logger.isDebugEnabled()) {
+								logger.debug("rist_clf_cd: "+das.getDbTable().getMaster().getOnAirMediaApprove());
 							}
 						} else {	// 주조
-							if(das.getDbTable().getMaster().getOnAirMediaApprove().equals("002")||das.getDbTable().getMaster().getOnAirMediaApprove().equals("005")){
+							
+							/* 주조에서 전달되는 사용제한 코드 리스트
+							 * 002: 방송심의제재, 003: 사용금지, 004: 확인 후 사용, 005: 저작권확인, 006: 심의제한, 007: 무제한
+							 */
+							
+							/* 2015.12.11
+							 * 주조와 사용제한등급 코드가 동일하므로 편집할 이유가 없음.
+							if(das.getDbTable().getMaster().getOnAirMediaApprove().equals("002") || das.getDbTable().getMaster().getOnAirMediaApprove().equals("005")) {
 								masterTbl.setRistClfCd("006");
 							} else {
 								if(StringUtils.isBlank(das.getDbTable().getMaster().getOnAirMediaApprove()))
@@ -570,46 +580,62 @@ public class ServiceNevigator implements Nevigator {
 								else
 									masterTbl.setRistClfCd(das.getDbTable().getMaster().getOnAirMediaApprove());
 							}
+							*/
+							if(StringUtils.isBlank(das.getDbTable().getMaster().getOnAirMediaApprove()))
+								masterTbl.setRistClfCd("007");
+							else
+								masterTbl.setRistClfCd(das.getDbTable().getMaster().getOnAirMediaApprove());
 						}
 
 						if(logger.isDebugEnabled()) {
 							logger.debug("rist_clf_cd: "+das.getDbTable().getMaster().getOnAirMediaApprove());
 						}
+						
+						/*
+						 * 2015.12.10 
+						 * 박재현 차장님 요청으로 '특이사항' 컬럼에 해당 내용을 등록하도록 함.
+						 */
+						if(logger.isDebugEnabled()) {
+							logger.debug("xLive onairmedia_note: "+das.getDbTable().getMaster().getOnAirMediaNote());
+						}
+						if(StringUtils.isNotBlank(das.getDbTable().getMaster().getOnAirMediaNote())) { // OnAir 요청
+							masterTbl.setSpcInfo(das.getDbTable().getMaster().getOnAirMediaNote());
+						} else {
+							if(StringUtils.isNotBlank(das.getDbTable().getMaster().getOnAirMediaApprove())) { // OnAir 요청
+								StringBuffer spcInfo = new StringBuffer();
+								Integer approve = Integer.valueOf(das.getDbTable().getMaster().getOnAirMediaApprove());
+								switch(approve) {
+								case 2 :
+									spcInfo.append("방송심의제재");
+									break;
+								case 3 : 
+									spcInfo.append("사용금지");
+									break;
+								case 4 : 
+									spcInfo.append("확인후 사용");
+									break;
+								case 5 : 
+									spcInfo.append("저작권 확인");
+									break;
+								case 6 : 
+									spcInfo.append("심의제한");
+									break;
+								case 7 :
+									spcInfo.append("무제한");
+									break;
+								default :
+									spcInfo.append("기타");
+									break;
+								}
 
-						if(StringUtils.isNotBlank(das.getDbTable().getMaster().getOnAirMediaApprove())) { // OnAir 요청
-							StringBuffer spcInfo = new StringBuffer();
-							Integer approve = Integer.valueOf(das.getDbTable().getMaster().getOnAirMediaApprove());
-							switch(approve) {
-							case 2 :
-								spcInfo.append("사용제한");
-								break;
-							case 3 : 
-								spcInfo.append("사용금지");
-								break;
-							case 4 : 
-								spcInfo.append("담당PD확인");
-								break;
-							case 5 : 
-								spcInfo.append("사용제한");
-								break;
-							case 6 : 
-								spcInfo.append("사용제한");
-								break;
-							case 7 :
-								spcInfo.append("무제한");
-								break;
-							default :
-								spcInfo.append("기타");
-								break;
+								if(StringUtils.isNotBlank(das.getDbTable().getMaster().getSpcInfo())) {
+									if(spcInfo.length() > 0) spcInfo.append(" : ");
+									spcInfo.append(das.getDbTable().getMaster().getSpcInfo());
+								}
+
+								masterTbl.setSpcInfo(spcInfo.toString());
+								spcInfo.setLength(0);
 							}
-
-							if(StringUtils.isNotBlank(das.getDbTable().getMaster().getSpcInfo())) {
-								if(spcInfo.length() > 0) spcInfo.append(" : ");
-								spcInfo.append(das.getDbTable().getMaster().getSpcInfo());
-							}
-
-							masterTbl.setSpcInfo(spcInfo.toString());
-							spcInfo.setLength(0);
 						}
 					}
 
@@ -1960,7 +1986,17 @@ public class ServiceNevigator implements Nevigator {
 		if(logger.isDebugEnabled()){
 			logger.debug("archiveStates Call XML: "+xml);
 		}
-
+		
+		// 2015.11.30 속도 체크 로직 추가
+		long start = 0;
+		long p_start = 0;
+		long end = 0;
+		long p_end = 0;
+		
+		if(logger.isDebugEnabled()) {
+			start = System.currentTimeMillis();
+		}
+		
 		Das das = null;
 		try {
 			das = (Das)xmlStream.fromXML(xml);
@@ -1992,11 +2028,10 @@ public class ServiceNevigator implements Nevigator {
 						}
 					}
 
+					if(logger.isDebugEnabled()) {
+						p_start = System.currentTimeMillis();
+					}
 					if(archiveStatus.getJobId().equals("005")) { // archive
-						if(logger.isDebugEnabled()) {
-							logger.debug("archive : "+archiveStatus.getJobId());
-							logger.debug("obj_name : "+archiveStatus.getObjectName());
-						}
 
 						/*
 						 * 2013.08.22 배치 아카이브를 위해 추가
@@ -2103,7 +2138,15 @@ public class ServiceNevigator implements Nevigator {
 									contentLocTbl.setJobStatus("E");
 									contentLocTbl.setUpdtDtm("");
 
+									if(logger.isDebugEnabled()) {
+										p_end = System.currentTimeMillis();
+										logger.debug( "updateCompleteMaster start: " + (  p_end - p_start )/1000.0 );
+									}
 									archiveStatusService.updateCompleteMaster(contentLocTbl);
+									if(logger.isDebugEnabled()) {
+										p_end = System.currentTimeMillis();
+										logger.debug( "updateCompleteMaster end: " + (  p_end - p_start )/1000.0 );
+									}
 								} else if("MT".equals(archiveStatus.getProcessCd())) { // MXF -> H264 변환
 									contentLocTbl.setChangeStatus("E");
 
@@ -2177,7 +2220,15 @@ public class ServiceNevigator implements Nevigator {
 						 * 아니라면 기존 사용자 다운로드 요청
 						 * 배치 작업이라면 배치용 TC에 작업 요청
 						 */
+						if(logger.isDebugEnabled()) {
+							p_end = System.currentTimeMillis();
+							logger.debug( "restore getBatchDown start: " + (  p_end - p_start )/1000.0 );
+						}
 						ContentDownTbl batchDownTbl = archiveStatusService.getBatchDown(archiveStatus.getRestoreId(), Boolean.valueOf("true"));
+						if(logger.isDebugEnabled()) {
+							p_end = System.currentTimeMillis();
+							logger.debug( "restore getBatchDown end: " + (  p_end - p_start )/1000.0 );
+						}
 						if(batchDownTbl != null && batchDownTbl.getNum() > 0) {
 							if(logger.isDebugEnabled()) {
 								logger.debug("Batch Restore Job: "+batchDownTbl.getNum()+", path: "+batchDownTbl.getPath() +", status: "+batchDownTbl.getJobStatus());
@@ -2210,10 +2261,6 @@ public class ServiceNevigator implements Nevigator {
 								ContentDownTbl orgContentDownTbl = archiveStatusService.getConentDown(archiveStatus.getRestoreId(), Boolean.valueOf("true"));
 								if(orgContentDownTbl != null && (StringUtils.defaultIfEmpty(orgContentDownTbl.getJobStatus(), "E").equals("C")
 										&& StringUtils.defaultIfEmpty(orgContentDownTbl.getStatus(), "69").equals("250"))) {
-									if(logger.isInfoEnabled()) {
-										logger.info("This Content is completed in database - "+orgContentDownTbl.getNum());
-									}
-									//return new Boolean(true).toString();
 									continue;
 								}
 
@@ -2247,12 +2294,20 @@ public class ServiceNevigator implements Nevigator {
 									}
 								}
 
+								if(logger.isDebugEnabled()) {
+									p_end = System.currentTimeMillis();
+									logger.debug( "restore completeDown start: " + (  p_end - p_start )/1000.0 );
+								}
 								// 완료라면 DAS CMS 서비스를 호출하여 정보를 전달한다. 넘겨주는 정보는 Restore_id
 								if(archiveStatus.getJobStatus().trim().equals("C") && archiveStatus.getProgress() == 100) {
 									String msg = dasCmsConnector.completeDown(archiveStatus.getRestoreId());
 									if(logger.isInfoEnabled()) {
 										logger.info("Das CMS Called : "+archiveStatus.getRestoreId()+", return msg: "+msg);
 									}
+								}
+								if(logger.isDebugEnabled()) {
+									p_end = System.currentTimeMillis();
+									logger.debug( "restore completeDown end: " + ( p_end - p_start )/1000.0 );
 								}
 							} finally { // 2015.01.19 
 								try {
@@ -2478,8 +2533,17 @@ public class ServiceNevigator implements Nevigator {
 				} catch (Exception e) {
 					logger.error("Archive Status update error!! - ", e);
 				}
-
+				
+				if(logger.isDebugEnabled()) {
+					p_end = System.currentTimeMillis();
+					logger.debug( "job gubun:"+archiveStatus.getJobId()+", objname: "+archiveStatus.getObjectName()+", end_time: "+ ( p_end - p_start )/1000.0 );
+				}
 			}
+		}
+		
+		if(logger.isDebugEnabled()) {
+			end = System.currentTimeMillis();
+			logger.debug( "archive status end : " + ( end - start )/1000.0 );
 		}
 		return new Boolean(true).toString();
 	}
@@ -4263,8 +4327,7 @@ public class ServiceNevigator implements Nevigator {
 
 			workflow.put("master", masterTbl);
 		} catch (ApplicationException ae) {
-			ae.printStackTrace();
-			logger.error("Master 정보를 취합하는데 실패했습니다.", ae.getStackTrace());
+			logger.error("Master 정보를 취합하는데 실패했습니다.", ae);
 			return Boolean.toString(false);
 		}
 

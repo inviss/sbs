@@ -56,4 +56,10 @@ public class ContentDownDaoImpl extends SqlMapClientDaoSupport implements Conten
 		getSqlMapClientTemplate().insert("BatchDown.insertBatchDown", contentDownTbl);
 	}
 
+	public void findContentDown(ContentDownTbl contentDownTbl)
+			throws DaoRollbackException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

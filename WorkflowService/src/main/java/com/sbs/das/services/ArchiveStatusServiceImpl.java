@@ -1,6 +1,7 @@
 package com.sbs.das.services;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -184,6 +185,11 @@ public class ArchiveStatusServiceImpl implements ArchiveStatusService {
 	public void insertBatchDown(ContentDownTbl contentDownTbl)
 			throws ServiceException {
 		contentDownDao.insertBatchDown(contentDownTbl);
+	}
+
+	public List<ContentDownTbl> findContentDown(ContentDownTbl contentDownTbl)
+			throws ServiceException {
+		return null;
 	}
 
 

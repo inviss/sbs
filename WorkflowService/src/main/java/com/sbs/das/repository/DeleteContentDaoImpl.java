@@ -67,5 +67,9 @@ public class DeleteContentDaoImpl extends SqlMapClientDaoSupport implements Dele
 	public void insertKwKlog(Long masterId) throws ServiceException {
 		getSqlMapClientTemplate().insert("Scheduler.insertKwKlog", String.valueOf(masterId));
 	}
+	
+	public void deleteKwKlog(Long masterId) throws ServiceException {
+		getSqlMapClientTemplate().insert("Scheduler.deleteKwKlog", String.valueOf(masterId));
+	}
 
 }

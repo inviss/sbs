@@ -107,4 +107,22 @@ public interface DeleteContentService {
 	 */
 	public void updateContentMediaIdBlank(Long ctId) throws ServiceException;
 	
+	/**
+	 * <pre>
+	 * 검색엔진에 정보를 업데이트 요청한다.
+	 * </pre>
+	 * @param masterId
+	 * @throws ServiceException
+	 */
+	public void insertKwKlog(Long masterId) throws ServiceException;
+	
+	/**
+	  *<pre>
+	 * 검색엔진에 삭제 정보를 업데이트 요청한다.
+	 * </pre>
+	 * @param masterId
+	 * @throws ServiceException
+	 */
+	public void deleteKwKlog(Long masterId) throws ServiceException;
+	
 }

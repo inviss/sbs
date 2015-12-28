@@ -71,6 +71,21 @@ public interface DeleteContentDao {
 	 */
 	public List<DeleteRequest> updateDeleteComplete(Map<String, Long> params) throws ServiceException;
 	
-
+	/**
+	 * <pre>
+	 * 검색엔진의 메타정보를 업데이트한다.
+	 * </pre>
+	 * @param masterId
+	 * @throws ServiceException
+	 */
 	public void insertKwKlog(Long masterId) throws ServiceException;
+	
+	/**
+	 * <pre>
+	 * 검색엔진의 메타정보를 삭제한다.
+	 * </pre>
+	 * @param masterId
+	 * @throws ServiceException
+	 */
+	public void deleteKwKlog(Long masterId) throws ServiceException;
 }

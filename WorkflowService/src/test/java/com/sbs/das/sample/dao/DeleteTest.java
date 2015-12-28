@@ -110,7 +110,7 @@ public class DeleteTest extends BaseConfig {
 	@Test
 	public void insertKwKlog() {
 		try {
-			deleteContentService.updateContentPathBlank(36729L);
+			deleteContentService.deleteKwKlog(226397L);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

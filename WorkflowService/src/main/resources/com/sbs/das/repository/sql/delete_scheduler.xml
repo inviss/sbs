@@ -131,6 +131,7 @@
     ]]>
     </select>
     
+    <!-- 2015.12.18 다운로드 진행이 'I' 이더라도 변경시간이 24시간 이전이라면 삭제 대상에 포함시킴 -->
     <select id="findScrappedDelete" resultMap="DeleteReqCtMap" parameterClass="map">
     <![CDATA[
 		SELECT
@@ -166,6 +167,7 @@
 		WHERE 1=1 AND NOT EXISTS (
 			  SELECT 1 FROM CONTENTS_INST_TBL INST INNER JOIN CONTENTS_DOWN_TBL DOWN ON INST.CTI_ID = DOWN.CTI_ID
 			  WHERE MAP2.CT_ID = INST.CT_ID AND DOWN.JOB_STATUS = 'I' AND (DOWN.DEL_DD IS NULL OR DOWN.DEL_DD = '')
+			  		AND DOWN.REG_DTM > TS_FMT(CURRENT TIMESTAMP - 48 HOURS, 'yyyymmddhhmiss')
 		)
 		WITH UR
 	]]>
@@ -218,6 +220,14 @@
 		WITH UR
 	]]>
     </select>
+    
+    <insert id="deleteKwKlog" parameterClass="string">
+    	INSERT INTO KW_KLOG (
+		   TABLE_PK, TABLE_PK_FIELD, DML_TYPE, TABLE_PATH
+		)VALUES(
+			#masterId:VARCHAR:NO_ENTRY#, 'METADAT_MST_TBL_PK', 'D', 'V_DAS_PROGRAM'
+		)
+    </insert>
     
     <insert id="insertKwKlog" parameterClass="string">
     	INSERT INTO KW_KLOG (
