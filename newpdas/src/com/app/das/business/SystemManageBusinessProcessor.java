@@ -1862,10 +1862,9 @@ public class SystemManageBusinessProcessor
 			logger.debug("[DeleteDO][Input pgmDO]" + pgmDO);
 		}
 
-		try 
-		{
+		try {
 			String result ="";
-			//프로그램 정보를삭제한다.
+			
 			//미디어id의 중복여부를 확인한후 만약 존재한다면 폐기처리  
 			//존재하지 않는다면 0으로 리턴값을 보낸다
 			if(!systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
@@ -1873,13 +1872,8 @@ public class SystemManageBusinessProcessor
 			}else {
 				result ="0";
 			}
-
-
 			return result;
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 

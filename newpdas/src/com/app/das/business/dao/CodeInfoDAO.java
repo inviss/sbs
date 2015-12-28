@@ -649,19 +649,70 @@ public class CodeInfoDAO extends AbstractDAO
 			stmt.execute();
 			mediaId = stmt.getString(1);
 
-			stmt.close();
+			return mediaId;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			release(null, stmt, con);
+		}
+	}
+	
+	public String getMediaId(Connection con) throws Exception{
+		CallableStatement stmt = null;
+		String mediaId ="";
+		StringBuffer buf = new StringBuffer();
+		buf.append(" CALL MEDIA_ID(?)");
+		try {
+			if(con == null)
+				con = DBService.getInstance().getConnection();
+			
+			stmt = con.prepareCall(buf.toString());
+
+			stmt.registerOutParameter(1, Types.VARCHAR);
+
+			stmt.execute();
+			mediaId = stmt.getString(1);
 
 			return mediaId;
-		}
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			
+		} catch (Exception e) {
 			throw e;
+		} finally {
+			release(null, stmt, null);
 		}
-		finally
-		{
+	}
+	
+	
+	/**
+	 * PDS 시스템 구축에 따른 미디어ID 식별체계에 따라서 DAS의 미디어 ID를 발급
+	 * 'SYYYYMMDDGXXXXX'
+	 * 'S':생성시스템구분(D:DAS(default))
+	 * 'YYYYMMDD':생성일자
+	 * 'G':미디어 구분(V-video 파일)
+	 * 'XXXXX':seq 번호(5자리: 매일 초기화)
+	 * @return DAS 비디오 미디어 ID
+	 * @throws Exception 
+	 */
+	public String getMediaId(String reg_dt) throws Exception{
+		Connection con = null;
+		CallableStatement stmt = null;
+		String mediaId ="";
+		StringBuffer buf = new StringBuffer();
+		buf.append(" CALL MEDIA_ID_MIG(?,?)");
+		try {
+			con = DBService.getInstance().getConnection();
+			stmt = con.prepareCall(buf.toString());
+
+			stmt.setString(1, reg_dt);
+			stmt.registerOutParameter(2, Types.VARCHAR);
+
+			stmt.execute();
+
+			mediaId = stmt.getString(2);
+
+			return mediaId;
+		} catch (Exception e) {
+			throw e;
+		} finally {
 			release(null, stmt, con);
 		}
 	}
@@ -1933,53 +1984,6 @@ public class CodeInfoDAO extends AbstractDAO
 		finally
 		{
 			release(rs, stmt, con);
-		}
-	}
-
-
-
-	/**
-	 * PDS 시스템 구축에 따른 미디어ID 식별체계에 따라서 DAS의 미디어 ID를 발급
-	 * 'SYYYYMMDDGXXXXX'
-	 * 'S':생성시스템구분(D:DAS(default))
-	 * 'YYYYMMDD':생성일자
-	 * 'G':미디어 구분(V-video 파일)
-	 * 'XXXXX':seq 번호(5자리: 매일 초기화)
-	 * @return DAS 비디오 미디어 ID
-	 * @throws Exception 
-	 */
-	public String getMediaId(String reg_dt) throws Exception{
-		Connection con = null;
-		CallableStatement stmt = null;
-		String mediaId ="";
-		StringBuffer buf = new StringBuffer();
-		buf.append(" CALL MEDIA_ID_MIG(?,?)");
-		try {
-			con = DBService.getInstance().getConnection();
-			stmt = con.prepareCall(buf.toString());
-
-			stmt.setString(1, reg_dt);
-			stmt.registerOutParameter(2, Types.VARCHAR);
-
-			stmt.execute();
-
-			mediaId = stmt.getString(2);
-
-			stmt.close();
-
-			return mediaId;
-		}
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			
-			throw e;
-		}
-		finally
-		{
-			release(null,stmt,con);
 		}
 	}
 

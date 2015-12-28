@@ -1341,12 +1341,40 @@ public class WorkStatement
 	}
 	
 	
-	
+	public static String selectNewMyDownloadAprroveList(CartItemDO cartItemDO)
+	{
+		StringBuffer buf  = new StringBuffer();
+		buf.append("\n SELECT distinct                                                                                        ");
+		buf.append("\n 	mst.master_id, cart.CART_NO,                                                           				  ");
+		buf.append("\n     CASE WHEN RTRIM(VALUE(dcart.DOWN_SUBJ, '')) <> '' then mst.title||'('||dcart.down_subj||')' ELSE  mst.title END AS down_subj, ");
+		buf.append("\n     dcart.file_path, dcart.STORAGENAME, cart.REQ_CONT, cart.RIST_CLF_CD, user.user_nm, dcart.REQ_DT,   ");
+		buf.append("\n     GET_CODE_NM('P018', cart.RIST_CLF_CD) as rist_clf_nm, GET_CODE_NM('P058', user.COCD) AS conm,      ");
+		buf.append("\n     (                                                                                                  ");
+		buf.append("\n     	SELECT COUNT(1) FROM CART_CONT_TBL ccart WHERE cart.CART_NO = ccart.CART_NO                       ");
+		buf.append("\n         AND (ccart.RIST_CLF_CD IS NULL OR RTRIM(ccart.RIST_CLF_CD) = '' OR ccart.RIST_CLF_CD <> '007') ");
+		buf.append("\n     ) AS use_limit_count,                                                                               ");
+		buf.append("\n     app.APPROVE_USER_NUM                                                                               ");
+		buf.append("\n FROM DOWN_CART_TBL dcart                                                                               ");
+		buf.append("\n 	inner JOIN USER_INFO_TBL user ON dcart.REQ_USRID = user.SBS_USER_ID                                   ");
+		buf.append("\n 	inner JOIN CART_CONT_TBL cart ON dcart.CART_NO = cart.CART_NO                                         ");
+		buf.append("\n     inner JOIN METADAT_MST_TBL mst ON cart.MASTER_ID = mst.MASTER_ID                                   ");
+		buf.append("\n     inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                                 ");
+		buf.append("\n WHERE cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005' AND RTRIM(value(app.DEPT_CD, '')) <> ''     ");
+		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                        ");
+		buf.append("\n     AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                            ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
+			buf.append("\n and dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' ");
+		}
+		buf.append("\n ORDER BY cart.CART_NO DESC                                                          					 ");
+		
+		return buf.toString();
+	}
 	
 	/**
 	 * My Sign 다운로드 승인조회
 	 * @param cartItemDO 조회정보가 담긴 beans
 	 */
+	@Deprecated
 	public static String selectMyDownloadAprroveList(CartItemDO cartItemDO)
 	{
 		StringBuffer buf  = new StringBuffer();
@@ -1391,11 +1419,45 @@ public class WorkStatement
 		return buf.toString();
 	}
 
+	public static String selectNewMyDownloadAprroveList2(CartItemDO cartItemDO,String dept_cd)
+	{
+		StringBuffer buf  = new StringBuffer();
+		buf.append("\n SELECT distinct                                                                                                ");
+		buf.append("\n 	mst.master_id, cart.CART_NO,                                                           ");
+		buf.append("\n     CASE WHEN RTRIM(VALUE(dcart.DOWN_SUBJ, '')) <> '' then mst.title||'('||dcart.down_subj||')' ELSE  mst.title END AS down_subj, ");
+		buf.append("\n     dcart.file_path, dcart.STORAGENAME, cart.REQ_CONT, cart.RIST_CLF_CD, user.user_nm, dcart.REQ_DT,   ");
+		buf.append("\n     GET_CODE_NM('P018', cart.RIST_CLF_CD) as rist_clf_nm, GET_CODE_NM('P058', user.COCD) AS conm,      ");
+		buf.append("\n     (                                                                                                  ");
+		buf.append("\n     	SELECT COUNT(1) FROM CART_CONT_TBL ccart WHERE cart.CART_NO = ccart.CART_NO                       ");
+		buf.append("\n         AND (ccart.RIST_CLF_CD IS NULL OR RTRIM(ccart.RIST_CLF_CD) = '' OR ccart.RIST_CLF_CD <> '007') ");
+		buf.append("\n     ) AS use_limit_count                                                                               ");
+		buf.append("\n FROM DOWN_CART_TBL dcart                                                                               ");
+		buf.append("\n 	inner JOIN USER_INFO_TBL user ON dcart.REQ_USRID = user.SBS_USER_ID                                   ");
+		buf.append("\n 	inner JOIN CART_CONT_TBL cart ON dcart.CART_NO = cart.CART_NO                                         ");
+		buf.append("\n     inner JOIN METADAT_MST_TBL mst ON cart.MASTER_ID = mst.MASTER_ID                                   ");
+		// 관리자가 아니면 부서 및 사용자 조건 추가
+		if(DASBusinessConstants.ADMIN_DEP.contains(dept_cd.trim())) {
+			buf.append("\n 	WHERE 1=1                                              											  ");
+		} else {
+			buf.append("\n     inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                             ");
+			buf.append("\n WHERE  RTRIM(value(app.DEPT_CD, '')) <> '' and app.DEPT_CD = '"+dept_cd.trim()+"'     		      ");
+			buf.append("\n        AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                     ");
+		}
+		buf.append("\n 	AND cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005'                                              ");
+		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                        ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
+			buf.append("\n and dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' ");
+		}
+		buf.append("\n ORDER BY cart.CART_NO DESC                                                          ");
+		
+		return buf.toString();
+	}
 	
 	/**
 	 * My Sign 다운로드 승인조회
 	 * @param cartItemDO 조회정보가 담긴 beans
 	 */
+	@Deprecated
 	public static String selectMyDownloadAprroveList2(CartItemDO cartItemDO,String dept_cd)
 	{
 		StringBuffer buf  = new StringBuffer();
@@ -1424,8 +1486,7 @@ public class WorkStatement
 		buf.append("\n INNER JOIN DAS.CART_CONT_TBL CONT ON CONT.CART_NO = DCT.CART_NO ");
 		buf.append("\n INNER JOIN DAS.METADAT_MST_TBL MST ON MST.MASTER_ID = CONT.MASTER_ID ");
 	
-	
-		if(dept_cd.trim().equals("D3OB01")){
+		if(DASBusinessConstants.ADMIN_DEP.contains(dept_cd.trim())) {
 			buf.append("\n  WHERE LEFT(DCT.reg_DT,8) >= ? AND LEFT(DCT.reg_DT,8) <= ? ");
 		}else{
 			 buf.append("\n left outer JOIN  (select dept_cd,pgm_id,APPROVE_USER_NUM from DAS.approve_info_Tbl group by  dept_cd,pgm_id,APPROVE_USER_NUM ) app ON  app.pgm_id = mst.PDS_CMS_PGM_ID   ");
@@ -1445,10 +1506,67 @@ public class WorkStatement
 	
 		return buf.toString();
 	}
+	
+	public static String selectNewMyDownloadAprroveForOutSourcingList(CartItemDO cartItemDO)
+	{
+		StringBuffer buf  = new StringBuffer();
+		buf.append("\n SELECT a.* FROM (                                                                                          ");
+		buf.append("\n 	SELECT                                                                                                    ");
+		buf.append("\n 	   mst.master_id, cart.CART_NO, cart.CART_SEQ,                                                            ");
+		buf.append("\n 	   CASE WHEN RTRIM(VALUE(dcart.DOWN_SUBJ, '')) <> '' then mst.title||'('||dcart.down_subj||')' ELSE  mst.title END AS down_subj, ");
+		buf.append("\n 	   dcart.file_path, dcart.STORAGENAME, cart.media_id, cart.REQ_CONT, cart.RIST_CLF_CD, user.user_nm, dcart.REQ_DT,        ");
+		buf.append("\n 	   GET_CODE_NM('P018', cart.RIST_CLF_CD) as rist_clf_nm, GET_CODE_NM('P058', user.COCD) AS conm,          ");
+		buf.append("\n 	   (                                                                                                      ");
+		buf.append("\n 	   	SELECT COUNT(1) FROM CART_CONT_TBL ccart WHERE cart.CART_NO = ccart.CART_NO                           ");
+		buf.append("\n 	       AND (ccart.RIST_CLF_CD IS NULL OR RTRIM(ccart.RIST_CLF_CD) = '' OR ccart.RIST_CLF_CD <> '007')     ");
+		buf.append("\n 	   ) AS use_limit_count,                                                                                   ");
+		buf.append("\n 	   app.APPROVE_USER_NUM                                                                                   ");
+		buf.append("\n 	FROM DOWN_CART_TBL dcart                                                                                  ");
+		buf.append("\n 		inner JOIN USER_INFO_TBL user ON dcart.REQ_USRID = user.SBS_USER_ID                                     ");
+		buf.append("\n 		inner JOIN CART_CONT_TBL cart ON dcart.CART_NO = cart.CART_NO                                           ");
+		buf.append("\n 	   	inner JOIN METADAT_MST_TBL mst ON cart.MASTER_ID = mst.MASTER_ID                                      ");
+		buf.append("\n 	   	inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                                    ");
+		buf.append("\n 	WHERE cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005' AND RTRIM(value(app.DEPT_CD, '')) <> ''        ");
+		buf.append("\n 		AND (cart.OUTSOURCING_YN = 'N' OR (cart.OUTSOURCING_APPROVE = 'Y' AND cart.OUTSOURCING_YN = 'Y'))       ");
+		buf.append("\n 		AND SUBSTR(cart.REG_DT, 1, 8) BETWEEN ? AND ?                                         ");
+		buf.append("\n 	   	AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                                                                   ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
+			buf.append("\n  AND dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' 											 ");
+		}
+		buf.append("\n 	UNION ALL                                                                                                 ");
+		buf.append("\n 	SELECT                                                                                                    ");
+		buf.append("\n 		mst.master_id, cart.CART_NO, cart.CART_SEQ,                                                             ");
+		buf.append("\n 	   	dcart.DOWN_SUBJ, dcart.file_path,                                                                     ");
+		buf.append("\n 	   	dcart.STORAGENAME, cart.media_id, cart.REQ_CONT, cart.RIST_CLF_CD, user.user_nm, dcart.REQ_DT,        ");
+		buf.append("\n 	   	GET_CODE_NM('P018', cart.RIST_CLF_CD) as rist_clf_nm, GET_CODE_NM('P058', user.COCD) AS conm,         ");
+		buf.append("\n 	   	(                                                                                                     ");
+		buf.append("\n 	   		SELECT COUNT(1) FROM CART_CONT_TBL ccart WHERE cart.CART_NO = ccart.CART_NO                         ");
+		buf.append("\n 	       	AND (ccart.RIST_CLF_CD IS NULL OR RTRIM(ccart.RIST_CLF_CD) = '' OR ccart.RIST_CLF_CD <> '007')    ");
+		buf.append("\n 	   	) AS use_limit_count,                                                                                  ");
+		buf.append("\n 	   	app.APPROVE_USER_NUM                                                                                  ");
+		buf.append("\n 	FROM DOWN_CART_TBL dcart                                                                                  ");
+		buf.append("\n 		inner JOIN USER_INFO_TBL user ON dcart.REQ_USRID = user.SBS_USER_ID                                     ");
+		buf.append("\n 		inner JOIN CART_CONT_TBL cart ON dcart.CART_NO = cart.CART_NO                                           ");
+		buf.append("\n 	   	inner JOIN METADAT_MST_TBL mst ON cart.MASTER_ID = mst.MASTER_ID                                      ");
+		buf.append("\n 	   	inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                                    ");
+		buf.append("\n 	WHERE cart.DOWN_STAT = '004' AND dcart.DOWN_GUBUN <> '005'                                                ");
+		buf.append("\n 	   	AND cart.OUTSOURCING_YN = 'Y'                                                                         ");
+		buf.append("\n 		AND SUBSTR(cart.REG_DT, 1, 8) BETWEEN ? AND ?                                         ");
+		buf.append("\n 		AND app.APPROVE_USER_NUM = user.USER_NUM                                                                ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
+			buf.append("\n  AND dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' 											 ");
+		}
+		buf.append("\n ) a                                                                                                        ");
+		buf.append("\n ORDER BY a.CART_NO DESC, a.CART_SEQ ASC                                                                    ");
+		
+		return buf.toString();
+	}
+	
 	/**
 	 * My Sign 다운로드 승인조회(외주제작 용)
 	 * @param cartItemDO 조회조건이 담긴beans
 	 */
+	@Deprecated
 	public static String selectMyDownloadAprroveForOutSourcingList(CartItemDO cartItemDO)
 	{
 		StringBuffer buf  = new StringBuffer();
@@ -1759,10 +1877,41 @@ public class WorkStatement
 	}
 
 	
+	public static String selectNewMyDownloadAprroveListForIfCms(CartItemDO cartItemDO)
+	{
+		StringBuffer buf  = new StringBuffer();
+		buf.append("\n SELECT                                                                                                  ");
+		buf.append("\n 	mst.master_id, cart.CART_NO, cart.CART_SEQ,                                                           ");
+		buf.append("\n     CASE WHEN RTRIM(VALUE(dcart.DOWN_SUBJ, '')) <> '' then mst.title||'('||dcart.down_subj||')' ELSE  mst.title END AS down_subj,   ");
+		buf.append("\n     dcart.file_path,                                                                                    ");
+		buf.append("\n     dcart.STORAGENAME, cart.media_id, cart.REQ_CONT, cart.RIST_CLF_CD, user.user_nm, dcart.REQ_DT,      ");
+		buf.append("\n     GET_CODE_NM('P018', cart.RIST_CLF_CD) as rist_clf_nm, GET_CODE_NM('P058', user.COCD) AS conm,       ");
+		buf.append("\n     (                                                                                                   ");
+		buf.append("\n     	SELECT COUNT(1) FROM CART_CONT_TBL ccart WHERE cart.CART_NO = ccart.CART_NO                       ");
+		buf.append("\n         AND (ccart.RIST_CLF_CD IS NULL OR RTRIM(ccart.RIST_CLF_CD) = '' OR ccart.RIST_CLF_CD <> '007')  ");
+		buf.append("\n     ) AS use_limit_count                                                                                 ");
+		buf.append("\n FROM DOWN_CART_TBL dcart                                                                                ");
+		buf.append("\n 	inner JOIN USER_INFO_TBL user ON dcart.REQ_USRID = user.SBS_USER_ID                                   ");
+		buf.append("\n 	inner JOIN CART_CONT_TBL cart ON dcart.CART_NO = cart.CART_NO                                         ");
+		buf.append("\n     inner JOIN METADAT_MST_TBL mst ON cart.MASTER_ID = mst.MASTER_ID                                    ");
+		buf.append("\n     left outer JOIN PGM_INFO_TBL pgm ON mst.PGM_ID = pgm.PGM_ID                                         ");
+		buf.append("\n     inner JOIN APPROVE_CHENNEL_TBL app ON mst.CHENNEL_CD = app.COCD                                     ");
+		buf.append("\n WHERE cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005'                                              ");
+		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                          ");
+		buf.append("\n 	AND app.USER_ID = '"+cartItemDO.getUserid()+"'                                                          ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
+			buf.append("\n and dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' ");
+		}
+		buf.append("\n ORDER BY cart.CART_NO DESC, cart.CART_SEQ ASC                                                           ");
+		
+		return buf.toString();
+	}
+	
 	/**
 	 * My Sign 다운로드 승인조회(Ifcms 승인자)
 	 * @param cartItemDO 조회정보가 담긴 beans
 	 */
+	@Deprecated
 	public static String selectMyDownloadAprroveListForIfCms(CartItemDO cartItemDO)
 	{
 		StringBuffer buf  = new StringBuffer();
@@ -1809,7 +1958,6 @@ public class WorkStatement
 		}
 		buf.append("\n order by DCT.CART_NO desc ");
 
-	
 		return buf.toString();
 	}
 	
@@ -1909,11 +2057,39 @@ public class WorkStatement
 
 	
 	
-
+	public static String selectNewMyDownloadAprroveListForIfCms2(CartItemDO cartItemDO)
+	{
+		StringBuffer buf  = new StringBuffer();
+		buf.append("\n SELECT                                                                                        		  ");
+		buf.append("\n 	mst.master_id, cart.CART_NO, cart.CART_SEQ,                                            				  ");
+		buf.append("\n     CASE WHEN RTRIM(VALUE(dcart.DOWN_SUBJ, '')) <> '' then mst.title||'('||dcart.down_subj||')' ELSE  mst.title END AS down_subj, ");
+		buf.append("\n     dcart.file_path, dcart.STORAGENAME, cart.media_id, cart.REQ_CONT, cart.RIST_CLF_CD, user.user_nm, dcart.REQ_DT, ");
+		buf.append("\n     GET_CODE_NM('P018', cart.RIST_CLF_CD) as rist_clf_nm, GET_CODE_NM('P058', user.COCD) AS conm,      ");
+		buf.append("\n     (                                                                                                  ");
+		buf.append("\n     	SELECT COUNT(1) FROM CART_CONT_TBL ccart WHERE cart.CART_NO = ccart.CART_NO                       ");
+		buf.append("\n         AND (ccart.RIST_CLF_CD IS NULL OR RTRIM(ccart.RIST_CLF_CD) = '' OR ccart.RIST_CLF_CD <> '007') ");
+		buf.append("\n     ) AS use_limit_count,                                                                               ");
+		buf.append("\n     app.APPROVE_USER_NUM                                                                               ");
+		buf.append("\n FROM DOWN_CART_TBL dcart                                                                               ");
+		buf.append("\n 	inner JOIN USER_INFO_TBL user ON dcart.REQ_USRID = user.SBS_USER_ID                                   ");
+		buf.append("\n 	inner JOIN CART_CONT_TBL cart ON dcart.CART_NO = cart.CART_NO                                         ");
+		buf.append("\n     inner JOIN METADAT_MST_TBL mst ON cart.MASTER_ID = mst.MASTER_ID                                   ");
+		buf.append("\n     inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                                 ");
+		buf.append("\n WHERE cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005' AND RTRIM(value(app.DEPT_CD, '')) <> ''     ");
+		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                        ");
+		buf.append("\n     AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                            ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
+			buf.append("\n and dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' ");
+		}
+		buf.append("\n ORDER BY cart.CART_NO DESC, cart.CART_SEQ ASC                                                          ");
+		
+		return buf.toString();
+	}
 	/**
 	 * My Sign 다운로드 승인조회
 	 * @param cartItemDO 조회정보가 담긴 beans
 	 */
+	@Deprecated
 	public static String selectMyDownloadAprroveListForIfCms2(CartItemDO cartItemDO)
 	{
 		StringBuffer buf  = new StringBuffer();
@@ -1931,7 +2107,6 @@ public class WorkStatement
 		//buf.append("\n ,DCT.APP_CONT ");
 		buf.append("\n ,CODE.DESC as conm");
 		buf.append("\n  ,USER.USER_NM ");
-		
 		buf.append("\n ,dct.STORAGENAME ");
 		buf.append("\n ,cont.media_id ");
 		buf.append("\n ,cont.req_CONT ");
@@ -1962,11 +2137,44 @@ public class WorkStatement
 		return buf.toString();
 	}
 	
-
+	public static String selectNewMyDownloadAprroveListForIfCms2(CartItemDO cartItemDO,String dept_cd)
+	{
+		StringBuffer buf  = new StringBuffer();
+		buf.append("\n SELECT                                                                                                ");
+		buf.append("\n 	mst.master_id, cart.CART_NO, cart.CART_SEQ,                                                          ");
+		buf.append("\n     CASE WHEN RTRIM(VALUE(dcart.DOWN_SUBJ, '')) <> '' then mst.title||'('||dcart.down_subj||')' ELSE  mst.title END AS down_subj, ");
+		buf.append("\n     dcart.file_path, dcart.STORAGENAME, cart.media_id, cart.REQ_CONT, cart.RIST_CLF_CD, user.user_nm, dcart.REQ_DT, ");
+		buf.append("\n     GET_CODE_NM('P018', cart.RIST_CLF_CD) as rist_clf_nm, GET_CODE_NM('P058', user.COCD) AS conm,      ");
+		buf.append("\n     (                                                                                                  ");
+		buf.append("\n     	SELECT COUNT(1) FROM CART_CONT_TBL ccart WHERE cart.CART_NO = ccart.CART_NO                       ");
+		buf.append("\n         AND (ccart.RIST_CLF_CD IS NULL OR RTRIM(ccart.RIST_CLF_CD) = '' OR ccart.RIST_CLF_CD <> '007') ");
+		buf.append("\n     ) AS use_limit_count                                                                               ");
+		buf.append("\n FROM DOWN_CART_TBL dcart                                                                               ");
+		buf.append("\n 	inner JOIN USER_INFO_TBL user ON dcart.REQ_USRID = user.SBS_USER_ID                                   ");
+		buf.append("\n 	inner JOIN CART_CONT_TBL cart ON dcart.CART_NO = cart.CART_NO                                         ");
+		buf.append("\n     inner JOIN METADAT_MST_TBL mst ON cart.MASTER_ID = mst.MASTER_ID                                   ");
+		// 관리자가 아니면 부서 및 사용자 조건 추가
+		if(DASBusinessConstants.ADMIN_DEP.contains(dept_cd.trim())) {
+			buf.append("\n 	WHERE 1=1                                              											  ");
+		} else {
+			buf.append("\n     inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                             ");
+			buf.append("\n WHERE  RTRIM(value(app.DEPT_CD, '')) <> '' and app.DEPT_CD = '"+dept_cd.trim()+"'     		      ");
+			buf.append("\n        AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                     ");
+		}
+		buf.append("\n 	AND cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005'                                              ");
+		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                        ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
+			buf.append("\n and dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' ");
+		}
+		buf.append("\n ORDER BY cart.CART_NO DESC, cart.CART_SEQ ASC                                                          ");
+		
+		return buf.toString();
+	}
 	/**
 	 * My Sign 다운로드 승인조회
 	 * @param cartItemDO 조회정보가 담긴 beans
 	 */
+	@Deprecated
 	public static String selectMyDownloadAprroveListForIfCms2(CartItemDO cartItemDO,String dept_cd)
 	{
 		StringBuffer buf  = new StringBuffer();

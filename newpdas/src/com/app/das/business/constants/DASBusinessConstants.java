@@ -1,5 +1,9 @@
 package com.app.das.business.constants;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 /**
  * 우리 시스템의 상수값들이 정의 되어 있는 class
  * @author ysk523
@@ -655,5 +659,7 @@ public class DASBusinessConstants
 		 */
 		public static final String  UNLIMIT = "007";
 	}
+	
+	public static final List<String> ADMIN_DEP = Arrays.asList("D3OB01");
 	
 }

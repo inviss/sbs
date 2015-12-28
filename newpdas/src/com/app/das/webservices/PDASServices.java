@@ -5457,7 +5457,7 @@ public class PDASServices {
 					long sTime1 = System.currentTimeMillis();
 					String getMessage =  _processor.DoAddTask(num);
 					long sTime2 = System.currentTimeMillis();
-					logger.debug("regist job transfer tm : "+ (sTime2-sTime1) );
+					logger.debug("regist job transfer tm : "+ (sTime2-sTime1)/1000.0 );
 
 					logger.debug("getMessage ["+getMessage+"]");
 
@@ -6916,7 +6916,9 @@ public class PDASServices {
 	 * @throws Exception 
 	 */
 	public int deleteNLE(long ct_id) throws Exception {
-		logger.info("######deleteNLE######## ct_id: "  + ct_id);
+		if(logger.isDebugEnabled()) {
+			logger.debug("######deleteNLE######## ct_id: "  + ct_id);
+		}
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
@@ -6924,6 +6926,7 @@ public class PDASServices {
 		} catch (Exception e) {
 			logger.error("deleteNLE", e);
 		}
+		
 		return 0;
 	}
 
@@ -7830,14 +7833,13 @@ public class PDASServices {
 			return Boolean.toString(result);
 		} catch (Exception e) {
 			logger.error("updateTcState", e);
-			// TODO: handle exception
 		}
 		return "";
 	}
 
 
 	/**
-	 * Backend Tc 연동 하는 작업 완료 요청 인터페이스
+	 * Backend Tc 연동 하는 작업 완료 요청 인터페이스(재요청, 작업완료)
 	 * @param tcBeanDO
 	 * @return
 	 * @throws RemoteException
@@ -7850,7 +7852,7 @@ public class PDASServices {
 			TcBeanDO _do = (TcBeanDO)_doXML.setDO(tcBeanDO);
 
 			StringBuffer _xml = new StringBuffer();
-			TcBeanDO do2 = _processor.insertReqJobTC(_do);//updateReqComTc(_do);
+			TcBeanDO do2 = _processor.insertReqJobTC(_do); //updateReqComTc(_do);
 
 			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?> \n" );
 			_xml.append("<das> \n" );
@@ -7868,8 +7870,8 @@ public class PDASServices {
 			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("insertReqComTc", e);
-			// TODO: handle exception
 		}
+		
 		return "";
 	}
 
@@ -8955,20 +8957,15 @@ public class PDASServices {
 	 * @throws RemoteException
 	 */
 	public String updateArchiveReq(String archiveReqDO)throws RemoteException{
-		//logger.debug("#####updateArchiveReq START##### archiveReqDO : "+archiveReqDO);
-		//logger.debug("[archiveReqDO]"+archiveReqDO);
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ArchiveReqDOXML _doXML = new ArchiveReqDOXML();
 		try {
 			ArchiveReqDO _do = (ArchiveReqDO)_doXML.setDO(archiveReqDO);
 
-
 			boolean result = _processor.updateArchiveReq(_do);
-			//	logger.debug("#####updateArchiveReq END#####" );
 			return Boolean.toString(result);
 		} catch (Exception e) {
 			logger.error("updateArchiveReq", e);
-			// TODO: handle exception
 		}
 		return "false";
 	}
@@ -9402,7 +9399,7 @@ public class PDASServices {
 	 * 영상을 폐기 요청을 한다. MASTER_ID 단위 삭제를 요청한다. 
 	 * MASETR_ID에 소속된 영상들은 모두 폐기 요청 처리되며, 이후
 	 * 검색엔진, 영상선정에서 더이상 조회되지 않고, 페기관리의 폐기현황에서 상태 조회가능하다.
-	 * 이 삭제건은 폐기 통계에 수getArchiveStatusList집된다.
+	 * 이 삭제건은 폐기 통계에서 (getArchiveStatusList) 수집된다.
 	 * @param metadataMstInfoDO
 	 * @return
 	 * @throws Exception 
@@ -9633,11 +9630,14 @@ public class PDASServices {
 
 
 	/**
-	 * PDAS 아카이브 실패건 삭제 요청
-	 * 메타데이터만 넘어오고 실제 데이터 전송에 실패한경우 
-	 * 유일값인 MEDIA_ID의 중복을 피하기위해서 기존에 요청한 MEDIA_ID를 기준으로 생성된 모든데이터
-	 * METADAT_MST_TBL,ANNOT_INFO_TBL,CONTENTS_MAPP_TBL,CONTENTS_INST_TBL,CORNER_TBL
-	 * CONTENTS_TBL의 데이터를 삭제한다.
+	 * PDAS 아카이브 삭제 요청
+	 * 2015.12.22 확인사항
+	 * IFCMS 및 PDS에서 등록 요청을 할경우 DAS TM에서 100% 삭제 요청을 하고 있음.
+	 * 기등록 프로그램이 있을경우 삭제 처리 시간이 최소 1분이 소요되기때문에 등록 실패가 많은 상황임.
+	 * DAS TM과 등록 워크플로우를 바꾸는 상황이기에 삭제 요청이 왔을경우 media_id = 'delete'로 선 변경하고
+	 * 삭제 스케줄러에 등록하도록 변경함. 즉, 삭제 요청 후 오류가 없다면 바로 등록이 가능함.
+	 * 오류가 날경우 rollback 처리 하고 오류 메세지를 반환 함.
+	 * 
 	 * @param pdasArchiveDO                                                                                                                                                                                              
 	 * @return                   
 	 * @throws Exception 
@@ -9650,21 +9650,16 @@ public class PDASServices {
 		DeletePdsArchiveDOXML _doXML = new DeletePdsArchiveDOXML();
 		try {
 			//20130215
-
 			DeleteDO _do = (DeleteDO) _doXML.setDO(deleteDO);
 			SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 
 			String result = _processor.deletePDSArchive(_do);
 
 			return result;
-
-
 		} catch (Exception e) {
 			logger.error("deletePDSArchive", e);
-		}finally{
-			logger.debug("######deletePDSArchive End########");
+			throw e;
 		}
-		return "0";
 	}
 
 

@@ -1695,12 +1695,13 @@ public class CommonUtl {
 	 * 특수문자를 제거한다. 아래는 허용 문자
 	 * // 가-힣,0-9,a-z,A-Z,!,_,-,[],(),',",<,>,#,&,;,?,.,*,~,:
 	 * // 한자['한중일 통합 한자 및 확장-A', '한중일 호환용 한자'], 일어['히라가나', '가타카나', '가타카나 음성 확장']
+	 * // [→←↑↓], 
 	 * // \\u3400-\\u4DBF\\u4E00-\\u9FBF\\uF900-\\uFAFF\\u3040-\\u31FF
 	 * @param value
 	 * @return
 	 */
 	public static String removeCharacter(String value) {
-		String match = "[^\\u3400-\\u4DBF\\u4E00-\\u9FBF\\uF900-\\uFAFF\\u3040-\\u31FF\\u007E\\u002A\\u0024\\u0025\\u002E\\u003F\\u0023\\u003B\\u002F\\u0026\\u0022\\u0027\\u003C\\u003E\\r\\n\\u003A\\u005F\\u002D\\u005B\\u005D\\uAC00-\\uD7A30-9a-zA-Z\\u002C\\u0021\\u0028-\\u0029\\s]";
+		String match = "[^\\u2018-\\u201D\\u203B\\uFF03-\\uFF0A\\uFFE0-\\uFFE1\\u3010-\\u3011\\u300A-\\u300F\\u25A1-\\u25BC\\u25C6-\\u25CB\\u2190-\\u2193\\u3400-\\u4DBF\\u4E00-\\u9FBF\\uF900-\\uFAFF\\u3040-\\u31FF\\u007E\\u002A\\u0024\\u0025\\u002E\\u003F\\u0023\\u003B\\u002F\\u0026\\u0022\\u0027\\u003C\\u003E\\r\\n\\u003A\\u005F\\u002D\\u005B\\u005D\\uAC00-\\uD7A30-9a-zA-Z\\u002C\\u0021\\u0028-\\u0029\\s]";
 		return transXmlText(value.replaceAll(match, " "));
 		//return value.replaceAll(match, " ");
 		//return value;

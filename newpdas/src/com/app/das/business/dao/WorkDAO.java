@@ -4218,10 +4218,10 @@ public class WorkDAO extends AbstractDAO
 	public List selectMyDownloadAprroveList2(CartItemDO cartItemDO,String dept_cd) throws Exception
 	{
 		String query ="";
-		if(dept_cd.equals("")){
-			query = WorkStatement.selectMyDownloadAprroveList(cartItemDO);
+		if(org.apache.commons.lang.StringUtils.isBlank(dept_cd)){
+			query = WorkStatement.selectNewMyDownloadAprroveList(cartItemDO);
 		}else{
-			query = WorkStatement.selectMyDownloadAprroveList2(cartItemDO,dept_cd);	
+			query = WorkStatement.selectNewMyDownloadAprroveList2(cartItemDO, dept_cd);	
 		}
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -4229,7 +4229,7 @@ public class WorkDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectMyDownloadAprroveList2######## con : " + con);
+			//logger.debug("######selectMyDownloadAprroveList######## query : " + query);
 			stmt = con.prepareStatement(query);
 
 			int index = 0;
@@ -5063,7 +5063,7 @@ public class WorkDAO extends AbstractDAO
 
 	public List selectMyDownloadAprroveForOutSourcingList(CartItemDO cartItemDO) throws Exception
 	{
-		String query = WorkStatement.selectMyDownloadAprroveForOutSourcingList(cartItemDO);
+		String query = WorkStatement.selectNewMyDownloadAprroveForOutSourcingList(cartItemDO);
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -5071,7 +5071,7 @@ public class WorkDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectMyDownloadAprroveForOutSourcingList######## con : " + con);
+			//logger.debug("######selectMyDownloadAprroveForOutSourcingList######## query : " + query);
 			stmt = con.prepareStatement(query);
 
 			int index = 0;
@@ -5313,7 +5313,7 @@ public class WorkDAO extends AbstractDAO
 	{
 		String query ="";
 
-		query = WorkStatement.selectMyDownloadAprroveListForIfCms(cartItemDO);
+		query = WorkStatement.selectNewMyDownloadAprroveListForIfCms(cartItemDO);
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -5321,7 +5321,9 @@ public class WorkDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectMyDownloadAprroveListForIfCms######## con : " + con);
+			if(logger.isDebugEnabled()) {
+				//logger.debug("######selectMyDownloadAprroveListForIfCms######## query : " + query);
+			}
 			stmt = con.prepareStatement(query);
 
 			int index = 0;
@@ -5333,8 +5335,7 @@ public class WorkDAO extends AbstractDAO
 			int indexCount = 0;
 			List resultList = new ArrayList();
 
-			while(rs.next())
-			{
+			while(rs.next()) {
 				CartItemDO item = new CartItemDO();
 				item.setCartNo(         		rs.getLong("CART_NO"));
 				item.setCartseq(         		rs.getInt("CART_SEQ"));
@@ -5357,25 +5358,12 @@ public class WorkDAO extends AbstractDAO
 				resultList.add(item);
 			}
 			return resultList;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(query);
-
-			
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
-
-
-
-
-
-
 
 
 	/**
@@ -5438,7 +5426,8 @@ public class WorkDAO extends AbstractDAO
 
 	public List selectMyDownloadAprroveForOutSourcingListForIfCms(CartItemDO cartItemDO) throws Exception
 	{
-		String query = WorkStatement.selectMyDownloadAprroveForOutSourcingListForIfCms(cartItemDO);
+		//String query = WorkStatement.selectMyDownloadAprroveForOutSourcingListForIfCms(cartItemDO);
+		String query = WorkStatement.selectNewMyDownloadAprroveForOutSourcingList(cartItemDO);
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -5446,7 +5435,7 @@ public class WorkDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectMyDownloadAprroveForOutSourcingListForIfCms######## con : " + con);
+			//logger.debug("######selectMyDownloadAprroveForOutSourcingListForIfCms######## con : " + query);
 			stmt = con.prepareStatement(query);
 
 			int index = 0;
@@ -5510,10 +5499,10 @@ public class WorkDAO extends AbstractDAO
 	public List selectMyDownloadAprroveListForIfCms(CartItemDO cartItemDO,String dept_cd) throws Exception
 	{
 		String query ="";
-		if(dept_cd.equals("")){
-			query = WorkStatement.selectMyDownloadAprroveListForIfCms2(cartItemDO);
+		if(org.apache.commons.lang.StringUtils.isBlank(dept_cd)){
+			query = WorkStatement.selectNewMyDownloadAprroveListForIfCms2(cartItemDO);
 		}else{
-			query = WorkStatement.selectMyDownloadAprroveListForIfCms2(cartItemDO,dept_cd);	
+			query = WorkStatement.selectNewMyDownloadAprroveListForIfCms2(cartItemDO, dept_cd);
 		}
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -5521,7 +5510,7 @@ public class WorkDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectMyDownloadAprroveListForIfCms######## con : " + con);
+			logger.debug("######selectMyDownloadAprroveListForIfCms######## query : " + query);
 			stmt = con.prepareStatement(query);
 
 			int index = 0;

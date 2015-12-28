@@ -3097,7 +3097,7 @@ public class ExternalBusinessProcessor
 			Das das = new Das();
 
 			MetaDataInfo metaDataInfo = externalDAO.getBaseResult(nMasterID);
-			logger.error("#########metaDataInfo.getEpisNo########" + metaDataInfo.getEpisNo() );
+			logger.debug("#########metaDataInfo.getTitle("+metaDataInfo.getMasterId()+")########" + metaDataInfo.getTitle() );
 			das.setMetaDataInfo(metaDataInfo);
 
 			Ingest ingest = externalDAO.getIngestMetaResult(nMasterID);
@@ -3883,27 +3883,26 @@ public class ExternalBusinessProcessor
 		{
 			String Tc_type = systemManageDAO.isPDSorRecreate(tcBeanDO.getJob_id());
 			String req_cd = systemManageDAO.isReq_cd(tcBeanDO.getJob_id());
+			
 			//데이터가 없다면 그냥 null 리턴
-		
-			if(Tc_type.equals("")||req_cd.equals("")){
+			if(Tc_type.equals("") || req_cd.equals("")){
 				return null;
 			}
-			logger.debug("after  ");
+			
 			tcBeanDO.setReq_cd(req_cd);
-			if(Tc_type.equals(CodeConstants.TcGubun.PDS)){//001 재생성 002 pds 요청
+			if(Tc_type.equals(CodeConstants.TcGubun.PDS)){  //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
 				TcBeanDO resultTC =	externalDAO.selectTcJob2(tcBeanDO);
+				
 				/**
 				 * 아카이브 요청 DTL manager
 				 */
-
 				PdsArchiveDO pdsarchive = new PdsArchiveDO();
 				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
 				PdsArchiveDO info = externalDAO.selectAutoArchiveInfobyCt_id(tcBeanDO.getCt_id());
 				pdsarchive.setCt_cla(ctcla);
 				pdsarchive.setMedia_id(tcBeanDO.getMedia_id());
+				
 				boolean result = systemManageDAO.getAutoArchvieList(pdsarchive.getCt_cla(),tcBeanDO.getCocd(),info.getChennel(),info.getArch_route());
-
-				logger.debug(result);
 				if(result){			
 					PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForPDS(pdsarchive);
 					String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
@@ -3912,7 +3911,7 @@ public class ExternalBusinessProcessor
 				}
 
 				return resultTC;
-			}else if(Tc_type.equals(CodeConstants.TcGubun.MANUAL)){//001 재생성 002 pds 요청 003 수동아카이브
+			} else if(Tc_type.equals(CodeConstants.TcGubun.MANUAL)) {   //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
 				logger.debug("before  "+Tc_type);
 				logger.debug("before  "+req_cd);
 				TcBeanDO resultTC =	externalDAO.selectTcJob3(tcBeanDO);
@@ -3931,7 +3930,7 @@ public class ExternalBusinessProcessor
 				externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
 
 				return resultTC;
-			}else if(Tc_type.equals(CodeConstants.TcGubun.IFCMS)){//001 재생성 002 pds 요청 003 수동아카이브
+			} else if(Tc_type.equals(CodeConstants.TcGubun.IFCMS)) {   //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
 				TcBeanDO resultTC =	externalDAO.selectTcJob4(tcBeanDO);
 				/**
 				 * 아카이브 요청 DTL manager
@@ -3947,14 +3946,11 @@ public class ExternalBusinessProcessor
 				logger.debug("[pADO][Input pADO]" + pADO);
 				externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
 				return resultTC;
-			}
-			else{
+			} else {
 				return externalDAO.selectTcJob2(tcBeanDO);
 			}
 
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -3981,21 +3977,18 @@ public class ExternalBusinessProcessor
 					externalDAO.updateTcProgressForH264(newTcBeanDO);
 				}else {
 					externalDAO.updateTcProgress(newTcBeanDO);	
-
 				}
+				
 				//das 장비테이블에 상태값 저장하는 로직
-					externalDAO.updateDasEquipMent(newTcBeanDO);
-
-
-
+				externalDAO.updateDasEquipMent(newTcBeanDO);
 
 				TcBeanDO oldTcBeanDO =externalDAO.selectTcState(newTcBeanDO);
 
-
-
 				// work_stat의 상태가 F일때는 실패로 등록한다
 				if(newTcBeanDO.getWork_stat().equals("F")){
+					
 					externalDAO.updateErrTcjob(newTcBeanDO);
+					
 					long eq_id = externalDAO.selectTcEqId(newTcBeanDO);
 					String error_cont = "";
 					String error_code="";
@@ -4034,9 +4027,9 @@ public class ExternalBusinessProcessor
 				/**
 				 * 기존 저장된 TC의 상태값이 'I'가 아닐때, 새로 들어온 값이 'I' 일때 JOB 이 있다면 작업을 할당한다.
 				 */
-				if(oldTcBeanDO.getWork_stat().equals("B")&&newTcBeanDO.getWork_stat().equals("I")  
-						||oldTcBeanDO.getWork_stat().equals("I")&&newTcBeanDO.getWork_stat().equals("I")
-						||oldTcBeanDO.getWork_stat().equals("F")&&newTcBeanDO.getWork_stat().equals("I")
+				if(oldTcBeanDO.getWork_stat().equals("B") && newTcBeanDO.getWork_stat().equals("I")  
+						||oldTcBeanDO.getWork_stat().equals("I") && newTcBeanDO.getWork_stat().equals("I")
+						||oldTcBeanDO.getWork_stat().equals("F") && newTcBeanDO.getWork_stat().equals("I")
 				){
 
 					TcBeanDO jobTcBeanDO = externalDAO.selectTcJob();   // 작업이 있는지 확인하는 곳.
@@ -4044,19 +4037,21 @@ public class ExternalBusinessProcessor
 					TcBeanDO stateTcBeanDO = externalDAO.selectTcAllocationState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
 
 
-					if(jobTcBeanDO!=null&&stateTcBeanDO!=null){
+					if(jobTcBeanDO != null && stateTcBeanDO != null){
 
 						externalDAO.getTCJob(jobTcBeanDO, stateTcBeanDO,dasHandler.getProperty("TC_DIR_INTERFACE"));
 
 						externalDAO.updateTcJobState(jobTcBeanDO.getSeq(),stateTcBeanDO.getTc_id());
 
 						externalDAO.updateTcState(stateTcBeanDO.getSeq()+"");
+						
 						sleep(3000);
+						
 						return true;
 					}
 				}
 				return false;
-			}else{
+			} else {
 				
 				//미디어넷 TC 전용
 				externalDAO.updateTcState(newTcBeanDO);
@@ -4066,13 +4061,7 @@ public class ExternalBusinessProcessor
 				//das 장비테이블에 상태값 저장하는 로직
 				externalDAO.updateDasEquipMent(newTcBeanDO);
 
-
-
-
-
 				TcBeanDO oldTcBeanDO =externalDAO.selectTcState(newTcBeanDO);
-
-
 
 				// work_stat의 상태가 F일때는 실패로 등록한다
 				if(newTcBeanDO.getWork_stat().equals("F")){
@@ -4631,16 +4620,13 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public boolean updateArchiveReq(ArchiveReqDO newTcBeanDO) throws Exception{
-		try 
-		{	
-
-
+		try {
+			
 			//tc를 상태를 변화시킨다.
 			externalDAO.updateArchive(newTcBeanDO);
 			externalDAO.updateOnAirIngestStatus(String.valueOf(newTcBeanDO.getSEQ()));
+			
 			ArchiveReqDO oldBeanDO = externalDAO.selectArchiveState(newTcBeanDO);
-
-
 
 			// work_stat의 상태가 F일때는 실패로 등록한다
 			if(newTcBeanDO.getWork_stat().equals("F")){
@@ -4650,21 +4636,23 @@ public class ExternalBusinessProcessor
 			/**
 			 * 기존 저장된 TC의 상태값이 'I'가 아닐때, 새로 들어온 값이 'I' 일때 JOB 이 있다면 작업을 할당한다.
 			 */
-			if(oldBeanDO.getWork_stat().equals("B")&&newTcBeanDO.getWork_stat().equals("I")  
-					||oldBeanDO.getWork_stat().equals("I")&&newTcBeanDO.getWork_stat().equals("I")  ){
+			if(oldBeanDO.getWork_stat().equals("B") && newTcBeanDO.getWork_stat().equals("I")  
+					||oldBeanDO.getWork_stat().equals("I") && newTcBeanDO.getWork_stat().equals("I")  ){
+				
 				ArchiveReqDO jobArchiveBeanDO = externalDAO.selectArchiveJob();   // 작업이 있는지 확인하는 곳.
+				
 				//20111228 받은   장비에 바로 리턴.
 				ArchiveReqDO stateArchiveBeanDO = externalDAO.selectArchiveState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
 
-
 				//logger.debug("[jobArchiveBeanDO]"+jobArchiveBeanDO);
-				if(jobArchiveBeanDO!=null&&newTcBeanDO!=null){
+				if(jobArchiveBeanDO != null && newTcBeanDO != null){
 					externalDAO.getArchveJob(jobArchiveBeanDO, stateArchiveBeanDO,dasHandler.getProperty("ON_AIR_DIR_INTERFACE"));
 
-
 					externalDAO.updateArchiveState(newTcBeanDO.getSEQ()+"");
+					
 					jobArchiveBeanDO.setArchive_id(String.valueOf(stateArchiveBeanDO.getSEQ()));
 					externalDAO.updateArchiveInfo(jobArchiveBeanDO);
+					
 					return true;
 				}
 			}
@@ -4783,13 +4771,12 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 * @throws RemoteException
 	 */
-	public String deleteMasterScean2(DeleteDO deleteDO) throws Exception
-	{	
-		try  
-		{						
+	public String deleteMasterScean2(DeleteDO deleteDO) throws Exception {	
+		try  {						
 			externalDAO.deleteMasterSceanForMapp(deleteDO.getMaster_id());	
 			externalDAO.deleteMasterSceanForMst(deleteDO.getMaster_id());	
 			DiscardDO dis =  externalDAO.getDiscardInfo(deleteDO.getMaster_id()); // metadat_mst_tbl에서 메타정보 수집
+			
 			dis.setMasterId(deleteDO.getMaster_id());
 			dis.setDisuse_cont(deleteDO.getDel_cont()); // 폐기 요청 사유
 			dis.setReg_id(deleteDO.getReg_id());
@@ -4797,10 +4784,7 @@ public class ExternalBusinessProcessor
 			disuseDAO.insertDisuseForMeta(dis);
 
 			return "1";		
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -5377,18 +5361,13 @@ public class ExternalBusinessProcessor
 	 */
 	public List getArchiveInfo(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
+		if(logger.isDebugEnabled()) {
 			logger.debug("[getArchiveInfo][MonitoringDO] "+ monitoringDO);
 		}
 
-		try 
-		{
-
+		try {
 			return externalDAO.getArchiveInfo(monitoringDO);
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 

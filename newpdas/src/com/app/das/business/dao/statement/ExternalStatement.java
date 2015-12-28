@@ -1075,6 +1075,7 @@ public class ExternalStatement
 	public static final String selectAnnotInfoInfoListQuery()
 	{
 		StringBuffer buf = new StringBuffer();
+		/*
 		buf.append("\n select ");
 		buf.append("\n 	anot.CN_ID, ");
 		buf.append("\n 	anot.ANNOT_ID, ");
@@ -1095,6 +1096,24 @@ public class ExternalStatement
 		buf.append("\n 	and anot.cn_id = cn.CN_ID  ");	// 이렇게 되어야 하는 거 아닌가요? 만약 이거 누군가 수정하려 한다면 김문식에게 말해주세요.
 		buf.append("\n 	and  anot.ANNOT_CLF_CD <> '007'  ");
 		buf.append("\n 	and mapp.MASTER_ID= ?  order by anot.cn_id asc with ur ");
+		*/
+		buf.append("\n SELECT                                                         ");
+		buf.append("\n 	anot.CN_ID,                                                   ");
+		buf.append("\n  	anot.ANNOT_ID,                                              ");
+		buf.append("\n  	anot.CT_ID,                                                 ");
+		buf.append("\n  	anot.ANNOT_CLF_CD,                                          ");
+		buf.append("\n  	anot.ANNOT_CLF_CONT,                                        ");
+		buf.append("\n  	anot.SOM,                                                   ");
+		buf.append("\n  	anot.EOM ,                                                  ");
+		buf.append("\n      anot.GUBUN,                                                ");
+		buf.append("\n  	anot.ENTIRE_YN                                              ");
+		buf.append("\n FROM CONTENTS_MAPP_TBL mapp                                    ");
+		buf.append("\n 	   inner JOIN CORNER_TBL cn ON mapp.CN_ID = cn.CN_ID             ");
+		buf.append("\n     inner JOIN ANNOT_INFO_TBL anot ON cn.CN_ID = anot.CN_ID    ");
+		buf.append("\n WHERE anot.ANNOT_CLF_CD <> '007' AND mapp.MASTER_ID = ?        ");
+		buf.append("\n     AND (rtrim(value(mapp.del_dd, '')) = '' and value(mapp.del_yn, 'N') = 'N')        ");
+		buf.append("\n ORDER BY anot.SOM ASC                                          ");
+		buf.append("\n WITH ur                                                        ");
 
 		return buf.toString();
 	}
@@ -4400,7 +4419,7 @@ public class ExternalStatement
 			buf.append("\n 		mst.ctgr_l_cd as ctgr_l_cd,                                                                                                                   ");
 			buf.append("\n 		mst.FM_DT as fm_dt,                                                                                                                           ");
 			buf.append("\n 		mst.modrid as modrid,                                                                                                                         ");
-			buf.append("\n  		value(mapp.CT_ID,0) as CT_ID ,                                                                                                              ");
+			buf.append("\n  		value(ct.CT_ID,0) as CT_ID ,                                                                                                              ");
 			buf.append("\n  		value(inst.CTI_ID ,0) as cti_id ,                                                                                                           ");
 			buf.append("\n  		code1.DESC AS CT_CLA_NM,                                                                                                                    ");
 			buf.append("\n  		code2.DESC AS CTGR_L_NM,                                                                                                                    ");
@@ -4412,9 +4431,7 @@ public class ExternalStatement
 			}
 		}
 		buf.append("\n	FROM METADAT_MST_TBL mst                                                                                                                        ");
-		buf.append("\n		INNER JOIN (SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL WHERE del_yn = 'N' AND VALUE(del_dd, '') = '' GROUP BY master_id, ct_id) mapp      ");
-		buf.append("\n	    	ON mst.MASTER_ID = mapp.MASTER_ID                                                                                                         ");
-		buf.append("\n	    INNER JOIN CONTENTS_TBL ct ON mapp.CT_ID = ct.CT_ID                                                                                         ");
+		buf.append("\n	    INNER JOIN CONTENTS_TBL ct ON mst.RPIMG_CT_ID = ct.CT_ID                                                                                         ");
 		buf.append("\n	    INNER JOIN CONTENTS_INST_TBL inst ON ct.CT_ID = inst.CT_ID AND inst.CTI_FMT LIKE '1%'                                                       ");
 		buf.append("\n	    LEFT OUTER JOIN PGM_INFO_TBL pgm ON mst.PGM_ID = pgm.PGM_ID                                                                                 ");
 		buf.append("\n	    LEFT OUTER JOIN RELATION_MASTER rm ON mst.MASTER_ID = rm.PARENT_MASTER_ID                                                                   ");
@@ -4422,12 +4439,15 @@ public class ExternalStatement
 		buf.append("\n	    LEFT OUTER JOIN CODE_TBL code2 ON code2.SCL_CD = mst.CTGR_L_CD AND code2.CLF_CD='P002'                                                      ");
 		buf.append("\n	    LEFT OUTER JOIN CODE_TBL code3 ON code3.SCL_CD = mst.DATA_STAT_CD AND code3.CLF_CD='P051'                                                   ");
 		buf.append("\n	    LEFT OUTER JOIN USER_INFO_TBL USER ON USER.SBS_USER_ID = mst.MODRID                                                                         ");
-		buf.append("\n	WHERE 1=1 AND ct.CT_TYP = '003'                                                                                                                  ");
+		buf.append("\n	WHERE 1=1                                                                                                                  ");
 		buf.append("\n		AND NOT EXISTS (                                                                                                                              ");
 		buf.append("\n			SELECT 1 FROM DISCARD_INFO_TBL dis WHERE mst.MASTER_ID = dis.MASTER_ID                                                                      ");
 		buf.append("\n		)                                                                                                                                             ");
 		buf.append("\n	    AND NOT EXISTS (                                                                                                                            ");
 		buf.append("\n	    	SELECT 1 FROM RELATION_MASTER rel WHERE mst.MASTER_ID = rel.CHILD_MASTER_ID                                                               ");
+		buf.append("\n	    )                                                                                                                                           ");
+		buf.append("\n	    AND NOT EXISTS (                                                                                                                            ");
+		buf.append("\n	    	SELECT 1 FROM CONTENTS_MAPP_TBL mapp WHERE ct.CT_ID = mapp.CT_ID AND (VALUE(mapp.DEL_YN, 'N') = 'Y' OR VALUE(mapp.DEL_DD, '') <> '') ");
 		buf.append("\n	    )                                                                                                                                           ");
 		buf.append("\n	    AND VALUE(mst.DEL_DD, '') = ''                                                                                                              ");
 		buf.append("\n	    AND (mst.MANUAL_YN = 'N' OR mst.MANUAL_YN IS null)                                                                                          ");
@@ -4520,12 +4540,14 @@ public class ExternalStatement
 		}
 		
 		if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getDateKind())) {
+			buf.append("\n  AND ( ");
 			String[] dateGb = conditionDO.getDateKind().split(",");
 			for(int i=0; i < dateGb.length; i++) {
-				buf.append("\n  AND ");
+				if(i != 0) buf.append("\n  OR ");
 				if(org.apache.commons.lang.StringUtils.isNotBlank(conditionDO.getFromDate())) {
 					if (CodeConstants.WorkStatusDateFlag.REG_DATE.equals(String.valueOf(dateGb[i]))) {
-						buf.append("\n (SUBSTR(mst.REG_DT, 1, 8) between '"+conditionDO.getFromDate()+"' and '"+conditionDO.getToDate()+"')  ");
+						//buf.append("\n (SUBSTR(mst.REG_DT, 1, 8) between '"+conditionDO.getFromDate()+"' and '"+conditionDO.getToDate()+"')  ");
+						buf.append("\n (SUBSTR(mst.ING_REG_DD, 1, 8) between '"+conditionDO.getFromDate()+"' and '"+conditionDO.getToDate()+"')  ");
 					} else if (CodeConstants.WorkStatusDateFlag.SHOT_DATE.equals(String.valueOf(dateGb[i]))) {
 						buf.append("\n ( ");
 						buf.append("\n 		(SUBSTR(mst.fm_dt, 1, 8) between '"+conditionDO.getFromDate()+"' and '"+conditionDO.getToDate()+"')  ");
@@ -4539,6 +4561,7 @@ public class ExternalStatement
 					}
 				}
 			}
+			buf.append("\n  ) ");
 		}
 		String dataStatCd = "";
 		if(DASBusinessConstants.YesNo.YES.equals(conditionDO.getArrangeBfYn())) {

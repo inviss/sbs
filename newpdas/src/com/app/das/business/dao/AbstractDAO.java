@@ -56,7 +56,7 @@ public abstract class AbstractDAO
 	 * @throws SQLException
 	 * @return Connection
 	 */
-	public Connection getErpConnection() throws NamingException, SQLException 
+	public Connection getErpConnection() throws Exception 
 	{
 		return DBService.getInstance().getErpConnection();
 	}

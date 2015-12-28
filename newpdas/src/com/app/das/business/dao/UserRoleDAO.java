@@ -1595,6 +1595,41 @@ public class UserRoleDAO extends AbstractDAO {
 		}
 
 	}
+	
+	/**
+	 * 회사코드와 사번을 조합하여 비교한다.
+	 * 2015.11.27 추가
+	 * 
+	 * @param perRegNo
+	 *            주민번호
+	 * 
+	 * @return true, false
+	 * @throws Exception 
+	 */
+	public boolean isThereUserId(String cocd, String user_no) throws Exception {
+		
+		StringBuffer buf = new StringBuffer();
+
+		buf.append("\n select count(1) FROM USER_INFO_TBL where sbs_user_id = '"+ cocd+user_no + "' \n");
+		Connection con = null;
+		try {
+			con = DBService.getInstance().getConnection();
+			//logger.debug("######isThereEmployeeRole2######## con : " + con);
+			// 총 조회 갯수를 구한다.
+			int totalCount = getTotalCount(con, buf.toString());
+
+			if (totalCount > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			release(null, null, con);
+		}
+	}
+	
 	/**
 	 * 사번 중복여부 조회한다.
 	 * 
@@ -1604,7 +1639,7 @@ public class UserRoleDAO extends AbstractDAO {
 	 * @return true, false
 	 * @throws Exception 
 	 */
-
+	@Deprecated
 	public boolean isThereEmployeeRole2(String user_no) throws Exception {
 		// PageDO pageDO = new PageDO();
 
@@ -1625,8 +1660,7 @@ public class UserRoleDAO extends AbstractDAO {
 				return false;
 			}
 		} catch (Exception e) {
-			logger.error(buf.toString());
-throw e;
+			throw e;
 		} finally {
 			release(null, null, con);
 		}

@@ -1264,38 +1264,43 @@ public class WorkBusinessProcessor
 
 		try 
 		{
+			// 외주제작 소속인지 확인
 			String outsorcing_yn = externalDAO.getOutSourcing_ynEmployee(cartItemDO.getUserid());
+			logger.debug("outsorcing_yn : "+outsorcing_yn);
+			
+			// ifcms 승인자 여부 확인
 			String ifcms_yn = externalDAO.getIfCmsApproveYn(cartItemDO.getUserid());
+			logger.debug("ifcms_yn : "+ifcms_yn);
+			
+			logger.debug("system : "+cartItemDO.getSystem());
+			
 			if(outsorcing_yn.equals("Y")){
 				if(cartItemDO.getSystem().equals("")){
 					return workDAO.selectMyDownloadAprroveForOutSourcingList(cartItemDO);	
 				}else{
 					return workDAO.selectMyDownloadAprroveForOutSourcingListForIfCms(cartItemDO);		
 				}
-			}else{
-
-				if(ifcms_yn.equals("Y")||cartItemDO.getUserid().equals("admin")){
-
+			} else {
+				
+				if(ifcms_yn.equals("Y") || cartItemDO.getUserid().equals("admin")){
 					return workDAO.selectMyDownloadAprroveListForIfCms(cartItemDO);
-				}else {
-					String dep_cd= userRoleDAO.selectDepinfoForUser(cartItemDO.getUserid());
+				} else {
+					String dep_cd = userRoleDAO.selectDepinfoForUser(cartItemDO.getUserid());
+					logger.debug("dep_cd : "+dep_cd);
+					
 					if(cartItemDO.getSystem().equals("")){
-						return workDAO.selectMyDownloadAprroveList2(cartItemDO,dep_cd);
+						return workDAO.selectMyDownloadAprroveList2(cartItemDO, dep_cd);
 					}else{
-						return workDAO.selectMyDownloadAprroveListForIfCms(cartItemDO,dep_cd);	
+						return workDAO.selectMyDownloadAprroveListForIfCms(cartItemDO, dep_cd);	
 					}
 				}
 			}
-		} 
-		catch (Exception e)
-		{
+			
+		} catch (Exception e) {
 			throw e;
 		}
 
-
 	}
-
-
 
 
 	/**

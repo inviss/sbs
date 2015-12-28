@@ -229,8 +229,7 @@ public class LoginBusinessProcessor {
 
 
 		if (token.getUser_num().equals("")||(token.getUser_num().equals("0")&&token.getPer_reg_no().equals("0"))) {
-			_do.setAuth_result(errorHandler
-					.getProperty(ErrorConstants.NOT_EXIST_USER));
+			_do.setAuth_result(errorHandler.getProperty(ErrorConstants.NOT_EXIST_USER));
 		} // *DAS의 경우 ‘비직원AD관리’Type이라도 비직원AD비관리 대상으로 로직처리함
 		else if (token.getAcct_code().equals("RA") // 정직원 AD관리
 
@@ -239,17 +238,16 @@ public class LoginBusinessProcessor {
 		{
 			logger.debug("_do.getUser_id()() [" + _do.getUser_id() + "]");
 			logger.debug("_do.getPassword() [" + _do.getPassword() + "]");
-			logger.debug("dasHandler.getProperty(\"AD_DOMAIN\") ["
-					+ dasHandler.getProperty("AD_DOMAIN") + "]");
+			logger.debug("dasHandler.getProperty(\"AD_DOMAIN\") ["+ dasHandler.getProperty("AD_DOMAIN") + "]");
+			
 			/**
 			 * AD API 활용하여 진행할 것.
 			 */
 			String sResult="";
 
 			//운영소스 ad 모듈 사용 시작
-				JNI_Des hj =new JNI_Des();
-			sResult = hj.getAuthentication(_do.getUser_id(),
-					_do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
+			JNI_Des hj =new JNI_Des();
+			sResult = hj.getAuthentication(_do.getUser_id(), _do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
 			
 			// 운영소스 ad 모듈 끝
 			//개발소스에만 적용 시작 
@@ -263,8 +261,7 @@ public class LoginBusinessProcessor {
 
 			if (_do.getResult().startsWith("0")) { // _do 의 result 값이 '0'으로 시작하면
 				// 성공 임당. ex) 0:365
-				_do.setAuth_result(errorHandler
-						.getProperty(ErrorConstants.VALID_USER));
+				_do.setAuth_result(errorHandler.getProperty(ErrorConstants.VALID_USER));
 			}
 		} else // 정직원AD비관리, 비직원 AD비관리: AD 비관리 대상 (Local DB로 인증확인)
 		{

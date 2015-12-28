@@ -10,7 +10,7 @@ public class GetBaseInfoTest {
 	public static void main(String[] args) {
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
-			String xml = _processor.getBaseInfo(328112);
+			String xml = _processor.getBaseInfo(327465);
 		 
 			System.out.println(xml);
 		} catch (Exception e) {

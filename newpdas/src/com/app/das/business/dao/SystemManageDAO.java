@@ -6589,7 +6589,7 @@ public class SystemManageDAO extends AbstractDAO
 			}
 
 			con.commit();
-			
+
 			return updateCount;
 		} catch (Exception e) {
 			if(con != null) {
@@ -9320,7 +9320,7 @@ public class SystemManageDAO extends AbstractDAO
 
 			int index = 0;
 			stmt.setString(1, media_id);
-			
+
 			rs = stmt.executeQuery();
 			long masterid=0;
 			if(rs.next()) {
@@ -10842,8 +10842,7 @@ public class SystemManageDAO extends AbstractDAO
 
 		StringBuffer buf = new StringBuffer();
 
-		buf.append("\n select count(1) FROM  das.contents_tbl where media_id = '"
-				+ Media_id + "' \n");
+		buf.append("\n select count(1) FROM  das.contents_tbl where media_id = '"+ Media_id + "' \n");
 		Connection con = null;
 		try {
 			con = DBService.getInstance().getConnection();
@@ -11356,225 +11355,93 @@ public class SystemManageDAO extends AbstractDAO
 	}
 
 
-
-	/**
-	 * 실패한 아카이브 건들을 지운다
-	 * @param media_id  마스터 정보
-	 *  @return updatecount
-	 * @throws Exception 
-	 * @throws RemoteException
-	 *//*
 	public String deletePdsINfo(DeleteDO pgmDO)throws Exception{
 
 		Connection con = null;
 		PreparedStatement stmt = null;
-		PreparedStatement stmt2 = null;
-		PreparedStatement stmt3 = null;
-		PreparedStatement stmt4 = null;
-		PreparedStatement stmt5 = null;
-		PreparedStatement stmt6 = null;
+
 		StringBuffer buf=new StringBuffer();
 		StringBuffer buf2=new StringBuffer();
 		StringBuffer buf3=new StringBuffer();
 		StringBuffer buf4=new StringBuffer();
-		StringBuffer buf5=new StringBuffer();
-		StringBuffer buf6=new StringBuffer();
-		ResultSet rs = null;
-		try {
-			con=DBService.getInstance().getConnection();
-			//logger.debug("######deletePdsINfo######## con : " + con);
-			buf.append("\n select distinct ct_id, master_id from contents_mapp_tbl where ct_id  =(select ct_id from contents_tbl where media_id = ?) ");
-			buf2.append("\n delete from  DAS.metadat_mst_tbl where MASTER_ID =? ");
-			buf3.append("\n delete from  DAS.contents_tbl where CT_ID =? ");
-			buf4.append("\n delete from  DAS.contents_inst_tbl where CT_ID =? ");
-			buf5.append("\n delete from  DAS.contents_mapp_tbl where MASTER_ID =? ");
-			buf6.append("\n delete from  DAS.corner_tbl where MASTER_ID =? ");
-
-
-			stmt=con.prepareStatement(buf.toString());
-//			stmt2=LoggableStatement.getInstance(con, buf2.toString());
-//			stmt3=LoggableStatement.getInstance(con, buf3.toString());
-//			stmt4=LoggableStatement.getInstance(con, buf4.toString());
-//			stmt5=LoggableStatement.getInstance(con, buf5.toString());
-//			stmt6=LoggableStatement.getInstance(con, buf6.toString());
-
-			stmt2 = con.prepareStatement(buf2.toString());
-			stmt3 = con.prepareStatement(buf3.toString());
-			stmt4 = con.prepareStatement(buf4.toString());
-			stmt5 = con.prepareStatement(buf5.toString());
-			stmt6 = con.prepareStatement(buf6.toString());
-
-
-			int index=0;
-			int updatecount=0;
-			stmt.setString(++index	, pgmDO.getMedia_id());
-
-			rs = stmt.executeQuery();
-
-			List resultList = new ArrayList();
-
-			DeleteDO item = new DeleteDO();
-			while(rs.next())
-			{
-				item.setMaster_id(rs.getLong("master_id"));
-				item.setCt_id(rs.getLong("ct_id"));
-
-			}
-			index=0;
-			stmt2.setLong(++index	, item.getMaster_id());
-			updatecount =updatecount+ stmt2.executeUpdate();
-			index=0;
-			stmt3.setLong(++index	, item.getCt_id());
-			updatecount =updatecount+  stmt3.executeUpdate();
-			index=0;
-			stmt4.setLong(++index	, item.getCt_id());
-			updatecount =updatecount+  stmt4.executeUpdate();
-			index=0;
-			stmt5.setLong(++index	, item.getMaster_id());
-			updatecount =updatecount+  stmt5.executeUpdate();
-			index=0;
-			stmt6.setLong(++index	, item.getMaster_id());
-			updatecount =updatecount+  stmt6.executeUpdate();
-
-
-			logger.debug(updatecount);
-			if(updatecount>=5){
-				updatecount=1;
-			}else {
-				updatecount=0;	
-			}
-			return String.valueOf(updatecount);
-		}
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-			logger.error(buf2.toString());
-			logger.error(buf3.toString());
-			logger.error(buf4.toString());
-			logger.error(buf5.toString());
-			logger.error(buf6.toString());
-
-			if(con != null)
-			{
-				try {
-					con.rollback();					
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
-			}
-
-			throw e;
-		}
-		finally
-		{
-			release(null, stmt, null);
-			release(null, stmt2, null);
-			release(null, stmt3, null);
-			release(null, stmt4, null);
-			release(null, stmt5, null);
-			release(rs, stmt6, con);
-
-		}
-	}
-
-	  */
-
-	public String deletePdsINfo(DeleteDO pgmDO)throws Exception{
-
-		Connection con = null;
-		PreparedStatement stmt = null;
-		PreparedStatement stmt2 = null;
-		PreparedStatement stmt3 = null;
-
-		StringBuffer buf=new StringBuffer();
-		StringBuffer buf2=new StringBuffer();
-		StringBuffer buf3=new StringBuffer();
 
 		ResultSet rs = null;
 		try {
-			con=DBService.getInstance().getConnection();
-			//logger.debug("######deletePdsINfo######## con : " + con);
-			logger.debug("meida_id "+pgmDO.getMedia_id());
+			con = DBService.getInstance().getConnection();
+			con.setAutoCommit(false);
+
+			logger.debug("meida_id: "+pgmDO.getMedia_id());
+
 			buf.append("\n select distinct ct_id, master_id from contents_mapp_tbl where ct_id  = (select ct_id from contents_tbl where media_id = ?) ");
-			buf2.append("\n update metadat_mst_tbl set del_dd ='99991231' ,group_id=-1 where MASTER_ID =? ");
+			buf2.append("\n update metadat_mst_tbl set del_dd ='99991231',use_yn = 'N' ,group_id=-1 where MASTER_ID =? ");
 			buf3.append("\n update contents_mapp_tbl set del_dd = ? where  CT_ID =? ");
+			buf4.append("\n update contents_tbl set media_id = 'delete' where  CT_ID =? ");
 
 			stmt=con.prepareStatement(buf.toString());
-			//쿼리 로그 남기는 형식
-			//stmt2=LoggableStatement.getInstance(con, buf2.toString());
-
-			stmt2 = con.prepareStatement(buf2.toString());
-			stmt3 = con.prepareStatement(buf3.toString());
-
-
 
 			int index=0;
 			int updatecount=0;
 			stmt.setString(++index	, pgmDO.getMedia_id());
-
 			rs = stmt.executeQuery();
 
-			List resultList = new ArrayList();
+			// master_id, ct_id finding
 			DeleteDO item = new DeleteDO();
-
-			String dateString = CalendarUtil.getDateTime("yyyyMMdd");
-
 			while(rs.next()) {
-				logger.info("mapp find data");
 				item.setMaster_id(rs.getLong("master_id"));
 				item.setCt_id(rs.getLong("ct_id"));
 			}
 
-			logger.info("master_id: "+item.getMaster_id());
-			index=0;
-			stmt2.setLong(++index	, item.getMaster_id());
-			updatecount =updatecount+ stmt2.executeUpdate();
-			index=0;
-			stmt3.setString(++index	, dateString);
-			stmt3.setLong(++index	, item.getCt_id());
-			updatecount =updatecount+  stmt3.executeUpdate();
+			if(item.getMaster_id() != null && item.getCt_id() != null) {
+				// metadata_mst_tbl update
+				stmt.close();
+				stmt = con.prepareStatement(buf2.toString());
 
+				index=0;
+				stmt.setLong(++index	, item.getMaster_id());
+				stmt.executeUpdate();
 
+				// contents_mapp_tbl update
+				stmt.close();
+				stmt = con.prepareStatement(buf3.toString());
 
-			logger.debug(updatecount);
-			if(updatecount>=1){
-				updatecount=1;
+				String dateString = CalendarUtil.getDateTime("yyyyMMdd");
+				index=0;
+				stmt.setString(++index	, dateString);
+				stmt.setLong(++index	, item.getCt_id());
+				stmt.executeUpdate();
+				
+				// contents_tbl update
+				stmt.close();
+				stmt = con.prepareStatement(buf4.toString());
+
+				index=0;
+				stmt.setLong(++index	, item.getCt_id());
+				stmt.executeUpdate();
+
 				externalDAO.deletePDSJOb(item.getCt_id());
 				if(logger.isInfoEnabled()) {
 					logger.info("WorkflowService's Force DeleteMethod Call! - :"+item.getCt_id());
 				}
-			}else {
-				updatecount=0;	
+				return "1";
+			} else {
+				if(logger.isInfoEnabled()) {
+					logger.info("contents meta not found!! - "+pgmDO.getMedia_id());
+				}
+				return "0";
 			}
-			return String.valueOf(updatecount);
-		}
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-			logger.error(buf2.toString());
-			logger.error(buf3.toString());
-
-
-			if(con != null)
-			{
+			
+		} catch (Exception e) {
+			if(con != null) {
 				try {
 					con.rollback();					
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
+				} catch (SQLException e1) { }
 			}
-
 			throw e;
-		}
-		finally
-		{
-			release(null, stmt, null);
-			release(null, stmt2, null);
-			release(null, stmt3, null);
-
-
+		} finally {
+			if(con != null) {
+				con.setAutoCommit(true);
+				release(null, stmt, con);
+			}
 		}
 	}
 

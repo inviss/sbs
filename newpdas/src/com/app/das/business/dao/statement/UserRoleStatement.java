@@ -1902,9 +1902,9 @@ buf.append("\n 	with ur		\n");
 			buf.append(" \n		  order by node.lft 	\n");
 			buf.append(" \n		  ) tm 		\n");
 			buf.append(" \n		 inner join MENU_PERM_TBL mp on tm.MENU_ID = mp.MENU_ID	\n");
-			buf.append(" \n		 	inner join (	select tu.sbs_user_id, value(tu.monitor_role, 9) auth_id	\n");
-			buf.append(" \n		 from user_info_tbl tu		\n");
-			buf.append(" \n		  where tu.sbs_user_id='"+userid+"'		\n");
+			buf.append(" \n		 	inner join (select tu.sbs_user_id, CASE WHEN RTRIM(VALUE(tu.monitor_role, '9')) = '' THEN '9' ELSE VALUE(tu.monitor_role, '9') end auth_id	\n");
+			buf.append(" \n		 				from user_info_tbl tu					\n");
+			buf.append(" \n		  				where tu.sbs_user_id='"+userid+"'		\n");
 			buf.append(" \n		  ) up on mp.PERM_ID = up.AUTH_ID		\n");
 			
 			

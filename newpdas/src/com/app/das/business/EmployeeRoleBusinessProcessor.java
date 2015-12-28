@@ -975,18 +975,16 @@ public class EmployeeRoleBusinessProcessor
 				String password="";
 				if(!"".equals( info.getPassword())){
 					password = hj.getDecryption( dasHandler.getProperty("AD_CRYPTO_KEY"),  dasHandler.getProperty("AD_DEFAULT_HEX"), info.getPassword());
+					if(logger.isDebugEnabled()) {
+						logger.debug("AD Password after check: "+password);
+					}
 					info.setPassword(password);        
 				}
 			}
 			if(info.getAcct_code().equals(CodeConstants.Pacode.SB)||info.getAcct_code().equals(CodeConstants.Pacode.SA)||info.getAcct_code().equals(CodeConstants.Pacode.SC)||info.getAcct_code().equals(CodeConstants.Pacode.RB)||roleDO.getApprove_status().equals("3")){
 				int result =userRoleDAO.updateEmployeeRoleYN(roleDO);
 				return result;
-			}else{
-
-
-				System.out.println("info 도착   " +info);
-				System.out.println("businnes 도착");
-
+			} else {
 				List resultList = new ArrayList();
 				if(roleDO.getDelete_yn().equals("Y")){
 					info.setType(CodeConstants.Pacode.DELETE);//type 001 신청 002 수정 003 삭제
@@ -998,10 +996,7 @@ public class EmployeeRoleBusinessProcessor
 				}
 				resultList.add(info);  
 
-
-
 				//사용자 정보를 등록한다.pa
-
 				String _xml2 = "";
 				if (resultList != null && resultList.size() > 0) {
 
@@ -1018,7 +1013,8 @@ public class EmployeeRoleBusinessProcessor
 						logger.debug("_xml" + _xml2);
 
 				}
-				logger.debug(_xml2);
+				if(logger.isDebugEnabled()) logger.debug(_xml2);
+				
 				/*		if(CommonUtl.socketClient(dashandler.getProperty("PA_IP"), dashandler.getProperty("PA_PORT"), _xml2)){
 
 					roleDO.setApprove_status("4");
@@ -1035,18 +1031,14 @@ public class EmployeeRoleBusinessProcessor
 					logger.debug("paReseult"+paReseult);
 					logger.debug("pa CALL Service [PA]  end###");
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error("Service1SoapProxy connect error", e);
 				}
-
 
 				int result =userRoleDAO.updateEmployeeRoleYN(roleDO);
 				return 1;
 			}
 
-		}
-		catch (Exception e){
-			e.printStackTrace();
+		} catch (Exception e) {
 			throw e;
 		} 
 
@@ -1096,12 +1088,12 @@ public class EmployeeRoleBusinessProcessor
 
 			//이미 존재하는 사용자인지를 검증한다.
 			if(roleDO.getAcct_code().equals(CodeConstants.Pacode.RA)||roleDO.getAcct_code().equals(CodeConstants.Pacode.RB)){
-				if(userRoleDAO.isThereEmployeeRole2(roleDO.getUser_num()))
+				if(userRoleDAO.isThereUserId(roleDO.getCocd(), roleDO.getUser_num()))
 				{
 					String result = "ERROR : 이미존재하는 사용자입니다";
 					return result;
 				}
-			}else {
+			} else {
 				if(org.apache.commons.lang.StringUtils.isBlank(roleDO.getMobile())) {
 					String result = "ERROR : 전화번호가 존재하지 않습니다.";
 					return result;
@@ -1117,8 +1109,6 @@ public class EmployeeRoleBusinessProcessor
 
 			String result =userRoleDAO.insertEmployeeRole(roleDO);
 
-
-
 			//20120727 사용자동기화 로직 추가 ifcms동기화 로직
 			EmployeeInfoDO id = new EmployeeInfoDO();
 			if(roleDO.getAcct_code().equals("RA")||roleDO.getAcct_code().equals("RB")){
@@ -1133,7 +1123,7 @@ public class EmployeeRoleBusinessProcessor
 			if(roleDO.getAcct_code().equals("SA")||roleDO.getAcct_code().equals("SB")||roleDO.getAcct_code().equals("SC")){
 				JNI_Des hj = new JNI_Des();
 				String password = "";
-				password = hj.setEncryption(
+				password = hj.setEncryption( //SBSPND
 						dasHandler.getProperty("AD_CRYPTO_KEY"), "AESPWPND",
 						roleDO.getPassword());
 				logger.debug("password    " + password);

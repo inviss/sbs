@@ -88,8 +88,7 @@ public class jutil {
 	public boolean makeFile(String contents, String filename) {
 		BufferedWriter bw = null;
 		try {
-			bw = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(filename + ".xml_tmp"), "UTF8"));
+			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename + ".xml_tmp"), "UTF8"));
 
 			bw.write(contents);
 			bw.flush();

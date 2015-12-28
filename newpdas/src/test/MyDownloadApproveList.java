@@ -17,7 +17,7 @@ public class MyDownloadApproveList {
 		WorkBusinessProcessor _processor = new WorkBusinessProcessor();
 		CartItemDOXML _doXML = new CartItemDOXML();
 		try {
-			CartItemDO _do = (CartItemDO)_doXML.setDO("<?xml version=\"1.0\" encoding=\"utf-8\"?><das><cartItems><DOWN_SUBJ></DOWN_SUBJ><FROMDATE>20151216</FROMDATE><ENDDATE>20151218</ENDDATE><USERID>U120109</USERID></cartItems></das>");
+			CartItemDO _do = (CartItemDO)_doXML.setDO("<?xml version=\"1.0\" encoding=\"utf-8\"?><das><cartItems><DOWN_SUBJ></DOWN_SUBJ><FROMDATE>20151221</FROMDATE><ENDDATE>20151228</ENDDATE><USERID>G15G009</USERID><system>ifcms</system></cartItems></das>");
 
 			List _infolist = _processor.getMyDownloadAprroveList(_do);
 			System.out.println("retur size: "+_infolist.size());
