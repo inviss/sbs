@@ -541,7 +541,7 @@ public class ServiceNevigator implements Nevigator {
 								}
 							}
 
-							if(StringUtils.isBlank(das.getDbTable().getMaster().getOnAirMediaApprove())) {
+							if(StringUtils.isNotBlank(das.getDbTable().getMaster().getOnAirMediaApprove())) {
 								masterTbl.setRistClfCd(das.getDbTable().getMaster().getOnAirMediaApprove());
 							} else {
 								// 일(1), 월(2), 화(3), 수(4), 목(5), 금(6), 토(7)
