@@ -65,21 +65,21 @@
 	<bean id="highStorageQuotaCheckTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean"
 		p:jobDetail-ref="highStorageQuotaCheckDetail"
 		p:startDelay="5000"
-		p:cronExpression="0 0/2 * * * ?" />
+		p:cronExpression="0 0/10 * * * ?" />
 	
 	<!-- Trigger Add -->
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
 		p:waitForJobsToCompleteOnShutdown="true">
 		<property name="triggers">
 			<list>
-				<!--
+				<!-- -->
 				<ref bean="userRequestContentDelTrigger" />
 				<ref bean="archivedContentDelTrigger" />
 				<ref bean="downloadedContentDelTrigger" />
-				-->
+				<ref bean="highStorageQuotaCheckTrigger" />
+				
 				<!--  
 				<ref bean="storageCheckTrigger" />
-				<ref bean="highStorageQuotaCheckTrigger" />
 			    <ref bean="merUnCompressTrigger" />
 				-->
 			</list>

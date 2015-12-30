@@ -1367,13 +1367,22 @@ public class ServiceNevigator implements Nevigator {
 			contentLocTbl.setPath(info.getFilePath().substring(0, info.getFilePath().lastIndexOf("/")));
 			contentLocTbl.setFilename(info.getFilePath().substring(info.getFilePath().lastIndexOf("/")+1));
 
-			if(info.getFilePath().indexOf("mp2") > -1) {
+			if (info.getFilePath().indexOf("mp2") > -1) {
+				/*
+				 * 모니터링에서 재요청할 때 경로가 잘못 입력되어 들어옴.
+				 * 일단, 잘못된 경로를 재편집해서 요청하도록 수정함.
+				 */
+				if(info.getFilePath().indexOf("nearline") > -1) {
+					contentLocTbl.setPath(info.getFilePath().replace("/nearline", ""));
+				} else if(info.getFilePath().indexOf("arcreq") > -1) {
+					contentLocTbl.setPath(info.getFilePath().replace("/arcreq", ""));
+				}
 				filepath = (new StringBuilder("")).append(contentLocTbl.getPath().replace("/mp2/", messageSource.getMessage("das.storage.drive", null, Locale.KOREA)+"/").trim()).toString();
-			}else if(info.getFilePath().indexOf("arcreq") > -1) {
+			} else if (info.getFilePath().indexOf("arcreq") > -1) {
 				filepath = (new StringBuilder("")).append(contentLocTbl.getPath().replace("/arcreq/", messageSource.getMessage("pds.storage.drive", null, Locale.KOREA)+"/").trim()).toString();
-			}else if(info.getFilePath().indexOf("nearline") > -1) {
+			} else if (info.getFilePath().indexOf("nearline") > -1) {
 				filepath = (new StringBuilder("")).append(contentLocTbl.getPath().replace("/nearline/", messageSource.getMessage("net.storage.drive", null, Locale.KOREA)+"/").trim()).toString();
-			}else{
+			} else {
 				logger.error("File Path header not exist!! (mp2 or arcreq)");
 				return Boolean.toString(false);
 			}
