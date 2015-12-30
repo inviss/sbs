@@ -622,7 +622,7 @@ public class SystemManageBusinessProcessor
 
 		try 
 		{
-			return systemManageDAO.selectPgmList(condition);
+			return systemManageDAO.selectNewPgmList(condition);
 
 
 		} 

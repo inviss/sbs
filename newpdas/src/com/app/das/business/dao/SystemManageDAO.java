@@ -2199,6 +2199,90 @@ public class SystemManageDAO extends AbstractDAO
 	 * @return
 	 * @throws Exception 
 	 */
+	public List selectNewPgmList(ProgramInfoDO condition) throws Exception
+	{
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		List resultList = new ArrayList();
+		try 
+		{
+			// DAS PGM List Search
+			con = DBService.getInstance().getConnection();
+
+			String query = SystemManageStatement.selectNewPgmListQuery(condition);
+			//logger.debug(query);
+			stmt = con.prepareStatement(query);
+
+			String Big = "";
+			String small = "";
+			int index = 0;
+			if(condition.getSRCH_TYPE().equals("0")){
+				
+				Big = condition.getPgmNm().toUpperCase();
+				small = condition.getPgmNm().toLowerCase();
+				stmt.setString(++index, "%"+Big+"%");
+				stmt.setString(++index, "%"+small+"%");
+			} else {
+				if(condition.getSRCH_TYPE().equals("1")) {
+					Big = condition.getPgmCd().toUpperCase();
+				} else {
+					Big = condition.getParents_cd().toUpperCase();
+				}
+				stmt.setString(++index, "%"+Big+"%");
+				stmt.setString(++index, "%"+Big+"%");
+				stmt.setString(++index, "%"+Big+"%");
+			}
+			if(logger.isDebugEnabled()) {
+				logger.debug("Big: "+Big);
+			}
+			rs = stmt.executeQuery();
+
+			while(rs.next()) {
+				ProgramInfoDO item = new ProgramInfoDO();
+
+				item.setPgmId(rs.getLong("PGM_ID"));
+				item.setPgmCd(rs.getString("PGM_CD"));
+				String pgm_nm =  rs.getString("PGM_NM"); 
+				if(StringUtils.isNotBlank(pgm_nm)) {
+					pgm_nm = CommonUtl.transXmlText(pgm_nm);
+				}
+				/*
+				pgm_nm = pgm_nm.replaceAll( "'" ,"&apos;");
+				pgm_nm =pgm_nm.replaceAll("&quot;", "\"");
+				pgm_nm =pgm_nm.replaceAll("<", "&lt;");
+				pgm_nm =pgm_nm.replaceAll(">", "&gt;");
+				pgm_nm =pgm_nm.replaceAll("&", "&amp;");
+				 */
+				item.setPgmNm(pgm_nm);
+
+				item.setCtgrLCd(rs.getString("CTGR_L_CD"));
+				item.setCtgrMCd(rs.getString("CTGR_M_CD"));
+				item.setCtgrSCd(rs.getString("CTGR_S_CD"));
+				item.setBrdBgnDd(rs.getString("BRD_BGN_DD"));
+				item.setBrdEndDd(rs.getString("BRD_END_DD"));
+				item.setPrd_Dept_Nm(rs.getString("PRD_DEPT_NM"));				
+				item.setSchd_Pgm_Nm(rs.getString("SCHD_PGM_NM"));
+				item.setAward_Hstr(rs.getString("AWARD_HSTR"));
+				item.setPilot_Yn(rs.getString("PILOT_YN"));
+				item.setUse_yn(rs.getString("USE_YN"));
+				item.setChanCd(rs.getString("CHAN_CD"));
+				item.setMediaCd(rs.getString("MEDIA_CD"));
+				item.setParents_cd(rs.getString("PARENTS_CD"));
+
+				resultList.add(item);
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			release(rs, stmt, con);
+		}
+		return resultList;
+	}
+
+	@Deprecated
 	public List selectPgmList(ProgramInfoDO condition) throws Exception
 	{
 		PageDO pageDO = new PageDO();
@@ -2207,7 +2291,7 @@ public class SystemManageDAO extends AbstractDAO
 
 		buf.append(SystemManageStatement.selectPgmListQuery(condition));
 
-
+		logger.debug(buf.toString());
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -2220,6 +2304,19 @@ public class SystemManageDAO extends AbstractDAO
 			//디스플레이할 페이지의 시작 row와 끝 row를 계산한다.
 
 			int index = 0;
+
+			if(condition.getSRCH_TYPE().equals("0")) {
+
+				String Big = condition.getPgmNm().toUpperCase();
+				String small = condition.getPgmNm().toLowerCase();
+				stmt.setString(++index, "%"+Big+"%");
+				stmt.setString(++index, "%"+small+"%");
+				stmt.setString(++index, "%"+Big+"%");
+				stmt.setString(++index, "%"+small+"%");
+				stmt.setString(++index, "%"+Big+"%");
+				stmt.setString(++index, "%"+small+"%");
+			}
+
 			rs = stmt.executeQuery();
 
 			List resultList = new ArrayList();
@@ -4071,36 +4168,28 @@ public class SystemManageDAO extends AbstractDAO
 	{
 
 		StringBuffer buf = new StringBuffer();
-		buf.append(SystemManageStatement.selectTodayList());
+		buf.append(SystemManageStatement.selectNewTodayList());
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectTodayList######## con : " + con);
 
 			stmt = con.prepareStatement(buf.toString());
 			int index = 0;
 			String yesterday = "";
 
 			String today = CalendarUtil.getDateTime("yyyyMMdd");
-			try{
 
-				SimpleDateFormat formatter = new SimpleDateFormat ("yyyyMMdd");
+			// yesterday
+			SimpleDateFormat formatter = new SimpleDateFormat ("yyyyMMdd");
+			Date date = formatter.parse(today);	
+			Calendar calendar = Calendar.getInstance();		     
 
-				Date date = formatter.parse(today);	
-				Calendar calendar = Calendar.getInstance();		     
-
-				calendar.setTime(date);
-				calendar.add(Calendar.DATE, -1);
-				yesterday=formatter.format(calendar.getTime());
-				logger.debug(formatter.format(calendar.getTime()));
-
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-
+			calendar.setTime(date);
+			calendar.add(Calendar.DATE, -1);
+			yesterday=formatter.format(calendar.getTime());
 
 			stmt.setString(++index, yesterday);
 			stmt.setString(++index, today);
@@ -4176,7 +4265,7 @@ public class SystemManageDAO extends AbstractDAO
 		{
 			con = DBService.getInstance().getConnection();
 
-			//logger.debug("######selectGoodMediaList######## con : " + con);
+			//logger.debug("######selectGoodMediaList######## query : " + buf.toString());
 			stmt = con.prepareStatement(buf.toString());
 
 
@@ -11409,7 +11498,7 @@ public class SystemManageDAO extends AbstractDAO
 				stmt.setString(++index	, dateString);
 				stmt.setLong(++index	, item.getCt_id());
 				stmt.executeUpdate();
-				
+
 				// contents_tbl update
 				stmt.close();
 				stmt = con.prepareStatement(buf4.toString());
@@ -11429,7 +11518,7 @@ public class SystemManageDAO extends AbstractDAO
 				}
 				return "0";
 			}
-			
+
 		} catch (Exception e) {
 			if(con != null) {
 				try {

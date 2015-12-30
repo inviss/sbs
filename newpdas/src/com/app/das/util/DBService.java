@@ -69,8 +69,8 @@ public class DBService
 		Connection conn = null;
 		try 
 		{
-			//String url = "jdbc:db2://10.150.12.161:50000/dasdb";
-			String url = "jdbc:db2://10.30.23.48:50000/dasdb";
+			String url = "jdbc:db2://10.150.12.161:50000/dasdb";
+			//String url = "jdbc:db2://10.30.23.48:50000/dasdb";
 			String user = "das";
 			String password = "das";
 			

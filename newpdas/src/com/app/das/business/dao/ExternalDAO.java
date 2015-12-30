@@ -29105,13 +29105,10 @@ public class ExternalDAO extends AbstractDAO
 			rs = psmt.executeQuery();
 			
 			boolean trfa = false;
-			long old_ct_id=0L;
-			long new_ct_id =0L;
 			int count=0;
-			
 			if(rs.next()) {
 				count = rs.getInt("count");
-				if(new_ct_id == 0){
+				if(count == 0){
 					trfa= true;
 				}else{
 					trfa=false;
@@ -37939,6 +37936,17 @@ public class ExternalDAO extends AbstractDAO
 				item.setCtgrMCd(rs.getString("META_CTGR_M_CD"));
 				item.setCtgrSCd(rs.getString("META_CTGR_S_CD"));
 				item.setBrdDd(rs.getString("META_BRD_DD"));
+				/*
+				 * 2015-12-29
+				 * 알 수 없는 웹서비스 실패 오류가 발생하는 경우에 방송일을 등록하면
+				 * 문제가 해결이 될 수도 있다고 해서 기본일자를 넣어주도록 함.
+				 */
+				if(org.apache.commons.lang.StringUtils.isBlank(item.getBrdDd())) {
+					item.setBrdDd("19700101");
+				}
+				if(org.apache.commons.lang.StringUtils.isBlank(item.getFmDt())) {
+					item.setFmDt("19700101");
+				}
 				item.setFinalBrdYn(rs.getString("META_FINAL_BRD_YN"));
 				item.setSnps(rs.getString("META_SNPS"));
 				item.setKeyWords(rs.getString("META_KEY_WORDS"));
@@ -38035,16 +38043,11 @@ public class ExternalDAO extends AbstractDAO
 			long rMasterID = 0;
 
 			return item;
-		}
-		catch (Exception ex)
-		{
-			logger.error(buf.toString());
+		} catch (Exception ex) {
 			logger.error(ex);
 			DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "getMetaResultXML 에러 : " + buf.toString(), ex);
 			throw exception;
-		}
-		finally
-		{
+		} finally {
 			release(rs, psmt, con);
 		}        
 	}

@@ -871,6 +871,73 @@ public class SystemManageStatement
 	 * 프로그램 정보 목록을 조회한다.
 	 * @param condition2 조회조건을 포함하고 있는 DataObject
 	 */
+	public static String selectNewPgmListQuery(ProgramInfoDO condition2)
+	{
+		StringBuffer buf = new StringBuffer();
+		buf.append("\nSELECT * FROM (                                                                                             ");
+		buf.append("\n	SELECT                                                                                                    ");
+		buf.append("\n		PGM_CD               AS ORDER_STD                                                                       ");
+		buf.append("\n	   ,PGM_ID               AS PGM_ID                                                                        ");
+		buf.append("\n	   ,PGM_CD               AS PGM_CD                                                                        ");
+		buf.append("\n	   ,value(PARENTS_CD,'') AS PARENTS_CD                                                                    ");
+		buf.append("\n	   ,MEDIA_CD             AS MEDIA_CD                                                                      ");
+		buf.append("\n	   ,CHAN_CD              AS CHAN_CD                                                                       ");
+		buf.append("\n	   ,PGM_NM               AS PGM_NM                                                                        ");
+		buf.append("\n	   ,CTGR_L_CD            AS CTGR_L_CD                                                                     ");
+		buf.append("\n	   ,CTGR_M_CD            AS CTGR_M_CD                                                                     ");
+		buf.append("\n	   ,CTGR_S_CD            AS CTGR_S_CD                                                                     ");
+		buf.append("\n	   ,BRD_BGN_DD           AS BRD_BGN_DD                                                                    ");
+		buf.append("\n	   ,BRD_END_DD           AS BRD_END_DD                                                                    ");
+		buf.append("\n	   ,PRD_DEPT_NM          AS PRD_DEPT_NM                                                                   ");
+		buf.append("\n	   ,SCHD_PGM_NM          AS SCHD_PGM_NM                                                                   ");
+		buf.append("\n	   ,AWARD_HSTR           AS AWARD_HSTR                                                                    ");
+		buf.append("\n	   ,PILOT_YN             AS PILOT_YN                                                                      ");
+		buf.append("\n	   ,USE_YN               AS USE_YN                                                                        ");
+		buf.append("\n	FROM PGM_INFO_TBL                                                                                         ");
+		buf.append("\n	WHERE 1=1                                                                                                 ");
+		buf.append("\n		AND (PGM_CD IS NOT NULL AND RTRIM(PGM_CD) <> '')                                                        ");
+		buf.append("\n	UNION ALL                                                                                                 ");
+		buf.append("\n	SELECT                                                                                                    ");
+		buf.append("\n	   ''               	 	AS ORDER_STD                                                                      ");
+		buf.append("\n	   ,0               	 	AS PGM_ID                                                                         ");
+		buf.append("\n	   ,MEDIA||CHAN_CD||PGM_CD  AS PGM_CD                                                                     ");
+		buf.append("\n	   ,'' 						AS PARENTS_CD                                                                           ");
+		buf.append("\n	   ,MEDIA             		AS MEDIA_CD                                                                     ");
+		buf.append("\n	   ,CHAN_CD              	AS CHAN_CD                                                                      ");
+		buf.append("\n	   ,PGM_NM               	AS PGM_NM                                                                       ");
+		buf.append("\n	   ,''             			AS CTGR_L_CD                                                                      ");
+		buf.append("\n	   ,''             			AS CTGR_M_CD                                                                      ");
+		buf.append("\n	   ,''             			AS CTGR_S_CD                                                                      ");
+		buf.append("\n	   ,BRD_BGN_DD           	AS BRD_BGN_DD                                                                   ");
+		buf.append("\n	   ,BRD_END_DD           	AS BRD_END_DD                                                                   ");
+		buf.append("\n	   ,PRDT_DEPT_NM          	AS PRD_DEPT_NM                                                                ");
+		buf.append("\n	   ,''           			AS SCHD_PGM_NM                                                                      ");
+		buf.append("\n	   ,''            			AS AWARD_HSTR                                                                     ");
+		buf.append("\n	   ,''              		AS PILOT_YN                                                                       ");
+		buf.append("\n	   ,''               		AS USE_YN                                                                         ");
+		buf.append("\n	FROM DAS.E_PGMMST_TBL                                                                                     ");
+		buf.append("\n	WHERE 1=1                                                                                                 ");
+		buf.append("\n		AND PGM_CD NOT IN (SELECT  SUBSTR(PGM_CD, 3, 6) FROM PGM_INFO_TBL)                                      ");
+		buf.append("\n	    AND ((MEDIA='T' AND CHAN_CD='T') OR ((MEDIA='Z' AND CHAN_CD='Z')) OR ((MEDIA='D' AND CHAN_CD='T')))   ");
+		buf.append("\n	    AND (PGM_CD IS NOT NULL AND RTRIM(PGM_CD) <> '')                                                      ");
+		buf.append("\n) a                                                                                                         ");
+		buf.append("\nWHERE 1=1                                                                                                   ");
+		
+		if(!condition2.getUse_yn().equals("")){
+			buf.append("\n    AND (a.use_yn = '"+condition2.getUse_yn()+"'                                                                ");
+		}
+		if(condition2.getSRCH_TYPE().equals("0")){
+			buf.append("\n	  AND (a.pgm_nm LIKE ? OR a.pgm_nm LIKE ?)                                                                ");
+		}
+		if(condition2.getSRCH_TYPE().equals("1") || condition2.getSRCH_TYPE().equals("2")){
+			buf.append("\n    AND (a.pgm_cd LIKE ? OR a.parents_cd LIKE ? OR a.pgm_cd IN (SELECT parents_cd FROM PGM_INFO_TBL WHERE pgm_cd LIKE ?))");
+		}
+		buf.append("\nORDER BY a.ORDER_STD, a.PGM_CD                                                                             ");
+		
+		return buf.toString();
+	}
+	
+	@Deprecated
 	public static String selectPgmListQuery(ProgramInfoDO condition2)
 	{
 		//SystemManageConditionDO condition = new SystemManageConditionDO();
@@ -925,13 +992,12 @@ public class SystemManageStatement
 
 		if(condition2.getSRCH_TYPE().equals("0")){
 			//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
-			String Big = condition2.getPgmNm().toUpperCase();
-			String small = condition2.getPgmNm().toLowerCase();
+			
+			//String Big = condition2.getPgmNm().toUpperCase();
+			//String small = condition2.getPgmNm().toLowerCase();
 
-
-
-			buf.append("\n AND ( PGM_NM LIKE '%"+Big+"%' ");
-			buf.append("\n or PGM_NM LIKE '%"+small+"%' ) ");
+			buf.append("\n AND ( PGM_NM LIKE ? ");
+			buf.append("\n or PGM_NM LIKE ? ) ");
 		}
 		if(condition2.getSRCH_TYPE().equals("1")){
 			//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
@@ -993,8 +1059,8 @@ public class SystemManageStatement
 
 			logger.debug("big     "+Big);
 			logger.debug("small   "+small);
-			buf.append("\n AND ( PGM_NM LIKE '%"+Big+"%' ");
-			buf.append("\n or PGM_NM LIKE '%"+small+"%' ) ");
+			buf.append("\n AND ( PGM_NM LIKE ? ");
+			buf.append("\n or PGM_NM LIKE ? ) ");
 		}
 		if(condition2.getSRCH_TYPE().equals("1")){
 			//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
@@ -1057,8 +1123,8 @@ buf.append("\n AND USE_YN='"+condition2.getUse_yn()+"' ");
 
 				logger.debug("big     "+Big);
 				logger.debug("small   "+small);
-				buf.append("\n AND ( PGM_NM LIKE '%"+Big+"%' ");
-				buf.append("\n or PGM_NM LIKE '%"+small+"%' ) ");
+				buf.append("\n AND ( PGM_NM LIKE ? ");
+				buf.append("\n or PGM_NM LIKE ? ) ");
 			}
 			if(condition2.getSRCH_TYPE().equals("1")){
 				//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
@@ -2249,6 +2315,40 @@ buf.append("\n   AND ");
 	/**
 	 * 아카이브 상태 목록을 조회한다.
 	 */
+	public static String selectNewTodayList()
+	{
+		StringBuffer buf = new StringBuffer();
+		buf.append("\nSELECT                                                                                                                                         ");
+		buf.append("\n	CASE                                                                                                                                         ");
+		buf.append("\n    	WHEN mst.PGM_ID != 0 THEN pgm.PGM_NM                                                                                                     ");
+		buf.append("\n    	WHEN mst.PGM_ID IS NULL OR mst.PGM_CD = '' THEN mst.TITLE                                                                                ");
+		buf.append("\n        ELSE mst.TITLE                                                                                                                         ");
+		buf.append("\n    END AS title,                                                                                                                              ");
+		buf.append("\n	CASE WHEN (SELECT ANNOT_CLF_CD FROM ANNOT_INFO_TBL annot WHERE annot.MASTER_ID = mst.MASTER_ID FETCH FIRST 1 ROW only) IS NULL THEN ''       ");
+		buf.append("\n    ELSE (                                                                                                                                     ");
+		buf.append("\n    	SELECT                                                                                                                                   ");
+		buf.append("\n        	CODE6.DESC                                                                                                                           ");
+		buf.append("\n		FROM ANNOT_INFO_TBL ann                                                                                                                    ");
+		buf.append("\n			inner JOIN CODE_TBL code6 ON ann.ANNOT_CLF_CD = code6.SCL_CD AND code6.CLF_CD = 'P018'                                                   ");
+		buf.append("\n    	WHERE ann.MASTER_ID = mst.MASTER_ID AND code6.GUBUN = 'L'                                                                                ");
+		buf.append("\n    	ORDER BY code6.RMK_1 ASC                                                                                                                 ");
+		buf.append("\n    	FETCH FIRST 1 ROWS ONLY                                                                                                                  ");
+		buf.append("\n    ) end AS rist_nm,                                                                                                                          ");
+		buf.append("\n    mst.MASTER_ID, mst.BRD_DD, mst.BRD_LENG, mst.REG_DT, GET_CODE_NM('P011', mst.DATA_STAT_CD) DESC, inst.ARCH_STE_YN, ct.CT_LENG,             ");
+		buf.append("\n    value(mst.EPIS_NO, '0') AS epis_no, mst.CTGR_L_CD                                                                                          ");
+		buf.append("\nFROM METADAT_MST_TBL mst                                                                                                                       ");
+		buf.append("\n    inner JOIN CONTENTS_TBL ct ON mst.RPIMG_CT_ID = ct.CT_ID                                                                                   ");
+		buf.append("\n    inner JOIN CONTENTS_INST_TBL inst ON ct.CT_ID = inst.CT_ID AND inst.CTI_FMT LIKE '1%'                                                      ");
+		buf.append("\n    left outer JOIN PGM_INFO_TBL pgm ON mst.PGM_ID = pgm.PGM_ID                                                                                ");
+		buf.append("\nWHERE mst.CTGR_L_CD = '200' AND mst.COCD = 'S' AND (mst.ARCH_ROUTE LIKE 'O%' OR mst.ARCH_ROUTE LIKE 'D%')                                      ");
+		buf.append("\n	AND (VALUE(mst.DEL_DD, '') = '' OR mst.DEL_DD IS NOT null)                                                                                   ");
+		buf.append("\n    AND mst.BRD_DD BETWEEN ? AND ?                                                                                                             ");
+		buf.append("\nORDER BY mst.BRD_DD DESC                                                                                                                       ");
+		
+		return buf.toString();
+	}
+	
+	@Deprecated
 	public static String selectTodayList()
 	{
 		//SystemManageConditionDO condition = new SystemManageConditionDO();
