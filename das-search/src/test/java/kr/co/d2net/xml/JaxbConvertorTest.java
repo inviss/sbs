@@ -803,9 +803,9 @@ public class JaxbConvertorTest {
 
 			//System.out.println(cmsConnector.getSceanInfoForIfCms(46517L));
 			//String xml = FileUtils.readFileToString(new File("D:/tmp/annot.xml"), "utf-8");
-			System.out.println(cmsConnector.getSceanInfoForIfCms(448286L));
+			System.out.println(cmsConnector.getSceanInfoForIfCms(227021L));
 			
-			Das das = convertorService.unMarshaller(cmsConnector.getSceanInfoForIfCms(448159L));
+			Das das = convertorService.unMarshaller(cmsConnector.getSceanInfoForIfCms(227021L));
 			//Das das = convertorService.unMarshaller(xml);
 			Corner corner = das.getCorner();
 			for(CornerItem cornerItem : corner.getItems()) {
