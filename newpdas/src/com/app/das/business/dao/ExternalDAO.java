@@ -342,7 +342,7 @@ public class ExternalDAO extends AbstractDAO
 				metaInfoDO.setCount(rs.getInt("CCOUNT"));
 				metaInfoDO.setSum_brd_leng(rs.getLong("SUM_BRD_LENG"));
 			}
-			
+
 			return metaInfoDO;
 		} catch (Exception e) {
 			throw e;
@@ -8253,7 +8253,7 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setString(++index, riskClfCd);			//RIST_CLF_CD
 			stmt.setLong(++index, cartContDO.getCtId()); //CT_ID
 			stmt.setLong(++index, cartContDO.getCtiId());  //CTI_ID
-			
+
 			if(!cartContDO.getSom().equals("")){ //
 				stmt.setString(++index, cartContDO.getSom());  //SOM
 			}else {
@@ -8282,13 +8282,13 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setString(++index, cartContDO.getVd_qlty()); //VD_QLTY
 			stmt.setString(++index, cartContDO.getDown_stat()); //DOWN_STAT
 			stmt.setString(++index, cartContDO.getDown_typ()); //DOWN_TYP
-			
+
 			if(isDownloadOutsourcing2(cartContDO.getRegrId())) {		
 				stmt.setString(++index, "Y"); //OUTSOURCING_YN
 			}else{
 				stmt.setString(++index, "N"); //OUTSOURCING_YN
 			}
-			
+
 			String media_id =codeInfoDAO.getMediaId(con);
 			stmt.setString(++index, media_id); //MEDIA_ID
 			stmt.setString(++index, "N"); //RIST_YN
@@ -8473,7 +8473,7 @@ public class ExternalDAO extends AbstractDAO
 		try 
 		{
 			String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
-			
+
 			if(con == null || con.isClosed()) {
 				con = DBService.getInstance().getConnection();
 			}
@@ -16726,7 +16726,7 @@ public class ExternalDAO extends AbstractDAO
 			if(getCountCtId(ct_id)){
 				deleteNLEMeta(ct_id);
 			}
-			
+
 			return updateCount;
 		} catch (Exception e) {
 			logger.error("deleteNLE error", e);
@@ -22186,11 +22186,6 @@ public class ExternalDAO extends AbstractDAO
 	public void createXmlDown(PdsDownDO downCartDO,String xml)throws Exception{
 
 		try {
-			if(logger.isDebugEnabled()){
-				logger.debug("createXmlDown [input xml]"+ xml);
-				logger.debug("createXmlDown [input DownCartDO]"+ downCartDO);
-			}
-
 			/**
 			 * 해당 디렉토리에 XML 파일을 전송,저장한다.
 			 */
@@ -22200,18 +22195,29 @@ public class ExternalDAO extends AbstractDAO
 			if(temp_file.length()>0)
 				file_name = temp_file.substring(0, temp_file.lastIndexOf("."));
 
-
 			fo.makeFile3(xml, file_name,"/"+dasHandler.getProperty("WINMP2")+"/restore/"+downCartDO.getUser_id()+"/"+downCartDO.getCart_no());
-
-
-
-			/**  
-			 * FTP로 해당 파일을 전달한다.
-			 */
-
 		} catch (Exception e) {
 			logger.error(xml);
 
+			throw e;
+		}
+
+	}
+	
+	public void createXmlDown(String fileName, String userId, long cartNo, String xml)throws Exception{
+
+		try {
+			if(logger.isDebugEnabled()) {
+				logger.debug("fileName: "+fileName+", userId: "+userId+", cartNo: "+cartNo);
+			}
+			jutil fo = new jutil();
+			String file_name = null;
+			if(fileName.length() > 0)
+				file_name = fileName.substring(0, fileName.lastIndexOf("."));
+			logger.debug("xml path: "+dasHandler.getProperty("WINMP2")+"/restore/"+userId+"/"+cartNo);
+			fo.makeFile3(xml, file_name, "/"+dasHandler.getProperty("WINMP2")+"/restore/"+userId+"/"+cartNo);
+		} catch (Exception e) {
+			logger.error(e);
 			throw e;
 		}
 
@@ -22858,6 +22864,264 @@ public class ExternalDAO extends AbstractDAO
 
 	}
 
+	public String selectNewAddTaskForXml(int num) throws Exception {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		XmlUtil xmlutil = new XmlUtil();
+		try {
+			con = DBService.getInstance().getConnection();
+
+			/*
+			 * SOAP 으로 전달할 정보를 먼저 조회함.
+			 */
+			String query = ExternalStatement.selectAddTaskForXml(num);
+			stmt = con.prepareStatement(query);
+
+			rs = stmt.executeQuery();
+			TransferDO transfer = null;
+			if(rs.next()) {
+				transfer = new TransferDO();
+				transfer.setRename(rs.getString("RENAME"));
+				transfer.setMedia_id(rs.getString("MEDIA_ID"));
+				transfer.setFile_path(rs.getString("STRG_LOC"));
+				transfer.setCategory(rs.getString("CATEGORY"));
+				transfer.setStoragename(rs.getString("storagename"));
+				transfer.setTitle(rs.getString("TITLE"));
+				transfer.setPgm_nm(rs.getString("pgm_nm"));
+				transfer.setPgm_nm(rs.getString("pgm_nm"));
+				transfer.setCart_no(rs.getInt("CART_NO"));
+				transfer.setCart_seq(rs.getInt("CART_SEQ"));
+				transfer.setUser_id(rs.getString("req_usrid"));
+				transfer.setFl_nm(rs.getString("FILENAME"));
+				transfer.setStrg_loc(rs.getString("strg_loc"));
+				transfer.setDown_gubun(rs.getString("down_gubun"));
+				transfer.setTarget_cms_id(rs.getString("target_cms_id"));
+				transfer.setSom(rs.getString("som"));
+				transfer.setEom(rs.getString("eom"));
+				transfer.setDown_typ(rs.getString("down_typ"));
+				transfer.setReg_dt(rs.getString("reg_dt"));
+			}
+
+			String gubun = transfer.getDown_gubun();
+			logger.debug("num: "+num+", down_gubun: "+gubun+", user_id: "+transfer.getUser_id());
+
+			if(org.apache.commons.lang.StringUtils.isNotBlank(gubun)) {
+				
+				if("001".equals(gubun) || "002".equals(gubun)) {
+					query = ExternalStatement.selectInfoForDownXml(num);
+					stmt = con.prepareStatement(query);
+					rs = stmt.executeQuery();
+
+					PdsDownDO item = null;
+					if(rs.next()) {
+						item = new PdsDownDO();
+
+						item.setUser_id(rs.getString("req_usrid"));				
+						item.setMedia_id(rs.getString("MEDIA_ID"));
+						item.setFl_path(rs.getString("FILE_PATH"));
+						item.setCategory(rs.getString("CATEGORY"));
+						item.setStoragename(rs.getString("storagename"));
+						item.setTitle(rs.getString("TITLE"));
+						item.setSub_ttl(rs.getString("SUB_TTL"));
+						item.setPgm_nm(rs.getString("PROGRAM_NAME"));
+						item.setCart_no(rs.getInt("CART_NO"));
+						item.setCart_seq(rs.getInt("CART_SEQ"));
+						item.setFilename(rs.getString("FILENAME"));
+						item.setPds_program_id(rs.getString("PDS_CMS_PGM_ID").trim());
+						item.setEpis_no(rs.getLong("EPIS_NO"));
+						item.setProducer_nm(rs.getString("PRODUCER_NM"));
+						item.setCmr_place(rs.getString("CMR_PLACE"));	
+						item.setFm_dt(rs.getString("FM_DT"));
+						item.setCprt_nm(rs.getString("CPRTR_NM"));
+						item.setCprt_cd(rs.getString("CPRT_TYPE"));
+
+						if(rs.getString("RIST_CLF_CD").equals("")){
+							item.setRist_clf_cd("007");
+						}else{
+							item.setRist_clf_cd(rs.getString("RIST_CLF_CD"));
+						}
+
+						String view = xmlutil.changViewGrade2(rs.getString("VIEW_GR_CD"));
+						item.setDeliberation_cd(view);
+						item.setBrd_dd(rs.getString("BRD_LENG"));
+						item.setBrd_bgn_hms(rs.getString("BRD_BGN_HMS").trim());
+						item.setBrd_end_hms(rs.getString("BRD_END_HMS").trim());
+						item.setBrd_dd(rs.getString("BRD_DD"));
+						item.setVd_hresol(rs.getString("VD_HRESOL"));
+						item.setVd_vresol(rs.getString("VD_VRESOL"));
+						item.setFl_sz(rs.getLong("FL_SZ"));
+						item.setBit_rt(rs.getString("BIT_RT"));
+						item.setAud_samp_frq(rs.getString("AUD_SAMP_FRQ"));
+						item.setAud_bdwt(rs.getString("AUDIO_BDWT"));
+						String recode_Cd = xmlutil.changRecordCode2(rs.getString("RECORD_TYPE_CD"));
+						item.setRecord_type_cd(recode_Cd);
+						item.setFrm_per_sec(rs.getString("FRM_PER_SEC"));
+						item.setHdmode(rs.getString("VD_QLTY"));
+						item.setCt_cla(rs.getString("CT_CLA"));
+						long ct_leng = rs.getLong("CT_LENG");
+						String ct_leg = commonUtl.sendTimecode(ct_leng);
+						item.setCt_leng(ct_leg);
+						item.setAsp_rto_cd(rs.getString("ASP_RTO_CD"));
+						item.setCt_typ(rs.getString("CT_TYP"));
+						item.setSom(rs.getString("SOM"));
+						item.setEom(rs.getString("EOM"));
+						item.setDown_gubun(rs.getString("DOWN_GUBUN"));
+						item.setRename(rs.getString("RENAME"));
+						item.setFilesize(rs.getLong("FILESIZE"));
+						item.setLogical_tree(rs.getString("logical_tree"));
+						item.setPhysical_tree(rs.getString("PHYICAL_TREE"));	
+						item.setUser_nm(rs.getString("user_nm"));
+						item.setCart_no(rs.getInt("cart_no"));
+					}
+
+					if(item != null) {
+						if("001".equals(gubun)) { // PDS
+							StringBuffer _xml = new StringBuffer();
+							PdsDownDOXML _do = new PdsDownDOXML();
+							_do.setDO(item);
+							_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+							_xml.append(_do.getSubXML());
+							createXmlDown(item, _xml.toString());
+						} else if("002".equals(gubun)) { // NDS
+							StringBuffer _xml = new StringBuffer();
+							PdsDownDOXML _do = new PdsDownDOXML();
+							_do.setDO(item);
+							_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+							_xml.append(_do.getSubXML2());
+							createXmlDown(item, _xml.toString());
+						}
+					} else {
+						logger.error("gubun: "+gubun+", num : "+num+", cannot transfer contents due to nodata");
+						throw new Exception(num +"- metadata is null");
+					}
+				} else if("007".equals(gubun)) { // IFCMS
+					query = ExternalStatement.selectInfoForDownXmlInIfCms(num);
+					stmt = con.prepareStatement(query);
+					rs = stmt.executeQuery();
+
+					IfCmsArchiveDO item3 = null;
+					while(rs.next()) {
+						item3 = new IfCmsArchiveDO();
+						item3.setView_gr_cd(rs.getString("VIEW_GR_CD"));
+						item3.setPhyical_tree(rs.getString("PHYICAL_TREE"));
+						item3.setStorage_nm(rs.getString("storagename"));
+						item3.setCart_no(rs.getLong("cart_no"));
+						item3.setGroup_id(rs.getLong("master_id"));
+						
+						//20121223최효정과정 요청사항 특이사항 빠진 부분 추가
+						item3.setSpecial_info(rs.getString("special_info"));
+						item3.setTitle(rs.getString("title"));
+						item3.setSub_ttl(rs.getString("title_sub"));
+						item3.setProgram_id(rs.getString("program_id"));
+						item3.setProgram_name(rs.getString("program_name"));
+						item3.setCorner_title(rs.getString("corner_title"));	
+						item3.setCorner_contents(rs.getString("corner_contents"));		
+						item3.setEpisode_no(String.valueOf(rs.getLong("program_sequence")));
+						item3.setCreator(rs.getString("creator"));
+						item3.setPublisher(rs.getString("publisher"));
+						item3.setPublisher_external(rs.getString("publisher_external"));
+						item3.setCtgr_l_cd(rs.getString("genre_l"));
+						item3.setCtgr_m_cd(rs.getString("genre_m"));
+						item3.setCtgr_s_cd(rs.getString("genre_s"));
+						item3.setBrd_dd(rs.getString("datetime_onair"));
+						item3.setFm_dt(rs.getString("datetime_shooting"));
+						item3.setLocation_shooting(rs.getString("location_shooting"));
+						item3.setKeyword(rs.getString("keyword"));
+						item3.setCopyright_desc(rs.getString("copyright_desc"));	
+						item3.setCopyright_owner(rs.getString("copyright_owner"));	
+						item3.setCopyright_type(rs.getString("copyright_type"));
+						item3.setProduction_type(rs.getString("production_type"));
+						item3.setLimited_use(rs.getString("usegrade"));
+						item3.setLimited_use_cont(rs.getString("usegrade_desc"));
+						item3.setName_host(rs.getString("name_host"));		
+						item3.setName_guest(rs.getString("name_guest"));
+						item3.setArtist(rs.getString("artist"));
+						item3.setCountry(rs.getString("country"));
+						item3.setMusic_info(rs.getString("music_info"));
+						item3.setMedia_id(rs.getString("media_id"));
+						item3.setResolution(rs.getString("resolution"));
+						item3.setAspectratio(rs.getString("aspectratio"));
+						CommonUtl commonUtl = new CommonUtl();
+						String timecode=commonUtl.sendTimecode(Long.parseLong(rs.getString("duration")));
+						item3.setBrd_leng(timecode);
+						item3.setAudio_type(rs.getString("audio_type"));
+						item3.setDatatime_request(rs.getString("datetime_regist"));
+						item3.setContents_type(rs.getString("contents_type"));
+						item3.setFile_name(rs.getString("file_name"));
+						item3.setRefile_nm(rs.getString("rename"));
+						item3.setSom(rs.getString("som"));
+						item3.setEom(rs.getString("eom"));
+						item3.setVd_hresol(rs.getString("vd_hresol"));
+						item3.setVd_vresol(rs.getString("vd_vresol"));
+						item3.setFile_size(rs.getString("file_size"));
+						item3.setBit_rt(rs.getString("bit_rate"));
+						item3.setAud_samp_frq(rs.getString("aud_samp_frq"));
+						item3.setAud_bandwidth(rs.getString("aud_bandwidth"));
+						item3.setFrm_per_sec(rs.getString("frame_per_second"));
+						item3.setContents_class(rs.getString("contents_class"));
+						item3.setBroadcast_event_type(rs.getString("broadcast_event_type"));
+						item3.setBgn_time_onair(rs.getString("bgn_time_onair"));
+						item3.setEnd_time_onair(rs.getString("end_time_onair"));
+						item3.setWorker_id(rs.getString("worker_id"));
+						item3.setDownload_comment(rs.getString("download_comment"));	
+						item3.setCallback_url(rs.getString("url"));
+						item3.setComplete_dt(rs.getString("updt_dtm"));
+						item3.setCti_idForHigh(rs.getLong("cti_id"));
+						if(rs.getString("transaction_id").equals("")){
+							item3.setTransaction_id(0);
+						}else{
+							item3.setTransaction_id(Long.parseLong(rs.getString("transaction_id")));
+						}
+						item3.setCreator_sub(rs.getString("creator_sub"));				
+						item3.setCopyright_type(rs.getString("copyright_type"));
+						item3.setCopyright_owner(rs.getString("copyright_owner"));
+						item3.setCopyright_desc(rs.getString("copyright_desc"));
+						item3.setDownload_comment(rs.getString("download_comment"));
+						item3.setChannel_cd(rs.getString("contents_channel"));
+						item3.setFile_name(rs.getString("file_name"));
+					}
+
+					if(item3 != null) {
+						StringBuffer _xml = new StringBuffer();
+						IfCmsArchiveDOXML _do = new IfCmsArchiveDOXML();
+						_do.setDO(item3);
+						_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+						_xml.append(_do.getSubXML());
+
+						createXmlDown(item3.getFile_name(), transfer.getUser_id(), item3.getCart_no(), _xml.toString());
+					} else {
+						logger.error("gubun: 007, num : "+num+", cannot transfer contents due to nodata");
+						throw new Exception (num+" - metadata is null");
+					}
+				}
+				
+				if(transfer != null) {
+					StringBuffer _xml = new StringBuffer();
+					TransferDOXML _do = new TransferDOXML();
+					_do.setDO(transfer);
+					_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+					_xml.append(_do.getSubXML());
+
+					if (logger.isDebugEnabled())
+						logger.debug("transfer xml: " + _xml);
+
+					return _xml.toString();
+				} else {
+					logger.error("num : "+num+", cannot transfer contents due to nodata");
+					throw new Exception (num+" - metadata is null");
+				}
+			} else {
+				logger.error(num+", download reqest gubun is null");
+				throw new Exception(num+", the download reqest code is blank");
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			release(rs, stmt, con);
+		}
+	}
+
 
 	/**
 	 * 컨텐츠 정보를 받아온다
@@ -22865,12 +23129,14 @@ public class ExternalDAO extends AbstractDAO
 	 * @return List		
 	 * @throws Exception 
 	 */
+	@Deprecated
 	public String selectAddTaskForXml(int num) throws Exception
 	{
 		/**
 		 * addtask job xml 생성 쿼리
 		 */
 		String query = ExternalStatement.selectAddTaskForXml(num);
+
 		/**
 		 * pds, nds  xml 생성 쿼리
 		 * 		 */
@@ -22888,6 +23154,7 @@ public class ExternalDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		PreparedStatement stmt2 = null;
 		PreparedStatement stmt3 = null;
+
 		commonUtl = new CommonUtl();
 		ResultSet rs = null;
 		XmlUtil xmlutil = new XmlUtil();
@@ -22896,24 +23163,22 @@ public class ExternalDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 			con2 = DBService.getInstance().getConnection();
 			con3 = DBService.getInstance().getConnection();
-			//logger.debug("######selectAddTaskForXml######## con : " + con);
-			//logger.debug("######selectAddTaskForXml######## con2 : " + con2);
-			//logger.debug("######selectAddTaskForXml######## con3 : " + con3);
+
 			stmt = con.prepareStatement(query);
 			stmt2 = con2.prepareStatement(query2);
 			stmt3 = con3.prepareStatement(query3);
-			//stmt2 = LoggableStatement.getInstance(con2, query2);
-			//stmt3 = LoggableStatement.getInstance(con3, query3);
+
 			String str = null;		
 			rs = stmt.executeQuery();
 
 			List resultList  = new ArrayList();
 			List resultList2  = new ArrayList();
 			List resultList3  = new ArrayList();
+
 			TransferDO item = new TransferDO();
 			PdsDownDO item2 = new PdsDownDO();
-
 			IfCmsArchiveDO item3 = new IfCmsArchiveDO();
+
 			String fileName ="";
 			while(rs.next())
 			{
@@ -22962,11 +23227,13 @@ public class ExternalDAO extends AbstractDAO
 				item2.setFm_dt(rs.getString("FM_DT"));
 				item2.setCprt_nm(rs.getString("CPRTR_NM"));
 				item2.setCprt_cd(rs.getString("CPRT_TYPE"));
+
 				if(rs.getString("RIST_CLF_CD").equals("")){
 					item2.setRist_clf_cd("007");
 				}else{
 					item2.setRist_clf_cd(rs.getString("RIST_CLF_CD"));
 				}
+
 				String view = xmlutil.changViewGrade2(rs.getString("VIEW_GR_CD"));
 				item2.setDeliberation_cd(view);
 				item2.setBrd_dd(rs.getString("BRD_LENG"));
@@ -23089,6 +23356,7 @@ public class ExternalDAO extends AbstractDAO
 					resultList3.add(item3);
 				}
 			}
+
 			//다운 구분이 PDS라면 pds파일을 떨군다
 			if(item2.getDown_gubun().equals("001")){
 
@@ -23112,6 +23380,7 @@ public class ExternalDAO extends AbstractDAO
 				}
 
 			}
+
 			//다운 구분이 NDS라면 pds파일을 떨군다
 			if(item2.getDown_gubun().equals("002")){
 
@@ -24124,12 +24393,12 @@ public class ExternalDAO extends AbstractDAO
 			 */
 			jutil fo = new jutil();
 			logger.debug("_do.getXml_cont()  :  "+_do.getXml_cont());
-			
+
 			String path = !tc_inter_path.startsWith("/") ? "/"+tc_inter_path+stateBeanDO.getArchive_seq() : tc_inter_path+stateBeanDO.getArchive_seq();
-			
+
 			File f = new File(path);
 			if(!f.exists()) f.mkdirs();
-			
+
 			fo.makeFile(_do.getXml_cont(), path+"/"+tcJobBeanDO.getSEQ());
 		} catch (Exception e) {
 			logger.error(tc_inter_path);
@@ -26271,12 +26540,12 @@ public class ExternalDAO extends AbstractDAO
 	 * @throws RemoteException
 	 */
 	public int deleteMasterSceanForMapp(long master_id) throws Exception {
-		
+
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n update das.contents_mapp_tbl set ");
 		buf.append("\n del_dd = ? ");
 		buf.append("\n WHERE master_id= ?");
-		
+
 		boolean isUpdate = false;
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -26303,7 +26572,7 @@ public class ExternalDAO extends AbstractDAO
 				logger.error("contents_mapp_tbl에서 ["+master_id+"]에한 정보를 업데이트 하지 못했음");
 			}
 			con.commit();
-			
+
 			return updateCount;
 		} 
 
@@ -26361,7 +26630,7 @@ public class ExternalDAO extends AbstractDAO
 		DiscardDO dis = null;
 		try {
 			dis = getDiscardInfo(master_id);
-			
+
 			if(dis.getTitle() != null && dis.getTitle().trim().length() > 0) {
 				con = DBService.getInstance().getConnection();
 				//logger.debug("######deleteMasterSceanForMst######## con : " + con);
@@ -26387,7 +26656,7 @@ public class ExternalDAO extends AbstractDAO
 
 				con.commit();
 			}
-			
+
 			return dis;
 		} catch (Exception e) {
 			if(con != null) {
@@ -29098,12 +29367,12 @@ public class ExternalDAO extends AbstractDAO
 		try {
 			con = DBService.getInstance().getConnection();
 			psmt = con.prepareStatement(buf.toString());  
-			
+
 			int index = 0;			
 			psmt.setLong(++index, ct_id);
-			
+
 			rs = psmt.executeQuery();
-			
+
 			boolean trfa = false;
 			int count=0;
 			if(rs.next()) {
@@ -29124,7 +29393,7 @@ public class ExternalDAO extends AbstractDAO
 					logger.info("######trfa :"+trfa);
 				}
 			}
-			
+
 			return trfa;
 
 		} catch (Exception ex) {
@@ -31746,7 +32015,7 @@ public class ExternalDAO extends AbstractDAO
 					stmt.setString(++index, "0");
 					stmt.setString(++index, tcBeanDO.getJob_status());
 				}
-				
+
 			}
 			stmt.setString(++index, dateTime);
 			stmt.setLong(++index, tcBeanDO.getJob_id());
@@ -37225,16 +37494,16 @@ public class ExternalDAO extends AbstractDAO
 
 		try {
 			psmt = con.prepareStatement(buf.toString());    //  로그 inform
-			
+
 			int index = 0;			
 			psmt.setString(++index, channel);
 			rs = psmt.executeQuery();
-			
+
 			String cocd="";
 			if(rs.next()) {
 				cocd = rs.getString("GUBUN");
 			}
-			
+
 			if(cocd.equals("")){
 				cocd = channel;
 			}
@@ -39018,7 +39287,7 @@ public class ExternalDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			
+
 			//logger.debug("######insertStCartContInfoForList######## con : " + con);
 
 			//현재 시간을 받아온다.
