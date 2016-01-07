@@ -849,13 +849,6 @@ public class IfCmsArchiveDOXML extends DOXml{
 				infoDO.setPreview_kr(_nodeValue);
 			}
 
-			/*}else if(_nodeName.equals(episode_no)){
-					if(_nodeValue.equals("")){
-					infoDO.setEpisode_no("0");
-					}else{
-						infoDO.setEpisode_no(_nodeValue);	
-					}
-				}*/
 			//20130111 최효정과장요청 episode_no-->program_sequence
 			else if(_nodeName.equals(episode_no)){
 				if(_nodeValue.equals("")){
@@ -986,8 +979,6 @@ public class IfCmsArchiveDOXML extends DOXml{
 				_xml.append("<" + folder_id + ">"+ infoDO.getPhyical_tree() +"</" + folder_id + ">");
 				_xml.append( "</" +  target_folder + ">");
 				_xml.append("<files total_size=\""+infoDO.getFile_size() + "\">");
-				//_xml = _xml + "<file  type =\"001\"  " +"isfolder=\"false\" source=\"" +infoDO.getCart_no()+"_"+infoDO.getFile_name()  + "\"  size=\""+infoDO.getFile_size()+"\">"+ infoDO.getCart_no()+"_"+infoDO.getFile_name()  + "</file>";
-				//_xml = _xml + "<file  type =\"001\"  " +"isfolder=\"false\" source=\"" +infoDO.getFile_name()  + "\"  size=\""+infoDO.getFile_size()+"\">"+ infoDO.getRefile_nm()+".mxf"  + "</file>";
 				_xml.append("<file  type =\"001\"  " +"isfolder=\"false\" source=\"" +infoDO.getCart_no()+"_"+infoDO.getFile_name()  + "\"  size=\""+infoDO.getFile_size()+"\">"+ infoDO.getRefile_nm()+".mxf"  + "</file>");
 				_xml.append("</" + files + ">");
 				_xml.append("</" + general_infomation + ">");
@@ -1008,6 +999,7 @@ public class IfCmsArchiveDOXML extends DOXml{
 				_xml.append("<" + genre_l + ">"+ infoDO.getCtgr_l_cd() + "</" + genre_l + ">");
 				_xml.append("<" + genre_m + ">"+ infoDO.getCtgr_m_cd() + "</" + genre_m + ">");
 				_xml.append("<" + genre_s + ">"+ infoDO.getCtgr_s_cd() + "</" + genre_s + ">");
+				
 				//20121205 최효정 과장님 요청으로 인해 패치
 				if(infoDO.getCtgr_l_cd().equals("100")){
 					_xml.append("<" + datetime_onair + "></" + datetime_onair + ">");
@@ -1021,6 +1013,7 @@ public class IfCmsArchiveDOXML extends DOXml{
 				_xml.append("<synopsis_dir></synopsis_dir>");
 				_xml.append("<synopsis_kr></synopsis_kr>");
 				_xml.append("<synopsis_download_url></synopsis_download_url>");
+				
 				//121223 최효정과정 요청사항
 				_xml.append("<description>" + CommonUtl.transXmlText(StringUtils.defaultIfEmpty(infoDO.getSpecial_info(), "")) + "</description>");
 				_xml.append("<copyright_type>"+infoDO.getCopyright_type() +  "</copyright_type>");
@@ -1037,14 +1030,6 @@ public class IfCmsArchiveDOXML extends DOXml{
 				_xml.append("<music_info>"+ CommonUtl.transXmlText(StringUtils.defaultIfEmpty(infoDO.getMusic_info(), "")) +"</music_info>");
 				_xml.append("<media_id>"+ infoDO.getMedia_id() + "</media_id>");
 				_xml.append("<media_format>"+"</media_format>");
-//
-//				if(infoDO.getResolution().equals("002")){
-//					infoDO.setResolution("0");
-//				}else if(infoDO.getResolution().equals("001")){
-//					infoDO.setResolution("1");
-//				}else if(infoDO.getResolution().equals("003")){
-//					infoDO.setResolution("2");
-//				}
 				_xml.append("<resolution>"+XmlUtil.changeResolution(infoDO.getResolution())+ "</resolution>");
 				_xml.append("<aspectratio>"+infoDO.getAspectratio()+ "</aspectratio>");
 				_xml.append("<duration>"+ infoDO.getBrd_leng()+"</duration>");
@@ -1076,8 +1061,8 @@ public class IfCmsArchiveDOXML extends DOXml{
 				_xml.append("<aud_samp_frq>"+ infoDO.getAud_samp_frq() + "</aud_samp_frq>");
 				_xml.append("<aud_bandwidth>"+infoDO.getAud_bandwidth() +"</aud_bandwidth>");
 				_xml.append("<frame_per_second>"+ infoDO.getFrm_per_sec() +"</frame_per_second>");
+				
 				// 20120810 메일내용기준으로 변경	
-				//_xml = _xml + "<broadcast_event_type>"+ infoDO.getBroadcast_event_type() + "</broadcast_event_type>";
 				_xml.append("<contents_type>"+ infoDO.getBroadcast_event_type() + "</contents_type>");
 				_xml.append("<contents_class>"+ infoDO.getContents_class() + "</contents_class>");
 				_xml.append("<bgn_time_onair>"+ infoDO.getBgn_time_onair() +"</bgn_time_onair>");
