@@ -2113,9 +2113,6 @@ buf.append("\n   AND ");
 		buf.append("\n   	 ORDER BY META.REG_DT DESC  ");
 		buf.append("\n   	  ) as t  ");
 
-
-
-		System.out.println(buf.toString());
 		return buf.toString();
 	}		
 

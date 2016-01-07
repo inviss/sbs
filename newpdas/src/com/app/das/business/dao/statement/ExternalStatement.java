@@ -3617,7 +3617,7 @@ public class ExternalStatement
 		buf.append("\n 	,value(cart.MEDIA_ID,'')as MEDIA_ID ");
 		//buf.append("\n 	,down.FILE_PATH ");
 		//down.STRG_LOC
-		buf.append("\n 	,'mp2/'||(select path from contents_down_tbl where cart_no = down.cart_no and cart_seq = cart.CART_SEQ group by path) STRG_LOC ");
+		//buf.append("\n 	,'mp2/'||(select path from contents_down_tbl where cart_no = down.cart_no and cart_seq = cart.CART_SEQ group by path) STRG_LOC ");
 		buf.append("\n 	,down.CATEGORY  ");
 		buf.append("\n 	,down.STORAGENAME ");
 		buf.append("\n 	,down.STRG_LOC ");
@@ -3634,9 +3634,9 @@ public class ExternalStatement
 		buf.append("\n 	,cart.down_typ ");
 		buf.append("\n 	,cart.reg_dt ");
 		buf.append("\n 	from  down_cart_Tbl down  ");
-		buf.append("\n 	inner join cart_cont_tbl cart on cart.CART_NO=down.CART_NO ");
-		buf.append("\n 	inner join metadat_mst_tbl meta on meta.MASTER_ID = cart.MASTER_ID ");
-		buf.append("\n 	left outer join pgm_info_tbl pgm on meta.pgm_id = pgm.pgm_id ");
+		buf.append("\n 		inner join cart_cont_tbl cart on cart.CART_NO=down.CART_NO ");
+		buf.append("\n 		inner join metadat_mst_tbl meta on meta.MASTER_ID = cart.MASTER_ID ");
+		buf.append("\n 		left outer join pgm_info_tbl pgm on meta.pgm_id = pgm.pgm_id ");
 		buf.append("\n 		inner join CONTENTS_DOWN_TBL cdown on cdown.cart_no = cart.cart_no   and cdown.cart_seq = cart.cart_seq ");
 		buf.append("\n where  ");
 		buf.append("\n cdown.num ="+num+" ");
@@ -3722,6 +3722,22 @@ public class ExternalStatement
 		buf.append("\n 		 where                                                                                                            ");
 		buf.append("\n 		 cart.cart_no ="+cartNo+" and cart.cart_seq="+cartSeq+"                                                               ");
 
+		return buf.toString();
+	}
+	
+	/*
+	 * 2016.01.05
+	 * 다운로드 요청 구분을 별도로 조회
+	 */
+	@Deprecated
+	public static final String selectContentsGubun(int num){
+		StringBuffer buf = new StringBuffer();
+		buf.append("\nSELECT                                                             ");
+		buf.append("\n	dcart.down_gubun                                                 ");
+		buf.append("\nFROM CONTENTS_DOWN_TBL down                                        ");
+		buf.append("\n	inner JOIN DOWN_CART_TBL dcart ON down.CART_NO = dcart.CART_NO   ");
+		buf.append("\nWHERE down.num = "+num+"                                           ");
+		buf.append("\nGROUP BY dcart.down_gubun                                          ");
 		return buf.toString();
 	}
 
