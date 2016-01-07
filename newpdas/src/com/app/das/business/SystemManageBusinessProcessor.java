@@ -1918,7 +1918,7 @@ public class SystemManageBusinessProcessor
 				systemManageDAO.insertCornerInfoForProceduer(master_id);
 				externalDAO.updatemetatbl(pgmDO);
 				int result = one+two+three+four+five+seven+nine;
-				System.out.println("result   ="+result);
+				
 				item.setCti_id(pgmDO.getCti_id());
 			}
 			return item;
@@ -2280,7 +2280,7 @@ public class SystemManageBusinessProcessor
 					systemManageDAO.insertCornerInfoForProceduer(master_id);
 					externalDAO.updatemetatbl(pgmDO);
 					int result = one+two+three+four+five+seven+nine;
-					System.out.println("result   ="+result);
+					
 					if(result >= 4){
 						return String.valueOf(pgmDO.getMaster_id());
 					}else{
@@ -2306,7 +2306,6 @@ public class SystemManageBusinessProcessor
 					systemManageDAO.insertCornerInfoForProceduer(master_id);
 					externalDAO.updatemetatbl(pgmDO);
 					int result = one+two+three+four+five+seven+nine;
-					System.out.println("result   ="+result);
 				}
 
 				return String.valueOf(pgmDO.getMaster_id());

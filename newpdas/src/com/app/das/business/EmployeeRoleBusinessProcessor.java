@@ -752,7 +752,6 @@ public class EmployeeRoleBusinessProcessor
 				StringHolder opcode = new StringHolder("runusertransaction");
 				com.sbs.ifcms.service.ServicePortTypeProxy port = new com.sbs.ifcms.service.ServicePortTypeProxy();
 				try {
-					System.out.println("###IF CMS CALL Service [getUserInfo:gua_sync_password] Start###");
 					sResult = port.SOAPInterface(
 							"" 							//java.lang.String systemversion
 							,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
@@ -3375,7 +3374,6 @@ public class EmployeeRoleBusinessProcessor
 					StringHolder opcode = new StringHolder("runusertransaction");
 					com.sbs.ifcms.service.ServicePortTypeProxy port = new com.sbs.ifcms.service.ServicePortTypeProxy();
 					try {
-						System.out.println("###IF CMS CALL Service [getUserInfo:gua_sync_password] Start###");
 						sResult = port.SOAPInterface(
 								"" 							//java.lang.String systemversion
 								,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid

@@ -3452,14 +3452,11 @@ public class ExternalBusinessProcessor
 	{
 		if(logger.isDebugEnabled())
 			logger.debug("[insertAddTask][Input transfer] cart_no is " + transfer.getCart_no()+"  cart_seq is "+transfer.getCart_seq());			
-		try 
-		{		//이미 존재하는 사용자인지를 검증한다.
-			if(externalDAO.isThereTaskid(transfer.getTaskID()))
-			{
-				return externalDAO.updateTaskid(transfer.getTaskID(),transfer.getStatus());
+		try {		//이미 존재하는 사용자인지를 검증한다.
+			if(externalDAO.isThereTaskid(transfer.getTaskID())) {
+				return externalDAO.updateTaskid(transfer.getTaskID(), transfer.getStatus());
 			}
 			return externalDAO.insertAddTaskinfo(transfer);
-
 		} 
 		catch (Exception e)
 		{
@@ -4485,11 +4482,9 @@ public class ExternalBusinessProcessor
 		logger.debug("[DoAddTask][input num]"+num);
 		
 		String rtnValue="";
-		String xml = externalDAO.selectAddTaskForXml(num);
+		String xml = externalDAO.selectNewAddTaskForXml(num);
 		
 		String tmURL = dasHandler.getProperty("DAS_TM_URL");
-		logger.debug("[DoAddTask][TM_SOAP_URL]: "+tmURL);
-		
 		for(int i=0; i<3; i++) {
 			try {
 				Tansfer transfer = new TansferLocator();
