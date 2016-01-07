@@ -5483,6 +5483,7 @@ public class PDASServices {
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("completeDown", e);
+			throw new RemoteException("completeDown", e);
 		}
 
 		logger.debug("###################completeDown fail  end#####################");
