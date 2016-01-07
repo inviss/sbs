@@ -3184,17 +3184,13 @@ public class CommonUtl {
 		//int sec = (int) frame / 30; // 총프레임에 30을 나누면 초로 환산
 		int sec = (int) ((long) frame / 29.97);
 
-		System.out.println("------------------  " + sec);
 		int oframe = (int) ((long) frame  % 29.97)+1;
-		System.out.println("------------------  " + oframe);
 		// sec = sec % 60;
 
 		int min = sec / 60; // 초를 분으로 환산
 		sec = sec % 60;
 		int hour = min / 60;
 		min = min % 60; // 분을 60으로 나눈 나머지
-		System.out.println("------------------  " + hour);
-		System.out.println("------------------  " + min);
 		shour = zeroAdd(hour);
 		smin = zeroAdd(min);
 		ssec = zeroAdd(sec);
@@ -3266,12 +3262,8 @@ public class CommonUtl {
 		// xml의 특수문자를 변경한다.
 
 		leng.replaceAll("&", "&amp;");
-		System.out.println("leng   +   "+leng);
 		leng.replaceAll("<", "&lt;");
-		System.out.println("leng   +   "+leng);
 		leng.replaceAll(">", "&gt;");
-		System.out.println("leng   +   "+leng);
-		//			System.out.println("totcoutn   +   "+totcoutn);
 		return leng;
 	}
 
@@ -3292,7 +3284,6 @@ public class CommonUtl {
 		//			 leng.replaceAll("&", "&amp;");
 		//			 leng.replaceAll("<", "&lt;");
 		//		  	leng.replaceAll(">", "&gt;");
-		System.out.print("leng    --" + leng);
 		String len = leng;
 		return len;
 	}
@@ -3376,7 +3367,6 @@ public class CommonUtl {
 
 		String str;
 		str= zeroAdd(Integer.parseInt(String.valueOf(hh)))+":"+zeroAdd(Integer.parseInt(String.valueOf(mm)))+":"+zeroAdd(Integer.parseInt(String.valueOf(ss)))+":"+zeroAdd(Integer.parseInt(String.valueOf(ff)));
-		System.out.println("str "+str);
 		return str;
 	}
 

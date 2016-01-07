@@ -138,16 +138,21 @@ public class jutil {
 		FileOutputStream headerFileOutputStream = null;
 		try {
 			File path = new File(filepath);
-			path.mkdirs();
-			headerFileOutputStream = new FileOutputStream(
-					filepath+"/"+filename + ".xml_tmp");
+			if(!path.exists()) path.mkdirs();
+			
+			File f = new File(filepath, filename + ".xml_tmp");
+			if(f.exists()) f.delete();
+			
+			headerFileOutputStream = new FileOutputStream(filepath+"/"+filename + ".xml_tmp");
 
-			OutputStreamWriter headerOutputStreamWriter = new OutputStreamWriter(
-					headerFileOutputStream, "UTF-8");
+			OutputStreamWriter headerOutputStreamWriter = new OutputStreamWriter(headerFileOutputStream, "UTF-8");
 			headerOutputStreamWriter.write(contents);
 			headerOutputStreamWriter.flush();
 			headerOutputStreamWriter.close();
 
+			f = new File(filepath, filename + ".xml");
+			if(f.exists()) f.delete();
+			
 			renameFile(	filepath+"/"+filename+".xml_tmp", 	filepath+"/"+filename+".xml");
 		} catch (Exception ex) {
 			logger.error(ex);
