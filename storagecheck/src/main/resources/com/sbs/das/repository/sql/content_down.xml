@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ContentDown">
+	<typeAlias alias="ContentDown" type="com.sbs.das.dto.ContentDownTbl"/>
+        
+    <resultMap id="ContentDownMap" class="ContentDown">
+		<result property="num"					column="NUM"				/>
+		<result property="cartNo"				column="CART_NO"		/>
+		<result property="cartSeq"			column="CART_SEQ"	  />
+		<result property="ctiId"				column="CTI_ID"		  />
+		<result property="status"				column="STATUS"		  />
+		<result property="objName"			column="OBJ_NAME"	  />
+		<result property="jobStatus"		column="JOB_STATUS" />
+		<result property="regUser"			column="REG_USER"	  />
+		<result property="updtUser"			column="UPDT_USER"	/>
+		<result property="regDtm"				column="REG_DTM"		/>
+		<result property="updtDtm"			column="UPDT_DTM"	  />
+		<result property="progress"			column="PROGRESS"	  />
+		<result property="path"					column="PATH"			  />
+		<result property="filename"			column="FILENAME"	  />
+		<result property="filesize"			column="FILESIZE"	  />
+		<result property="begintc"			column="BEGINTC"		/>
+		<result property="scount"				column="SCOUNT"		  />
+		<result property="endtc"				column="ENDTC"			/>
+		<result property="som"					column="SOM"				/>
+		<result property="eom"					column="EOM"				/>
+		<result property="useYn"				column="USE_YN"		  />
+		<result property="title"				column="TITLE"			/>
+    </resultMap>
+    
+    <select id="findContentDown" resultMap="ContentDownMap" parameterClass="long">
+	     SELECT  
+             *
+         FROM CONTENTS_DOWN_TBL
+         <dynamic prepend="WHERE">
+	         <isNotEmpty prepend="AND" property="cartNo">
+		         CART_NO = #cartNo#
+	         </isNotEmpty>
+	         <isNotEmpty prepend="AND" property="ctiId">
+		         CTI_ID = #ctiId#
+	         </isNotEmpty>
+         </dynamic>
+         <isEqual property="wait" compareValue="true">
+         	with UR
+         </isEqual>
+    </select>
+    
+    <select id="getContentDownCount" resultClass="Integer" parameterClass="map">
+	     SELECT  
+             count(*)
+         FROM CONTENTS_DOWN_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="cartNo">
+	         	CART_NO = #cartNo#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cartSeq">
+	         	CART_SEQ = #cartSeq#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="num">
+	         	NUM = #num#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="ctiId">
+	         	CTI_ID = #ctiId#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="filename">
+	         	FILENAME like #filename#
+	        </isNotEmpty>
+	        AND (DEL_DD IS NULL OR DEL_DD = '')
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getContentDownObj" resultClass="ContentDown" parameterClass="map">
+		SELECT  
+			NUM as				num				  ,
+			CART_NO as	cartNo			  ,
+			CART_SEQ as	  cartSeq		  ,
+			CTI_ID as		  ctiId			  ,
+			STATUS as		status		    ,
+			OBJ_NAME as	  objName		  ,
+			JOB_STATUS as jobStatus	  ,
+			REG_USER as	  regUser		  ,
+			UPDT_USER asupdtUser		  ,
+			REG_DTM as	regDtm			  ,
+			UPDT_DTM as	  updtDtm		  ,
+			PROGRESS as	progress	    ,
+			PATH as			path			    ,
+			FILENAME as	filename	    ,
+			FILESIZE as	filesize	    ,
+			BEGINTC as		begintc		  ,
+			SCOUNT as		scount		    ,
+			ENDTC as			endtc			  ,
+			SOM as				som				  ,
+			EOM as				eom				  ,
+			USE_YN as		  useYn			  ,
+			TITLE as			title
+         FROM CONTENTS_DOWN_TBL
+		<dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="cartNo">
+	         	CART_NO = #cartNo#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cartSeq">
+	         	CART_SEQ = #cartSeq#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="num">
+	         	NUM = #num#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="jobStatus">
+	        	<isEqual property="jobStatus" compareValue="E">
+	         		JOB_STATUS &lt;&gt; 'E'
+	         	</isEqual>
+	        </isNotEmpty>
+        </dynamic>
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <update id="updateContentDown" parameterClass="ContentDown">
+    	UPDATE CONTENTS_DOWN_TBL set 
+   			UPDT_USER = #updtUser#, UPDT_DTM = #updtDtm#
+   			<isNotNull prepend="," property="jobStatus">
+	         	JOB_STATUS = #jobStatus#
+	        </isNotNull>
+	        <isNotNull prepend="," property="progress">
+	         	PROGRESS = #progress#
+	        </isNotNull>
+   			<isNotNull prepend="," property="status">
+	         	STATUS = #status#
+	        </isNotNull>
+	        <isNotNull prepend="," property="path">
+	         	PATH = #path#
+	        </isNotNull>
+	        <isNotNull prepend="," property="delDd">
+	         	DEL_DD = #delDd#
+	        </isNotNull>
+	        <isGreaterThan prepend="," property="filesize" compareValue="0">
+				FILESIZE = #filesize#
+			</isGreaterThan>
+	    <dynamic prepend="WHERE">
+	        <isNotEmpty prepend="AND" property="cartNo">
+	         	CART_NO = #cartNo#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="cartSeq">
+	         	CART_SEQ = #cartSeq#
+	        </isNotEmpty>
+	        <isNotEmpty prepend="AND" property="num">
+	         	NUM = #num#
+	        </isNotEmpty>
+        </dynamic>
+    </update>
+    
+    <insert id="insertContentDown" parameterClass="ContentDown">
+    	<selectKey keyProperty="num" resultClass="java.lang.Long">
+    		select nextval for SEQ_DOWN_NUM from sysibm.sysdummy1
+    	</selectKey>
+    	INSERT INTO CONTENTS_DOWN_TBL (
+			NUM, CTI_ID, REG_DTM, REG_USER, STATUS, OBJ_NAME, PATH, FILENAME, CART_NO, CART_SEQ
+			<isNotNull prepend="," property="begintc">
+				BEGINTC
+			</isNotNull>
+			<isNotNull prepend="," property="endtc">
+				ENDTC
+			</isNotNull>
+		)VALUES(
+			#num#, #ctiId#, #regDtm#, #regUser#, #status#, #objName#, #path#, #filename#, #cartNo#, #cartSeq#
+			<isNotNull prepend="," property="begintc">
+				#begintc#
+			</isNotNull>
+			<isNotNull prepend="," property="endtc">
+				#endtc#
+			</isNotNull>
+		)
+    </insert>
+    
+ </sqlMap>
