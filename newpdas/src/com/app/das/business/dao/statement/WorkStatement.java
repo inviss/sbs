@@ -1360,8 +1360,8 @@ public class WorkStatement
 		buf.append("\n     inner JOIN METADAT_MST_TBL mst ON cart.MASTER_ID = mst.MASTER_ID                                   ");
 		buf.append("\n     inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                                 ");
 		buf.append("\n WHERE cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005' AND RTRIM(value(app.DEPT_CD, '')) <> ''     ");
-		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                        ");
-		buf.append("\n     AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                            ");
+		buf.append("\n 	   AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                     ");
+		buf.append("\n     AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'       ");
 		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
 			buf.append("\n and dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' ");
 		}
@@ -1441,7 +1441,7 @@ public class WorkStatement
 		} else {
 			buf.append("\n     inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                             ");
 			buf.append("\n WHERE  RTRIM(value(app.DEPT_CD, '')) <> '' and app.DEPT_CD = '"+dept_cd.trim()+"'     		      ");
-			buf.append("\n        AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                     ");
+			buf.append("\n    AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'    ");
 		}
 		buf.append("\n 	AND cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005'                                              ");
 		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                        ");
@@ -1529,7 +1529,7 @@ public class WorkStatement
 		buf.append("\n 	WHERE cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005' AND RTRIM(value(app.DEPT_CD, '')) <> ''        ");
 		buf.append("\n 		AND (cart.OUTSOURCING_YN = 'N' OR (cart.OUTSOURCING_APPROVE = 'Y' AND cart.OUTSOURCING_YN = 'Y'))       ");
 		buf.append("\n 		AND SUBSTR(cart.REG_DT, 1, 8) BETWEEN ? AND ?                                         ");
-		buf.append("\n 	   	AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                                                                   ");
+		buf.append("\n 	   	AND app.USE_YN = 'Y' AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'          ");
 		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
 			buf.append("\n  AND dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' 											 ");
 		}
@@ -1551,8 +1551,8 @@ public class WorkStatement
 		buf.append("\n 	   	inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                                    ");
 		buf.append("\n 	WHERE cart.DOWN_STAT = '004' AND dcart.DOWN_GUBUN <> '005'                                                ");
 		buf.append("\n 	   	AND cart.OUTSOURCING_YN = 'Y'                                                                         ");
-		buf.append("\n 		AND SUBSTR(cart.REG_DT, 1, 8) BETWEEN ? AND ?                                         ");
-		buf.append("\n 		AND app.APPROVE_USER_NUM = user.USER_NUM                                                                ");
+		buf.append("\n 		AND SUBSTR(cart.REG_DT, 1, 8) BETWEEN ? AND ?                                                         ");
+		buf.append("\n 		AND app.USE_YN = 'Y' AND app.APPROVE_USER_NUM = user.USER_NUM                                         ");
 		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
 			buf.append("\n  AND dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' 											 ");
 		}
@@ -1898,7 +1898,7 @@ public class WorkStatement
 		buf.append("\n     inner JOIN APPROVE_CHENNEL_TBL app ON mst.CHENNEL_CD = app.COCD                                     ");
 		buf.append("\n WHERE cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005'                                              ");
 		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                          ");
-		buf.append("\n 	AND app.USER_ID = '"+cartItemDO.getUserid()+"'                                                          ");
+		buf.append("\n 	AND app.USE_YN = 'Y' AND app.USER_ID = '"+cartItemDO.getUserid()+"'                                     ");
 		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
 			buf.append("\n and dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' ");
 		}
@@ -2076,8 +2076,8 @@ public class WorkStatement
 		buf.append("\n     inner JOIN METADAT_MST_TBL mst ON cart.MASTER_ID = mst.MASTER_ID                                   ");
 		buf.append("\n     inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                                 ");
 		buf.append("\n WHERE cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005' AND RTRIM(value(app.DEPT_CD, '')) <> ''     ");
-		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                        ");
-		buf.append("\n     AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                            ");
+		buf.append("\n 	   AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                     ");
+		buf.append("\n     AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'       ");
 		if(org.apache.commons.lang.StringUtils.isNotBlank(cartItemDO.getDownSubj())) {
 			buf.append("\n and dcart.down_subj like '%"+cartItemDO.getDownSubj()+"%' ");
 		}
@@ -2159,7 +2159,7 @@ public class WorkStatement
 		} else {
 			buf.append("\n     inner JOIN APPROVE_INFO_TBL app ON mst.PDS_CMS_PGM_ID = app.PGM_ID                             ");
 			buf.append("\n WHERE  RTRIM(value(app.DEPT_CD, '')) <> '' and app.DEPT_CD = '"+dept_cd.trim()+"'     		      ");
-			buf.append("\n        AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'                     ");
+			buf.append("\n    AND app.APPROVE_USER_NUM = '"+cartItemDO.getUserid().substring(1, 7)+"'    ");
 		}
 		buf.append("\n 	AND cart.DOWN_STAT = '005' AND dcart.DOWN_GUBUN <> '005'                                              ");
 		buf.append("\n 	AND SUBSTR(dcart.REG_DT, 1, 8) BETWEEN ? AND ?                                                        ");
