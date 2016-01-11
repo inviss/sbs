@@ -5322,7 +5322,7 @@ public class WorkDAO extends AbstractDAO
 		{
 			con = DBService.getInstance().getConnection();
 			if(logger.isDebugEnabled()) {
-				//logger.debug("######selectMyDownloadAprroveListForIfCms######## query : " + query);
+				logger.debug("######selectMyDownloadAprroveListForIfCms######## query : " + query);
 			}
 			stmt = con.prepareStatement(query);
 

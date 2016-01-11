@@ -30051,7 +30051,7 @@ public class ExternalDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######getApproveInfoForChennel######## con : " + con);
+			//logger.debug("######getApproveInfoForChennel######## query : " + query);
 			stmt = con.prepareStatement(query);
 
 			int index = 0;
