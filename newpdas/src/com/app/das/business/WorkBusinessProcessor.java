@@ -1289,9 +1289,9 @@ public class WorkBusinessProcessor
 					logger.debug("dep_cd : "+dep_cd);
 					
 					if(cartItemDO.getSystem().equals("")){
-						return workDAO.selectMyDownloadAprroveList2(cartItemDO, dep_cd);
+						return workDAO.selectMyDownloadAprroveList2(cartItemDO, dep_cd); // '' <= sbs
 					}else{
-						return workDAO.selectMyDownloadAprroveListForIfCms(cartItemDO, dep_cd);	
+						return workDAO.selectMyDownloadAprroveListForIfCms(cartItemDO, dep_cd);	  // ifcms
 					}
 				}
 			}
