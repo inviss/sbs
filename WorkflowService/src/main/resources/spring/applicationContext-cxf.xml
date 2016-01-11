@@ -8,8 +8,10 @@
     
     <!-- Spring manage ServiceBean -->
     <bean id="nevigator" class="com.sbs.das.web.ServiceNevigator" />
+    <bean id="dascms" class="com.sbs.das.web.CMSNavigator" />
 
     <!-- JAX-WS Service Endpoint -->    
     <jaxws:endpoint id="serviceNevigator" implementor="#nevigator" address="/services/ServiceNevigator" />
+    <jaxws:endpoint id="dasCMSNevigator" implementor="#dascms" address="/services/CMSNavigator" />
     
 </beans>
