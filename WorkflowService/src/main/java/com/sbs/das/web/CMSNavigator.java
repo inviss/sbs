@@ -33,7 +33,7 @@ public class CMSNavigator implements DasCMS {
 			if(StringUtils.isBlank(xml)) {
 				throw new RemoteException("The Requested XML is Blank!");
 			}
-			das = (Das)xmlStream.fromXML(xml);
+			//das = (Das)xmlStream.fromXML(xml);
 		} catch (Exception e) {
 			logger.error("findPgmList xml parsing error!!", e);
 			throw new RemoteException("findPgmList xml parsing error", e);
@@ -51,7 +51,7 @@ public class CMSNavigator implements DasCMS {
 			if(StringUtils.isBlank(xml)) {
 				throw new RemoteException("The Requested XML is Blank!");
 			}
-			das = (Das)xmlStream.fromXML(xml);
+			//das = (Das)xmlStream.fromXML(xml);
 		} catch (Exception e) {
 			logger.error("savePgmInfo xml parsing error!!", e);
 			throw new RemoteException("savePgmInfo xml parsing error", e);
@@ -69,7 +69,7 @@ public class CMSNavigator implements DasCMS {
 			if(StringUtils.isBlank(xml)) {
 				throw new RemoteException("The Requested XML is Blank!");
 			}
-			das = (Das)xmlStream.fromXML(xml);
+			//das = (Das)xmlStream.fromXML(xml);
 		} catch (Exception e) {
 			logger.error("findEpisodeList xml parsing error!!", e);
 			throw new RemoteException("findEpisodeList xml parsing error", e);
@@ -87,7 +87,7 @@ public class CMSNavigator implements DasCMS {
 			if(StringUtils.isBlank(xml)) {
 				throw new RemoteException("The Requested XML is Blank!");
 			}
-			das = (Das)xmlStream.fromXML(xml);
+			//das = (Das)xmlStream.fromXML(xml);
 		} catch (Exception e) {
 			logger.error("updateEpisodeInfo xml parsing error!!", e);
 			throw new RemoteException("updateEpisodeInfo xml parsing error", e);
@@ -104,7 +104,7 @@ public class CMSNavigator implements DasCMS {
 			if(StringUtils.isBlank(xml)) {
 				throw new RemoteException("The Requested XML is Blank!");
 			}
-			das = (Das)xmlStream.fromXML(xml);
+			//das = (Das)xmlStream.fromXML(xml);
 		} catch (Exception e) {
 			logger.error("updateCornerInfo xml parsing error!!", e);
 			throw new RemoteException("updateCornerInfo xml parsing error", e);
@@ -121,7 +121,7 @@ public class CMSNavigator implements DasCMS {
 			if(StringUtils.isBlank(xml)) {
 				throw new RemoteException("The Requested XML is Blank!");
 			}
-			das = (Das)xmlStream.fromXML(xml);
+			//das = (Das)xmlStream.fromXML(xml);
 		} catch (Exception e) {
 			logger.error("transferRequest xml parsing error!!", e);
 			throw new RemoteException("transferRequest xml parsing error", e);
@@ -139,7 +139,7 @@ public class CMSNavigator implements DasCMS {
 			if(StringUtils.isBlank(xml)) {
 				throw new RemoteException("The Requested XML is Blank!");
 			}
-			das = (Das)xmlStream.fromXML(xml);
+			//das = (Das)xmlStream.fromXML(xml);
 		} catch (Exception e) {
 			logger.error("findStatus xml parsing error!!", e);
 			throw new RemoteException("findStatus xml parsing error", e);
