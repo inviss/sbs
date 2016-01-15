@@ -68,6 +68,9 @@ public class XmlStreamImpl implements XmlStream {
 		clsList.add(StorageInfo.class);
 		clsList.add(ServerResource.class);
 		
+		/** 2016.01.15 added **/
+		
+		
 		try {
 			setAnnotationAlias(clsList);
 		} catch (Exception e) {
