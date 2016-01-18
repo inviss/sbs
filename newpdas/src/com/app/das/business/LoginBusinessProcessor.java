@@ -245,15 +245,18 @@ public class LoginBusinessProcessor {
 			 */
 			String sResult="";
 
-			//운영소스 ad 모듈 사용 시작
-			JNI_Des hj =new JNI_Des();
-			sResult = hj.getAuthentication(_do.getUser_id(), _do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
+			/*
+			 * 회사 개발서버에서 사용할 때는 AD 인증 서버가 없으므로 주석처리
+			 * 운영에 적용할 때는 반드시 주석을 제거해야 함.
+			 * JNI_Des hj =new JNI_Des();
+			 * sResult = hj.getAuthentication(_do.getUser_id(), _do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
+			 */
 			
-			// 운영소스 ad 모듈 끝
-			//개발소스에만 적용 시작 
-
-		    //	sResult="0:365";  
-			// 개발 소스에만 적용 끝 
+			/*
+			 * 무조건 성공 메세지를 반환 (회사 개발서버)
+			 * 운영에 적용할 때는 주석처리 해야 함.
+			 */
+		    sResult="0:365";  
 
 			_do.setResult(sResult);
 
