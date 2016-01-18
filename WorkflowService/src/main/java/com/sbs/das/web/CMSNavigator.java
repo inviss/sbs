@@ -111,7 +111,7 @@ public class CMSNavigator implements DasCMS {
 		}
 	}
 
-	public boolean transferRequest(String xml) throws RemoteException {
+	public long transferRequest(String xml) throws RemoteException {
 		if(logger.isDebugEnabled()){
 			logger.debug("transferRequest Call XML: "+xml);
 		}
@@ -126,7 +126,7 @@ public class CMSNavigator implements DasCMS {
 			logger.error("transferRequest xml parsing error!!", e);
 			throw new RemoteException("transferRequest xml parsing error", e);
 		}
-		return false;
+		return 0L;
 	}
 
 	public String findStatus(String xml) throws RemoteException {

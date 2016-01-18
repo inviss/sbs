@@ -62,7 +62,7 @@ public interface DasCMS {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public boolean transferRequest(String xml) throws RemoteException;
+	public long transferRequest(String xml) throws RemoteException;
 	
 	/**
 	 * <pre>
