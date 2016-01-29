@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.sbs.das.dto.ops.Corner;
+import com.sbs.das.dto.ops.Corners;
+import com.sbs.das.dto.ops.Data;
 import com.sbs.das.dto.xml.ArchiveError;
 import com.sbs.das.dto.xml.ArchiveRequest;
 import com.sbs.das.dto.xml.ArchiveResponse;
@@ -69,7 +72,9 @@ public class XmlStreamImpl implements XmlStream {
 		clsList.add(ServerResource.class);
 		
 		/** 2016.01.15 added **/
-		
+		clsList.add(Data.class);
+		clsList.add(Corners.class);
+		clsList.add(Corner.class);
 		
 		try {
 			setAnnotationAlias(clsList);
