@@ -60,7 +60,7 @@ public class SoapTest extends BaseConfig{
 			//dasCmsConnector.insertArchiveReq(xml);
 			
 			DasCMS dasCMS = (DasCMS)dasCmsProxyFactory.create();
-			dasCMS.findPgmList(xml);
+			dasCMS.findEpisodeList(xml);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
