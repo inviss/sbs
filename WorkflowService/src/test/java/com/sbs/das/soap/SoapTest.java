@@ -10,17 +10,23 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.sbs.das.commons.system.DasCmsConnector;
-import com.sbs.das.commons.utils.Utility;
+import com.sbs.das.commons.system.XmlStream;
+import com.sbs.das.dto.ops.Data;
 import com.sbs.das.dto.xml.DeleteRequest;
-import com.sbs.das.web.Nevigator;
+import com.sbs.das.web.DasCMS;
 
 public class SoapTest extends BaseConfig{
+	//@Autowired
+	//private JaxWsProxyFactoryBean nevigatorProxyFactory;
 	
 	@Autowired
-	private JaxWsProxyFactoryBean jaxWsProxyFactoryBean;
+	private JaxWsProxyFactoryBean dasCmsProxyFactory;
+	
+	//@Autowired
+	//private DasCmsConnector dasCmsConnector;
+	
 	@Autowired
-	private DasCmsConnector dasCmsConnector;
+	private XmlStream xmlStream;
 
 	//@Ignore
 	@Test
@@ -28,14 +34,14 @@ public class SoapTest extends BaseConfig{
 		try {
 			
 			//String xml = FileUtils.readFileToString(new File("D:/tmp/archive2.xml"), "utf-8");
-			Nevigator navigator = (Nevigator)jaxWsProxyFactoryBean.create();
+			//Nevigator navigator = (Nevigator)jaxWsProxyFactoryBean.create();
 			//System.out.println(navigator.schedulerForceExecute("<das><info><req_method>scrap</req_method><limit_day>20121224</limit_day><co_cd>S</co_cd></info></das>"));
 			
 			//System.out.println(navigator.addClipInfoService(xml));
 			
 			//System.out.println(navigator.archiveStatus(xml));
 			
-			System.out.println(navigator.serviceTest("hello"));
+			//System.out.println(navigator.serviceTest("hello"));
 			
 			/*File f = new File("D:/tmp/archive");
 			File[] xmlFiles = f.listFiles(new UserFileFilter());
@@ -46,11 +52,15 @@ public class SoapTest extends BaseConfig{
 				fx.renameTo(new File(fx.getAbsolutePath()+".bak"));
 			}*/
 			
-			String xml = FileUtils.readFileToString(new File("D:/tmp/pds.xml"), "utf-8");
+			String xml = FileUtils.readFileToString(new File("D:/tt.xml"), "utf-8");
+			//Data data = (Data)xmlStream.fromXML(xml);
 			/*for(int i=0; i<1000; i++) {
 				dasCmsConnector.getMetadatInfoList(xml);
 			}*/
-			dasCmsConnector.insertArchiveReq(xml);
+			//dasCmsConnector.insertArchiveReq(xml);
+			
+			DasCMS dasCMS = (DasCMS)dasCmsProxyFactory.create();
+			dasCMS.findPgmList(xml);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

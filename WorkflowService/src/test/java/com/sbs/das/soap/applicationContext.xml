@@ -18,7 +18,7 @@
 		<property name="cacheSeconds" value="10" />
 	</bean>
 	
-	<!-- DAS CMS Connector -->
-	<bean id="dasCmsConnector" class="com.sbs.das.commons.system.DasCmsConnectorImpl" init-method="init" />
+	<!-- XML Parser -->
+	<bean id="xmlStream" class="com.sbs.das.commons.system.XmlStreamImpl"/>
 	
 </beans>
