@@ -1,7 +1,12 @@
 package com.sbs.das.commons.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CharFormatConverter {
 
+	final static Logger logger = LoggerFactory.getLogger(CharFormatConverter.class);
+	
 	public static final byte[] toLittleEndian(int i)
 	{
 		byte dest[] = new byte[4];
@@ -20,7 +25,7 @@ public class CharFormatConverter {
 			}
 			str = java.net.URLEncoder.encode(str, pFormat);
 		} catch(Exception e){
-			e.printStackTrace();
+			logger.error("URLEncode Error", e);
 		}
 
 		for(int i=0; i < str.length(); i++){
@@ -39,7 +44,7 @@ public class CharFormatConverter {
 			}
 			str = java.net.URLDecoder.decode(str, pFormat);
 		} catch(Exception e){
-			e.printStackTrace();
+			logger.error("URLDecode Error", e);
 		}
 
 		return str;
@@ -61,7 +66,7 @@ public class CharFormatConverter {
 			_result = p.substring(p.length()-2, p.length())+":"+q.substring(q.length()-2, q.length())+":"+r.substring(r.length()-2, r.length())+":"+s.substring(s.length()-2, s.length());
 
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("duration to frame Error", e);
 		}
 		return _result;
 	}
@@ -78,14 +83,12 @@ public class CharFormatConverter {
 			}
 
 		} catch(Exception e){
-			e.printStackTrace();
+			logger.error("CLOB Stream to String Error", e);
 		} finally {
 			if (_br != null)
 				try {
 					_br.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				} catch (Exception e) {}
 		}
 
 		return _strBuff.toString().trim();
