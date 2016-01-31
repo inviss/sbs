@@ -2,6 +2,7 @@ package com.sbs.das.soap;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,7 +29,7 @@ public class SoapTest extends BaseConfig{
 	@Autowired
 	private XmlStream xmlStream;
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void soapConnTest() {
 		try {
@@ -52,14 +53,15 @@ public class SoapTest extends BaseConfig{
 				fx.renameTo(new File(fx.getAbsolutePath()+".bak"));
 			}*/
 			
-			String xml = FileUtils.readFileToString(new File("D:/tt.xml"), "utf-8");
-			//Data data = (Data)xmlStream.fromXML(xml);
+			
 			/*for(int i=0; i<1000; i++) {
 				dasCmsConnector.getMetadatInfoList(xml);
 			}*/
 			//dasCmsConnector.insertArchiveReq(xml);
 			
 			DasCMS dasCMS = (DasCMS)dasCmsProxyFactory.create();
+			
+			String xml = FileUtils.readFileToString(new File("D:/tt.xml"), "utf-8");
 			dasCMS.findEpisodeList(xml);
 			
 		} catch (Exception e) {
@@ -81,6 +83,20 @@ public class SoapTest extends BaseConfig{
 		}
 
 	}
+	
+	//@Ignore
+	@Test
+	public void xmlLoadTest() {
+		String xml = "";
+		try {
+			xml = FileUtils.readFileToString(new File("D:/tt.xml"), "utf-8");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Data data = (Data)xmlStream.fromXML(xml);
+	}
+	
 	
 	@Ignore
 	@Test
