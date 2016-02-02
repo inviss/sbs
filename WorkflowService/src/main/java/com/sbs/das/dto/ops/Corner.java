@@ -2,6 +2,7 @@ package com.sbs.das.dto.ops;
 
 import com.sbs.das.commons.convertor.IntegerConverter;
 import com.sbs.das.commons.convertor.TextUTF8Converter;
+import com.sbs.das.commons.utils.XStreamCDATA;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
@@ -9,7 +10,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 public class Corner {
 	
 	// 코너명
-	@XStreamConverter(TextUTF8Converter.class)
+	@XStreamCDATA
 	@XStreamAlias("corner_nm")
 	private String cornerNm;
 	
@@ -24,7 +25,8 @@ public class Corner {
 	private Integer frameFnsSectNo;
 	
 	// 장면메타제목명
-	@XStreamConverter(TextUTF8Converter.class)
+	//@XStreamConverter(TextUTF8Converter.class)
+	@XStreamCDATA
 	@XStreamAlias("sen_titles")
 	private String senTitles;
 	
