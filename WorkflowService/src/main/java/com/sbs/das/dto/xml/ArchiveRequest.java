@@ -100,8 +100,26 @@ public class ArchiveRequest {
 	private String vdQlty;
 	
 	private String reqDt;
+	private String m2Yn;
+	private String m4Yn;
 	
 	
+	public String getM2Yn() {
+		return m2Yn;
+	}
+
+	public void setM2Yn(String m2Yn) {
+		this.m2Yn = m2Yn;
+	}
+
+	public String getM4Yn() {
+		return m4Yn;
+	}
+
+	public void setM4Yn(String m4Yn) {
+		this.m4Yn = m4Yn;
+	}
+
 	public String getVdQlty() {
 		return vdQlty;
 	}
