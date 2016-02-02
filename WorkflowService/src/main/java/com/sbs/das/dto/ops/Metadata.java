@@ -198,10 +198,24 @@ public class Metadata {
 	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("sub_title")
 	private String subTitle;
+	
+	// 부제
+	@XStreamConverter(TextUTF8Converter.class)
+	@XStreamAlias("frmtn_nm")
+	private String frmtnNm;
 
 	// 검수코드
 	@XStreamAlias("actc_cd")
 	private String actcCd;
+
+	
+	public String getFrmtnNm() {
+		return frmtnNm;
+	}
+
+	public void setFrmtnNm(String frmtnNm) {
+		this.frmtnNm = frmtnNm;
+	}
 
 	public Long getDasMasterId() {
 		return dasMasterId;
