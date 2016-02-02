@@ -3,6 +3,7 @@ package com.sbs.das.soap;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -12,6 +13,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sbs.das.commons.system.XmlStream;
+import com.sbs.das.dto.ops.Corner;
+import com.sbs.das.dto.ops.Corners;
 import com.sbs.das.dto.ops.Data;
 import com.sbs.das.dto.xml.DeleteRequest;
 import com.sbs.das.web.DasCMS;
@@ -89,7 +92,14 @@ public class SoapTest extends BaseConfig{
 	public void xmlLoadTest() {
 		String xml = "";
 		try {
-			xml = FileUtils.readFileToString(new File("D:/tt.xml"), "utf-8");
+			xml = FileUtils.readFileToString(new File("D:/corners.xml"), "utf-8");
+			Data data = (Data)xmlStream.fromXML(xml);
+			Corners corners = data.getCorners();
+			List<Corner> corners2 = corners.getCorners();
+			for(Corner corner : corners2) {
+				System.out.println("corner_nm: "+corner.getCornerNm());
+				System.out.println("sen_titles: "+corner.getSenTitles());
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
