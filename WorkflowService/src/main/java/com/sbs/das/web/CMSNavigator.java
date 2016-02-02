@@ -24,23 +24,6 @@ public class CMSNavigator implements DasCMS {
 	@Autowired
 	private XmlStream xmlStream;
 	
-	public String findPgmList(String xml) throws RemoteException {
-		if(logger.isDebugEnabled()){
-			logger.debug("findPgmList Call XML: "+xml);
-		}
-
-		Das das = null;
-		try {
-			if(StringUtils.isBlank(xml)) {
-				throw new RemoteException("The Requested XML is Blank!");
-			}
-			//das = (Das)xmlStream.fromXML(xml);
-		} catch (Exception e) {
-			logger.error("findPgmList xml parsing error!!", e);
-			throw new RemoteException("findPgmList xml parsing error", e);
-		}
-		return "findPgmList";
-	}
 
 	public void savePgmInfo(String xml) throws RemoteException {
 		if(logger.isDebugEnabled()){
