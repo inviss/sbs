@@ -29,60 +29,71 @@ public class ArchiveReadExcel extends BaseConfig {
 			// Get the first sheet
 			Sheet[] sheets = w.getSheets();
 
+			Map<String, ArchiveRequest> archiveList = new HashMap<String, ArchiveRequest>();
+			
 			for(int m=0; m < sheets.length; m++) {
-				Sheet sheet = sheets[m];
-				
-				Map<String, ArchiveRequest> archiveList = new HashMap<String, ArchiveRequest>();
-				ArchiveRequest request = null;
-				for (int j = 0; j < sheet.getRows(); j++) {
-					if(j==0) continue;
-					
-					request = new ArchiveRequest();
-					for (int i = 0; i < sheet.getColumns(); i++) {
-						Cell cell = sheet.getCell(i, j);
 
-						switch((i+1)) {
-						case 1:
-							request.setObjectName(cell.getContents());   	// ObjName
-							break;
-						case 3:
-							request.setGroup(cell.getContents());			// Archive_Group
-							break;
-						case 4:
-							if(request.getGroup().indexOf("copy") > -1)
-								request.setM4Yn(cell.getContents());			// State
-							else
-								request.setM2Yn(cell.getContents());			// State
-							break;
+				Sheet sheet = sheets[m];
+				if(m == 1) {
+					for (int j = 0; j < sheet.getRows(); j++) {
+						if(j==0) continue;
+						
+						Cell cell = sheet.getCell(0, j);
+						String objName = cell.getContents();
+						
+						if(!archiveList.containsKey(objName))
+							System.out.println(objName);
+					}
+					
+					/*Iterator<String> iterator = archiveList.keySet().iterator();
+					while(iterator.hasNext()) {
+						String id = iterator.next();
+						ArchiveRequest request3 = archiveList.get(id);
+
+						System.out.println(request3.getObjectName()+", m2: "+request3.getM2Yn()+", m4: "+request3.getM4Yn());
+					}*/
+				} else {
+					ArchiveRequest request = null;
+					for (int j = 0; j < sheet.getRows(); j++) {
+						if(j==0) continue;
+
+						request = new ArchiveRequest();
+						for (int i = 0; i < sheet.getColumns(); i++) {
+							Cell cell = sheet.getCell(i, j);
+
+							switch((i+1)) {
+							case 1:
+								request.setObjectName(cell.getContents());   	// ObjName
+								break;
+							case 3:
+								request.setGroup(cell.getContents());			// Archive_Group
+								break;
+							case 4:
+								if(request.getGroup().indexOf("copy") > -1)
+									request.setM4Yn(cell.getContents());			// State
+								else
+									request.setM2Yn(cell.getContents());			// State
+								break;
+							}
 						}
+
+						if(archiveList.containsKey(request.getObjectName())) {
+							ArchiveRequest request2 = archiveList.get(request.getObjectName());
+							if(StringUtils.isBlank(request.getM2Yn()))
+								request2.setM4Yn(request.getM4Yn());
+							else
+								request2.setM2Yn(request.getM2Yn());
+
+							archiveList.put(request.getObjectName(), request2);
+						} else {
+							archiveList.put(request.getObjectName(), request);
+						}
+
+
+						request = null;
 					}
-					
-					if(archiveList.containsKey(request.getObjectName())) {
-						ArchiveRequest request2 = archiveList.get(request.getObjectName());
-						if(StringUtils.isBlank(request.getM2Yn()))
-							request2.setM4Yn(request.getM4Yn());
-						else
-							request2.setM2Yn(request.getM2Yn());
-						archiveList.put(request.getObjectName(), request2);
-					} else {
-						archiveList.put(request.getObjectName(), request);
-					}
-					
-					
-					System.out.println(request.getObjectName()+", m2: "+request.getM2Yn()+", m4: "+request.getM4Yn());
-					
-					request = null;
-					
-					//if(j == 4) break;
 				}
-				
-				Iterator<String> iterator = archiveList.keySet().iterator();
-				while(iterator.hasNext()) {
-					String id = iterator.next();
-					ArchiveRequest request3 = archiveList.get(id);
-					
-					System.out.println(request3.getObjectName()+", m2: "+request3.getM2Yn()+", m4: "+request3.getM4Yn());
-				}
+
 			}
 
 		} catch(Exception e) {
