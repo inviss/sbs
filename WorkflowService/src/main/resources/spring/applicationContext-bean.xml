@@ -7,9 +7,10 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	  
 	<context:annotation-config />
+	<!--  
 	<context:component-scan base-package="com.sbs.das.services" />
 	<context:component-scan base-package="com.sbs.das.repository" />
-	
+	-->
     <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
     <!-- (in this case, JDBC-related settings for the dataSource definition below) -->
     <context:property-placeholder location="classpath:config/db.properties"/>
@@ -24,16 +25,16 @@
 		<property name="cacheSeconds" value="10" />
 	</bean>
 	
-	<!-- XML Parser -->
+	<!-- XML Parser 
 	<bean id="xmlStream" class="com.sbs.das.commons.system.XmlStreamImpl"/>
-	
-	<!-- Diva Connector -->
+	-->
+	<!-- Diva Connector 
 	<bean id="divaConnector" class="com.sbs.das.commons.system.DivaConnectSerivceImpl" init-method="init" />
-	
-	<!-- DAS CMS Connector -->
+	-->
+	<!-- DAS CMS Connector 
 	<bean id="dasCmsConnector" class="com.sbs.das.commons.system.DasCmsConnectorImpl" init-method="init" />
-	
-	<!-- DTLDeleteListener Thread -->
+	-->
+	<!-- DTLDeleteListener Thread 
 	<bean id="messageDeleteListener" class="com.sbs.das.commons.system.MessageDeleteListener" init-method="start" destroy-method="stop"/>
-	
+	-->
 </beans>
