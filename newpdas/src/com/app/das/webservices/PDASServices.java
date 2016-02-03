@@ -10250,10 +10250,8 @@ public class PDASServices {
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ConditionDOXML _DOXML = new ConditionDOXML();
 		try {
-			WorkStatusConditionDO _DO = (WorkStatusConditionDO) _DOXML
-					.setDO(conditionDO);
+			WorkStatusConditionDO _DO = (WorkStatusConditionDO) _DOXML.setDO(conditionDO);
 
-			//List _infoList = _processor.getMetadatInfoList(_DO);
 			List _infoList = _processor.getNewMetadatInfoList(_DO);
 			
 			if (_infoList != null && _infoList.size() > 0) {
