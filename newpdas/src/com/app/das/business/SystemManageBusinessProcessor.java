@@ -2176,6 +2176,7 @@ public class SystemManageBusinessProcessor
 								if(logger.isDebugEnabled()) {
 									logger.debug("org_attach_filepath: "+path);
 								}
+								
 								File f = new File(path, pgmDO.getOrgFileName());
 								if(f.exists()) {
 									// /mp4/년월/일/CT_ID 아래에 CG 폴더를 생성하고 하위에 복사하면 됨.
@@ -2195,10 +2196,6 @@ public class SystemManageBusinessProcessor
 									if(logger.isDebugEnabled()) {
 										logger.debug("new_attach_filepath: "+cg.getAbsolutePath());
 									}
-
-									// attatch_tbl 테이블에 첨부파일 정보를 추가함.
-									// 파일 사이즈도 전달받음.
-									//pgmDO.setFilesize(f.length());
 
 									AttachFileInfoDO attach = new AttachFileInfoDO();
 									attach.setMothrDataId(pgmDO.getMaster_id());
