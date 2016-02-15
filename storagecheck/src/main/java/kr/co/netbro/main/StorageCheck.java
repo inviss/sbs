@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import kr.co.d2net.commons.SpringApplication;
+import kr.co.d2net.commons.system.WorkflowService;
 import kr.co.d2net.commons.utils.UserFilenameFilter;
 import kr.co.d2net.commons.utils.Utility;
 
@@ -31,6 +32,7 @@ public class StorageCheck {
 			MessageSource messageSource = (MessageSource)springApplication.get("messageSource");
 			ContentDao contentDao = (ContentDao)springApplication.get("contentDao");
 			ContentDownDao contentDownDao = (ContentDownDao)springApplication.get("contentDownDao");
+			WorkflowService workflowService = (WorkflowService)springApplication.get("workflowService");
 
 			String rootDir = "";
 			String[] companys = new String[3];
@@ -117,6 +119,9 @@ public class StorageCheck {
 						}
 					}
 				} else {
+					// 아카이브 요청을 위해 선언
+					StringBuffer xml = new StringBuffer();
+					
 					for(String subDir : subDirs) {
 						File dirs = new File(rootDir + File.separator + company + File.separator + subDir);
 						if (logger.isDebugEnabled())
@@ -124,7 +129,7 @@ public class StorageCheck {
 
 						String[] yyyymmNames = dirs.list();
 						Arrays.sort(yyyymmNames); // 정렬
-						
+
 						if (yyyymmNames == null || yyyymmNames.length <= 0) {
 							continue;
 						} else {
@@ -137,7 +142,7 @@ public class StorageCheck {
 									File ddDirs = new File(dirs.getAbsolutePath() + File.separator + yyyymmName);
 									String[] ddNames = ddDirs.list();
 									Arrays.sort(ddNames); // 정렬
-									
+
 									if ((ddNames == null) || (ddNames.length <= 0)) {
 										try {
 											Utility.fileForceDelete(ddDirs);
@@ -200,12 +205,12 @@ public class StorageCheck {
 
 															params.put("ctiId", uniqueId);
 														}
-														
+
 														params.put("wait", true);
 														ContentTbl contentTbl = contentDao.getContentCheck(params);
 														if(contentTbl != null) {
 															if(contentTbl.getMasterId() == null || contentTbl.getCtId() == null || contentTbl.getCtiId() == null) {
-																
+
 																if(contentTbl.getMasterId() == null && (contentTbl.getCtId() != null && contentTbl.getCtiId() != null)) {
 																	params.put("ctId", contentTbl.getCtId());
 																	Long masterId = contentDao.getMasterJoinCheck(params);
@@ -242,19 +247,51 @@ public class StorageCheck {
 																	/*
 																	 * 아카이브 요청이 없는 콘텐츠
 																	 * 사용자가 아카이브 요청을 안한 것은 삭제 대상 아님.
+																	 * 단, [2016.02.15]
+																	 * SBS/onAir 파일의 경우 자동 아카이브 대상이므로 아카이브 요청이 안된 것은
+																	 * 시스템의 문제였을 가능성이 큼. 즉, 발견즉시 아카이브 하도록 함.
 																	 */
-																	if(StringUtils.isBlank(contentTbl.getFlPath())) {
-																		logger.debug(ddDir.getAbsolutePath()+File.separator+mxf+" 가 등록 실패된 파일임.");
-																		count = 0;
+																	if("onAir".equals(subDir)) {
+																		xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das><info><archive_type>all</archive_type>");
+																		if("SBS".equals(company)) {
+																			String flpath = ddDir.getAbsolutePath() + File.separator + mxf;
+																			flpath = flpath.replaceAll("\\\\", "/").substring(flpath.indexOf("SBS"));
+																			flpath = (flpath.startsWith("/")) ? "/nearline"+flpath : "/nearline/"+flpath;
+																			
+																			xml.append("<cti_id>"+uniqueId+"</cti_id>");
+																			xml.append("<file_path>"+flpath+"</file_path>");
+																			xml.append("<dtl_type>das</dtl_type>");   // medianet
+																			xml.append("<archive_type>all</archive_type>");
+																		} else {
+																			// MediaNet OnAir???
+																		}
+																		xml.append("</info></das>");
+																		
+																		try {
+																			if(xml.indexOf("cti_id") > -1) {
+																				workflowService.regiesterArchive(xml.toString());
+																			}
+																		} catch (Exception e) {
+																			logger.error("archive request error", e);
+																		}
+																		xml.setLength(0);
+																	} else {
+																		if(StringUtils.isBlank(contentTbl.getFlPath())) {
+																			logger.debug(ddDir.getAbsolutePath()+File.separator+mxf+" 가 등록 실패된 파일임.");
+																			count = 0;
+																		}
 																	}
 																}
 															}
+														} else {
+															logger.debug(ddDir.getAbsolutePath()+File.separator+mxf+" 가 DB 조회가 안됨.");
+															count = 0;
 														}
-														
+
 														if (count <= 0) {
 															Utility.fileForceDelete(ddDir.getAbsolutePath() + File.separator + mxf);
 														}
-														
+
 														contentTbl = null;
 														uniqueId = null;
 														fileNm = null;
