@@ -1,6 +1,5 @@
 package com.sbs.das.dto.ops;
 
-import com.sbs.das.commons.convertor.IntegerConverter;
 import com.sbs.das.commons.convertor.TextUTF8Converter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -10,7 +9,7 @@ public class Program {
 
 	// DAS프로그램ID
 	@XStreamAlias("das_pgm_id")
-	private int dasPgm_id;
+	private Integer dasPgmId;
 
 	// 프로그램제목
 	@XStreamConverter(TextUTF8Converter.class)
@@ -28,9 +27,8 @@ public class Program {
 	private String castNm;
 
 	// 방송요일
-	@XStreamConverter(IntegerConverter.class)
-	@XStreamAlias("brad_dow")
-	private int bradDow;
+	@XStreamAlias("brad_day")
+	private String bradDay;
 
 	// 대표 프로그램 여부
 	@XStreamAlias("rep_pgm_yn")
@@ -112,12 +110,12 @@ public class Program {
 		this.deptNm = deptNm;
 	}
 
-	public int getDasPgm_id() {
-		return dasPgm_id;
+	public Integer getDasPgmId() {
+		return dasPgmId;
 	}
 
-	public void setDasPgm_id(int dasPgm_id) {
-		this.dasPgm_id = dasPgm_id;
+	public void setDasPgmId(Integer dasPgmId) {
+		this.dasPgmId = dasPgmId;
 	}
 
 	public String getPgmTitle() {
@@ -144,12 +142,12 @@ public class Program {
 		this.castNm = castNm;
 	}
 
-	public int getBradDow() {
-		return bradDow;
+	public String getBradDay() {
+		return bradDay;
 	}
 
-	public void setBradDow(int bradDow) {
-		this.bradDow = bradDow;
+	public void setBradDay(String bradDay) {
+		this.bradDay = bradDay;
 	}
 
 	public String getRepPgmYn() {

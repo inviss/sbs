@@ -1,8 +1,6 @@
 package com.sbs.das.dto.ops;
 
-import com.sbs.das.commons.convertor.IntegerConverter;
 import com.sbs.das.commons.convertor.LongConverter;
-import com.sbs.das.commons.convertor.TextUTF8Converter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
