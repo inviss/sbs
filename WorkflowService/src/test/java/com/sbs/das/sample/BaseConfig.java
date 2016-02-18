@@ -10,8 +10,8 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { 
 		"classpath:/spring/applicationContext-bean.xml",
-		//"classpath:/spring/applicationContext-dao.xml",
-		//"classpath:/spring/applicationContext-tx.xml",
+		"classpath:/spring/applicationContext-dao.xml",
+		"classpath:/spring/applicationContext-tx.xml"
 		//"classpath:/com/sbs/das/soap/applicationContext-cxf.xml"
 })
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
