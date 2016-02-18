@@ -27,8 +27,8 @@ public class Program {
 	private String castNm;
 
 	// 방송요일
-	@XStreamAlias("brad_day")
-	private String bradDay;
+	@XStreamAlias("brad_dow")
+	private String bradDow;
 
 	// 대표 프로그램 여부
 	@XStreamAlias("rep_pgm_yn")
@@ -142,12 +142,12 @@ public class Program {
 		this.castNm = castNm;
 	}
 
-	public String getBradDay() {
-		return bradDay;
+	public String getBradDow() {
+		return bradDow;
 	}
 
-	public void setBradDay(String bradDay) {
-		this.bradDay = bradDay;
+	public void setBradDow(String bradDow) {
+		this.bradDow = bradDow;
 	}
 
 	public String getRepPgmYn() {
