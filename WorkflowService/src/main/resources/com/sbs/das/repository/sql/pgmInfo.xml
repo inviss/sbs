@@ -17,7 +17,7 @@
 		<result property="brdEndDd" column="BRD_END_DD" />
 		<result property="prdDeptNm" column="PRD_DEPT_NM" />
 		<result property="schdPgmNm" column="SCHD_PGM_NM" />
-		<result property="awardHstr     " column="AWARD_HSTR" />
+		<result property="awardHstr" column="AWARD_HSTR" />
 		<result property="pilotYn" column="PILOT_YN" />
 		<result property="regrid" column="REGRID" />
 		<result property="regDt" column="REG_DT" />
@@ -151,7 +151,7 @@
     	INSERT INTO PGM_INFO_TBL (
 		    PGM_ID,PGM_CD,MEDIA_CD,CHAN_CD,PGM_NM,CTGR_L_CD,CTGR_M_CD,CTGR_S_CD,BRD_BGN_DD,BRD_END_DD,PRD_DEPT_NM,SCHD_PGM_NM,AWARD_HSTR,PILOT_YN,REGRID,REG_DT,MODRID,MOD_DT,MOD_END_YN,USE_YN,PARENTS_CD
 		)VALUES(
-			#pgmId#, #pgm_cd:VARCHAR:NO_ENTRY#, #mediaCd:VARCHAR:NO_ENTRY#, #chanCd:VARCHAR:NO_ENTRY#, #pgmNm:VARCHAR:NO_ENTRY#, #ctgrLCd:VARCHAR:NO_ENTRY#, #ctgrMCd:VARCHAR:NO_ENTRY#, #ctgrSCd:VARCHAR:NO_ENTRY#, 
+			#pgmId#, #pgmCd:VARCHAR:NO_ENTRY#, #mediaCd:VARCHAR:NO_ENTRY#, #chanCd:VARCHAR:NO_ENTRY#, #pgmNm:VARCHAR:NO_ENTRY#, #ctgrLCd:VARCHAR:NO_ENTRY#, #ctgrMCd:VARCHAR:NO_ENTRY#, #ctgrSCd:VARCHAR:NO_ENTRY#, 
 			#brdBgnDd:VARCHAR:NO_ENTRY#, #brdEndDd:VARCHAR:NO_ENTRY#,  #prdDeptNm:VARCHAR:NO_ENTRY#,  #schdPgmNm:VARCHAR:NO_ENTRY#, #awardHstr:VARCHAR:NO_ENTRY#, #pilotYn:VARCHAR:NO_ENTRY#,  #regrid:VARCHAR:NO_ENTRY#,  
 			#regDt:VARCHAR:NO_ENTRY#, #useYn:VARCHAR:NO_ENTRY#, #parentsCd:VARCHAR:NO_ENTRY#
 		)

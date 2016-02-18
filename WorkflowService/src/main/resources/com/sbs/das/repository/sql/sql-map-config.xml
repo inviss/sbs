@@ -36,5 +36,9 @@
 	<sqlMap resource="com/sbs/das/repository/sql/attach.xml"/>
 	
 	<sqlMap resource="com/sbs/das/repository/sql/time_rist_set.xml"/>
+	
+	<!-- OPS Add -->
+	<sqlMap resource="com/sbs/das/repository/sql/pgmInfo.xml"/>
+	<sqlMap resource="com/sbs/das/repository/sql/metadat_mst.xml"/>
 		
 </sqlMapConfig>
