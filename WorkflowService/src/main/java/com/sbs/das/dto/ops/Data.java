@@ -19,8 +19,38 @@ public class Data {
 	@XStreamConverter(LongConverter.class)
 	@XStreamAlias("main_duration")
 	private Long mainDuration;
+	
+	// 방송일
+	@XStreamAlias("brad_day")
+	private String bradDay;
+	
+	// 방송 시작시간
+	@XStreamAlias("brad_st_time")
+	private String bradStTime;
+	
+	// 방송 종료시간
+	@XStreamAlias("brad_fns_time")
+	private String bardFnsTime;
 
 	
+	public String getBradDay() {
+		return bradDay;
+	}
+	public void setBradDay(String bradDay) {
+		this.bradDay = bradDay;
+	}
+	public String getBradStTime() {
+		return bradStTime;
+	}
+	public void setBradStTime(String bradStTime) {
+		this.bradStTime = bradStTime;
+	}
+	public String getBardFnsTime() {
+		return bardFnsTime;
+	}
+	public void setBardFnsTime(String bardFnsTime) {
+		this.bardFnsTime = bardFnsTime;
+	}
 	public Long getDasMasterId() {
 		return dasMasterId;
 	}

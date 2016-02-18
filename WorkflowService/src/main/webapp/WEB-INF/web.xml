@@ -32,8 +32,8 @@
         	classpath:spring/applicationContext-cxf.xml,
         	classpath:spring/applicationContext-bean.xml,
         	classpath:spring/applicationContext-dao.xml,
-        	classpath:spring/applicationContext-tx.xml,
-        	classpath:spring/applicationContext-task.xml
+        	classpath:spring/applicationContext-tx.xml<!--,
+        	classpath:spring/applicationContext-task.xml-->
         </param-value>
     </context-param>
 	
