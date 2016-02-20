@@ -1,8 +1,12 @@
 package com.sbs.das.dto.ops;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sbs.das.commons.convertor.LongConverter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 @XStreamAlias("data")
 public class Data {
@@ -30,7 +34,7 @@ public class Data {
 	
 	// 방송 종료시간
 	@XStreamAlias("brad_fns_time")
-	private String bardFnsTime;
+	private String bradFnsTime;
 
 	
 	public String getBradDay() {
@@ -45,11 +49,11 @@ public class Data {
 	public void setBradStTime(String bradStTime) {
 		this.bradStTime = bradStTime;
 	}
-	public String getBardFnsTime() {
-		return bardFnsTime;
+	public String getBradFnsTime() {
+		return bradFnsTime;
 	}
-	public void setBardFnsTime(String bardFnsTime) {
-		this.bardFnsTime = bardFnsTime;
+	public void setBradFnsTime(String bradFnsTime) {
+		this.bradFnsTime = bradFnsTime;
 	}
 	public Long getDasMasterId() {
 		return dasMasterId;
@@ -85,6 +89,7 @@ public class Data {
 	/*
 	 * 회차 정보
 	 */
+/*
 	@XStreamAlias("metadata")
 	private Metadata metadata = null;
 	public Metadata getMetadata() {
@@ -93,7 +98,7 @@ public class Data {
 	public void setMetadata(Metadata metadata) {
 		this.metadata = metadata;
 	}
-
+*/
 	/*
 	 * 본방 코너 정보
 	 */
@@ -104,4 +109,32 @@ public class Data {
 	public void setCorners(Corners corners) {
 		this.corners = corners;
 	}
+	
+	/*
+	 * 프로그램 조회 리스트
+	 */
+	/*
+	private Metadatas metadatas = null;
+
+	public Metadatas getMetadatas() {
+		return metadatas;
+	}
+	public void setMetadatas(Metadatas metadatas) {
+		this.metadatas = metadatas;
+	}
+	*/
+	
+	@XStreamImplicit(itemFieldName="metadata")
+	List<Metadata> metadatas = new ArrayList<Metadata>();
+
+	public List<Metadata> getMetadatas() {
+		return metadatas;
+	}
+	public void setMetadatas(List<Metadata> metadatas) {
+		this.metadatas = metadatas;
+	}
+	public void addMetadatas(Metadata metadata) {
+		this.metadatas.add(metadata);
+	}
+	
 }

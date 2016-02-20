@@ -13,10 +13,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sbs.das.commons.system.XmlStream;
+import com.sbs.das.dto.MetadatMstTbl;
 import com.sbs.das.dto.ops.Corner;
 import com.sbs.das.dto.ops.Corners;
 import com.sbs.das.dto.ops.Data;
+import com.sbs.das.dto.ops.Metadata;
 import com.sbs.das.dto.xml.DeleteRequest;
+import com.sbs.das.services.MetadataService;
 import com.sbs.das.web.DasCMS;
 
 public class SoapTest extends BaseConfig{
@@ -25,6 +28,9 @@ public class SoapTest extends BaseConfig{
 	
 	@Autowired
 	private JaxWsProxyFactoryBean dasCmsProxyFactory;
+	
+	@Autowired
+	private MetadataService metadataService;
 	
 	//@Autowired
 	//private DasCmsConnector dasCmsConnector;
@@ -89,7 +95,69 @@ public class SoapTest extends BaseConfig{
 	
 	//@Ignore
 	@Test
-	public void xmlLoadTest() {
+	public void findMetadataTest() {
+		String xml = "";
+		try {
+			Data data = (Data)xmlStream.fromXML("<data><brad_day>20120310</brad_day><brad_st_time>074000</brad_st_time><brad_fns_time>084200</brad_fns_time></data>");
+			List<MetadatMstTbl> metadatMstTbls = metadataService.findMetaDataList(data);
+			
+			data = new Data();
+			for(MetadatMstTbl metadatMstTbl : metadatMstTbls) {
+				Metadata metadata = new Metadata();
+				metadata.setDasMasterId(metadatMstTbl.getMasterId());
+				metadata.setDasPgmId(metadatMstTbl.getPgmId());
+				metadata.setChId(metadatMstTbl.getChennelCd());
+				metadata.setPgmTms(metadatMstTbl.getEpisNo());
+				metadata.setPgmTmsTitle(metadatMstTbl.getTitle());
+				metadata.setBradDay(metadatMstTbl.getBrdDd());
+				metadata.setBradStTime(metadatMstTbl.getBrdBgnHms());
+				metadata.setBradFnsTime(metadatMstTbl.getBrdEndHms());
+				metadata.setBradLen(metadatMstTbl.getDuration());
+				
+				data.addMetadatas(metadata);
+			}
+			
+			System.out.println(xmlStream.toXML(data));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Ignore
+	@Test
+	public void xmlMetadatLoadTest() {
+		String xml = "";
+		try {
+			//xml = FileUtils.readFileToString(new File("D:/metadat.xml"), "utf-8");
+			//Data data = (Data)xmlStream.fromXML(xml);
+			
+			Data data = new Data();
+			Metadata metadata = new Metadata();
+			metadata.setDasMasterId(234234234L);
+			metadata.setDasPgmId(234234234);
+			metadata.setChId("dsfsdfsdf");
+			metadata.setPgmTms(234234);
+			metadata.setPgmTmsTitle("dsfsdfsdf");
+			metadata.setBradDay("dsfsdfsdf");
+			metadata.setBradStTime("dsfsdfsdf");
+			metadata.setBradFnsTime("dsfsdfsdf");
+			metadata.setBradLen(34234234L);
+			
+			//data.addMetadatas(metadata);
+			System.out.println(data);
+			xmlStream.toXML(data);
+			//System.out.println(xmlStream.toXML(data));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Data data = (Data)xmlStream.fromXML(xml);
+	}
+	
+	
+	@Ignore
+	@Test
+	public void xmlCornerLoadTest() {
 		String xml = "";
 		try {
 			xml = FileUtils.readFileToString(new File("D:/corners.xml"), "utf-8");

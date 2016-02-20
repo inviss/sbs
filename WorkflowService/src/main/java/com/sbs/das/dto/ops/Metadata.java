@@ -14,10 +14,6 @@ public class Metadata {
 	@XStreamAlias("das_master_id")
 	private Long dasMasterId;
 
-	// DAS프로그램ID
-	@XStreamAlias("das_pgm_id")
-	private int dasPgm_id;
-
 	// 프로그램ID
 	@XStreamConverter(IntegerConverter.class)
 	@XStreamAlias("das_pgm_id")
@@ -29,6 +25,7 @@ public class Metadata {
 	private Integer pgmTms;
 
 	// 프로그램회별제목
+	//@XStreamCDATA
 	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("pgm_tms_title")
 	private String pgmTmsTitle;
@@ -223,14 +220,6 @@ public class Metadata {
 
 	public void setDasMasterId(Long dasMasterId) {
 		this.dasMasterId = dasMasterId;
-	}
-
-	public int getDasPgm_id() {
-		return dasPgm_id;
-	}
-
-	public void setDasPgm_id(int dasPgm_id) {
-		this.dasPgm_id = dasPgm_id;
 	}
 
 	public Integer getDasPgmId() {

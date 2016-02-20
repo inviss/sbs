@@ -4,10 +4,10 @@ public class MetadatMstTbl extends BaseObject {
 	
 	private static final long serialVersionUID = 4249740421194159823L;
 	
-	private String masterId;
-	private String pgmId;
+	private Long masterId;
+	private Integer pgmId;
 	private String pgmCd;
-	private String episNo;
+	private Integer episNo;
 	private String title;
 	private String ctgrLCd;
 	private String ctgrMCd;
@@ -48,7 +48,7 @@ public class MetadatMstTbl extends BaseObject {
 	private String viewGrCd;
 	private String dlbrCd;
 	private String awardHstr;
-	private String rpimgKfrmSeq;
+	private Integer rpimgKfrmSeq;
 	private String tapeId;
 	private String tapeItemId;
 	private String tapeMediaClfCd;
@@ -61,7 +61,7 @@ public class MetadatMstTbl extends BaseObject {
 	private String modDt;
 	private String gathDeptCd;
 	private String mcuid;
-	private String rpimgCtId;
+	private Long rpimgCtId;
 	private String dataStatCd;
 	private String ingRegDd;
 	private String copyKeep;
@@ -86,19 +86,25 @@ public class MetadatMstTbl extends BaseObject {
 	private String countryCd;
 	private String errorId;
 	private String errorDt;
-	private String groupId;
+	private Long duration;
 	
 	
-	public String getMasterId() {
+	public Long getDuration() {
+		return duration;
+	}
+	public void setDuration(Long duration) {
+		this.duration = duration;
+	}
+	public Long getMasterId() {
 		return masterId;
 	}
-	public void setMasterId(String masterId) {
+	public void setMasterId(Long masterId) {
 		this.masterId = masterId;
 	}
-	public String getPgmId() {
+	public Integer getPgmId() {
 		return pgmId;
 	}
-	public void setPgmId(String pgmId) {
+	public void setPgmId(Integer pgmId) {
 		this.pgmId = pgmId;
 	}
 	public String getPgmCd() {
@@ -107,10 +113,10 @@ public class MetadatMstTbl extends BaseObject {
 	public void setPgmCd(String pgmCd) {
 		this.pgmCd = pgmCd;
 	}
-	public String getEpisNo() {
+	public Integer getEpisNo() {
 		return episNo;
 	}
-	public void setEpisNo(String episNo) {
+	public void setEpisNo(Integer episNo) {
 		this.episNo = episNo;
 	}
 	public String getTitle() {
@@ -353,10 +359,10 @@ public class MetadatMstTbl extends BaseObject {
 	public void setAwardHstr(String awardHstr) {
 		this.awardHstr = awardHstr;
 	}
-	public String getRpimgKfrmSeq() {
+	public Integer getRpimgKfrmSeq() {
 		return rpimgKfrmSeq;
 	}
-	public void setRpimgKfrmSeq(String rpimgKfrmSeq) {
+	public void setRpimgKfrmSeq(Integer rpimgKfrmSeq) {
 		this.rpimgKfrmSeq = rpimgKfrmSeq;
 	}
 	public String getTapeId() {
@@ -431,10 +437,10 @@ public class MetadatMstTbl extends BaseObject {
 	public void setMcuid(String mcuid) {
 		this.mcuid = mcuid;
 	}
-	public String getRpimgCtId() {
+	public Long getRpimgCtId() {
 		return rpimgCtId;
 	}
-	public void setRpimgCtId(String rpimgCtId) {
+	public void setRpimgCtId(Long rpimgCtId) {
 		this.rpimgCtId = rpimgCtId;
 	}
 	public String getDataStatCd() {
@@ -580,12 +586,6 @@ public class MetadatMstTbl extends BaseObject {
 	}
 	public void setErrorDt(String errorDt) {
 		this.errorDt = errorDt;
-	}
-	public String getGroupId() {
-		return groupId;
-	}
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
 	}
 	
 }

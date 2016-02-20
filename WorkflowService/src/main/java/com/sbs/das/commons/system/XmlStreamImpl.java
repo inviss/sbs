@@ -56,6 +56,8 @@ public class XmlStreamImpl implements XmlStream {
 		 * XML Parsing 할때 일반적으로 DomDriver를 사용하지만, XppDriver가 속도면에서 좀더 빠르단다.
 		 * alias명으로 '_' 언더바(underscore)가 존재하면 '__'로 두개가 출력이 된다. 치환을 해줘야할 필요가 있다.
 		 */
+		xstream = new XStream(new PureJavaReflectionProvider(), new XppDriver(new XmlFriendlyReplacer("__", "_")));
+		/*
 		xstream = new XStream(new PureJavaReflectionProvider(), new XppDriver(new XmlFriendlyReplacer("__", "_")) {
 			@Override
 			public HierarchicalStreamWriter createWriter(Writer out) {
@@ -64,7 +66,10 @@ public class XmlStreamImpl implements XmlStream {
                     Class<?> targetClass = null;  
                     @Override  
                     public void startNode(String name, @SuppressWarnings("rawtypes") Class clazz) {  
+                    	System.out.println("clazz====>"+clazz);
                         super.startNode(name, clazz);  
+                        System.out.println("name====>"+name);
+                        System.out.println("targetClass====>"+targetClass);
                         if(!name.equals("xml")){
                             cdata = needCDATA(targetClass, name);  
                         }else{  
@@ -83,6 +88,7 @@ public class XmlStreamImpl implements XmlStream {
 				};
 			}
 		});
+		*/
 		xstream.autodetectAnnotations(true);
 		
 		/** DAS Workflow에서 사용하는 Class를 모두 등록 **/
@@ -180,6 +186,7 @@ public class XmlStreamImpl implements XmlStream {
 	
 	private static boolean needCDATA(Class<?> targetClass, String fieldAlias){  
         boolean cdata = false;  
+        System.out.println("targetClass===>"+targetClass+", fieldAlias====>"+fieldAlias);
         //first, scan self  
         cdata = existsCDATA(targetClass, fieldAlias);  
         if(cdata) return cdata;  
@@ -193,9 +200,11 @@ public class XmlStreamImpl implements XmlStream {
         return false;  
     }
 	
-	private static boolean existsCDATA(Class<?> clazz, String fieldAlias){  
-        //scan fields  
-        Field[] fields = clazz.getDeclaredFields();  
+	private static boolean existsCDATA(Class<?> clazz, String fieldAlias){ 
+		System.out.println("class==========>"+clazz);
+        //scan fields
+        Field[] fields = clazz.getDeclaredFields();
+        System.out.println("field============>"+fields);
         for (Field field : fields) {  
             //1. exists XStreamCDATA  
             if(field.getAnnotation(XStreamCDATA.class) != null ){  

@@ -10,7 +10,8 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 public class Corner {
 	
 	// 코너명
-	@XStreamCDATA
+	//@XStreamCDATA
+	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("corner_nm")
 	private String cornerNm;
 	
@@ -25,7 +26,7 @@ public class Corner {
 	private Integer frameFnsSectNo;
 	
 	// 장면메타제목명
-	//@XStreamConverter(TextUTF8Converter.class)
+	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamCDATA
 	@XStreamAlias("sen_titles")
 	private String senTitles;

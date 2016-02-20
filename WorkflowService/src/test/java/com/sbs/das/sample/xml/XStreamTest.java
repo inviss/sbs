@@ -26,6 +26,8 @@ import com.sbs.das.commons.system.DivaConnectSerivce;
 import com.sbs.das.commons.system.XmlStream;
 import com.sbs.das.commons.utils.Utility;
 import com.sbs.das.dto.ContentInstTbl;
+import com.sbs.das.dto.ops.Data;
+import com.sbs.das.dto.ops.Metadata;
 import com.sbs.das.dto.xml.ArchiveError;
 import com.sbs.das.dto.xml.ArchiveResponse;
 import com.sbs.das.dto.xml.ArchiveStatus;
@@ -51,12 +53,13 @@ public class XStreamTest extends BaseConfig{
 
 	@Autowired
 	private XmlStream xmlStream;
+	//@Autowired
+	//private DivaConnectSerivce divaConnector;
+	//@Autowired
+	//private ContentInstMetaDao contentInstMetaDao;
 	@Autowired
-	private DivaConnectSerivce divaConnector;
-	@Autowired
-	private ContentInstMetaDao contentInstMetaDao;
-	@Autowired
-	private JaxWsProxyFactoryBean jaxWsProxyFactoryBean;
+	private JaxWsProxyFactoryBean nevigatorProxyFactory;
+	
 
 	@Ignore
 	@Test
@@ -268,7 +271,7 @@ public class XStreamTest extends BaseConfig{
 			String xml = xmlStream.toXML(das);
 			System.out.println(xml);
 			
-			Nevigator navigator = (Nevigator)jaxWsProxyFactoryBean.create();
+			Nevigator navigator = (Nevigator)nevigatorProxyFactory.create();
 			navigator.archiveService(xml);
 			
 		} catch (Exception e) {
@@ -276,7 +279,7 @@ public class XStreamTest extends BaseConfig{
 		}
 	}
 
-	
+/*
 	@Ignore
 	@Test
 	public void archiveRequest() {
@@ -325,7 +328,7 @@ public class XStreamTest extends BaseConfig{
 			e.printStackTrace();
 		}
 	}
-
+*/
 	private class UserFileFilter implements FileFilter {
 
 		private final String[] useFileExtensions = new String[] {"xml"};
@@ -444,6 +447,7 @@ public class XStreamTest extends BaseConfig{
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void downloadXmlTest() {
 		try {

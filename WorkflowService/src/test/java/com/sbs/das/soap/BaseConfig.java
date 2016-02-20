@@ -8,8 +8,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { 
-		"classpath:/com/sbs/das/soap/applicationContext.xml",
-		"classpath:/com/sbs/das/soap/applicationContext-cxf.xml"
+		"classpath:/spring/applicationContext-bean.xml",
+		"classpath:/spring/applicationContext-dao.xml",
+		"classpath:/spring/applicationContext-cxf.xml"
 })
 public class BaseConfig {
 	@Autowired
