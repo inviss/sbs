@@ -7,9 +7,9 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 @XStreamAlias("pgm")
 public class Program {
 
-	// DAS프로그램ID
-	@XStreamAlias("das_pgm_id")
-	private Integer dasPgmId;
+	// DAS프로그램 코드
+	@XStreamAlias("das_pgm_cd")
+	private String dasPgmCd;
 
 	// 프로그램제목
 	@XStreamConverter(TextUTF8Converter.class)
@@ -110,12 +110,12 @@ public class Program {
 		this.deptNm = deptNm;
 	}
 
-	public Integer getDasPgmId() {
-		return dasPgmId;
+	public String getDasPgmCd() {
+		return dasPgmCd;
 	}
 
-	public void setDasPgmId(Integer dasPgmId) {
-		this.dasPgmId = dasPgmId;
+	public void setDasPgmCd(String dasPgmCd) {
+		this.dasPgmCd = dasPgmCd;
 	}
 
 	public String getPgmTitle() {

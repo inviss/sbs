@@ -14,10 +14,9 @@ public class Metadata {
 	@XStreamAlias("das_master_id")
 	private Long dasMasterId;
 
-	// 프로그램ID
-	@XStreamConverter(IntegerConverter.class)
-	@XStreamAlias("das_pgm_id")
-	private Integer dasPgmId;
+	// 프로그램 코드
+	@XStreamAlias("das_pgm_cd")
+	private String dasPgmCd;
 
 	// 회차
 	@XStreamConverter(IntegerConverter.class)
@@ -75,7 +74,7 @@ public class Metadata {
 	// 연출자명
 	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("drt_prsn_nm")
-	private String drt_prsnNm;
+	private String drtPrsnNm;
 
 	// 프로듀서명
 	@XStreamConverter(TextUTF8Converter.class)
@@ -222,12 +221,12 @@ public class Metadata {
 		this.dasMasterId = dasMasterId;
 	}
 
-	public Integer getDasPgmId() {
-		return dasPgmId;
+	public String getDasPgmCd() {
+		return dasPgmCd;
 	}
 
-	public void setDasPgmId(Integer dasPgmId) {
-		this.dasPgmId = dasPgmId;
+	public void setDasPgmCd(String dasPgmCd) {
+		this.dasPgmCd = dasPgmCd;
 	}
 
 	public Integer getPgmTms() {
@@ -326,12 +325,12 @@ public class Metadata {
 		this.smallCtgCd = smallCtgCd;
 	}
 
-	public String getDrt_prsnNm() {
-		return drt_prsnNm;
+	public String getDrtPrsnNm() {
+		return drtPrsnNm;
 	}
 
-	public void setDrt_prsnNm(String drt_prsnNm) {
-		this.drt_prsnNm = drt_prsnNm;
+	public void setDrtPrsnNm(String drtPrsnNm) {
+		this.drtPrsnNm = drtPrsnNm;
 	}
 
 	public String getProducerNm() {

@@ -30,20 +30,25 @@
     
     <select id="findPgmInfo" resultMap="PgmInfoMap" parameterClass="map">
 	     SELECT  
-             *
-         FROM PGM_INFO_TBL
+             pgm1.*
+         FROM PGM_INFO_TBL pgm1
+			INNER JOIN (
+			<![CDATA[
+				SELECT MAX(pgm_id) PGM_ID FROM PGM_INFO_TBL WHERE RTRIM(VALUE(ctgr_l_cd, '')) <> '' AND use_yn = 'Y' GROUP BY pgm_cd
+			]]>
+			) pgm2 on pgm1.PGM_ID = pgm2.PGM_ID
          <dynamic prepend="WHERE">
 	         <isNotEmpty prepend="AND" property="pgmId">
-		         PGM_ID = #pgmId#
+		         pgm1.PGM_ID = #pgmId#
 	         </isNotEmpty>
 	         <isNotEmpty prepend="AND" property="pgmCd">
-		         PGM_CD = #pgmCd#
+		         pgm1.PGM_CD = #pgmCd#
 	         </isNotEmpty>
 	         <isNotEmpty prepend="AND" property="parentsCd">
-		         PARENTS_CD = #parentsCd#
+		         pgm1.PARENTS_CD = #parentsCd#
 	         </isNotEmpty>
 	         <isNotEmpty prepend="AND" property="pgmNm">
-		         PGM_NM like #pgmNm#
+		         pgm1.PGM_NM like #pgmNm#
 	         </isNotEmpty>
          </dynamic>
          <isEqual property="wait" compareValue="true">
@@ -53,34 +58,39 @@
    
 	<select id="getPgmInfo" resultMap="PgmInfoMap" parameterClass="map">
 		SELECT 
-			PGM_ID,
-			PGM_CD,
-			MEDIA_CD,
-			CHAN_CD,
-			PGM_NM,
-			CTGR_L_CD,
-			CTGR_M_CD,
-			CTGR_S_CD,
-			BRD_BGN_DD,
-			BRD_END_DD,
-			PRD_DEPT_NM,
-			SCHD_PGM_NM,
-			AWARD_HSTR,
-			PILOT_YN,
-			REGRID,
-			REG_DT,
-			MODRID,
-			MOD_DT,
-			MOD_END_YN,
-			USE_YN,
-			PARENTS_CD
-		FROM PGM_INFO_TBL
+			pgm1.PGM_ID,
+			pgm1.PGM_CD,
+			pgm1.MEDIA_CD,
+			pgm1.CHAN_CD,
+			pgm1.PGM_NM,
+			pgm1.CTGR_L_CD,
+			pgm1.CTGR_M_CD,
+			pgm1.CTGR_S_CD,
+			pgm1.BRD_BGN_DD,
+			pgm1.BRD_END_DD,
+			pgm1.PRD_DEPT_NM,
+			pgm1.SCHD_PGM_NM,
+			pgm1.AWARD_HSTR,
+			pgm1.PILOT_YN,
+			pgm1.REGRID,
+			pgm1.REG_DT,
+			pgm1.MODRID,
+			pgm1.MOD_DT,
+			pgm1.MOD_END_YN,
+			pgm1.USE_YN,
+			pgm1.PARENTS_CD
+		FROM PGM_INFO_TBL pgm1
+			INNER JOIN (
+			<![CDATA[
+				SELECT MAX(pgm_id) PGM_ID FROM PGM_INFO_TBL WHERE RTRIM(VALUE(ctgr_l_cd, '')) <> '' AND use_yn = 'Y' GROUP BY pgm_cd
+			]]>
+			) pgm2 on pgm1.PGM_ID = pgm2.PGM_ID
          <dynamic prepend="WHERE">
          	 <isNotEmpty prepend="AND" property="pgmId">
-		         PGM_ID = #pgmId#
+		         pgm1.PGM_ID = #pgmId#
 	         </isNotEmpty>
 	         <isNotEmpty prepend="AND" property="pgmCd">
-		         PGM_CD = #pgmCd#
+		         pgm1.PGM_CD = #pgmCd#
 	         </isNotEmpty>
 		 </dynamic>
          <isEqual property="wait" compareValue="true">

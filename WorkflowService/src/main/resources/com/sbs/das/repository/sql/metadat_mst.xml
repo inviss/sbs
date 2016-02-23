@@ -91,7 +91,6 @@
     
     <resultMap id="MetadatMstFindMap" class="MetadatMst">
 		<result property="masterId" column="MASTER_ID" />
-		<result property="pgmId" column="PGM_ID" />
 		<result property="pgmCd" column="PGM_CD" />
 		<result property="episNo" column="EPIS_NO" />
 		<result property="title" column="TITLE" />
@@ -104,7 +103,7 @@
     
     <select id="findMetadatMst" resultMap="MetadatMstFindMap" parameterClass="map">
 	     SELECT
-			mst.MASTER_ID, mst.CHENNEL_CD, value(mst.PGM_ID, 0) AS pgm_id, VALUE(mst.EPIS_NO, 0) AS epis_no, mst.BRD_DD, 
+			mst.MASTER_ID, mst.CHENNEL_CD, value(mst.PGM_CD, '') AS pgm_cd, VALUE(mst.EPIS_NO, 0) AS epis_no, mst.BRD_DD, 
 			RTRIM(VALUE(mst.BRD_BGN_HMS, '0')) as BRD_BGN_HMS, RTRIM(VALUE(mst.BRD_END_HMS, '0')) as BRD_END_HMS,
 		    case WHEN mst.CTGR_L_CD = '200' AND VALUE(pgm.PGM_ID, 0) > 0 THEN pgm.PGM_NM ELSE mst.TITLE END title, mst.PGM_CD, ct.DURATION
 		 FROM METADAT_MST_TBL mst

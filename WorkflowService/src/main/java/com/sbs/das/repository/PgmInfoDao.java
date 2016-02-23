@@ -12,5 +12,6 @@ public interface PgmInfoDao {
 	public List<PgmInfoTbl> findPgmInfo(Map<String, Object> params) throws DaoNonRollbackException;
 	public PgmInfoTbl getPgmInfo(Map<String, Object> params) throws DaoNonRollbackException;
 	public void updatePgmInfo(PgmInfoTbl pgmInfoTbl) throws DaoRollbackException;
+	public void insertPgmInfo(PgmInfoTbl pgmInfoTbl) throws DaoRollbackException;
 	
 }

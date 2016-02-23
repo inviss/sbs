@@ -105,7 +105,7 @@ public class SoapTest extends BaseConfig{
 			for(MetadatMstTbl metadatMstTbl : metadatMstTbls) {
 				Metadata metadata = new Metadata();
 				metadata.setDasMasterId(metadatMstTbl.getMasterId());
-				metadata.setDasPgmId(metadatMstTbl.getPgmId());
+				metadata.setDasPgmCd(metadatMstTbl.getPgmCd());
 				metadata.setChId(metadatMstTbl.getChennelCd());
 				metadata.setPgmTms(metadatMstTbl.getEpisNo());
 				metadata.setPgmTmsTitle(metadatMstTbl.getTitle());
@@ -117,7 +117,7 @@ public class SoapTest extends BaseConfig{
 				data.addMetadatas(metadata);
 			}
 			
-			System.out.println(xmlStream.toXML(data));
+			System.out.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"+xmlStream.toXML(data));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -134,7 +134,7 @@ public class SoapTest extends BaseConfig{
 			Data data = new Data();
 			Metadata metadata = new Metadata();
 			metadata.setDasMasterId(234234234L);
-			metadata.setDasPgmId(234234234);
+			metadata.setDasPgmCd("XX1234");
 			metadata.setChId("dsfsdfsdf");
 			metadata.setPgmTms(234234);
 			metadata.setPgmTmsTitle("dsfsdfsdf");
