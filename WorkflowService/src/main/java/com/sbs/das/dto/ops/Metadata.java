@@ -2,6 +2,7 @@ package com.sbs.das.dto.ops;
 
 import com.sbs.das.commons.convertor.IntegerConverter;
 import com.sbs.das.commons.convertor.LongConverter;
+import com.sbs.das.commons.convertor.TextConverter;
 import com.sbs.das.commons.convertor.TextUTF8Converter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -15,6 +16,7 @@ public class Metadata {
 	private Long dasMasterId;
 
 	// 프로그램 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("das_pgm_cd")
 	private String dasPgmCd;
 
@@ -30,6 +32,7 @@ public class Metadata {
 	private String pgmTmsTitle;
 
 	// 방송일
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_day")
 	private String bradDay;
 
@@ -39,18 +42,22 @@ public class Metadata {
 	private Long bradLen;
 
 	// 방송 시작 시간
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_st_time")
 	private String bradStTime;
 
 	// 방송 종료 시간
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_fns_time")
 	private String bradFnsTime;
 
 	// 사용등급
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("use_clas")
 	private String useClas;
 
 	// 프로그램 권리
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("pgm_rght")
 	private String pgmRght;
 
@@ -60,14 +67,17 @@ public class Metadata {
 	private String pgmTmsSynop;
 
 	// 대분류 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("large_ctg_cd")
 	private String largeCtgCd;
 
 	// 중분류 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("mid_ctg_cd")
 	private String midCtgCd;
 
 	// 소분류 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("small_ctg_cd")
 	private String smallCtgCd;
 
@@ -87,10 +97,12 @@ public class Metadata {
 	private String wrtrNm;
 
 	// 제작구분코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("mnfc_div_cd")
 	private String mnfcDivCd;
 
 	// 제작부서코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("mnfc_dept_cd")
 	private String mnfcDeptCd;
 
@@ -115,6 +127,7 @@ public class Metadata {
 	private String castDirtNm;
 
 	// 촬영일
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("ptgh_day")
 	private String ptghDay;
 
@@ -129,6 +142,7 @@ public class Metadata {
 	private String cpyrtPrsnNm;
 
 	// 저작권형태코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("cpyrt_shap_cd")
 	private String cpyrtShapCd;
 
@@ -138,10 +152,12 @@ public class Metadata {
 	private String cpyrtShapDesc;
 
 	// 시청등급코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("viwr_clas_cd")
 	private String viwrClasCd;
 
 	// 심의결과 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("dlb_reslt_cd")
 	private String dlbResltCd;
 
@@ -165,10 +181,12 @@ public class Metadata {
 	private String musicInfo;
 
 	// 회사코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("cmpn_cd")
 	private String cmpnCd;
 
 	// 국가 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("cntry_cd")
 	private String cntryCd;
 
@@ -178,10 +196,12 @@ public class Metadata {
 	private String artist;
 
 	// 채널ID
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("ch_id")
 	private String chId;
 
 	// 재방송
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("agn_brad")
 	private String agnBrad;
 
@@ -201,6 +221,7 @@ public class Metadata {
 	private String frmtnNm;
 
 	// 검수코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("actc_cd")
 	private String actcCd;
 

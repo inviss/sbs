@@ -46,44 +46,4 @@ public class TextConverter implements Converter {
 		return cls.equals(String.class); 
 	}
 
-	private String escapeXml(String value) {
-		// & has to be checked and replaced before others
-		if (value.matches(".*&.*")) {
-			value = value.replaceAll("&", "&amp;");
-		}
-		if (value.matches(".*'.*")) {
-			value = value.replaceAll("\''", "&apos;");
-		}
-		if (value.matches(".*<.*")) {
-			value = value.replaceAll("<", "&lt;");
-		}
-		if (value.matches(".*>.*")) {
-			value = value.replaceAll(">", "&gt;");
-		}
-		if (value.matches(".*\".*")) {
-			value = value.replaceAll("'", "&quot;");
-		}
-		return value;
-	}
-
-	private String unescapeXml(String value) {
-		// & has to be checked and replaced before others
-		if (value.matches(".*&amp;.*")) {
-			value = value.replaceAll("&amp;", "&");
-		}
-		if (value.matches(".*&apos;.*")) {
-			value = value.replaceAll("&apos;", "\'");
-		}
-		if (value.matches(".*&lt;.*")) {
-			value = value.replaceAll("&lt;", "<");
-		}
-		if (value.matches(".*&gt;.*")) {
-			value = value.replaceAll("&gt;", ">");
-		}
-		if (value.matches(".*&quot;.*")) {
-			value = value.replaceAll("&quot;", "\"");
-		}
-		return value;
-	}
-
 }

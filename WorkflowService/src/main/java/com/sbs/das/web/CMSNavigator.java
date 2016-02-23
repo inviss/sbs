@@ -14,7 +14,6 @@ import org.springframework.context.MessageSource;
 import com.sbs.das.commons.exception.ServiceException;
 import com.sbs.das.commons.system.XmlStream;
 import com.sbs.das.dto.MetadatMstTbl;
-import com.sbs.das.dto.PgmInfoTbl;
 import com.sbs.das.dto.ops.Data;
 import com.sbs.das.dto.ops.Metadata;
 import com.sbs.das.dto.xml.Das;

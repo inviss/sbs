@@ -1,5 +1,6 @@
 package com.sbs.das.dto.ops;
 
+import com.sbs.das.commons.convertor.TextConverter;
 import com.sbs.das.commons.convertor.TextUTF8Converter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -27,50 +28,62 @@ public class Program {
 	private String castNm;
 
 	// 방송요일
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_dow")
 	private String bradDow;
 
 	// 대표 프로그램 여부
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("rep_pgm_yn")
 	private String repPgmYn;
 
 	// 홈페이이지 주소
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("hpage_adr")
 	private String hpageAdr;
 
 	// 방송 시작 일자
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_st_date")
 	private String bradStDate;
 
 	// 방송 종료 일자
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_fns_date")
 	private String bradFnsDate;
 
 	// 방송 완료 여부
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_cmplt_yn")
 	private String bradCmpltYn;
 
 	// 프로그램 권리
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("pgm_rght")
 	private String pgmRght;
 
 	// 미디어 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("media_cd")
 	private String mediaCd;
 
 	// 파일럿 여부
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("pilot_yn")
 	private String pilotYn;
 
 	// 대분류 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("large_ctg_cd")
 	private String largeCtgCd;
 
 	// 중분류 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("mid_ctg_cd")
 	private String midCtgCd;
 
 	// 소분류 코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("small_ctg_cd")
 	private String smallCtgCd;
 
@@ -94,10 +107,12 @@ public class Program {
 	private String awardTxn;
 
 	// 검수코드
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("actc_cd")
 	private String actcCd;
 
 	// 제작부서명
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("dept_nm")
 	private String deptNm;
 

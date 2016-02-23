@@ -32,7 +32,9 @@ public class PgmInfoServiceImpl implements PgmInfoService {
 	}
 	
 	public void savePgmInfo(Program pgm) throws ServiceException {
+		
 		PgmInfoTbl pgmInfo = getPgmInfo(pgm.getDasPgmCd());
+		
 		if(pgmInfo == null) {
 			pgmInfo = new PgmInfoTbl();
 			pgmInfo.setPgmCd(pgm.getDasPgmCd());
@@ -46,7 +48,7 @@ public class PgmInfoServiceImpl implements PgmInfoService {
 			pgmInfo.setSchdPgmNm(pgm.getFrmtnNm());
 			pgmInfo.setPilotYn(pgm.getPilotYn());
 			pgmInfo.setAwardHstr(pgm.getAwardTxn());
-			pgmInfo.setUseYn(pgm.getUseYn());
+			pgmInfo.setUseYn(StringUtils.defaultIfBlank(pgm.getUseYn(), "Y"));
 			
 			pgmInfoDao.insertPgmInfo(pgmInfo);
 		} else {
