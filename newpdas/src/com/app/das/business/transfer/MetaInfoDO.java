@@ -10,6 +10,10 @@ import com.app.das.business.constants.Constants;
  */
 public class MetaInfoDO extends DTO 
 {
+	/**
+	 * 수정가능여부
+	 */
+	private String canModify = Constants.BLANK;
 	/** 
 	 * 마스터 ID    
 	 */
@@ -175,6 +179,12 @@ public class MetaInfoDO extends DTO
 	
 	
 	
+	public String getCanModify() {
+		return canModify;
+	}
+	public void setCanModify(String canModify) {
+		this.canModify = canModify;
+	}
 	public long getTotal_count() {
 		return total_count;
 	}
