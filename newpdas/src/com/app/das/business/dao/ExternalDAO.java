@@ -374,6 +374,7 @@ public class ExternalDAO extends AbstractDAO
 			if(metaInfoDO.getCount() > 0) {
 				while(rs.next()) {
 					MetaInfoDO item = new MetaInfoDO();
+					item.setCanModify(rs.getString("CAN_MODIFY"));
 					item.setMasterId(rs.getLong("MASTER_ID"));
 					item.setTape_item_id(rs.getString("tape_item_id"));
 					item.setMcuid(rs.getString("mcuid"));
@@ -25528,20 +25529,21 @@ public class ExternalDAO extends AbstractDAO
 	}
 
 
-
-
 	private CartContDO getIdForMasterId(long master_id) throws Exception
 	{
 		StringBuffer buf = new StringBuffer();
-		buf.append("\n select distinct");
-		buf.append("\n 	inst.ct_id, inst.cti_id ");
-		buf.append("\n from das.contents_inst_tbl inst ");
-		buf.append("\n inner join das.contents_mapp_tbl map on map.ct_id = inst.ct_id and inst.cti_fmt like '%10%'");
-		buf.append("\n inner join das.CONTENTS_TBL CON on map.ct_id = CON.CT_ID and con.ct_typ ='003' ");
-
-		buf.append("\n where map.master_id = ?	 ");
-
-		buf.append("\n WITH UR	 ");
+		buf.append("\nSELECT                                                                                    ");
+		buf.append("\n	ct.CT_ID, inst.CTI_ID                                                                   ");
+		buf.append("\nFROM METADAT_MST_TBL mst                                                                  ");
+		buf.append("\n	inner JOIN (                                                                            ");
+		buf.append("\n    	SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL                                      ");
+		buf.append("\n      WHERE RTRIM(value(del_dd, '')) = '' AND RTRIM(VALUE(del_yn, 'N')) = 'N'             ");
+		buf.append("\n      GROUP BY master_id, ct_id                                                           ");
+		buf.append("\n  ) mapp ON mst.MASTER_ID = mapp.MASTER_ID                                                ");
+		buf.append("\n  inner JOIN CONTENTS_TBL ct ON mapp.CT_ID = ct.CT_ID                                     ");
+		buf.append("\n  inner JOIN CONTENTS_INST_TBL inst ON ct.CT_ID = inst.CT_ID AND inst.CTI_FMT LIKE '1%'   ");
+		buf.append("\nWHERE ct.CT_TYP = '003' AND mst.MASTER_ID = ?												");
+		buf.append("\nWITH UR	 ");
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -25577,22 +25579,12 @@ public class ExternalDAO extends AbstractDAO
 			cart.setGroup_ct_ids(groupct_ids);
 			cart.setGroup_cti_ids(groupcti_ids);
 			return cart;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
-
-
-
-
 
 	private CartContDO getIdForCtId(long ct_id) throws Exception
 	{
@@ -29359,7 +29351,7 @@ public class ExternalDAO extends AbstractDAO
 		buf.append("\n FROM CONTENTS_MAPP_TBL                                                            ");
 		buf.append("\n WHERE master_id IN (                                                              ");
 		buf.append("\n 		SELECT master_id FROM CONTENTS_MAPP_TBL                                      ");
-		buf.append("\n  	WHERE ct_id = ? AND (VALUE(del_dd, '') = '' OR VALUE(del_yn, 'N') = 'N')     ");
+		buf.append("\n  	WHERE ct_id = ? AND (VALUE(del_dd, '') = '' AND VALUE(del_yn, 'N') = 'N')     ");
 		buf.append("\n  	GROUP BY master_id                                                           ");
 		buf.append("\n )                                                                                 ");
 		buf.append("\n GROUP BY ct_id                                                                    ");

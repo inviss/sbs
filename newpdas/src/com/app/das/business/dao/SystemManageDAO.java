@@ -11462,7 +11462,7 @@ public class SystemManageDAO extends AbstractDAO
 			logger.debug("meida_id: "+pgmDO.getMedia_id());
 
 			buf.append("\n select distinct ct_id, master_id from contents_mapp_tbl where ct_id  = (select ct_id from contents_tbl where media_id = ?) ");
-			buf2.append("\n update metadat_mst_tbl set del_dd ='99991231',use_yn = 'N' ,group_id=-1 where MASTER_ID =? ");
+			buf2.append("\n update metadat_mst_tbl set del_dd =?, use_yn = 'N' , group_id=-1 where MASTER_ID =? ");
 			buf3.append("\n update contents_mapp_tbl set del_dd = ? where  CT_ID =? ");
 			buf4.append("\n update contents_tbl set media_id = 'delete' where  CT_ID =? ");
 
@@ -11486,6 +11486,7 @@ public class SystemManageDAO extends AbstractDAO
 				stmt = con.prepareStatement(buf2.toString());
 
 				index=0;
+				stmt.setString(++index	, CalendarUtil.getDateTime("yyyyMMdd"));
 				stmt.setLong(++index	, item.getMaster_id());
 				stmt.executeUpdate();
 
@@ -11493,9 +11494,8 @@ public class SystemManageDAO extends AbstractDAO
 				stmt.close();
 				stmt = con.prepareStatement(buf3.toString());
 
-				String dateString = CalendarUtil.getDateTime("yyyyMMdd");
 				index=0;
-				stmt.setString(++index	, dateString);
+				stmt.setString(++index	, CalendarUtil.getDateTime("yyyyMMdd"));
 				stmt.setLong(++index	, item.getCt_id());
 				stmt.executeUpdate();
 
