@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sbs.das.commons.convertor.LongConverter;
+import com.sbs.das.commons.convertor.TextConverter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
@@ -25,18 +26,32 @@ public class Data {
 	private Long mainDuration;
 	
 	// 방송일
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_day")
 	private String bradDay;
 	
 	// 방송 시작시간
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_st_time")
 	private String bradStTime;
 	
 	// 방송 종료시간
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("brad_fns_time")
 	private String bradFnsTime;
+	
+	// 등록자
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("regrid")
+	private String regrid;
 
 	
+	public String getRegrid() {
+		return regrid;
+	}
+	public void setRegrid(String regrid) {
+		this.regrid = regrid;
+	}
 	public String getBradDay() {
 		return bradDay;
 	}
