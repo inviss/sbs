@@ -4406,6 +4406,7 @@ public class ExternalStatement
 			buf.append("\n 			ELSE 0                                                                                                            ");
 			buf.append("\n 		END AS sum_brd_leng                                                                                                             ");
 		} else {
+			buf.append("\n		CASE WHEN instr(req_cd, 'OPS') > 0 THEN 'Y' ELSE 'N' END AS can_modify,                                                                                                                                ");
 			buf.append("\n		mst.master_id,                                                                                                                                ");
 			buf.append("\n 		mst.tape_item_id,                                                                                                                             ");
 			buf.append("\n 		mst.mcuid,                                                                                                                                    ");
@@ -7786,17 +7787,19 @@ public class ExternalStatement
 	public static final String selectGroupForMaster(long master_id) 
 	{
 		StringBuffer buf = new StringBuffer();
-		buf.append("\n select ");
-		buf.append("\n MAP.ct_id ");
-		buf.append("\n ,VALUE(CODE.DESC,'') AS CT_NM ");
-		buf.append("\n ,value(rel.child_master_id,0) as rel_master_id  ");
-
-		buf.append("\n from (SELECT CT_ID,MASTER_ID FROM contents_mapp_tbl GROUP BY CT_ID,MASTER_ID) MAP  ");
-		buf.append("\n INNER JOIN CONTENTS_TBL CON ON CON.CT_ID = MAP.CT_ID ");
-		buf.append("\n left outer join  relation_master rel ON parent_master_id = "+master_id);
-		buf.append("\n LEFT OUTER JOIN CODE_TBL CODE ON CODE.CLF_CD='A002' AND CODE.SCL_CD= CON.CT_TYP ");
-		buf.append("\n where MAP.master_id ="+master_id);
-		buf.append("\n 	order by code.rmk_2 asc ");
+		buf.append("\nSELECT                                                                          ");
+		buf.append("\n	ct.CT_ID, CODE.DESC AS ct_nm, VALUE(rel.CHILD_MASTER_ID, 0) AS rel_master_id  ");
+		buf.append("\nFROM METADAT_MST_TBL mst                                                        ");
+		buf.append("\n	inner JOIN (                                                                  ");
+		buf.append("\n    	SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL                            ");
+		buf.append("\n    	WHERE VALUE(del_dd, '') = '' AND VALUE(del_yn, 'N') = 'N'                 ");
+		buf.append("\n        GROUP BY master_id, ct_id                                               ");
+		buf.append("\n    ) mapp ON mst.MASTER_ID = mapp.MASTER_ID                                    ");
+		buf.append("\n    inner JOIN CONTENTS_TBL ct ON mapp.CT_ID = ct.CT_ID                         ");
+		buf.append("\n    left outer JOIN RELATION_MASTER rel ON mst.MASTER_ID = rel.PARENT_MASTER_ID ");
+		buf.append("\n    inner JOIN CODE_TBL code ON code.CLF_CD='A002' AND code.SCL_CD= ct.CT_TYP   ");
+		buf.append("\nWHERE mst.MASTER_ID = "+master_id+"                                             ");
+		buf.append("\nORDER BY code.RMK_2 asc														  ");
 
 		return buf.toString();	
 	}
