@@ -35,6 +35,20 @@ public class Corner {
 	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("sen_sbsts")
 	private String senSbsts;
+	
+	// 코너 대표이미지
+	@XStreamConverter(IntegerConverter.class)
+	@XStreamAlias("rpimg_kfrm_seq")
+	private Integer rpimgKfrmSeq;
+
+	
+	public Integer getRpimgKfrmSeq() {
+		return rpimgKfrmSeq;
+	}
+
+	public void setRpimgKfrmSeq(Integer rpimgKfrmSeq) {
+		this.rpimgKfrmSeq = rpimgKfrmSeq;
+	}
 
 	public String getCornerNm() {
 		return cornerNm;
