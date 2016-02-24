@@ -19,6 +19,10 @@ public class MetaInfoDOXML extends DOXml {
 	 * xml 해더
 	 */
 	private String XML_NODE_HEAD = "MetaInfo";
+	/**
+	 * 수정가능여부
+	 */
+	private String XML_NODE_MODIFY = "CAN_MODIFY";
 	/** 
 	 * 마스터 ID    
 	 */
@@ -284,6 +288,7 @@ public class MetaInfoDOXML extends DOXml {
 		StringBuffer buf = new StringBuffer();
 		
 	    buf.append( "<" + XML_NODE_HEAD + ">");
+	    buf.append( "<" + XML_NODE_MODIFY + ">" + infoDO.getCanModify() + "</"  + XML_NODE_MODIFY + ">");
 		buf.append( "<" + XML_NODE_MASTERID + ">" + infoDO.getMasterId() + "</"  + XML_NODE_MASTERID + ">");
 		buf.append( "<" + XML_NODE_DATASTATUSCODE + ">" + infoDO.getDataStatCd() + "</"  + XML_NODE_DATASTATUSCODE + ">");
 		buf.append( "<" + XML_NODE_DESCRIPTION + ">" + CommonUtl.transXmlText(infoDO.getDesc()) + "</"  + XML_NODE_DESCRIPTION + ">");
