@@ -4588,7 +4588,7 @@ public class ArchiveRequestTest extends BaseConfig {
 
 
 	@Transactional
-	//@Ignore
+	@Ignore
 	@Test
 	public void checkStorage() {
 		String xml ="<?xml version=\"1.0\" encoding=\"utf-8\"?><das><info><disk_path /></info></das>";
@@ -4987,6 +4987,15 @@ public class ArchiveRequestTest extends BaseConfig {
 			}
 			System.out.println(masterTbl.getRistClfCd());
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void insertKwgKlog() {
+		try {
+			deleteContentService.updateContentPathBlank(303L);
+		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
 	}
