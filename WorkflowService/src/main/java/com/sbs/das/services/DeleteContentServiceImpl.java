@@ -194,12 +194,15 @@ public class DeleteContentServiceImpl implements DeleteContentService {
 		
 		// 2013.03.11 영상 삭제후 검색엔진 VIEW 테이블에 정보등록
 		// 검색엔진에 masterId 업데이트(DTL)
-		Long masterId = contentInstMetaDao.getMasterIdOnly(ctiId);
+		ContentInstTbl contentInstTbl2 = contentInstMetaDao.getMasterObj(ctiId);
 		if(logger.isDebugEnabled()) {
-			logger.debug("update masterId: "+masterId);
+			logger.debug("masterId: "+contentInstTbl2.getMasterId()+", use_yn: "+contentInstTbl2.getUseYn());
 		}
-		if(masterId != null) {
-			insertKwKlog(masterId);
+		if(contentInstTbl2.getMasterId() != null) {
+			if(StringUtils.defaultIfBlank(contentInstTbl2.getUseYn(), "Y").equals("N"))
+				deleteKwKlog(contentInstTbl2.getMasterId());
+			else
+				insertKwKlog(contentInstTbl2.getMasterId());
 		}
 	}
 
