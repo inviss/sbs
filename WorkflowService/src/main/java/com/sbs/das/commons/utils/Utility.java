@@ -623,5 +623,28 @@ public class Utility {
 		imageOutput.write(buffer, 0, buffer.length);
 		imageOutput.close();
 	}
+	
+	/**
+	 * 근차값 조회
+	 * @param frames
+	 * @param point
+	 * @return
+	 */
+	public static int getNearValue(int[] frames, int point) {
+		int near = 0;
+		int diff = 0; // 차이값
+		int diffMin = Integer.MAX_VALUE;
+		
+		if(frames != null) {
+			for(int i=0; i<frames.length; i++) {
+				diff = point - frames[i];
+				if(diffMin > Math.abs(diff)) {
+					diffMin = Math.abs(diff);
+					near = frames[i];
+				}
+			}
+		}
+		return near;
+	}
 
 }
