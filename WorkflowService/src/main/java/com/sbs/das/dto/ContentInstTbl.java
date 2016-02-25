@@ -53,18 +53,23 @@ public class ContentInstTbl extends BaseObject {
 	String  outSystemId;		// VARCHAR(16)			타 시스템 ID
 	String  catalogYn;        //CART(1)               카탈로깅 여부
 	
+	/* 추가 2016-02-24 */
+	Long 	masterId;
+	String 	useYn;
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public Long getMasterId() {
+		return masterId;
+	}
+	public void setMasterId(Long masterId) {
+		this.masterId = masterId;
+	}
+	public String getUseYn() {
+		return useYn;
+	}
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
+	}
 	public String getCatalogYn() {
 		return catalogYn;
 	}
