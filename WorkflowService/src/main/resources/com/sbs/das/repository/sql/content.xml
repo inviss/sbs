@@ -39,6 +39,12 @@
 		<result property="errorCont" column="ERROR_CONT" />
     </resultMap>
     
+    <resultMap id="Content2Map" class="Content">
+		<result property="ctId" column="CT_ID" />
+		<result property="ctLeng" column="CT_LENG" />
+		<result property="duration" column="DURATION" />
+    </resultMap>
+    
     <parameterMap id="outProcedureMap" class="java.util.Map">
     	<parameter property="mediaId" javaType="java.lang.String" jdbcType="VARCHAR" mode="OUT" />
   	</parameterMap>
@@ -58,6 +64,18 @@
          <isEqual property="wait" compareValue="true">
          	with UR
          </isEqual>
+    </select>
+    
+    <select id="getContentMapObj" resultMap="Content2Map" parameterClass="long">
+    	SELECT
+			ct.CT_ID, ct.DURATION, ct.CT_LENG
+		FROM CONTENTS_TBL ct
+			inner JOIN (
+		    	SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL
+		        WHERE RTRIM(VALUE(del_dd, '')) = '' AND RTRIM(VALUE(del_yn, 'N')) = 'N'
+		        GROUP BY master_id, ct_id
+		    ) mapp ON ct.CT_ID = mapp.CT_ID
+		WHERE mapp.MASTER_ID = #masterId#
     </select>
     
     <select id="getContentCount" resultClass="Integer" parameterClass="map">

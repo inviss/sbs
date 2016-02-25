@@ -155,6 +155,18 @@
 		FETCH FIRST 1 ROWS only
     </select>
     
+    <select id="getMasterObj" resultClass="ContentInst" parameterClass="long">
+    	SELECT 
+    		mst.MASTER_ID as masterId, mst.USE_YN as useYn
+    	FROM CONTENTS_INST_TBL inst
+			inner JOIN CONTENTS_TBL ct ON inst.CT_ID = ct.CT_ID
+			inner JOIN CONTENTS_MAPP_TBL MAP ON ct.CT_ID = map.CT_ID
+			inner join METADAT_MST_TBL mst on MAP.MASTER_ID = mst.MASTER_ID
+		WHERE inst.CTI_ID = #ctiId#
+		GROUP BY mst.MASTER_ID, mst.USE_YN
+		FETCH FIRST 1 ROWS only
+    </select>
+    
     <select id="getContentInstNewId" resultClass="long">
     	SELECT NEXTVAL FOR SEQ_CTI_ID AS SEQUENCE FROM  SYSIBM.SYSDUMMY1
     </select>
