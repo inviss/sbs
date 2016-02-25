@@ -17,6 +17,7 @@ import com.sbs.das.dto.MetadatMstTbl;
 import com.sbs.das.dto.ops.Data;
 import com.sbs.das.dto.ops.Metadata;
 import com.sbs.das.dto.xml.Das;
+import com.sbs.das.services.CornerService;
 import com.sbs.das.services.MetadataService;
 import com.sbs.das.services.PgmInfoService;
 
@@ -35,6 +36,8 @@ public class CMSNavigator implements DasCMS {
 	private MetadataService metadataService;
 	@Autowired
 	private PgmInfoService pgmInfoService;
+	@Autowired
+	private CornerService cornerService;
 
 
 	public void savePgmInfo(String xml) throws RemoteException {
@@ -158,6 +161,17 @@ public class CMSNavigator implements DasCMS {
 			logger.error("updateCornerInfo xml parsing error!!", e);
 			throw new RemoteException("updateCornerInfo xml parsing error", e);
 		}
+		
+		if(data == null || (data.getDasMasterId() == null || data.getDasMasterId() <= 0L)) {
+			throw new RemoteException("Primary Key is null or wrong value!");
+		}
+		
+		try {
+			cornerService.updateCorners(data);
+		} catch (Exception e) {
+			throw new RemoteException("Corners Info Update Error", e);
+		}
+		
 	}
 
 	public long transferRequest(String xml) throws RemoteException {
