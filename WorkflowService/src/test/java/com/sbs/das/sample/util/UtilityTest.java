@@ -89,7 +89,7 @@ public class UtilityTest {
 		}
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void bufferWrite() {
 
@@ -291,6 +291,7 @@ public class UtilityTest {
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void ristClfTest() {
 		try {
@@ -321,6 +322,16 @@ public class UtilityTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void absTest() {
+		int[] frames = {1, 4, 8, 10, 15, 33, 43, 55, 59, 61, 67, 73, 80, 89, 99, 105, 111, 119};
+		
+		int point = 86; // 이와 가장 가까운 수 구하기
+		
+		
+		System.out.println(point+"와 가장 가까운 값: "+Utility.getNearValue(frames, point));
 	}
 
 }
