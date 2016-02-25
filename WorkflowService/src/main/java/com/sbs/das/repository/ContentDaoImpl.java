@@ -56,4 +56,9 @@ public class ContentDaoImpl extends SqlMapClientDaoSupport implements ContentDao
 		return (Integer)getSqlMapClientTemplate().queryForObject("Content.getContentCount", params);
 	}
 
+	public ContentTbl getContentWithMap(Long masterId)
+			throws DaoNonRollbackException {
+		return (ContentTbl)getSqlMapClientTemplate().queryForObject("Content.getContentMapObj", masterId);
+	}
+
 }

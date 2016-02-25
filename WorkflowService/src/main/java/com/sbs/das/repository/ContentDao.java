@@ -55,6 +55,17 @@ public interface ContentDao {
 	
 	/**
 	 * <pre>
+	 * 2016.02.23
+	 * master_id를 이용하여 방송본 영상 정보를 조회
+	 * </pre>
+	 * @param masterId
+	 * @return
+	 * @throws DaoNonRollbackException
+	 */
+	public ContentTbl getContentWithMap(Long masterId) throws DaoNonRollbackException;
+	
+	/**
+	 * <pre>
 	 * DAS용 Media_id를 발급받는다.
 	 * </pre>
 	 * @return

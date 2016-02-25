@@ -18,4 +18,6 @@ public interface CornerDao {
 	public void insertCorner(CornerTbl cornerTbl) throws DaoRollbackException;
 	
 	public void updateCorner(CornerTbl cornerTbl) throws DaoRollbackException;
+	
+	public void deleteCorner(Long masterId) throws DaoRollbackException;
 }

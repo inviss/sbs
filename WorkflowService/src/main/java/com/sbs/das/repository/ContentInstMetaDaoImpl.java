@@ -63,5 +63,10 @@ public class ContentInstMetaDaoImpl extends SqlMapClientDaoSupport implements Co
 		return (Long)getSqlMapClientTemplate().queryForObject("ContentInst.getMasterIdOnly", ctiId);
 	}
 
+	public ContentInstTbl getMasterObj(Long ctiId)
+			throws DaoNonRollbackException {
+		return (ContentInstTbl)getSqlMapClientTemplate().queryForObject("ContentInst.getMasterObj", ctiId);
+	}
+
 
 }

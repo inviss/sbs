@@ -24,4 +24,6 @@ public interface ContentInstMetaDao {
 	public int callProceduer(Long cti_id) throws DaoNonRollbackException;
 	
 	public Long getMasterIdOnly(Long ctiId) throws DaoNonRollbackException;
+	
+	public ContentInstTbl getMasterObj(Long ctiId) throws DaoNonRollbackException;
 }
