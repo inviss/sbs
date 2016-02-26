@@ -47,4 +47,19 @@ public class ContentMapDaoImpl extends SqlMapClientDaoSupport implements Content
 		return (ContentMapTbl)getSqlMapClientTemplate().queryForObject("ContentMap.getContentMapObj", params);
 	}
 
+	public void deleteContentMap(ContentMapTbl contentMapTbl)
+			throws DaoRollbackException {
+		getSqlMapClientTemplate().delete("ContentMap.deleteContentMap", contentMapTbl);
+	}
+
+	public Integer getContentGroupCount(Map<String, Object> params)
+			throws DaoNonRollbackException {
+		return (Integer)getSqlMapClientTemplate().queryForObject("ContentMap.getContentMapCount", params);
+	}
+
+	public ContentMapTbl getContentGroupInfo(Map<String, Object> params)
+			throws DaoNonRollbackException {
+		return (ContentMapTbl)getSqlMapClientTemplate().queryForObject("ContentMap.getContentGroupInfo", params);
+	}
+
 }

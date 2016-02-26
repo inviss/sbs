@@ -15,7 +15,7 @@ public interface CornerDao {
 	
 	public long getCornerNewId() throws DaoNonRollbackException;
 	
-	public void insertCorner(CornerTbl cornerTbl) throws DaoRollbackException;
+	public Long insertCorner(CornerTbl cornerTbl) throws DaoRollbackException;
 	
 	public void updateCorner(CornerTbl cornerTbl) throws DaoRollbackException;
 	

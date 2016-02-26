@@ -630,7 +630,7 @@ public class Utility {
 	 * @param point
 	 * @return
 	 */
-	public static int getNearValue(int[] frames, int point) {
+	public static int getNearValue(Integer[] frames, int point) {
 		int near = 0;
 		int diff = 0; // 차이값
 		int diffMin = Integer.MAX_VALUE;

@@ -61,6 +61,34 @@
         </isEqual>
     </select>
     
+    <select id="getContentGroupCount" resultClass="Integer" parameterClass="map">
+		SELECT  
+			count(CT_ID)
+		FROM CONTENTS_MAPP_TBL
+		WHERE MASTER_ID = #masterId#
+		<![CDATA[
+			AND (DEL_DD is not null AND RTRIM(DEL_DD) <> '')
+		]]>
+        GROUP BY CT_ID
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
+    <select id="getContentGroupInfo" resultClass="ContentMap" parameterClass="map">
+		SELECT  
+			MASTER_ID as masterId, PGM_ID as pgmId, CT_SEQ as ctSeq
+		FROM CONTENTS_MAPP_TBL
+		WHERE CT_ID = #ctId#
+		<![CDATA[
+			AND (DEL_DD is not null AND RTRIM(DEL_DD) <> '')
+		]]>
+        GROUP BY MASTER_ID, PGM_ID, CT_SEQ
+		<isEqual property="wait" compareValue="true">
+			with UR
+        </isEqual>
+    </select>
+    
     <select id="getContentMapObj" resultClass="ContentMap" parameterClass="map">
 		SELECT  
 			CT_ID as       ctId, 			
@@ -130,6 +158,15 @@
 	        </isNotNull>
         </dynamic>
     </update>
+    
+    <delete id="deleteContentMap" parameterClass="long">
+    	DELETE FROM CONTENTS_MAPP_TBL
+    	<dynamic prepend="WHERE">
+	        <isNotNull prepend="AND" property="ctId">
+				CT_ID = #ctId#
+	        </isNotNull>
+        </dynamic>
+    </delete>
     
     <insert id="insertContentMap" parameterClass="ContentMap">
     	INSERT INTO CONTENTS_MAPP_TBL (

@@ -30,8 +30,8 @@ public class CornerDaoImpl extends SqlMapClientDaoSupport implements CornerDao {
 		return (CornerTbl)getSqlMapClientTemplate().queryForObject("Corner.getCornerObj", params);
 	}
 
-	public void insertCorner(CornerTbl cornerTbl) throws DaoRollbackException {
-		getSqlMapClientTemplate().insert("Corner.insertCorner", cornerTbl);
+	public Long insertCorner(CornerTbl cornerTbl) throws DaoRollbackException {
+		return (Long)getSqlMapClientTemplate().insert("Corner.insertCorner", cornerTbl);
 	}
 
 	public void updateCorner(CornerTbl cornerTbl) throws DaoRollbackException {

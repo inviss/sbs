@@ -105,10 +105,10 @@ public class CornerTbl extends BaseObject {
 	public void setRpimgCtId(Long rpimgCtId) {
 		this.rpimgCtId = rpimgCtId;
 	}
-	public Long getsFrame() {
+	public Long getSFrame() {
 		return sFrame;
 	}
-	public void setsFrame(Long sFrame) {
+	public void setSFrame(Long sFrame) {
 		this.sFrame = sFrame;
 	}
 	

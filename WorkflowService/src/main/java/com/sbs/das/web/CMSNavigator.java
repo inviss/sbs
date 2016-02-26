@@ -165,7 +165,7 @@ public class CMSNavigator implements DasCMS {
 		if(data == null || (data.getDasMasterId() == null || data.getDasMasterId() <= 0L)) {
 			throw new RemoteException("Primary Key is null or wrong value!");
 		}
-		
+
 		try {
 			cornerService.updateCorners(data);
 		} catch (Exception e) {

@@ -12,10 +12,12 @@ import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -325,13 +327,24 @@ public class UtilityTest {
 	}
 	
 	@Test
-	public void absTest() {
-		int[] frames = {1, 4, 8, 10, 15, 33, 43, 55, 59, 61, 67, 73, 80, 89, 99, 105, 111, 119};
-		
-		int point = 86; // 이와 가장 가까운 수 구하기
-		
-		
-		System.out.println(point+"와 가장 가까운 값: "+Utility.getNearValue(frames, point));
+	public void listToarray() {
+		try {
+			String keys = "0,6,99,109,150,220,358,404,425,450,504,555,613,690,715,729,758,805,865,895,930,1047,1048,1089,1099,1214,1278,1313,1314,1385,1443,1475,1491,1532,1541,1711,1849,1852,1861,1914,1915,1994,1995,2055,2130,2131,2155,2156,2164,2183,2207,2237,2315,2338,2339,2417,2472";
+			
+			String[] keyframes = keys.split("\\,");
+			
+			List<Integer> array = new ArrayList<Integer>();
+			for(String k : keyframes) {
+				int t = Integer.valueOf(k);
+				if(t > 1050) break;
+				System.out.println(t);
+				if((221 <= t) && (t <= 1050))
+					array.add(t);
+			}
+			System.out.println(Utility.getNearValue(array.toArray(new Integer[array.size()]), 540));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

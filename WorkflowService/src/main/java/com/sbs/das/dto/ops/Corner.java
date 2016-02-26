@@ -2,7 +2,6 @@ package com.sbs.das.dto.ops;
 
 import com.sbs.das.commons.convertor.IntegerConverter;
 import com.sbs.das.commons.convertor.TextUTF8Converter;
-import com.sbs.das.commons.utils.XStreamCDATA;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
@@ -14,6 +13,11 @@ public class Corner {
 	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("corner_nm")
 	private String cornerNm;
+	
+	// 장면메타제목명
+	@XStreamConverter(TextUTF8Converter.class)
+	@XStreamAlias("corner_info")
+	private String cornerInfo;
 	
 	// 프레임시작구간번호
 	@XStreamConverter(IntegerConverter.class)
@@ -27,7 +31,6 @@ public class Corner {
 	
 	// 장면메타제목명
 	@XStreamConverter(TextUTF8Converter.class)
-	@XStreamCDATA
 	@XStreamAlias("sen_titles")
 	private String senTitles;
 	
@@ -42,6 +45,14 @@ public class Corner {
 	private Integer rpimgKfrmSeq;
 
 	
+	public String getCornerInfo() {
+		return cornerInfo;
+	}
+
+	public void setCornerInfo(String cornerInfo) {
+		this.cornerInfo = cornerInfo;
+	}
+
 	public Integer getRpimgKfrmSeq() {
 		return rpimgKfrmSeq;
 	}
