@@ -115,7 +115,20 @@ public class Program {
 	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("dept_nm")
 	private String deptNm;
+	
+	// 작업자
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("regrid")
+	private String regrid;
 
+
+	public String getRegrid() {
+		return regrid;
+	}
+
+	public void setRegrid(String regrid) {
+		this.regrid = regrid;
+	}
 
 	public String getDeptNm() {
 		return deptNm;

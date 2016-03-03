@@ -60,4 +60,16 @@ public class DasCmsConnectorImpl implements DasCmsConnector {
 		return pdasServices.insertPDSArchive(xml);
 	}
 
+	public String insertDownCart(String xml) throws RemoteException {
+		return pdasServices.insertDownCartInfo(xml);
+	}
+	
+	public String insertCartCont(String xml) throws RemoteException {
+		return pdasServices.insertCartContInfo(xml);
+	}
+
+	public Integer updateDownCart(String xml) throws RemoteException {
+		return pdasServices.updateDownCart(xml);
+	}
+
 }

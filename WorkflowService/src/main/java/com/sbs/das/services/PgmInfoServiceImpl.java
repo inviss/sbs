@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sbs.das.commons.exception.ServiceException;
+import com.sbs.das.commons.utils.Utility;
 import com.sbs.das.dto.PgmInfoTbl;
 import com.sbs.das.dto.ops.Program;
 import com.sbs.das.repository.PgmInfoDao;
@@ -49,6 +50,8 @@ public class PgmInfoServiceImpl implements PgmInfoService {
 			pgmInfo.setPilotYn(pgm.getPilotYn());
 			pgmInfo.setAwardHstr(pgm.getAwardTxn());
 			pgmInfo.setUseYn(StringUtils.defaultIfBlank(pgm.getUseYn(), "Y"));
+			pgmInfo.setRegDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+			pgmInfo.setRegrid(pgm.getRegrid());
 			
 			pgmInfoDao.insertPgmInfo(pgmInfo);
 		} else {
@@ -74,6 +77,9 @@ public class PgmInfoServiceImpl implements PgmInfoService {
 				pgmInfo.setAwardHstr(pgm.getAwardTxn());
 			if(StringUtils.isNotBlank(pgm.getUseYn()))
 				pgmInfo.setUseYn(pgm.getUseYn());
+			if(StringUtils.isNotBlank(pgm.getRegrid()))
+				pgmInfo.setModrid(pgm.getRegrid());
+			pgmInfo.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
 			
 			pgmInfoDao.updatePgmInfo(pgmInfo);
 		}

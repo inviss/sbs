@@ -1,7 +1,6 @@
 package com.sbs.das.commons.system;
 
 
-import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,9 +9,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.sbs.das.commons.utils.XStreamCDATA;
+import com.sbs.das.dto.ops.CartContent;
 import com.sbs.das.dto.ops.Corner;
 import com.sbs.das.dto.ops.Corners;
 import com.sbs.das.dto.ops.Data;
+import com.sbs.das.dto.ops.DownCart;
 import com.sbs.das.dto.ops.Metadata;
 import com.sbs.das.dto.xml.ArchiveError;
 import com.sbs.das.dto.xml.ArchiveRequest;
@@ -31,9 +32,6 @@ import com.sbs.das.dto.xml.WorkLog;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider;
-import com.thoughtworks.xstream.core.util.QuickWriter;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 
@@ -117,6 +115,8 @@ public class XmlStreamImpl implements XmlStream {
 		clsList.add(Metadata.class);
 		clsList.add(Corners.class);
 		clsList.add(Corner.class);
+		clsList.add(DownCart.class);
+		clsList.add(CartContent.class);
 		
 		try {
 			setAnnotationAlias(clsList);

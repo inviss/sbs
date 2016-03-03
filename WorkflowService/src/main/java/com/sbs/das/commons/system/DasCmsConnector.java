@@ -42,4 +42,10 @@ public interface DasCmsConnector {
 	
 	public Integer insertPDSArchive(String xml) throws RemoteException;
 	
+	public String insertDownCart(String xml) throws RemoteException;
+	
+	public String insertCartCont(String xml) throws RemoteException;
+	
+	public Integer updateDownCart(String xml) throws RemoteException;
+	
 }

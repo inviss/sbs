@@ -45,6 +45,11 @@
 		<result property="catalogYn" column="CATALOG_YN" />
     </resultMap>
     
+    <resultMap id="ContentKeysMap" class="ContentInst">
+		<result property="ctiId" column="CTI_ID" />
+		<result property="ctId" column="CT_ID" />
+    </resultMap>
+    
     <select id="findContentInst" resultMap="ContentInstMap" parameterClass="map">
 	     SELECT  
              *
@@ -165,6 +170,20 @@
 		WHERE inst.CTI_ID = #ctiId#
 		GROUP BY mst.MASTER_ID, mst.USE_YN
 		FETCH FIRST 1 ROWS only
+    </select>
+    
+    <select id="getContentInstId" resultMap="ContentKeysMap" parameterClass="long">
+    	SELECT                                                                                  
+			ct.CT_ID, inst.CTI_ID                                                                 
+		FROM METADAT_MST_TBL mst                                                                
+			inner JOIN (                                                                          
+		    	SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL                                    
+		      WHERE RTRIM(value(del_dd, '')) = '' AND RTRIM(VALUE(del_yn, 'N')) = 'N'           
+		      GROUP BY master_id, ct_id                                                         
+		  ) mapp ON mst.MASTER_ID = mapp.MASTER_ID                                              
+		  inner JOIN CONTENTS_TBL ct ON mapp.CT_ID = ct.CT_ID                                   
+		  inner JOIN CONTENTS_INST_TBL inst ON ct.CT_ID = inst.CT_ID AND inst.CTI_FMT LIKE '1%' 
+		WHERE ct.CT_TYP = '003' AND mst.MASTER_ID = #masterId#
     </select>
     
     <select id="getContentInstNewId" resultClass="long">

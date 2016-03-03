@@ -12,11 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
 import com.sbs.das.commons.exception.ServiceException;
+import com.sbs.das.commons.system.DasCmsConnector;
 import com.sbs.das.commons.system.XmlStream;
+import com.sbs.das.commons.utils.Utility;
+import com.sbs.das.dto.ContentInstTbl;
 import com.sbs.das.dto.MetadatMstTbl;
+import com.sbs.das.dto.ops.CartContent;
 import com.sbs.das.dto.ops.Data;
+import com.sbs.das.dto.ops.DownCart;
 import com.sbs.das.dto.ops.Metadata;
 import com.sbs.das.dto.xml.Das;
+import com.sbs.das.services.ContentDownloadService;
 import com.sbs.das.services.CornerService;
 import com.sbs.das.services.MetadataService;
 import com.sbs.das.services.PgmInfoService;
@@ -38,6 +44,10 @@ public class CMSNavigator implements DasCMS {
 	private PgmInfoService pgmInfoService;
 	@Autowired
 	private CornerService cornerService;
+	@Autowired
+	private ContentDownloadService contentDownloadService;
+	@Autowired
+	private DasCmsConnector cmsConnector;
 
 
 	public void savePgmInfo(String xml) throws RemoteException {
@@ -189,7 +199,37 @@ public class CMSNavigator implements DasCMS {
 			logger.error("transferRequest xml parsing error!!", e);
 			throw new RemoteException("transferRequest xml parsing error", e);
 		}
-		return 0L;
+		
+		if(logger.isDebugEnabled()) {
+			logger.debug("download request master_id: "+data.getDasMasterId());
+			logger.debug("download request userid: "+data.getRegrid());
+		}
+		if(data.getDasMasterId() == null || data.getDasMasterId() <= 0L) {
+			throw new RemoteException("There is no key. master_id: "+data.getDasMasterId());
+		}
+		
+		Long cartNo = 0L;
+		// master_id를 이용하여 다운로드할 영상ID 조회
+		try {
+			ContentInstTbl contentInstTbl = contentDownloadService.getContentInstObj(data.getDasMasterId());
+			if(contentInstTbl == null || (contentInstTbl.getCtId() == null || contentInstTbl.getCtId() < 0L))
+				throw new RemoteException("There is no value or key. ct_id: "+contentInstTbl.getCtId());
+			
+			// DownCart, CartCont 등록, DownCart 업데이트
+			DownCart downCart = new DownCart();
+			downCart.setCtId(contentInstTbl.getCtId());
+			downCart.setCtiId(contentInstTbl.getCtiId());
+			downCart.setMasterId(data.getDasMasterId());
+			downCart.setReqUsrid(data.getRegrid());
+			downCart.setReqDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+			downCart.setCartStat("001");
+			
+			cartNo = contentDownloadService.requestDownload(downCart);
+		} catch (Exception e) {
+			logger.error("download request error", e);
+		}
+		
+		return cartNo;
 	}
 
 	public String findStatus(String xml) throws RemoteException {

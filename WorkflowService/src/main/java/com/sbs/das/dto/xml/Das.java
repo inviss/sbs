@@ -3,6 +3,8 @@ package com.sbs.das.dto.xml;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sbs.das.dto.ops.CartContent;
+import com.sbs.das.dto.ops.DownCart;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
@@ -94,5 +96,22 @@ public class Das {
 		this.deleteList.add(deleteRequest);
 	}
 	
+	@XStreamAlias("downCart")
+	private DownCart downCart;
+	public DownCart getDownCart() {
+		return downCart;
+	}
+	public void setDownCart(DownCart downCart) {
+		this.downCart = downCart;
+	}
+	
+	@XStreamAlias("cartContents")
+	private CartContent cartContent;
+	public CartContent getCartContent() {
+		return cartContent;
+	}
+	public void setCartContent(CartContent cartContent) {
+		this.cartContent = cartContent;
+	}
 	
 }

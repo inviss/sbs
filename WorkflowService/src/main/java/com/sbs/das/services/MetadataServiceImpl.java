@@ -137,6 +137,9 @@ public class MetadataServiceImpl implements MetadataService {
 			mstTbl.setArrangeNm(mst.getFrmtnNm());
 		if(StringUtils.isNotBlank(mst.getActcCd()))
 			mstTbl.setDataStatCd(mst.getActcCd());
+		if(StringUtils.isNotBlank(mst.getRegrid()))
+			mstTbl.setModrid(mst.getRegrid());
+		mstTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
 
 		metadatMstDao.saveMetadata(mstTbl);
 	}

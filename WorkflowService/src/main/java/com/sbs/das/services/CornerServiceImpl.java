@@ -51,6 +51,9 @@ public class CornerServiceImpl implements CornerService {
 			String[] keyframes = null;
 			String kfrmPath = contentTbl.getKfrmPath().startsWith("/") ? contentTbl.getKfrmPath() : "/"+contentTbl.getKfrmPath();
 			File f = new File(kfrmPath, ctId+".txt");
+			if(logger.isDebugEnabled()) {
+				logger.debug("kframe file path: "+f.getAbsolutePath());
+			}
 			if(f.exists()) {
 				try {
 					keyframes = FileUtils.readFileToString(f).split("\\,");
@@ -72,7 +75,7 @@ public class CornerServiceImpl implements CornerService {
 				cornerTbl.setSFrame(Long.valueOf(corner.getFrameStSectNo()));
 				cornerTbl.setCnInfo(corner.getCornerInfo());
 				
-				if(keyframes != null) {
+				if(keyframes != null && keyframes.length > 0) {
 					array.clear();
 					for(String k : keyframes) {
 						int t = Integer.valueOf(k);
@@ -88,13 +91,18 @@ public class CornerServiceImpl implements CornerService {
 				 * 맞지 않기때문에 근사값으로 재설정을 해줘야 함.
 				 * 코너의 시작 프레임과 끝 프레임 사이에서 조회가 되도록 설정해야 함.
 				 */
+				if(logger.isDebugEnabled()) {
+					logger.debug("ops rpimg_kfrm_seq: "+corner.getRpimgKfrmSeq()+", array empty: "+array.isEmpty());
+				}
 				if(corner.getRpimgKfrmSeq() != null && corner.getRpimgKfrmSeq() > 0) {
 					if(!array.isEmpty()) {
 						cornerTbl.setRpimgKfrmSeq(Utility.getNearValue(array.toArray(new Integer[array.size()]), corner.getRpimgKfrmSeq()));
 					} else
 						cornerTbl.setRpimgKfrmSeq(0);
 				} else cornerTbl.setRpimgKfrmSeq(0);
-				
+				if(logger.isDebugEnabled()) {
+					logger.debug("das rpimg_kfrm_seq: "+cornerTbl.getRpimgKfrmSeq());
+				}
 				cornerTbls.add(cornerTbl);
 			}
 			
@@ -119,7 +127,9 @@ public class CornerServiceImpl implements CornerService {
 				 * 2. ct_id 기준으로 mapp 테이블에서 모두 삭제 후 코너정보 신규 등록
 				 */
 				Map<String, Object> params = new HashMap<String, Object>();
-				
+				if(logger.isDebugEnabled()) {
+					logger.debug("ct_id: "+ctId);
+				}
 				// contentMapDao.getContentGroupCount(params);
 				params.put("ctId", ctId);
 				ContentMapTbl contentInfo = contentMapDao.getContentGroupInfo(params);

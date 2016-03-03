@@ -224,8 +224,21 @@ public class Metadata {
 	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("actc_cd")
 	private String actcCd;
+	
+	// 등록자
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("regrid")
+	private String regrid;
 
 	
+	public String getRegrid() {
+		return regrid;
+	}
+
+	public void setRegrid(String regrid) {
+		this.regrid = regrid;
+	}
+
 	public String getFrmtnNm() {
 		return frmtnNm;
 	}
