@@ -4,6 +4,7 @@ import com.sbs.das.commons.convertor.IntegerConverter;
 import com.sbs.das.commons.convertor.LongConverter;
 import com.sbs.das.commons.convertor.TextConverter;
 import com.sbs.das.commons.convertor.TextUTF8Converter;
+import com.sbs.das.commons.utils.XStreamCDATA;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
@@ -26,8 +27,8 @@ public class Metadata {
 	private Integer pgmTms;
 
 	// 프로그램회별제목
-	//@XStreamCDATA
-	@XStreamConverter(TextUTF8Converter.class)
+	@XStreamCDATA
+	//@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("pgm_tms_title")
 	private String pgmTmsTitle;
 

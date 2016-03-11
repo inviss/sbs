@@ -1,5 +1,8 @@
 package com.sbs.das.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CornerTbl extends BaseObject {
 	
 	private static final long serialVersionUID = 4846434695020224964L;
@@ -110,6 +113,21 @@ public class CornerTbl extends BaseObject {
 	}
 	public void setSFrame(Long sFrame) {
 		this.sFrame = sFrame;
+	}
+	
+	List<AnnotInfoTbl> annotInfoTbls = new ArrayList<AnnotInfoTbl>();
+
+	public List<AnnotInfoTbl> getAnnotInfoTbls() {
+		return annotInfoTbls;
+	}
+	public void setAnnotInfoTbls(List<AnnotInfoTbl> annotInfoTbls) {
+		this.annotInfoTbls = annotInfoTbls;
+	}
+	public void addAnnotInfoTbl(AnnotInfoTbl annotInfoTbl) {
+		this.annotInfoTbls.add(annotInfoTbl);
+	}
+	public void removeAllAnnotInfo() {
+		this.annotInfoTbls.clear();
 	}
 	
 }

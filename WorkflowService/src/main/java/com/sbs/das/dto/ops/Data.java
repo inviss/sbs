@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sbs.das.commons.convertor.LongConverter;
 import com.sbs.das.commons.convertor.TextConverter;
+import com.sbs.das.commons.convertor.TextUTF8Converter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
@@ -44,8 +45,27 @@ public class Data {
 	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("regrid")
 	private String regrid;
-
 	
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("entire_annot_clf_cd")
+	private String annotClfCd;
+
+	@XStreamConverter(TextUTF8Converter.class)
+	@XStreamAlias("entire_annot_clf_cont")
+	private String annotClfCont;
+	
+	public String getAnnotClfCont() {
+		return annotClfCont;
+	}
+	public void setAnnotClfCont(String annotClfCont) {
+		this.annotClfCont = annotClfCont;
+	}
+	public String getAnnotClfCd() {
+		return annotClfCd;
+	}
+	public void setAnnotClfCd(String annotClfCd) {
+		this.annotClfCd = annotClfCd;
+	}
 	public String getRegrid() {
 		return regrid;
 	}

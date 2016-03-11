@@ -128,6 +128,12 @@
     	WHERE CN_ID = #cnId#
     </update>
     
+    <delete id="deleteCtCorner" parameterClass="long">
+    	DELETE FROM CORNER_TBL WHERE CN_ID in (
+    		SELECT CN_ID FROM CONTENTS_MAPP_TBL WHERE CT_ID = #ctId#
+    	)
+    </delete>
+    
     <delete id="deleteCorner" parameterClass="long">
     	DELETE FROM CORNER_TBL WHERE MASTER_ID = #masterId#
     </delete>

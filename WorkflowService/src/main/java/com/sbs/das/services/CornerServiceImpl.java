@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,15 @@ import org.springframework.stereotype.Service;
 
 import com.sbs.das.commons.exception.ServiceException;
 import com.sbs.das.commons.utils.Utility;
+import com.sbs.das.dto.AnnotInfoTbl;
 import com.sbs.das.dto.ContentMapTbl;
 import com.sbs.das.dto.ContentTbl;
 import com.sbs.das.dto.CornerTbl;
+import com.sbs.das.dto.ops.Annot;
 import com.sbs.das.dto.ops.Corner;
 import com.sbs.das.dto.ops.Corners;
 import com.sbs.das.dto.ops.Data;
+import com.sbs.das.repository.AnnotInfoDao;
 import com.sbs.das.repository.ContentDao;
 import com.sbs.das.repository.ContentMapDao;
 import com.sbs.das.repository.CornerDao;
@@ -36,6 +40,8 @@ public class CornerServiceImpl implements CornerService {
 	private ContentDao contentDao;
 	@Autowired
 	private ContentMapDao contentMapDao;
+	@Autowired
+	private AnnotInfoDao annotInfoDao;
 	
 	public void updateCorners(Data data) throws ServiceException {
 		
@@ -103,15 +109,84 @@ public class CornerServiceImpl implements CornerService {
 				if(logger.isDebugEnabled()) {
 					logger.debug("das rpimg_kfrm_seq: "+cornerTbl.getRpimgKfrmSeq());
 				}
+				
+				/*
+				 * 전체 사용제한등급이 설정되어 있을경우 코너별로 적용한다.
+				 */
+				if(StringUtils.isNotBlank(data.getAnnotClfCd())) {
+					AnnotInfoTbl annotInfoTbl = new AnnotInfoTbl();
+					annotInfoTbl.setMasterId(data.getDasMasterId());
+					annotInfoTbl.setCtId(ctId);
+					annotInfoTbl.setSom(cornerTbl.getSom());
+					annotInfoTbl.setEom(cornerTbl.getEom());
+					annotInfoTbl.setAnnotClfCd(data.getAnnotClfCd());
+					annotInfoTbl.setAnnotClfCont(data.getAnnotClfCont());
+					
+					long som = Long.valueOf(cornerTbl.getSom()).longValue();
+					long eom = Long.valueOf(cornerTbl.getEom()).longValue();
+					annotInfoTbl.setDuration(Long.valueOf(eom - som));
+					
+					annotInfoTbl.setsFrame(som);
+					annotInfoTbl.setGubun("L");
+					annotInfoTbl.setRegDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+					annotInfoTbl.setRegrid(data.getRegrid());
+					annotInfoTbl.setEntireYn("Y");
+					
+					cornerTbl.addAnnotInfoTbl(annotInfoTbl);
+				}
+				
+				/*
+				 * 부분 사용등급이 있을경우 추가로 등록한다.
+				 */
+				List<Annot> annots = corner.getAnnots();
+				if(annots != null && !annots.isEmpty()) {
+					for(Annot annot : annots) {
+						AnnotInfoTbl annotInfoTbl = new AnnotInfoTbl();
+						annotInfoTbl.setMasterId(data.getDasMasterId());
+						annotInfoTbl.setCtId(ctId);
+						long som = 0L;
+						long eom = 0L;
+						if(annot.getSom() != null && annot.getSom().indexOf(":") > -1) {
+							som = Utility.changeTimeCode(annot.getSom());
+							eom = Utility.changeTimeCode(annot.getEom());
+						} else {
+							som = Long.valueOf(annot.getSom()).longValue();
+							eom = Long.valueOf(annot.getEom()).longValue();
+						}
+						if(logger.isDebugEnabled()) {
+							logger.debug("som: "+som+", eom: "+eom);
+						}
+						int somInt = Utility.getNearValue(array.toArray(new Integer[array.size()]), Long.valueOf(som).intValue());
+						int eomInt = Utility.getNearValue(array.toArray(new Integer[array.size()]), Long.valueOf(eom).intValue());
+						if(logger.isDebugEnabled()) {
+							logger.debug("somInt: "+somInt+", eomInt: "+eomInt);
+						}
+						annotInfoTbl.setSom(Utility.changeDuration(Long.valueOf(somInt)));
+						annotInfoTbl.setEom(Utility.changeDuration(Long.valueOf(eomInt)));
+						annotInfoTbl.setAnnotClfCd(annot.getClfCd());
+						annotInfoTbl.setAnnotClfCont(annot.getClfCont());
+						annotInfoTbl.setDuration(Long.valueOf(eomInt - somInt));
+						annotInfoTbl.setsFrame(Long.valueOf(somInt));
+						annotInfoTbl.setGubun("L");
+						annotInfoTbl.setRegDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+						annotInfoTbl.setRegrid(data.getRegrid());
+						annotInfoTbl.setEntireYn("N");
+
+						cornerTbl.addAnnotInfoTbl(annotInfoTbl);
+					}
+				}
+
 				cornerTbls.add(cornerTbl);
 			}
 			
 			long[] cnIds = new long[cornerTbls.size()];
 			if(!cornerTbls.isEmpty()) {
 				/*
-				 * 1. master_id 기준으로 corner정보 모두 삭제 후
+				 * 1. ct_id 기준으로 corner정보 모두 삭제 후
 				 */
-				cornerDao.deleteCorner(data.getDasMasterId());
+				cornerDao.deleteCtCorner(ctId);
+				
+				List<AnnotInfoTbl> annotInfoTbls = new ArrayList<AnnotInfoTbl>();
 				
 				// 코너별 정보 등록 및 코너ID 생성
 				int c=0;
@@ -121,16 +196,37 @@ public class CornerServiceImpl implements CornerService {
 					
 					cnIds[c] = cornerTbl.getCnId();
 					c++;
+					
+					/*
+					 * 코너별 사용제한등급에 코너ID 셋팅
+					 */
+					List<AnnotInfoTbl> cornerAnnots = cornerTbl.getAnnotInfoTbls();
+					if(cornerAnnots != null && !cornerAnnots.isEmpty()) {
+						for(AnnotInfoTbl annotInfoTbl : cornerAnnots) {
+							annotInfoTbl.setCnId(cornerTbl.getCnId());
+							annotInfoTbls.add(annotInfoTbl);
+						}
+					}
 				}
 				
 				/*
-				 * 2. ct_id 기준으로 mapp 테이블에서 모두 삭제 후 코너정보 신규 등록
+				 * 2. ct_id 기준으로 사용제한등급을 삭제하고
+				 * 코너정보와 함께 제한등급을 재설정한다.
+				 */
+				if(!annotInfoTbls.isEmpty()) {
+					annotInfoDao.deleteAnnotInfo(ctId);
+					for(AnnotInfoTbl annotInfoTbl : annotInfoTbls) {
+						annotInfoDao.insertAnnotInfo(annotInfoTbl);
+					}
+				}
+				
+				/*
+				 * 3. ct_id 기준으로 mapp 테이블에서 모두 삭제 후 코너정보 신규 등록
 				 */
 				Map<String, Object> params = new HashMap<String, Object>();
 				if(logger.isDebugEnabled()) {
 					logger.debug("ct_id: "+ctId);
 				}
-				// contentMapDao.getContentGroupCount(params);
 				params.put("ctId", ctId);
 				ContentMapTbl contentInfo = contentMapDao.getContentGroupInfo(params);
 				if(contentInfo != null) {

@@ -1,9 +1,13 @@
 package com.sbs.das.dto.ops;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sbs.das.commons.convertor.IntegerConverter;
 import com.sbs.das.commons.convertor.TextUTF8Converter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 @XStreamAlias("corner")
 public class Corner {
@@ -101,5 +105,18 @@ public class Corner {
 		this.senSbsts = senSbsts;
 	}
 	
+	
+	@XStreamImplicit(itemFieldName="annot")
+	private List<Annot> annots = new ArrayList<Annot>();
+
+	public List<Annot> getAnnots() {
+		return annots;
+	}
+	public void setAnnots(List<Annot> annots) {
+		this.annots = annots;
+	}
+	public void addAnnots(Annot annot) {
+		this.annots.add(annot);
+	}
 	
 }

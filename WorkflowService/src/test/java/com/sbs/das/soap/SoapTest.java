@@ -3,7 +3,6 @@ package com.sbs.das.soap;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -18,6 +17,7 @@ import com.sbs.das.commons.system.XmlStream;
 import com.sbs.das.commons.utils.Utility;
 import com.sbs.das.dto.ContentInstTbl;
 import com.sbs.das.dto.MetadatMstTbl;
+import com.sbs.das.dto.ops.Annot;
 import com.sbs.das.dto.ops.CartContent;
 import com.sbs.das.dto.ops.Corner;
 import com.sbs.das.dto.ops.Corners;
@@ -152,25 +152,23 @@ public class SoapTest extends BaseConfig{
 			metadata.setDasPgmCd("XX1234");
 			metadata.setChId("dsfsdfsdf");
 			metadata.setPgmTms(234234);
-			metadata.setPgmTmsTitle("dsfsdfsdf");
+			metadata.setPgmTmsTitle("한글을 사용합니다.");
 			metadata.setBradDay("dsfsdfsdf");
 			metadata.setBradStTime("dsfsdfsdf");
 			metadata.setBradFnsTime("dsfsdfsdf");
 			metadata.setBradLen(34234234L);
 
-			//data.addMetadatas(metadata);
-			System.out.println(data);
-			xmlStream.toXML(data);
-			//System.out.println(xmlStream.toXML(data));
+			data.addMetadatas(metadata);
+			//xmlStream.toXML(data);
+			System.out.println(xmlStream.toXML(data));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Data data = (Data)xmlStream.fromXML(xml);
 	}
 
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void xmlCornerLoadTest() {
 		String xml = "";
@@ -182,6 +180,10 @@ public class SoapTest extends BaseConfig{
 			for(Corner corner : corners2) {
 				System.out.println("corner_nm: "+corner.getCornerNm());
 				System.out.println("sen_titles: "+corner.getSenTitles());
+				List<Annot> annots = corner.getAnnots();
+				for(Annot annot : annots) {
+					System.out.println(annot.getClfCd()+", "+annot.getClfCont());
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -224,6 +226,7 @@ public class SoapTest extends BaseConfig{
 		}
 	}
 
+	@Ignore
 	@Test
 	public void insertDownRequest() {
 		try {

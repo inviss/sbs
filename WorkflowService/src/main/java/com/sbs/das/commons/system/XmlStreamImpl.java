@@ -1,6 +1,7 @@
 package com.sbs.das.commons.system;
 
 
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,6 +10,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.sbs.das.commons.utils.XStreamCDATA;
+import com.sbs.das.dto.ops.Annot;
 import com.sbs.das.dto.ops.CartContent;
 import com.sbs.das.dto.ops.Corner;
 import com.sbs.das.dto.ops.Corners;
@@ -32,6 +34,9 @@ import com.sbs.das.dto.xml.WorkLog;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider;
+import com.thoughtworks.xstream.core.util.QuickWriter;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 
@@ -54,21 +59,18 @@ public class XmlStreamImpl implements XmlStream {
 		 * XML Parsing 할때 일반적으로 DomDriver를 사용하지만, XppDriver가 속도면에서 좀더 빠르단다.
 		 * alias명으로 '_' 언더바(underscore)가 존재하면 '__'로 두개가 출력이 된다. 치환을 해줘야할 필요가 있다.
 		 */
-		xstream = new XStream(new PureJavaReflectionProvider(), new XppDriver(new XmlFriendlyReplacer("__", "_")));
-		/*
+		//xstream = new XStream(new PureJavaReflectionProvider(), new XppDriver(new XmlFriendlyReplacer("__", "_")));
+		
 		xstream = new XStream(new PureJavaReflectionProvider(), new XppDriver(new XmlFriendlyReplacer("__", "_")) {
 			@Override
 			public HierarchicalStreamWriter createWriter(Writer out) {
-				return new PrettyPrintWriter(out) {
+				return new PrettyPrintWriter(out, super.xmlFriendlyReplacer()) {
 					boolean cdata = false;  
                     Class<?> targetClass = null;  
                     @Override  
                     public void startNode(String name, @SuppressWarnings("rawtypes") Class clazz) {  
-                    	System.out.println("clazz====>"+clazz);
                         super.startNode(name, clazz);  
-                        System.out.println("name====>"+name);
-                        System.out.println("targetClass====>"+targetClass);
-                        if(!name.equals("xml")){
+                        if(name != null && !name.equals("metadata")){
                             cdata = needCDATA(targetClass, name);  
                         }else{  
                             targetClass = clazz;  
@@ -86,7 +88,7 @@ public class XmlStreamImpl implements XmlStream {
 				};
 			}
 		});
-		*/
+		
 		xstream.autodetectAnnotations(true);
 		
 		/** DAS Workflow에서 사용하는 Class를 모두 등록 **/
@@ -117,6 +119,7 @@ public class XmlStreamImpl implements XmlStream {
 		clsList.add(Corner.class);
 		clsList.add(DownCart.class);
 		clsList.add(CartContent.class);
+		clsList.add(Annot.class);
 		
 		try {
 			setAnnotationAlias(clsList);
@@ -186,25 +189,25 @@ public class XmlStreamImpl implements XmlStream {
 	
 	private static boolean needCDATA(Class<?> targetClass, String fieldAlias){  
         boolean cdata = false;  
-        System.out.println("targetClass===>"+targetClass+", fieldAlias====>"+fieldAlias);
-        //first, scan self  
-        cdata = existsCDATA(targetClass, fieldAlias);  
-        if(cdata) return cdata;  
-        //if cdata is false, scan supperClass until java.lang.Object  
-        Class<?> superClass = targetClass.getSuperclass();  
-        while(!superClass.equals(Object.class)){  
-            cdata = existsCDATA(superClass, fieldAlias);  
+        if(targetClass != null) {
+        	//first, scan self  
+            cdata = existsCDATA(targetClass, fieldAlias);  
             if(cdata) return cdata;  
-            superClass = superClass.getClass().getSuperclass();  
-        }  
-        return false;  
+            //if cdata is false, scan supperClass until java.lang.Object  
+            Class<?> superClass = targetClass.getSuperclass();  
+            while(!superClass.equals(Object.class)){  
+                cdata = existsCDATA(superClass, fieldAlias);  
+                if(cdata) return cdata;  
+                superClass = superClass.getClass().getSuperclass();  
+            }  
+            return false;  
+        }
+        return false;
     }
 	
 	private static boolean existsCDATA(Class<?> clazz, String fieldAlias){ 
-		System.out.println("class==========>"+clazz);
         //scan fields
         Field[] fields = clazz.getDeclaredFields();
-        System.out.println("field============>"+fields);
         for (Field field : fields) {  
             //1. exists XStreamCDATA  
             if(field.getAnnotation(XStreamCDATA.class) != null ){  

@@ -109,4 +109,9 @@
          
     </select>
 	 <!-- 사용등급 벌크 등록 쿼리 끝 -->
+	 
+	 <delete id="deleteAnnotInfo" parameterClass="long">
+	 	DELETE FROM ANNOT_INFO_TBL WHERE CT_ID = #ctId#
+	 </delete>
+	 
  </sqlMap>

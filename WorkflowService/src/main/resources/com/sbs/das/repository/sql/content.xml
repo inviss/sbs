@@ -75,7 +75,7 @@
 		        WHERE RTRIM(VALUE(del_dd, '')) = '' AND RTRIM(VALUE(del_yn, 'N')) = 'N'
 		        GROUP BY master_id, ct_id
 		    ) mapp ON ct.CT_ID = mapp.CT_ID
-		WHERE mapp.MASTER_ID = #masterId#
+		WHERE ct.CT_TYP = '003' AND mapp.MASTER_ID = #masterId#
     </select>
     
     <select id="getContentCount" resultClass="Integer" parameterClass="map">
