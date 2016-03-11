@@ -110,6 +110,10 @@ public class CornerServiceImpl implements CornerService {
 					logger.debug("das rpimg_kfrm_seq: "+cornerTbl.getRpimgKfrmSeq());
 				}
 				
+				if(logger.isDebugEnabled()) {
+					logger.debug("entire clf_cd: "+data.getAnnotClfCd()+", som: "+cornerTbl.getSom()+", eom: "+cornerTbl.getEom());
+				}
+				
 				/*
 				 * 전체 사용제한등급이 설정되어 있을경우 코너별로 적용한다.
 				 */
