@@ -2125,6 +2125,44 @@ public class ExternalDAO extends AbstractDAO
 
 	}
 
+	public long isNewThereDownCart(String reqUserId, long masterId) throws Exception
+	{
+		StringBuffer buf = new StringBuffer();
+		buf.append("SELECT                                                                	");
+		buf.append("	cart.CART_NO                                                        ");
+		buf.append("FROM CART_CONT_TBL cart                                               	");
+		buf.append("	inner JOIN DOWN_CART_TBL dcart ON cart.CART_NO = dcart.CART_NO      ");
+		buf.append("WHERE cart.REGRID = ? AND cart.DOWN_STAT = ? AND cart.MASTER_ID = ?   	");
+		buf.append("GROUP BY cart.CART_NO                                                 	");
+		buf.append("FETCH FIRST 1 ROWS only													");
+		
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DBService.getInstance().getConnection();
+
+			stmt = con.prepareStatement(buf.toString());
+
+			int index = 0;
+			stmt.setString(++index, reqUserId);
+			stmt.setString(++index, CodeConstants.CartStatus2.REQ);
+			stmt.setLong(++index, masterId);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getLong("CART_NO");
+			} else
+				return -1;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			release(rs, stmt, con);
+		}
+	}
+	
 	/**
 	 * 요청 고객의 화질코드와 종횡비 코드가 다운로드카트 정보에 존재하는지를 검증한다.
 	 * @param reqUserId 요청자ID
@@ -8798,6 +8836,7 @@ public class ExternalDAO extends AbstractDAO
 		StringBuffer buf = new StringBuffer();
 		StringBuffer buf2 = new StringBuffer();
 		StringBuffer buf3 = new StringBuffer();
+		
 		buf.append("\n update DAS.DOWN_CART_TBL set ");
 		buf.append("\n 	CART_STAT = ? ");
 		buf.append("\n	 ,DOWN_SUBJ = ? ");
@@ -9079,20 +9118,21 @@ public class ExternalDAO extends AbstractDAO
 										return 0;
 									}
 									//								return "sucess";
-								}}else{
+								}
+							}else{
 
-									//다운로드 제한 여부가 No이 웹 서비스를 호출하여 다운로드 카트를 승인 없이  다운로드 한다
-									//cart_cont_tbl의 rist_yn이 N인 값만 던진다
-									downCartDO.setCartSeq(Long.parseLong(down[k]));
-									String xml = getXmlInfo(downCartDO);//<- 카트번호를 받아 소속 seq list로 보냄
+								//다운로드 제한 여부가 No이 웹 서비스를 호출하여 다운로드 카트를 승인 없이  다운로드 한다
+								//cart_cont_tbl의 rist_yn이 N인 값만 던진다
+								downCartDO.setCartSeq(Long.parseLong(down[k]));
+								String xml = getXmlInfo(downCartDO);//<- 카트번호를 받아 소속 seq list로 보냄
 
-									if(!"".equals(xml)){
-										NevigatorProxy port = new NevigatorProxy();
-										String _result = port.downloadService(xml); 
-
-									}
+								if(!"".equals(xml)){
+									NevigatorProxy port = new NevigatorProxy();
+									String _result = port.downloadService(xml); 
 
 								}
+
+							}
 						}
 
 
@@ -22204,7 +22244,7 @@ public class ExternalDAO extends AbstractDAO
 		}
 
 	}
-	
+
 	public void createXmlDown(String fileName, String userId, long cartNo, String xml)throws Exception{
 
 		try {
@@ -22908,7 +22948,7 @@ public class ExternalDAO extends AbstractDAO
 			logger.debug("num: "+num+", down_gubun: "+gubun+", user_id: "+transfer.getUser_id());
 
 			if(org.apache.commons.lang.StringUtils.isNotBlank(gubun)) {
-				
+
 				if("001".equals(gubun) || "002".equals(gubun)) {
 					query = ExternalStatement.selectInfoForDownXml(num);
 					stmt = con.prepareStatement(query);
@@ -23009,7 +23049,7 @@ public class ExternalDAO extends AbstractDAO
 						item3.setStorage_nm(rs.getString("storagename"));
 						item3.setCart_no(rs.getLong("cart_no"));
 						item3.setGroup_id(rs.getLong("master_id"));
-						
+
 						//20121223최효정과정 요청사항 특이사항 빠진 부분 추가
 						item3.setSpecial_info(rs.getString("special_info"));
 						item3.setTitle(rs.getString("title"));
@@ -23096,7 +23136,7 @@ public class ExternalDAO extends AbstractDAO
 						throw new Exception (num+" - metadata is null");
 					}
 				}
-				
+
 				if(transfer != null) {
 					StringBuffer _xml = new StringBuffer();
 					TransferDOXML _do = new TransferDOXML();

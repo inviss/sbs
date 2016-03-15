@@ -511,7 +511,7 @@ public class CartContDOXML extends DOXml {
 		_xml.append("<" + XML_NODE_BRD_DD.toLowerCase() + ">" + cartDO.getBrd_dd() + "</"  + XML_NODE_BRD_DD.toLowerCase() + ">");
 		_xml.append("<" + XML_NODE_DOWN_STAT.toLowerCase() + ">" + cartDO.getDown_stat() + "</"  + XML_NODE_DOWN_STAT.toLowerCase() + ">");
 		_xml.append("<" + XML_NODE_STATUS.toLowerCase() + ">" + cartDO.getJob_status() + "</"  + XML_NODE_STATUS.toLowerCase() + ">");
-		_xml.append("<" + XML_NODE_CTGR_L_CD.toLowerCase() + ">" + cartDO.getCtgrLCd() + "</"  + XML_NODE_CTGR_L_CD.toLowerCase() + ">");
+		//_xml.append("<" + XML_NODE_CTGR_L_CD.toLowerCase() + ">" + cartDO.getCtgrLCd() + "</"  + XML_NODE_CTGR_L_CD.toLowerCase() + ">");
 		_xml.append("<" + XML_NODE_FM_DT.toLowerCase() + ">" + cartDO.getFm_dt() + "</"  + XML_NODE_FM_DT.toLowerCase() + ">");
 		_xml.append("<" + XML_NODE_MEDIA_ID.toLowerCase() + ">" + cartDO.getMedia_id() + "</"  + XML_NODE_MEDIA_ID.toLowerCase() + ">");
 		_xml.append("<" + XML_NODE_PATH.toLowerCase() + ">" + cartDO.getPath() + "</"  + XML_NODE_PATH.toLowerCase() + ">");

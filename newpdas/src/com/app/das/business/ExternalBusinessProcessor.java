@@ -189,7 +189,7 @@ public class ExternalBusinessProcessor
 		try 
 		{
 			//이미 카트가 존재하는지를 검증한다.
-			long nCartNo = externalDAO.isThereDownCart(downCartDO.getReqUsrid(), downCartDO.getVdQlty(), downCartDO.getAspRtoCd()); 
+			long nCartNo = externalDAO.isNewThereDownCart(downCartDO.getReqUsrid(), downCartDO.getMaster_id()); 
 			if( nCartNo >= 0)
 			{
 				DASException exception = new DASException(
