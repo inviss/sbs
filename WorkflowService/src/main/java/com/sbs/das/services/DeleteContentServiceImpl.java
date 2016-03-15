@@ -198,12 +198,15 @@ public class DeleteContentServiceImpl implements DeleteContentService {
 		if(logger.isDebugEnabled()) {
 			logger.debug("masterId: "+contentInstTbl2.getMasterId()+", use_yn: "+contentInstTbl2.getUseYn());
 		}
+		insertKwKlog(contentInstTbl2.getMasterId());
+		/*
 		if(contentInstTbl2.getMasterId() != null) {
 			if(StringUtils.defaultIfBlank(contentInstTbl2.getUseYn(), "Y").equals("N"))
 				deleteKwKlog(contentInstTbl2.getMasterId());
 			else
 				insertKwKlog(contentInstTbl2.getMasterId());
 		}
+		*/
 	}
 
 	public void updateDeleteCtDown(Long cartNo, Integer cartSeq) throws ServiceException {
