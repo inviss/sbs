@@ -160,6 +160,7 @@ public class CornerServiceImpl implements CornerService {
 						if(logger.isDebugEnabled()) {
 							logger.debug("som: "+som+", eom: "+eom);
 						}
+						/*
 						int somInt = Utility.getNearValue(array.toArray(new Integer[array.size()]), Long.valueOf(som).intValue());
 						int eomInt = Utility.getNearValue(array.toArray(new Integer[array.size()]), Long.valueOf(eom).intValue());
 						if(logger.isDebugEnabled()) {
@@ -167,10 +168,13 @@ public class CornerServiceImpl implements CornerService {
 						}
 						annotInfoTbl.setSom(Utility.changeDuration(Long.valueOf(somInt)));
 						annotInfoTbl.setEom(Utility.changeDuration(Long.valueOf(eomInt)));
+						*/
+						annotInfoTbl.setSom(Utility.changeDuration(som));
+						annotInfoTbl.setEom(Utility.changeDuration(eom));
 						annotInfoTbl.setAnnotClfCd(annot.getClfCd());
 						annotInfoTbl.setAnnotClfCont(annot.getClfCont());
-						annotInfoTbl.setDuration(Long.valueOf(eomInt - somInt));
-						annotInfoTbl.setsFrame(Long.valueOf(somInt));
+						annotInfoTbl.setDuration(Long.valueOf(eom - som));
+						annotInfoTbl.setsFrame(Long.valueOf(som));
 						annotInfoTbl.setGubun("L");
 						annotInfoTbl.setRegDt(Utility.getTimestamp("yyyyMMddHHmmss"));
 						annotInfoTbl.setRegrid(data.getRegrid());

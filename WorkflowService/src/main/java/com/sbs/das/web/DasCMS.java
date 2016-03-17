@@ -77,4 +77,5 @@ public interface DasCMS {
 	 * @throws RemoteException
 	 */
 	public String findStatus(String xml) throws RemoteException;
+	
 }
