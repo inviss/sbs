@@ -160,7 +160,9 @@ public class CornerServiceImpl implements CornerService {
 						if(logger.isDebugEnabled()) {
 							logger.debug("som: "+som+", eom: "+eom);
 						}
-						/*
+						
+						/* 2016.03-17
+						 * OPS에서 받은 제한등급 구간을 그대로 유지해서 저장하도록 한다.
 						int somInt = Utility.getNearValue(array.toArray(new Integer[array.size()]), Long.valueOf(som).intValue());
 						int eomInt = Utility.getNearValue(array.toArray(new Integer[array.size()]), Long.valueOf(eom).intValue());
 						if(logger.isDebugEnabled()) {
@@ -169,6 +171,7 @@ public class CornerServiceImpl implements CornerService {
 						annotInfoTbl.setSom(Utility.changeDuration(Long.valueOf(somInt)));
 						annotInfoTbl.setEom(Utility.changeDuration(Long.valueOf(eomInt)));
 						*/
+						
 						annotInfoTbl.setSom(Utility.changeDuration(som));
 						annotInfoTbl.setEom(Utility.changeDuration(eom));
 						annotInfoTbl.setAnnotClfCd(annot.getClfCd());
