@@ -17,7 +17,30 @@
 	</properties>
 	
 	<dependencies>
+			
+		<!-- aspectj library-->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjlib</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
 		
+		<!-- springframework -->
 		<dependency>            
 			<groupId>org.springframework</groupId>
 			<artifactId>org.springframework.aop</artifactId>
@@ -188,28 +211,6 @@
 			<groupId>commons-discovery</groupId>
 			<artifactId>commons-discovery</artifactId>
 			<version>0.4</version>
-		</dependency>
-		
-		<!-- aspectj library-->
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>${aspectj.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjlib</artifactId>
-			<version>1.6.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${aspectj.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjtools</artifactId>
-			<version>${aspectj.version}</version>
 		</dependency>
 		
 		<!-- xml libarary -->
