@@ -18,7 +18,7 @@
 	
 	<dependencies>
 			
-		<!-- aspectj library-->
+		<!-- aspectj library
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
@@ -39,7 +39,7 @@
 			<artifactId>aspectjtools</artifactId>
 			<version>${aspectj.version}</version>
 		</dependency>
-		
+		-->
 		<!-- springframework -->
 		<dependency>            
 			<groupId>org.springframework</groupId>

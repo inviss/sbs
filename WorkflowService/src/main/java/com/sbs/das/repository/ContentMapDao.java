@@ -23,5 +23,5 @@ public interface ContentMapDao {
 	
 	public ContentMapTbl getContentGroupInfo(Map<String, Object> params) throws DaoNonRollbackException;
 	
-	public void deleteContentMap(ContentMapTbl contentMapTbl) throws DaoRollbackException;
+	public void deleteContentMap(Map<String, Object> params) throws DaoRollbackException;
 }

@@ -21,6 +21,12 @@
 		<result property="delYn" column="DEL_YN" />
     </resultMap>
     
+    <resultMap id="ContentMapMap2" class="ContentMap">
+		<result property="ctSeq" column="CT_SEQ" />
+		<result property="pgmId" column="PGM_ID" />
+		<result property="masterId" column="MASTER_ID" />
+    </resultMap>
+    
     <select id="findContentMap" resultMap="ContentMapMap" parameterClass="map">
 	     SELECT  
              *
@@ -81,9 +87,10 @@
 		FROM CONTENTS_MAPP_TBL
 		WHERE CT_ID = #ctId#
 		<![CDATA[
-			AND (DEL_DD is not null AND RTRIM(DEL_DD) <> '')
+			AND (DEL_DD is not null AND RTRIM(VALUE(DEL_DD, '')) = '')
 		]]>
         GROUP BY MASTER_ID, PGM_ID, CT_SEQ
+        FETCH FIRST 1 ROWS ONLY
 		<isEqual property="wait" compareValue="true">
 			with UR
         </isEqual>
@@ -159,7 +166,7 @@
         </dynamic>
     </update>
     
-    <delete id="deleteContentMap" parameterClass="long">
+    <delete id="deleteContentMap" parameterClass="map">
     	DELETE FROM CONTENTS_MAPP_TBL
     	<dynamic prepend="WHERE">
 	        <isNotNull prepend="AND" property="ctId">

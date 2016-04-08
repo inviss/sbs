@@ -9,7 +9,7 @@ public interface DasCMS {
 	
 	/**
 	 * <pre>
-	 * 
+	 * WISE(ERP) 프로그램 정보 신규 등록 및 변경
 	 * </pre>
 	 * @param xml
 	 * @throws RemoteException
@@ -29,7 +29,7 @@ public interface DasCMS {
 	
 	/**
 	 * <pre>
-	 * 
+	 * 회차 메타정보 변경
 	 * </pre>
 	 * @param xml
 	 * @throws RemoteException
@@ -38,7 +38,7 @@ public interface DasCMS {
 	
 	/**
 	 * <pre>
-	 * 
+	 * 회차 코너 및 사용제한 등급 변경
 	 * </pre>
 	 * @param xml
 	 * @throws RemoteException
@@ -54,6 +54,7 @@ public interface DasCMS {
 	 * @return
 	 * @throws RemoteException
 	 */
+	@Deprecated
 	public long transferRequest(String xml) throws RemoteException;
 	
 	/**
@@ -76,6 +77,7 @@ public interface DasCMS {
 	 * @return
 	 * @throws RemoteException
 	 */
+	@Deprecated
 	public String findStatus(String xml) throws RemoteException;
 	
 }
