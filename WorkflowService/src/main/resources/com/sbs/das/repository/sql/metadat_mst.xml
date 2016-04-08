@@ -99,18 +99,22 @@
 		<result property="brdEndHms" column="BRD_END_HMS" />
 		<result property="duration" column="DURATION" />
 		<result property="chennelCd" column="CHENNEL_CD" />
+		<result property="objName" column="OBJ_NAME" />
+		<result property="filename" column="FILENAME" />
     </resultMap>
     
     <select id="findMetadatMst" resultMap="MetadatMstFindMap" parameterClass="map">
 	     SELECT
-			mst.MASTER_ID, mst.CHENNEL_CD, value(mst.PGM_CD, '') AS pgm_cd, VALUE(mst.EPIS_NO, 0) AS epis_no, mst.BRD_DD, 
-			RTRIM(VALUE(mst.BRD_BGN_HMS, '0')) as BRD_BGN_HMS, RTRIM(VALUE(mst.BRD_END_HMS, '0')) as BRD_END_HMS,
+			mst.MASTER_ID, mst.CHENNEL_CD, value(mst.PGM_CD, '') AS pgm_cd, VALUE(mst.EPIS_NO, 0) AS epis_no, mst.BRD_DD, loc.FILENAME,
+			RTRIM(VALUE(mst.BRD_BGN_HMS, '0')) as BRD_BGN_HMS, RTRIM(VALUE(mst.BRD_END_HMS, '0')) as BRD_END_HMS, loc.OBJ_NAME,
 		    case WHEN mst.CTGR_L_CD = '200' AND VALUE(pgm.PGM_ID, 0) > 0 THEN pgm.PGM_NM ELSE mst.TITLE END title, mst.PGM_CD, ct.DURATION
 		 FROM METADAT_MST_TBL mst
 			inner JOIN (
 		    	SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL WHERE VALUE(del_dd, '') = '' AND VALUE(del_yn, 'N') = 'N' GROUP BY master_id, ct_id
 		    ) mapp ON mst.MASTER_ID = mapp.MASTER_ID
 			inner JOIN CONTENTS_TBL ct ON mapp.CT_ID = ct.CT_ID
+			inner JOIN CONTENTS_INST_TBL cti ON ct.CT_ID = cti.CT_ID and cti.CTI_FMT like '1%'
+			inner JOIN CONTENTS_LOC_TBL loc ON cti.CTI_ID = loc.CTI_ID
 		    left outer JOIN PGM_INFO_TBL pgm ON mst.PGM_ID = pgm.PGM_ID
          <dynamic prepend="WHERE">
 	         <isNotEmpty prepend="AND" property="brdDd">

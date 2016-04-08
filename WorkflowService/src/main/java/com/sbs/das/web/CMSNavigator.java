@@ -117,6 +117,8 @@ public class CMSNavigator implements DasCMS {
 				metadata.setBradStTime(metadatMstTbl.getBrdBgnHms());
 				metadata.setBradFnsTime(metadatMstTbl.getBrdEndHms());
 				metadata.setBradLen(metadatMstTbl.getDuration());
+				metadata.setObjName(metadatMstTbl.getObjName());
+				metadata.setFilename(metadatMstTbl.getFilename());
 
 				data.addMetadatas(metadata);
 			}

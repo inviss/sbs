@@ -108,12 +108,14 @@ public class SoapTest extends BaseConfig{
 
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void findMetadataTest() {
-		String xml = "";
+		
 		try {
-			Data data = (Data)xmlStream.fromXML("<data><brad_day>20120310</brad_day><brad_st_time>074000</brad_st_time><brad_fns_time>084200</brad_fns_time></data>");
+			String xml = FileUtils.readFileToString(new File("D:/find_episode.xml"), "utf-8");
+			//Data data = (Data)xmlStream.fromXML("<data><brad_day>20120310</brad_day><brad_st_time>074000</brad_st_time><brad_fns_time>084200</brad_fns_time></data>");
+			Data data = (Data)xmlStream.fromXML(xml);
 			List<MetadatMstTbl> metadatMstTbls = metadataService.findMetaDataList(data);
 
 			data = new Data();
@@ -168,7 +170,7 @@ public class SoapTest extends BaseConfig{
 	}
 
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void xmlCornerLoadTest() {
 		String xml = "";

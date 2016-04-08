@@ -87,8 +87,22 @@ public class MetadatMstTbl extends BaseObject {
 	private String errorId;
 	private String errorDt;
 	private Long duration;
+	private String objName;
+	private String filename;
 	
 	
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public String getObjName() {
+		return objName;
+	}
+	public void setObjName(String objName) {
+		this.objName = objName;
+	}
 	public Long getDuration() {
 		return duration;
 	}

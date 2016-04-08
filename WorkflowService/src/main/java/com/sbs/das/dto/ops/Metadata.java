@@ -230,8 +230,33 @@ public class Metadata {
 	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("regrid")
 	private String regrid;
+	
+	// 아카이브 코드
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("obj_name")
+	private String objName;
+	
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("file_nm")
+	private String filename;
 
 	
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getObjName() {
+		return objName;
+	}
+
+	public void setObjName(String objName) {
+		this.objName = objName;
+	}
+
 	public String getRegrid() {
 		return regrid;
 	}

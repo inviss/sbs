@@ -70,6 +70,11 @@
     	<selectKey keyProperty="seq" resultClass="java.lang.Integer">
     		select max(SEQ)+1 from TIME_RIST_SET_TBL
     	</selectKey>
+    <!--  
+    	<selectKey keyProperty="seq" resultClass="java.lang.Long">
+    		select nextval for SEQ_TIME_RIST from sysibm.sysdummy1
+    	</selectKey>
+    -->
     	INSERT INTO TIME_RIST_SET_TBL (
 		    SEQ, WEEK, S_TIME, E_TIME, RIST_CLF_CD, REG_DT, REG_ID
 		)VALUES(

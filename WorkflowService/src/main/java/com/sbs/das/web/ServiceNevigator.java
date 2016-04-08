@@ -1062,10 +1062,20 @@ public class ServiceNevigator implements Nevigator {
 
 						contentInstTbl.setCtiFmt(das.getDbTable().getContentInst().getCtiFmt());
 						contentInstTbl.setFlSz(das.getDbTable().getContentInst().getFlSz());
-						contentInstTbl.setVdHresol(das.getDbTable().getContentInst().getVdHresol());
-						contentInstTbl.setVdVresol(das.getDbTable().getContentInst().getVdVreSol());
+						/*
+						 * 가로*세로 해상도가 바뀌어 있다면 원래 위치로 복원해준다.
+						 * 2016.03.30
+						 */
+						if(das.getDbTable().getContentInst().getVdHresol() < das.getDbTable().getContentInst().getVdVreSol()) {
+							contentInstTbl.setVdHresol(das.getDbTable().getContentInst().getVdVreSol());
+							contentInstTbl.setVdVresol(das.getDbTable().getContentInst().getVdHresol());
+						} else {
+							contentInstTbl.setVdHresol(das.getDbTable().getContentInst().getVdHresol());
+							contentInstTbl.setVdVresol(das.getDbTable().getContentInst().getVdVreSol());
+						}
+						
 						contentInstTbl.setBitRt(das.getDbTable().getContentInst().getBitRt());
-						contentInstTbl.setFrmPerSec(das.getDbTable().getContentInst().getFrmPerSec());
+						contentInstTbl.setFrmPerSec("29.97");
 						contentInstTbl.setColorCd(das.getDbTable().getContentInst().getColorCd());
 						contentInstTbl.setAudioYn(das.getDbTable().getContentInst().getAudioYn());
 						contentInstTbl.setAudTypeCd(das.getDbTable().getContentInst().getAudioType());
@@ -2960,10 +2970,19 @@ public class ServiceNevigator implements Nevigator {
 
 					contentInstTbl.setCtiFmt(das.getDbTable().getContentInst().getCtiFmt());
 					contentInstTbl.setFlSz(das.getDbTable().getContentInst().getFlSz());
-					contentInstTbl.setVdHresol(das.getDbTable().getContentInst().getVdHresol());
-					contentInstTbl.setVdVresol(das.getDbTable().getContentInst().getVdVreSol());
+					/*
+					 * 가로*세로 해상도가 바뀌어 있다면 원래 위치로 복원해준다.
+					 * 2016.03.30
+					 */
+					if(das.getDbTable().getContentInst().getVdHresol() < das.getDbTable().getContentInst().getVdVreSol()) {
+						contentInstTbl.setVdHresol(das.getDbTable().getContentInst().getVdVreSol());
+						contentInstTbl.setVdVresol(das.getDbTable().getContentInst().getVdHresol());
+					} else {
+						contentInstTbl.setVdHresol(das.getDbTable().getContentInst().getVdHresol());
+						contentInstTbl.setVdVresol(das.getDbTable().getContentInst().getVdVreSol());
+					}
 					contentInstTbl.setBitRt(das.getDbTable().getContentInst().getBitRt());
-					contentInstTbl.setFrmPerSec(das.getDbTable().getContentInst().getFrmPerSec());
+					contentInstTbl.setFrmPerSec("29.97");
 					contentInstTbl.setColorCd(das.getDbTable().getContentInst().getColorCd());
 					contentInstTbl.setAudioYn(das.getDbTable().getContentInst().getAudioYn());
 					contentInstTbl.setAudTypeCd(das.getDbTable().getContentInst().getAudioType());
@@ -3707,10 +3726,19 @@ public class ServiceNevigator implements Nevigator {
 
 					contentInstTbl.setCtiFmt(das.getDbTable().getContentInst().getCtiFmt());
 					contentInstTbl.setFlSz(das.getDbTable().getContentInst().getFlSz());
-					contentInstTbl.setVdHresol(das.getDbTable().getContentInst().getVdHresol());
-					contentInstTbl.setVdVresol(das.getDbTable().getContentInst().getVdVreSol());
+					/*
+					 * 가로*세로 해상도가 바뀌어 있다면 원래 위치로 복원해준다.
+					 * 2016.03.30
+					 */
+					if(das.getDbTable().getContentInst().getVdHresol() < das.getDbTable().getContentInst().getVdVreSol()) {
+						contentInstTbl.setVdHresol(das.getDbTable().getContentInst().getVdVreSol());
+						contentInstTbl.setVdVresol(das.getDbTable().getContentInst().getVdHresol());
+					} else {
+						contentInstTbl.setVdHresol(das.getDbTable().getContentInst().getVdHresol());
+						contentInstTbl.setVdVresol(das.getDbTable().getContentInst().getVdVreSol());
+					}
 					contentInstTbl.setBitRt(das.getDbTable().getContentInst().getBitRt());
-					contentInstTbl.setFrmPerSec(das.getDbTable().getContentInst().getFrmPerSec());
+					contentInstTbl.setFrmPerSec("29.97");
 					contentInstTbl.setColorCd(das.getDbTable().getContentInst().getColorCd());
 					contentInstTbl.setAudioYn(das.getDbTable().getContentInst().getAudioYn());
 					contentInstTbl.setAudTypeCd(das.getDbTable().getContentInst().getAudioType());
