@@ -2768,21 +2768,14 @@ public class ExternalBusinessProcessor
 	 * @return
 	 * @throws Exception 
 	 */
-	public String recreateWMV(TcBeanDO tcbean,String user_nm) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
+	public String recreateWMV(TcBeanDO tcbean,String user_nm) throws Exception {
+		if(logger.isDebugEnabled()) {
 			logger.debug("[RecreateWMV][ct_id]" + tcbean.getCt_id()+"[user_nm]"+user_nm);
 		}
 
-		try 
-		{
-			return externalDAO.recreateWMV(tcbean, user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
-		} 
-		catch (Exception e)
-		{
-
-
+		try {
+			return externalDAO.recreateNewWMV(tcbean, user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -2794,19 +2787,14 @@ public class ExternalBusinessProcessor
 	 * @return
 	 * @throws Exception 
 	 */
-	public String recreateWMV_KFRM(TcBeanDO tcbean,String user_nm) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[recreateWMV_KFRM][ct_id]" + tcbean.getCt_id()+"[user_nm]"+user_nm);
+	public String recreateWMV_KFRM(TcBeanDO tcbean,String user_nm) throws Exception {
+		if(logger.isDebugEnabled()) {
+			logger.debug("[recreateWMV_KFRM][ct_id]" + tcbean.getCt_id()+"[user_nm]"+tcbean.getRegrid());
 		}
 
-		try 
-		{
-			return externalDAO.recreateWMV_KFRM(tcbean,"D080009",dasHandler.getProperty("TC_DIR_INTERFACE"));
-		} 
-		catch (Exception e)
-		{
+		try {
+			return externalDAO.recreateNewWMV_KFRM(tcbean, user_nm, dasHandler.getProperty("TC_DIR_INTERFACE"));
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -2819,23 +2807,18 @@ public class ExternalBusinessProcessor
 	 * @return
 	 * @throws Exception 
 	 */
-	public String recreateKFRM(TcBeanDO tcbean,String user_nm) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
+	public String recreateKFRM(TcBeanDO tcbean,String user_nm) throws Exception {
+		if(logger.isDebugEnabled()) {
 			logger.debug("[recreateKFRM][ct_id]" + tcbean.getCt_id()+"[user_nm]"+user_nm);
 		}
 
-		try 
-		{
-			return externalDAO.recreateKFRM(tcbean,user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
-		} 
-		catch (Exception e)
-		{
-
+		try {
+			return externalDAO.recreateNewKFRM(tcbean,user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
+	
 	/**
 	 * 키프레임 생성(클라이언트 신청시)
 	 * @param ct_id 콘텐츠id 
@@ -3887,6 +3870,9 @@ public class ExternalBusinessProcessor
 			}
 			
 			tcBeanDO.setReq_cd(req_cd);
+			if(logger.isDebugEnabled()) {
+				logger.debug("ct_id: "+tcBeanDO.getCt_id()+", tc_type: "+Tc_type);
+			}
 			if(Tc_type.equals(CodeConstants.TcGubun.PDS)){  //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
 				TcBeanDO resultTC =	externalDAO.selectTcJob2(tcBeanDO);
 				
@@ -3897,14 +3883,23 @@ public class ExternalBusinessProcessor
 				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
 				PdsArchiveDO info = externalDAO.selectAutoArchiveInfobyCt_id(tcBeanDO.getCt_id());
 				pdsarchive.setCt_cla(ctcla);
+				pdsarchive.setCt_id(tcBeanDO.getCt_id());
 				pdsarchive.setMedia_id(tcBeanDO.getMedia_id());
 				
 				boolean result = systemManageDAO.getAutoArchvieList(pdsarchive.getCt_cla(),tcBeanDO.getCocd(),info.getChennel(),info.getArch_route());
-				if(result){			
+				if(result){
+					// IfCMS 삭제 콘텐츠가 아니라면 아카이브 요청
 					PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForPDS(pdsarchive);
+					if(pADO != null && (pADO.getMedia_id() != null && !pADO.getMedia_id().equals("delete"))) {
+						String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
+						logger.debug("[PDS][Input pADO]" + pADO);
+						externalDAO.ArchivePDSReq(pADO, pgm_cms_id);
+					}
+					/*
 					String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
-					logger.debug("[pADO][Input pADO]" + pADO);
-					externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
+					logger.debug("[PDS][Input pADO]" + pADO);
+					externalDAO.ArchivePDSReq(pADO, pgm_cms_id);
+					*/
 				}
 
 				return resultTC;
@@ -3915,17 +3910,26 @@ public class ExternalBusinessProcessor
 				/**
 				 * 아카이브 요청 DTL manager
 				 */
+				//tcBeanDO.setCt_id(574856);
 
-				PdsArchiveDO pdsarchive = new PdsArchiveDO();
 				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
-
+				
+				PdsArchiveDO pdsarchive = new PdsArchiveDO();
+				pdsarchive.setCt_id(tcBeanDO.getCt_id());
 				pdsarchive.setCt_cla(ctcla);
 				pdsarchive.setMedia_id(tcBeanDO.getMedia_id());
+				
 				PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForPDS(pdsarchive);
+				if(pADO != null) {
+					logger.debug("[MANUAL][Input pADO]" + pADO);
+					String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
+					externalDAO.ArchivePDSReq(pADO, pgm_cms_id);
+				}
+/*
 				String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
-				logger.debug("[pADO][Input pADO]" + pADO);
+				logger.debug("[MANUAL][Input pADO]" + pADO);
 				externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
-
+*/
 				return resultTC;
 			} else if(Tc_type.equals(CodeConstants.TcGubun.IFCMS)) {   //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
 				TcBeanDO resultTC =	externalDAO.selectTcJob4(tcBeanDO);
@@ -3939,9 +3943,16 @@ public class ExternalBusinessProcessor
 				pdsarchive.setCt_cla(ctcla);
 				pdsarchive.setCt_id(tcBeanDO.getCt_id());
 				PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForIFCMS(pdsarchive);
+				if(pADO != null && (pADO.getMedia_id() != null && !pADO.getMedia_id().equals("delete"))) {
+					String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
+					logger.debug("[IFCMS][Input pADO]" + pADO);
+					externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
+				}
+				/*
 				String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
-				logger.debug("[pADO][Input pADO]" + pADO);
+				logger.debug("[IFCMS][Input pADO]" + pADO);
 				externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
+				*/
 				return resultTC;
 			} else {
 				return externalDAO.selectTcJob2(tcBeanDO);
@@ -4007,8 +4018,12 @@ public class ExternalBusinessProcessor
 						error_cont="파일자체 오류";
 						error_code="004";
 						process_id="MT";
+					}else if(newTcBeanDO.getJob_status().equals("5")){
+						error_cont="Catalog 생성 오류";
+						error_code="007";
+						process_id="MT";
 					}else if(newTcBeanDO.getJob_status().equals("6")){
-						error_cont="H264생성 오류";
+						error_cont="H264 생성 오류";
 						error_code="005";
 						process_id="MT";
 					}else if(newTcBeanDO.getJob_status().equals("7")){
@@ -4514,7 +4529,7 @@ public class ExternalBusinessProcessor
 		try {//
 			return externalDAO.getUsedDasTmYn(num);
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error("getUsedDasTmYn", e);
 		}
 		return false;
 	}
@@ -4533,9 +4548,8 @@ public class ExternalBusinessProcessor
 		try {//
 			return externalDAO.getCartInfo(num);
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw e;
 		}
-		return null;
 	}
 
 
