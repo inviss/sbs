@@ -368,8 +368,8 @@ public class DivaManagerDOXML extends DOXml {
 		_xml.append("<" + XML_NODE_CTI_ID + ">" +authorDO.getCti_id() + "</"  + XML_NODE_CTI_ID + "> \n");
 		
 		//20121105 프로그램이고 방송본의 경우 아카이브 + 복본 그이외는 아카이브만 요청한다. BY ASURA
-		if(authorDO.getCt_cla().equals("006")&&authorDO.getCtgr_l_cd().equals("200")){
-		_xml.append("<" + XML_NODE_JOB_GUBUN + ">all</"  + XML_NODE_JOB_GUBUN + "> \n");
+		if(authorDO.getCt_cla().equals("006") && authorDO.getCtgr_l_cd().equals("200")){
+			_xml.append("<" + XML_NODE_JOB_GUBUN + ">all</"  + XML_NODE_JOB_GUBUN + "> \n");
 		}else{
 			_xml.append("<" + XML_NODE_JOB_GUBUN + ">mxf</"  + XML_NODE_JOB_GUBUN + "> \n");
 		}
@@ -553,7 +553,7 @@ public class DivaManagerDOXML extends DOXml {
 		/** DTL 삭제 요청 XML 샘플 시작 **/
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<" + XML_NODE_HEAD + ">\n");
-		_xml.append("<req_method>force</req_method>\n");
+		_xml.append("<req_method>scrap</req_method>\n");
 		_xml.append("</"  + XML_NODE_HEAD + ">\n");
 		
 		_xml.append("<" + DELETE + ">\n");;
