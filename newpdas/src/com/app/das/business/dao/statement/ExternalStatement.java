@@ -3564,7 +3564,7 @@ public class ExternalStatement
 	{
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n select   ");
-		buf.append("\n 	 '"+dasHandler.getProperty("WINNEARLINE")+"/restore/D080009/"+tcbean.getCart_no()+"'as fl_path, ");
+		buf.append("\n 	 '"+dasHandler.getProperty("WINNEARLINE")+"/restore/"+tcbean.getRegrid()+"/"+tcbean.getCart_no()+"'as fl_path, ");
 		buf.append("\n 	case when  left(con.KFRM_PATH,1)='/'  then right(con.KFRM_PATH,length(con.KFRM_PATH)-1)  ");
 		buf.append("\n 	else con.KFRM_PATH  ");
 		buf.append("\n 	end as KFRM_PATH,  ");
@@ -4406,7 +4406,7 @@ public class ExternalStatement
 			buf.append("\n 			ELSE 0                                                                                                            ");
 			buf.append("\n 		END AS sum_brd_leng                                                                                                             ");
 		} else {
-			buf.append("\n		CASE WHEN instr(req_cd, 'OPS') > 0 THEN 'Y' ELSE 'N' END AS can_modify,                                                                                                                                ");
+			buf.append("\n		CASE WHEN instr(mst.arch_route, 'OPS') > 0 THEN 'Y' ELSE 'N' END AS can_modify,                                                                                                                                ");
 			buf.append("\n		mst.master_id,                                                                                                                                ");
 			buf.append("\n 		mst.tape_item_id,                                                                                                                             ");
 			buf.append("\n 		mst.mcuid,                                                                                                                                    ");
@@ -5497,7 +5497,29 @@ public class ExternalStatement
 	}
 
 
+	/**
+	 * tc req_cd의 값을 구한다
+	 * @param int num
+	 */
+	public static final String selectNewTcInfo()
+	{
 
+		StringBuffer buf = new StringBuffer();
+		buf.append("\nSELECT                                                                                                        ");
+		buf.append("\n	mst.COCD, dcart.TC_REQ_CD, dcart.CART_NO, down.FILENAME, ct.CT_ID, ct.KFRM_PATH, mp4.CTI_ID, dcart.REGRID,  ");
+		buf.append("\n	mp4.FL_PATH AS mp4_path, mxf.FL_PATH AS mxf_path, loc.path AS arch_path, down.PATH AS down_path, ct.media_id");
+		buf.append("\nFROM CONTENTS_TBL ct                                                                                          ");
+		buf.append("\n	inner JOIN CONTENTS_INST_TBL mxf ON ct.CT_ID = mxf.CT_ID AND mxf.CTI_FMT LIKE '1%'                          ");
+		buf.append("\n    inner JOIN CONTENTS_DOWN_TBL down ON mxf.CTI_ID = down.CTI_ID                                             ");
+		buf.append("\n    inner JOIN DOWN_CART_TBL dcart ON down.CART_NO = dcart.CART_NO AND dcart.TC_REQ_CD <>''                   ");
+		buf.append("\n	left outer JOIN CONTENTS_INST_TBL mp4 ON ct.CT_ID = mp4.CT_ID AND mp4.CTI_FMT LIKE '3%'                     ");
+		buf.append("\n    left outer JOIN CONTENTS_LOC_TBL loc ON mxf.CTI_ID = loc.CTI_ID                                           ");
+		buf.append("\n    left outer JOIN METADAT_MST_TBL mst ON ct.CT_ID = mst.RPIMG_CT_ID                                         ");
+		buf.append("\nWHERE down.num = ?                               																");
+		buf.append("\nWITH UR	 ");
+		return buf.toString();
+	}
+	
 	/**
 	 * tc req_cd의 값을 구한다
 	 * @param int num
@@ -5513,7 +5535,6 @@ public class ExternalStatement
 		buf.append("\n order by down.REG_DTM desc ");
 		buf.append("\n fetch first 1 row only ");
 		buf.append("\n WITH UR	 ");
-
 		return buf.toString();
 	}
 

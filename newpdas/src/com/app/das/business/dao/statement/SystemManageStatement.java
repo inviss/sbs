@@ -915,7 +915,7 @@ public class SystemManageStatement
 		buf.append("\n	   ,''            			AS AWARD_HSTR                                                                     ");
 		buf.append("\n	   ,''              		AS PILOT_YN                                                                       ");
 		buf.append("\n	   ,''               		AS USE_YN                                                                         ");
-		buf.append("\n	FROM DAS.E_PGMMST_TBL                                                                                     ");
+		buf.append("\n	FROM DAS.ERP_E_PGMMST_TBL                                                                                     ");
 		buf.append("\n	WHERE 1=1                                                                                                 ");
 		buf.append("\n		AND PGM_CD NOT IN (SELECT  SUBSTR(PGM_CD, 3, 6) FROM PGM_INFO_TBL)                                      ");
 		buf.append("\n	    AND ((MEDIA='T' AND CHAN_CD='T') OR ((MEDIA='Z' AND CHAN_CD='Z')) OR ((MEDIA='D' AND CHAN_CD='T')))   ");
@@ -924,7 +924,7 @@ public class SystemManageStatement
 		buf.append("\nWHERE 1=1                                                                                                   ");
 		
 		if(!condition2.getUse_yn().equals("")){
-			buf.append("\n    AND (a.use_yn = '"+condition2.getUse_yn()+"'                                                                ");
+			buf.append("\n    AND upper(a.use_yn) = '"+condition2.getUse_yn().toUpperCase()+"'                                                                ");
 		}
 		if(condition2.getSRCH_TYPE().equals("0")){
 			buf.append("\n	  AND (a.pgm_nm LIKE ? OR a.pgm_nm LIKE ?)                                                                ");
