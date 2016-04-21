@@ -2135,11 +2135,11 @@ public class ExternalDAO extends AbstractDAO
 		buf.append("WHERE cart.REGRID = ? AND cart.DOWN_STAT = ? AND cart.MASTER_ID = ?   	");
 		buf.append("GROUP BY cart.CART_NO                                                 	");
 		buf.append("FETCH FIRST 1 ROWS only													");
-		
+
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = DBService.getInstance().getConnection();
 
@@ -2162,7 +2162,7 @@ public class ExternalDAO extends AbstractDAO
 			release(rs, stmt, con);
 		}
 	}
-	
+
 	/**
 	 * 요청 고객의 화질코드와 종횡비 코드가 다운로드카트 정보에 존재하는지를 검증한다.
 	 * @param reqUserId 요청자ID
@@ -8836,7 +8836,7 @@ public class ExternalDAO extends AbstractDAO
 		StringBuffer buf = new StringBuffer();
 		StringBuffer buf2 = new StringBuffer();
 		StringBuffer buf3 = new StringBuffer();
-		
+
 		buf.append("\n update DAS.DOWN_CART_TBL set ");
 		buf.append("\n 	CART_STAT = ? ");
 		buf.append("\n	 ,DOWN_SUBJ = ? ");
@@ -12920,6 +12920,57 @@ public class ExternalDAO extends AbstractDAO
 	 * @return
 	 * @throws Exception 
 	 */
+	public String recreateNewWMV(TcBeanDO tcbean,String user_id,String tc_inter_path) throws Exception
+	{
+		try
+		{
+			String strData = "RETRY," + tcbean.getCt_id()+","+user_id;
+			if (logger.isDebugEnabled()) 
+			{
+				logger.debug("[archiveService로 전송 : ]" + strData);
+			}
+
+			if(logger.isDebugEnabled()) {
+				logger.debug("cocd      : "+tcbean.getCocd());
+				logger.debug("req_cd    : "+tcbean.getReq_cd());
+				logger.debug("cart_no   : "+tcbean.getCart_no());
+				logger.debug("filename  : "+tcbean.getInput_hr_nm());
+				logger.debug("ct_id     : "+tcbean.getCt_id());
+				logger.debug("cti_id    : "+tcbean.getCti_id());
+				logger.debug("media_id  : "+tcbean.getMedia_id());
+				logger.debug("kfrm_path : "+tcbean.getOut_put_ct_path());
+				logger.debug("mxf_path  : "+tcbean.getHR_FL_PATH());
+				logger.debug("mp4_path  : "+tcbean.getLR_FL_PATH());
+				logger.debug("arch_path : "+tcbean.getArch_path());
+				logger.debug("down_path : "+tcbean.getJob_path());
+				logger.debug("regrid    : "+tcbean.getRegrid());
+			}
+
+			TcBeanDO tc = new TcBeanDO();
+			tc.setInput_hr(tcbean.getJob_path());
+			tc.setInput_hr_nm(tcbean.getInput_hr_nm());
+			tc.setCart_no(tcbean.getCart_no());
+			tc.setCt_id(tcbean.getCt_id());
+			tc.setCti_id(tcbean.getCti_id());
+			tc.setCocd(tcbean.getCocd());
+			tc.setCart_no(tcbean.getCart_no());
+			tc.setReq_id(tcbean.getRegrid());
+			tc.setMedia_id(tcbean.getMedia_id());
+			tc.setInput_lr(tcbean.getLR_FL_PATH());
+			tc.setOut_put_lr_path(tcbean.getLR_FL_PATH());
+			tc.setOut_put_ct_path(tcbean.getOut_put_ct_path());
+			
+			TcBeanDO _do2 = inserWmv_nm(tc);
+			updateWMVdate(tcbean.getCt_id());
+			
+			return "1";
+
+		} catch (Exception e) {
+			throw e;		    
+		}
+	}
+	
+	@Deprecated
 	public String recreateWMV(TcBeanDO tcbean,String user_id,String tc_inter_path) throws Exception
 	{
 		try
@@ -12962,6 +13013,54 @@ public class ExternalDAO extends AbstractDAO
 			throw e;		    
 		}
 	}
+
+	public String recreateNewWMV_KFRM(TcBeanDO tcbean, String user_nm, String tc_inter_path)throws Exception{
+
+		try {
+			if(tcbean.getCti_id() <= 0 || org.apache.commons.lang.StringUtils.isBlank(tcbean.getLR_FL_PATH())){
+				insertConInstInfoForLow(tcbean);
+			}
+
+			if(logger.isDebugEnabled()) {
+				logger.debug("cocd      : "+tcbean.getCocd());
+				logger.debug("req_cd    : "+tcbean.getReq_cd());
+				logger.debug("cart_no   : "+tcbean.getCart_no());
+				logger.debug("filename  : "+tcbean.getInput_hr_nm());
+				logger.debug("ct_id     : "+tcbean.getCt_id());
+				logger.debug("cti_id    : "+tcbean.getCti_id());
+				logger.debug("media_id  : "+tcbean.getMedia_id());
+				logger.debug("kfrm_path : "+tcbean.getOut_put_ct_path());
+				logger.debug("mxf_path  : "+tcbean.getHR_FL_PATH());
+				logger.debug("mp4_path  : "+tcbean.getLR_FL_PATH());
+				logger.debug("arch_path : "+tcbean.getArch_path());
+				logger.debug("down_path : "+tcbean.getJob_path());
+				logger.debug("regrid    : "+tcbean.getRegrid());
+			}
+
+			TcBeanDO tc = new TcBeanDO();
+			tc.setInput_hr(tcbean.getJob_path());
+			tc.setInput_hr_nm(tcbean.getInput_hr_nm());
+			tc.setCart_no(tcbean.getCart_no());
+			tc.setCt_id(tcbean.getCt_id());
+			tc.setCti_id(tcbean.getCti_id());
+			tc.setCocd(tcbean.getCocd());
+			tc.setCart_no(tcbean.getCart_no());
+			tc.setReq_id(tcbean.getRegrid());
+			tc.setMedia_id(tcbean.getMedia_id());
+			tc.setInput_lr(tcbean.getLR_FL_PATH());
+			tc.setOut_put_lr_path(tcbean.getLR_FL_PATH());
+			tc.setOut_put_ct_path(tcbean.getOut_put_ct_path());
+			
+			inserWmv_KFRM(tc);
+			updateWMVdate(tc.getCt_id());
+			
+			return "1";
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+
 	/**
 	 * WMV 및 KFRM 재신청 요청한다.
 	 * @param cti_id 콘텐츠 인스턴스 아이디
@@ -12969,6 +13068,7 @@ public class ExternalDAO extends AbstractDAO
 	 * @return
 	 * @throws Exception 
 	 */
+	@Deprecated
 	public String recreateWMV_KFRM(TcBeanDO tcbean,String user_nm,String tc_inter_path)throws Exception{
 
 		try {
@@ -12976,21 +13076,42 @@ public class ExternalDAO extends AbstractDAO
 				logger.debug("recreateWMV_KFRM [input ct_id,user_nm]"+tcbean.getCt_id()+","+user_nm);
 			}
 
-
 			//restore
-
 			TcBeanDO tc = new TcBeanDO();
 			tc= (TcBeanDO)selectTcBeanTbl(tcbean);
-			tc.setCocd(this.selectCocdbyCt_id(tcbean.getCt_id()));
+			if(org.apache.commons.lang.StringUtils.isBlank(tcbean.getCocd())) {
+				tcbean.setCocd(selectCocdbyCt_id(tcbean.getCt_id()));
+			}
 			if(tc.getCt_id()==0){
 				insertConInstInfoForLow(tcbean);
 				tc= (TcBeanDO)selectTcBeanTbl(tcbean);
-				String cocd = selectCocdbyCt_id(tcbean.getCt_id());
-				tc.setCocd(cocd);
 			}
 			TcBeanDOXML _doXML = new TcBeanDOXML();
 			TcBeanDO _do = (TcBeanDO)_doXML.setDO(tc);
 			tc.setInput_hr_nm(tcbean.getInput_hr_nm());
+
+			/*
+			 * 160412 임시코드
+			 */
+			/*
+			String tmp = tcbean.getInput_hr_nm();
+
+			String tmpString = tmp.substring(tmp.lastIndexOf("_") + 1,tmp.lastIndexOf("."));
+			String tmpYearMonth = tmpString.substring(0,6);
+			String tmpDay = tmpString.substring(6,8);
+
+
+			if(org.apache.commons.lang.StringUtils.isBlank(_do.getInput_hr())){
+				_do.setInput_lr("net_mp4/" + tmpYearMonth + "/" + tmpDay + "/" + tcbean.getCt_id());
+			}
+			if(org.apache.commons.lang.StringUtils.isBlank(_do.getOut_put_lr_path())){
+				_do.setOut_put_lr_path("net_mp4/" + tmpYearMonth + "/" + tmpDay + "/" + tcbean.getCt_id());
+			}
+			if(org.apache.commons.lang.StringUtils.isBlank(_do.getOut_put_ct_path())){
+				_do.setOut_put_ct_path("net_mp4/" + tmpYearMonth + "/" + tmpDay + "/" + tcbean.getCt_id() + "/KFRM");
+			}
+
+			 */		
 			_do.setCart_no(tcbean.getCart_no());
 			_do.setReq_id(tcbean.getReq_id());
 			TcBeanDO _do2 = inserWmv_KFRM(_do);
@@ -13029,6 +13150,52 @@ public class ExternalDAO extends AbstractDAO
 	 * @throws Exception 
 	 * @throws RemoteException
 	 */
+	public String recreateNewKFRM(TcBeanDO tcbean,String user_nm,String tc_inter_path)throws Exception{
+
+		try {
+			if(logger.isDebugEnabled()){
+				logger.debug("recreateKFRM [input ct_id,user_nm]"+tcbean.getCt_id()+","+user_nm);
+			}
+			if(logger.isDebugEnabled()) {
+				logger.debug("cocd      : "+tcbean.getCocd());
+				logger.debug("req_cd    : "+tcbean.getReq_cd());
+				logger.debug("cart_no   : "+tcbean.getCart_no());
+				logger.debug("filename  : "+tcbean.getInput_hr_nm());
+				logger.debug("ct_id     : "+tcbean.getCt_id());
+				logger.debug("cti_id    : "+tcbean.getCti_id());
+				logger.debug("media_id  : "+tcbean.getMedia_id());
+				logger.debug("kfrm_path : "+tcbean.getOut_put_ct_path());
+				logger.debug("mxf_path  : "+tcbean.getHR_FL_PATH());
+				logger.debug("mp4_path  : "+tcbean.getLR_FL_PATH());
+				logger.debug("arch_path : "+tcbean.getArch_path());
+				logger.debug("down_path : "+tcbean.getJob_path());
+				logger.debug("regrid    : "+tcbean.getRegrid());
+			}
+
+			TcBeanDO tc = new TcBeanDO();
+			tc.setInput_hr(tcbean.getJob_path());
+			tc.setInput_hr_nm(tcbean.getInput_hr_nm());
+			tc.setCart_no(tcbean.getCart_no());
+			tc.setCt_id(tcbean.getCt_id());
+			tc.setCti_id(tcbean.getCti_id());
+			tc.setCocd(tcbean.getCocd());
+			tc.setCart_no(tcbean.getCart_no());
+			tc.setReq_id(tcbean.getRegrid());
+			tc.setMedia_id(tcbean.getMedia_id());
+			tc.setInput_lr(tcbean.getLR_FL_PATH());
+			tc.setOut_put_lr_path(tcbean.getLR_FL_PATH());
+			tc.setOut_put_ct_path(tcbean.getOut_put_ct_path());
+			
+			TcBeanDO tc1 = inserKFRM(tc);
+
+			return "1";
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+	
+	@Deprecated
 	public String recreateKFRM(TcBeanDO tcbean,String user_nm,String tc_inter_path)throws Exception{
 
 		try {
@@ -18260,7 +18427,7 @@ public class ExternalDAO extends AbstractDAO
 		try {
 
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectTcJob2######## con : " + con);
+			logger.debug("######selectTcJob2######## ct_Id: "+tcBeanDO.getCt_id()+" : " + tcBeanDO.getReq_cd());
 			if(tcBeanDO.getReq_cd().equals("LRCT")){
 
 				// wmv 재생성일, 명칭 업데이트
@@ -19139,15 +19306,8 @@ public class ExternalDAO extends AbstractDAO
 
 
 	}
-
-	/**
-	 * wmv_KFRM 정보를 삽입
-	 * @param m
-	 * @param 
-	 * @return
-	 * @throws Exception 
-	 */
-	public TcBeanDO inserWmv_KFRM(TcBeanDO TcBeanDO) throws Exception
+	
+	public TcBeanDO inserNewWmv_KFRM(TcBeanDO TcBeanDO) throws Exception
 	{
 
 		Connection con = null;
@@ -19190,12 +19350,11 @@ public class ExternalDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 			String userId="";
 			int index = 0;
-			String dateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 			long seq =  selectSeq();
 
 			stmt.setLong(++index, seq);//SEQ
-			stmt.setString(++index, String.valueOf(TcBeanDO.getMedia_id()));//MEDIA_ID
-			stmt.setString(++index, dateTime);//REG_DT
+			stmt.setString(++index, TcBeanDO.getMedia_id());//MEDIA_ID
+			stmt.setString(++index, CalendarUtil.getDateTime("yyyyMMddHHmmss"));//REG_DT
 			stmt.setString(++index, "");//RESULT
 			stmt.setString(++index, "");//TC_ID
 			stmt.setString(++index, "LRCT");			//REQ_CD
@@ -19248,6 +19407,105 @@ public class ExternalDAO extends AbstractDAO
 		}
 		finally
 		{
+			release(null, stmt, con);
+		}
+
+	}
+
+	/**
+	 * wmv_KFRM 정보를 삽입
+	 * @param m
+	 * @param 
+	 * @return
+	 * @throws Exception 
+	 */
+	public TcBeanDO inserWmv_KFRM(TcBeanDO TcBeanDO) throws Exception
+	{
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+
+		StringBuffer buf = new StringBuffer();
+		buf.append("\n INSERT INTO TC_JOB_TBL ( ");
+		buf.append("\n   SEQ ");
+		buf.append("\n ,MEDIA_ID ");
+		buf.append("\n ,REG_DT ");
+		buf.append("\n ,RESULT ");
+		buf.append("\n ,TC_ID ");
+		buf.append("\n ,REQ_CD ");
+		buf.append("\n ,INPUT_HR ");
+		buf.append("\n ,INPUT_HR_NM ");
+		buf.append("\n ,INPUT_LR ");
+		buf.append("\n ,INPUT_LR_NM ");
+		buf.append("\n ,OUTPUT_LR_PATH ");
+		buf.append("\n ,OUTPUT_CT_PATH ");
+		buf.append("\n ,OUTPUT_LR_NM ");
+		buf.append("\n ,OUTPUT_CT_NM ");
+		buf.append("\n ,CT_ID ");
+		buf.append("\n ,FILE_READY ");
+		buf.append("\n ,JOB_ALOCATE ");
+		buf.append("\n ,TC_TYPE");
+		buf.append("\n ,REQ_ID");
+		buf.append("\n ,COCD");
+		buf.append("\n ,CART_NO");
+		buf.append("\n ) VALUES ( ");
+		buf.append("\n ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+
+
+		try 
+		{
+			con = DBService.getInstance().getConnection();
+
+			stmt = con.prepareStatement(buf.toString());
+			String userId="";
+			int index = 0;
+			String dateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
+			long seq =  selectSeq();
+
+			stmt.setLong(++index, seq);//SEQ
+			stmt.setString(++index, String.valueOf(TcBeanDO.getMedia_id()));//MEDIA_ID
+			stmt.setString(++index, dateTime);//REG_DT
+			stmt.setString(++index, "");//RESULT
+			stmt.setString(++index, "");//TC_ID
+			stmt.setString(++index, "LRCT");			//REQ_CD
+			stmt.setString(++index, TcBeanDO.getInput_hr());//INPUT_HR
+			stmt.setString(++index, TcBeanDO.getInput_hr_nm());//INPUT_HR_nm
+			stmt.setString(++index, TcBeanDO.getInput_lr());//INPUT_LR
+			stmt.setString(++index, TcBeanDO.getCti_id()+".mp4");//INPUT_LR_nm
+			stmt.setString(++index, TcBeanDO.getInput_lr());	//OUTPUT_LR_PATH
+
+
+			stmt.setString(++index, TcBeanDO.getOut_put_ct_path());//OUTPUT_CT_PATH
+			stmt.setString(++index, TcBeanDO.getCti_id()+".mp4");//OUTPUT_LR_NM
+			stmt.setString(++index, TcBeanDO.getCt_id()+".mer");//OUTPUT_CT_NM
+			stmt.setLong(++index, TcBeanDO.getCt_id());//CT_ID
+
+			stmt.setString(++index, "");//FILE_READY
+			stmt.setString(++index,"N");//JOB_ALOCATE
+			stmt.setString(++index,CodeConstants.TcGubun.RECREATE);//TC_TYPE
+			stmt.setString(++index,TcBeanDO.getReq_id());//REQ_ID
+			stmt.setString(++index,TcBeanDO.getCocd());//COCD
+			stmt.setLong(++index,TcBeanDO.getCart_no());//CART_NO
+			TcBeanDO.setSeq(seq);
+
+			int itmp = stmt.executeUpdate();
+
+
+			//사용자 정보의 수정 내역을 등록한다.
+			//insertNonEmployeeRoleHistory(con, roleDO);
+
+			con.commit();
+			return TcBeanDO;
+
+		} catch (Exception e) {
+			logger.error(buf.toString());
+			if(con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException e1) { }
+			}
+			throw e;
+		} finally {
 			release(null, stmt, con);
 		}
 
@@ -19392,15 +19650,16 @@ public class ExternalDAO extends AbstractDAO
 			rs = stmt.executeQuery();
 			List resultList  = new ArrayList();
 			TcBeanDO item = new TcBeanDO();
-			while(rs.next())
-			{
+			while(rs.next()) {
 
 				item.setCt_id(tcbean.getCt_id());
 				item.setCti_id(rs.getLong("cti_id"));
 				item.setInput_hr(rs.getString("fl_path"));
 				item.setOut_put_ct_path(rs.getString("KFRM_PATH"));
+
 				if(!rs.getString("flpath").equals("")){
 					item.setInput_lr(rs.getString("flpath"));
+					logger.debug("setInput_lr: "+rs.getString("flpath"));
 				}else {
 					String k[] = item.getOut_put_ct_path().split("/");
 					String path="";
@@ -19413,6 +19672,7 @@ public class ExternalDAO extends AbstractDAO
 							}
 						}
 					}
+					logger.debug("setInput_lr: "+path);
 					item.setInput_lr(path);	
 
 				}
@@ -19685,6 +19945,7 @@ public class ExternalDAO extends AbstractDAO
 			/**
 			 * 해당 디렉토리에 XML 파일을 전송,저장한다.
 			 */
+
 			jutil fo = new jutil();
 			logger.debug("location [_doXML.toXML()]"+tc_inter_path+stateBeanDO.getTc_id()+"/"+tcJobBeanDO.getCt_id());
 
@@ -19692,7 +19953,9 @@ public class ExternalDAO extends AbstractDAO
 			if(!f.exists()) f.mkdirs();
 
 			fo.makeFile(_doXML.toXML(), tc_inter_path+stateBeanDO.getTc_id()+"/"+tcJobBeanDO.getCt_id());
+
 			logger.debug("getTCJob [_doXML.toXML()]"+_doXML.toXML());
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -19731,10 +19994,11 @@ public class ExternalDAO extends AbstractDAO
 
 		String _result = "";
 		try{
-
+			
 			pdsArchiveDO.setCocd(selectCocd(pdsArchiveDO.getCti_id())) ;
 			DivaManagerDOXML _doing = new DivaManagerDOXML();
 
+			//System.out.println(_doing.getNewArchiveXML(pdsArchiveDO));
 			NevigatorProxy port = new NevigatorProxy();
 			_result = port.archiveService(_doing.getNewArchiveXML(pdsArchiveDO));
 			logger.debug("_ArchivePDSReq result : "+_result);
@@ -19976,9 +20240,22 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setString(++index, tcBeanDO.getLR_AUDIO_SAMP_FRQ());
 
 			String[] sol = tcBeanDO.getLr_resol().split("X");
-			for(int i =0; i<sol.length;i++){
-				stmt.setString(++index, sol[i] );
+			/*
+			 * 2016.03.30
+			 * 가로*세로 해상도가 바뀌어 있다면 복원해준다.
+			 */
+			int hresol = Integer.valueOf(org.apache.commons.lang.StringUtils.defaultIfEmpty(sol[0], "0"));
+			int vresol = Integer.valueOf(org.apache.commons.lang.StringUtils.defaultIfEmpty(sol[1], "0"));
+			if(hresol < vresol) {
+				stmt.setInt(++index, vresol);
+				stmt.setInt(++index, hresol);
+			} else {
+				stmt.setInt(++index, hresol);
+				stmt.setInt(++index, vresol);
 			}
+			/*for(int i =0; i<sol.length;i++){
+				stmt.setString(++index, sol[i] );
+			}*/
 			stmt.setLong(++index, tcBeanDO.getCt_id());	
 
 			int updateCount = stmt.executeUpdate();
@@ -20064,9 +20341,22 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setString(++index, tcBeanDO.getLR_AUDIO_SAMP_FRQ());
 
 			String[] sol = tcBeanDO.getHR_RESOL_HR().split("X");
-			for(int i =0; i<sol.length;i++){
-				stmt.setString(++index, sol[i] );
+			/*
+			 * 2016.03.30
+			 * 가로*세로 해상도가 바뀌어 있다면 복원해준다.
+			 */
+			int hresol = Integer.valueOf(org.apache.commons.lang.StringUtils.defaultIfEmpty(sol[0], "0"));
+			int vresol = Integer.valueOf(org.apache.commons.lang.StringUtils.defaultIfEmpty(sol[1], "0"));
+			if(hresol < vresol) {
+				stmt.setInt(++index, vresol);
+				stmt.setInt(++index, hresol);
+			} else {
+				stmt.setInt(++index, hresol);
+				stmt.setInt(++index, vresol);
 			}
+			/*for(int i =0; i<sol.length;i++){
+				stmt.setString(++index, sol[i] );
+			}*/
 			stmt.setLong(++index, tcBeanDO.getCt_id());	
 
 			int updateCount = stmt.executeUpdate();
@@ -20130,10 +20420,25 @@ public class ExternalDAO extends AbstractDAO
 
 			stmt.setLong(++index,Long.parseLong(tcBeanDO.getHR_FL_SZ()));
 			stmt.setString(++index, tcBeanDO.getHR_BIT_RT());
+
 			String[] sol = tcBeanDO.getHR_RESOL_HR().split("X");
-			for(int i =0; i<sol.length;i++){
-				stmt.setString(++index, sol[i] );
+			/*
+			 * 2016.03.30
+			 * 가로*세로 해상도가 바뀌어 있다면 복원해준다.
+			 */
+			int hresol = Integer.valueOf(org.apache.commons.lang.StringUtils.defaultIfEmpty(sol[0], "0"));
+			int vresol = Integer.valueOf(org.apache.commons.lang.StringUtils.defaultIfEmpty(sol[1], "0"));
+			if(hresol < vresol) {
+				stmt.setInt(++index, vresol);
+				stmt.setInt(++index, hresol);
+			} else {
+				stmt.setInt(++index, hresol);
+				stmt.setInt(++index, vresol);
 			}
+			/*for(int i =0; i<sol.length;i++){
+				stmt.setString(++index, sol[i] );
+			}*/
+
 			stmt.setString(++index, tcBeanDO.getLR_FRM_PER_SEC());			
 			stmt.setString(++index, tcBeanDO.getLR_DRP_FRM_YN() );
 
@@ -24868,23 +25173,23 @@ public class ExternalDAO extends AbstractDAO
 		PreparedStatement psmt = null;		
 		ResultSet rs = null;
 
-		buf.append(" SELECT CTI.CTI_ID as cti_id   ,tc.INPUT_HR as fl_path ,tc.input_hr_nm ,ct.media_id ,ct.reg_dt ,CT.VD_QLTY ,ct.ct_cla                 ");
-		buf.append(" , MST.CTGR_L_CD                  ");
+		buf.append(" SELECT CTI.CTI_ID as cti_id, tc.INPUT_HR as fl_path, tc.input_hr_nm, ct.media_id, ct.reg_dt, rtrim(CT.VD_QLTY) as vd_qlty ,ct.ct_cla, ");
+		buf.append(" MST.CTGR_L_CD, mst.REGRID                  ");
 		buf.append("  FROM DAS.CONTENTS_TBL CT                  ");
 		buf.append("     INNER JOIN DAS.CONTENTS_INST_TBL CTI ON CTI.CT_ID= CT.CT_ID AND CTI.CTI_FMT LIKE '10%'  ");
 		buf.append("     INNER JOIN (SELECT CT_ID,MASTER_ID FROM DAS.CONTENTS_MAPP_TBL GROUP BY CT_ID,MASTER_ID) MAP ON MAP.CT_ID= CT.CT_ID   ");
 		buf.append("     INNER JOIN DAS.METADAT_MST_TBL MST ON MST.MASTER_ID = MAP.MASTER_ID  ");
-
-		buf.append("  inner join DAS.TC_JOB_TBL tc on tc.CT_ID=cti.CT_ID       ");
-		buf.append(" WHERE CT.MEDIA_ID = ?        order by ct.reg_dt desc       ");
+		buf.append("     INNER JOIN DAS.TC_JOB_TBL tc on tc.CT_ID=cti.CT_ID       ");
+		buf.append(" WHERE CT.CT_ID = ?        order by ct.reg_dt desc       ");
 		buf.append(" fetch first 1 rows only        ");
 		try {
 			con = DBService.getInstance().getConnection();
 			//logger.debug("######selectCtiFromMediaidForPDS######## con : " + con);
 			//con.setAutoCommit(false);
 			psmt = con.prepareStatement(buf.toString());    
-			int index = 0;			
-			psmt.setString(++index, pdsArchiveDO.getMedia_id());
+			int index = 0;	
+			psmt.setLong(++index, pdsArchiveDO.getCt_id());
+			//psmt.setString(++index, pdsArchiveDO.getMedia_id());
 			rs = psmt.executeQuery();	
 			PdsArchiveDO item = new PdsArchiveDO();
 			if(rs.next())
@@ -24894,9 +25199,10 @@ public class ExternalDAO extends AbstractDAO
 				item.setFl_nm(rs.getString("input_hr_nm"));
 				item.setMedia_id(rs.getString("media_id"));
 				item.setReq_dt(rs.getString("reg_dt"));
-				item.setVd_qulty(rs.getString("VD_QLTY"));
+				item.setVd_qulty(org.apache.commons.lang.StringUtils.defaultIfEmpty(rs.getString("VD_QLTY"), "001"));
 				item.setCt_cla(rs.getString("ct_cla"));
 				item.setCtgr_l_cd(rs.getString("CTGR_L_CD"));
+				item.setReq_id(rs.getString("REGRID"));
 			}
 			//con.setAutoCommit(true);
 			return item;   
@@ -25224,17 +25530,10 @@ public class ExternalDAO extends AbstractDAO
 				item.setCart_seq(rs.getInt("CART_seq"));
 			}
 			return item;
-
-		}
-		catch (Exception ex)
-		{
-			logger.error(buf.toString());
-
+		} catch (Exception ex) {
 			DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "selectTcJon 에러 : " + buf.toString(), ex);
 			throw exception;
-		}
-		finally
-		{
+		} finally {
 			release(rs, psmt, con);
 		}
 	}
@@ -25736,7 +26035,51 @@ public class ExternalDAO extends AbstractDAO
 		}
 	}
 
+	/**
+	 * tc req_cd의 값을 구한다
+	 * @param int num
+	 * @return
+	 * @throws Exception 
+	 */
+	public TcBeanDO selectNewTcInfo(int num) throws Exception
+	{
+		String query = ExternalStatement.selectNewTcInfo();
 
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = DBService.getInstance().getConnection();
+			stmt = con.prepareStatement(query);
+			stmt.setLong(1, num);
+
+			String str = null;		
+			rs = stmt.executeQuery();
+			String tc_cd ="";
+			TcBeanDO item = new TcBeanDO();
+			while(rs.next()) {
+				item.setCocd(rs.getString("cocd"));
+				item.setCt_id(rs.getLong("ct_id"));
+				item.setCti_id(rs.getLong("cti_id"));
+				item.setHR_FL_PATH(rs.getString("mxf_path"));
+				item.setLR_FL_PATH(rs.getString("mp4_path"));
+				item.setArch_path(rs.getString("arch_path"));
+				item.setCart_no(rs.getLong("cart_no"));
+				item.setReq_cd(rs.getString("TC_REQ_CD"));
+				item.setInput_hr_nm(rs.getString("filename"));
+				item.setOut_put_ct_path(rs.getString("kfrm_path"));
+				item.setJob_path(rs.getString("down_path"));
+				item.setRegrid(rs.getString("regrid"));
+				item.setMedia_id(rs.getString("media_id"));
+			}		
+			return item;
+		} catch (Exception e) {
+			logger.error(query);
+			throw e;
+		} finally {
+			release(rs, stmt, con);
+		}
+	}
 
 	/**
 	 * tc req_cd의 값을 구한다
@@ -25744,6 +26087,7 @@ public class ExternalDAO extends AbstractDAO
 	 * @return
 	 * @throws Exception 
 	 */
+	@Deprecated
 	public TcBeanDO selectTcInfo(int num) throws Exception
 	{
 		String query = ExternalStatement.selectTcInfo(num);
@@ -25751,8 +26095,7 @@ public class ExternalDAO extends AbstractDAO
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(query);
 
@@ -25760,29 +26103,18 @@ public class ExternalDAO extends AbstractDAO
 			rs = stmt.executeQuery();
 			String tc_cd ="";
 			TcBeanDO item = new TcBeanDO();
-			while(rs.next())
-			{
-
+			while(rs.next()) {
 				item.setReq_cd(rs.getString("TC_REQ_CD").trim());
 				item.setCt_id(rs.getLong("ct_id"));
 				item.setCart_no(rs.getLong("cart_no"));	
 				item.setInput_hr_nm(rs.getString("filename"));
-				item.setReq_id(rs.getString("regrid"));
+				item.setRegrid(rs.getString("regrid"));
 			}		
-
-
-
 			return item;
-
-		} 
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			logger.error(query);
-
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
@@ -29781,6 +30113,8 @@ public class ExternalDAO extends AbstractDAO
 			index = 0;	
 			String dateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 			long cti_id= systemManageDAO.selectCtiid();
+			tcbean.setCti_id(cti_id);
+			
 			stmt.setLong(++index, cti_id);//CTI_ID
 			stmt.setLong(++index, tcbean.getCt_id());//CT_ID
 			stmt.setString(++index, "301");//CTI_FMT
@@ -29802,7 +30136,8 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setInt(++index , 0);//INGEST_EQ_ID
 			stmt.setString(++index, "");	//		ENC_QLTY_CD
 			stmt.setString(++index, "");//ENC_QLTY_DESC
-			stmt.setString(++index, "");//FL_PATH
+
+			stmt.setString(++index, tcbean.getJob_path());//FL_PATH
 			stmt.setString(++index,cti_id+".mp4");//WRK_FILE_NM
 			stmt.setString(++index, "");////ORG_FILE_NM
 			stmt.setLong(++index, 0);//FL_SZ
@@ -32566,13 +32901,13 @@ public class ExternalDAO extends AbstractDAO
 		PreparedStatement psmt = null;		
 		ResultSet rs = null;
 
-		buf.append(" SELECT CTI.CTI_ID as cti_id   ,tc.INPUT_HR as fl_path ,tc.input_hr_nm ,ct.media_id ,ct.reg_dt,CT.VD_QLTY                 ");
-		buf.append(" ,ct.ct_cla,mst.ctgr_l_cd ");
+		buf.append(" SELECT CTI.CTI_ID as cti_id, tc.INPUT_HR as fl_path, tc.input_hr_nm, ct.media_id, ct.reg_dt, CT.VD_QLTY,");
+		buf.append("     ct.ct_cla, mst.ctgr_l_cd ");
 		buf.append(" FROM DAS.CONTENTS_TBL CT  ");
 		buf.append("     INNER JOIN DAS.CONTENTS_INST_TBL CTI ON CTI.CT_ID= CT.CT_ID AND CTI.CTI_FMT LIKE '10%'  ");
-		buf.append("  inner join DAS.TC_JOB_TBL tc on tc.CT_ID=cti.CT_ID       ");
-		buf.append("  inner join DAS.contents_mapp_tbl map on  map.ct_id = ct.ct_id        ");
-		buf.append("  inner join DAS.metadat_msT_Tbl mst on mst.master_id = map.master_id       ");
+		buf.append("     inner join DAS.TC_JOB_TBL tc on tc.CT_ID=cti.CT_ID       ");
+		buf.append("     inner join DAS.contents_mapp_tbl map on  map.ct_id = ct.ct_id        ");
+		buf.append("     inner join DAS.metadat_msT_Tbl mst on mst.master_id = map.master_id       ");
 		buf.append(" WHERE CT.CT_ID = ?        order by ct.reg_dt desc       ");
 		buf.append(" fetch first 1 rows only        ");
 		try {
@@ -38366,7 +38701,8 @@ public class ExternalDAO extends AbstractDAO
 		StringBuffer strResult = new StringBuffer();
 
 		buf.append("SELECT   ");
-		buf.append("\n   CON.CT_ID AS META_CT_ID  ");	
+		buf.append("\n   MST.CTGR_L_CD AS CTGR_L_CD  ");
+		buf.append("\n   ,CON.CT_ID AS META_CT_ID  ");	
 		buf.append("\n   ,inst.CTI_ID AS META_CTI_ID  ");
 		buf.append("\n   ,CODE2.DESC  AS META_CT_NM ");	
 		buf.append("\n   ,CON.CT_LENG  AS META_CT_LENG  ");
@@ -38439,10 +38775,49 @@ public class ExternalDAO extends AbstractDAO
 				ingestInfo.setM2Sz(Long.parseLong(rs.getString("META_M2_SZ"))*8);
 				ingestInfo.setM4Sz(Long.parseLong(rs.getString("META_M4_SZ"))*8);
 				ingestInfo.setIngestEqId(rs.getString("META_INGEST_EQ_ID"));
-				ingestInfo.setVdHresol(rs.getInt("META_VD_HRESOL"));
-				ingestInfo.setVdVresol(rs.getInt("META_VD_VRESOL"));
+
+				/*
+				 * 2016.03.31
+				 * Das Client에서 해상도 표시를 반대로 표시하고 있고, DB안에 해상도값이
+				 * 반대로 입력된 경우도 있음.
+				 * 해당 경우를 대비하여 Client에 정보를 전달할 때 해당 값을 조정해서(반대로) 넘겨줌.
+				 */
+				int ctgrLCd = rs.getInt("CTGR_L_CD");
+				int hresol = rs.getInt("META_VD_HRESOL");
+				int vresol = rs.getInt("META_VD_VRESOL");
+
+				if(hresol < vresol) { // 1080 * 1920
+					if(ctgrLCd == 200) { // 프로그램
+						ingestInfo.setVdHresol(hresol);
+						ingestInfo.setVdVresol(vresol);
+					} else {
+						ingestInfo.setVdHresol(vresol);
+						ingestInfo.setVdVresol(hresol);
+					}
+				} else { // 1920 * 1080
+					if(ctgrLCd == 200) { // 프로그램
+						ingestInfo.setVdHresol(vresol);
+						ingestInfo.setVdVresol(hresol);
+					} else {
+						ingestInfo.setVdHresol(hresol);
+						ingestInfo.setVdVresol(vresol);
+					}
+				}
+
+				if(logger.isDebugEnabled()) {
+					logger.debug("ctgrLCd: ["+ctgrLCd+"] hresol: "+ingestInfo.getVdHresol()+" * vresol: "+ingestInfo.getVdVresol());
+				}
+				//ingestInfo.setVdHresol(rs.getInt("META_VD_HRESOL"));
+				//ingestInfo.setVdVresol(rs.getInt("META_VD_VRESOL"));
 				ingestInfo.setBitRt(rs.getString("META_BIT_RT"));
-				ingestInfo.setFrmPerSec(rs.getString("META_FRM_PER_SEC"));
+
+				// 2016.03.31
+				// 29.97이 아닌 30M으로 표시되는 경우도 있어서 강제로 변경함.
+				String frmPerSec = org.apache.commons.lang.StringUtils.defaultIfEmpty(rs.getString("META_FRM_PER_SEC"), "29.97");
+				if(frmPerSec.indexOf("M") > -1) ingestInfo.setFrmPerSec("29.97");
+				else ingestInfo.setFrmPerSec(frmPerSec);
+				//ingestInfo.setFrmPerSec(rs.getString("META_FRM_PER_SEC"));
+
 				ingestInfo.setIngestEqId(String.valueOf(rs.getInt("META_INGEST_EQ_ID")));
 				ingestInfo.setAudSampFrq(rs.getString("META_AUD_SAMP_FRQ"));
 				ingestInfo.setTotKfrmNums(rs.getInt("META_TOT_KFRM_NUMS"));
@@ -38754,7 +39129,7 @@ public class ExternalDAO extends AbstractDAO
 		buf.append("\n 	 when cn.CN_NM is null or cn.CN_NM=''  and ct_typ<>'003'  then ct.CT_NM ");	
 		buf.append("\n 	 else cn.CN_NM ");	
 		buf.append("\n 	 end as CN_NM ");	
-		buf.append("\n 	,value(CN.RPIMG_KFRM_SEQ, 0) as RPIMG_KFRM_SEQ, value(CN.SOM, '') as SOM, value(CN.EOM, '') as EOM, '' as CN_TYPE_CD, value(CN.RPIMG_CT_ID, '')as RPIMG_CT_ID, value(CN.CN_INFO, '')as CN_INFO");	
+		buf.append("\n 	,value(CN.RPIMG_KFRM_SEQ, 0) as RPIMG_KFRM_SEQ, value(CN.SOM, '') as SOM, value(CN.EOM, '') as EOM, '' as CN_TYPE_CD, value(CN.RPIMG_CT_ID, 0)as RPIMG_CT_ID, value(CN.CN_INFO, '')as CN_INFO");	
 
 		buf.append("\n 	, value(CT.CT_ID, '')as CT_ID, value(CODE.DESC, '')as CT_NM, value(CT.REG_DT, '')as REG_DT, value(CT.CT_LENG, '')as CT_LENG, value(CT.DURATION, 0)as DURATION, value(CT.CT_SEQ, 0)as CT_SEQ, value(CT.KFRM_PATH, '')as KFRM_PATH");
 		buf.append("\n 	, value(CT.KFRM_PX_CD, '')as KFRM_PX_CD, value(CT.VD_QLTY, '')as VD_QLTY, value(CT.ASP_RTO_CD, '')as ASP_RTO_CD, value(CT.CONT, '')as CONT ,value(CT.CT_CLA, '')as CT_CLA,value(CT.TOT_KFRM_NUMS, 0)as TOT_KFRM_NUMS,value(CT.MEDIA_ID, '')as MEDIA_ID");

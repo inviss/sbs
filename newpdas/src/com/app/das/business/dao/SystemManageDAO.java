@@ -5565,11 +5565,23 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "105");//CTI_FMT
 			stmt.setString(++index,"N");//ARCH_STE_YN
 			stmt.setString(++index, "002");//ME_CD
+			
 			stmt.setString(++index, String.valueOf(pdsInfoDO.getBit_rt()));//BIT_RT
-			stmt.setString(++index, pdsInfoDO.getFrm_per_sec());//FRM_PER_SEC
+			stmt.setString(++index, "29.97");//FRM_PER_SEC
 			stmt.setString(++index, "Y");//DRP_FRM_YN
-			stmt.setInt(++index, pdsInfoDO.getVd_hresol());//VD_HRESOL
-			stmt.setInt(++index, pdsInfoDO.getVd_vresol());	//	VD_VRESOL	
+			
+			/*
+			 * 2016.03.30
+			 * 가로*세로 해상도가 바뀌어 있다면 복원해준다.
+			 */
+			if(pdsInfoDO.getVd_hresol() < pdsInfoDO.getVd_vresol()) {
+				stmt.setInt(++index, pdsInfoDO.getVd_vresol());	//VD_HRESOL
+				stmt.setInt(++index, pdsInfoDO.getVd_hresol());	//VD_VRESOL
+			} else {
+				stmt.setInt(++index, pdsInfoDO.getVd_hresol());	//VD_HRESOL
+				stmt.setInt(++index, pdsInfoDO.getVd_vresol());	//VD_VRESOL
+			}
+				
 			stmt.setString(++index, "");//COLOR_CD
 			stmt.setString(++index, pdsInfoDO.getRecord_type_cd());//RECORD_TYPE_CD
 			stmt.setString(++index, pdsInfoDO.getAudio_yn());//AUDIO_YN
@@ -5709,10 +5721,21 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index,"");//ARCH_STE_YN
 			stmt.setString(++index, "");//ME_CD
 			stmt.setString(++index, String.valueOf(pdsInfoDO.getBit_rt()));//BIT_RT
-			stmt.setString(++index, pdsInfoDO.getFrm_per_sec());//FRM_PER_SEC
+			stmt.setString(++index, "29.97");//FRM_PER_SEC
 			stmt.setString(++index, pdsInfoDO.getDrop_yn());//DRP_FRM_YN
-			stmt.setInt(++index, pdsInfoDO.getVd_hresol());//VD_HRESOL
-			stmt.setInt(++index, pdsInfoDO.getVd_vresol());	//	VD_VRESOL	
+			
+			/*
+			 * 2016.03.30
+			 * 가로*세로 해상도가 바뀌어 있다면 복원해준다.
+			 */
+			if(pdsInfoDO.getVd_hresol() < pdsInfoDO.getVd_vresol()) {
+				stmt.setInt(++index, pdsInfoDO.getVd_vresol());	//VD_HRESOL
+				stmt.setInt(++index, pdsInfoDO.getVd_hresol());	//VD_VRESOL
+			} else {
+				stmt.setInt(++index, pdsInfoDO.getVd_hresol());	//VD_HRESOL
+				stmt.setInt(++index, pdsInfoDO.getVd_vresol());	//VD_VRESOL
+			}
+			
 			stmt.setString(++index, "");//COLOR_CD
 			stmt.setString(++index, pdsInfoDO.getRecord_type_cd());//RECORD_TYPE_CD
 			stmt.setString(++index, pdsInfoDO.getAudio_yn());//AUDIO_YN
@@ -13752,7 +13775,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "000");//ERROR_STAT_CD
 			String arch_route = "";
 			if(pgmDO.getCtgr_l_cd().equals("200")){
-				stmt.setString(++index, "O");//ARC;H_ROUTE
+				stmt.setString(++index, "O");//ARCH_ROUTE
 				arch_route="O";
 			}else{
 				stmt.setString(++index, "P");//ARCH_ROUTE
@@ -13912,7 +13935,8 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, pdsInfoDO.getResolution());//VD_QLTY
 			stmt.setString(++index, pdsInfoDO.getAspectratio());//ASP_RTO_CD
 			stmt.setString(++index, "");//EDTRID
-			stmt.setString(++index,"");		//	KFRM_PATH
+			String net_mp4 = dasHandler.getProperty("WINNET_MP4");
+			stmt.setString(++index,net_mp4+"/"+CalendarUtil.dateToString(new Date(), "yyyyMM")+"/"+CalendarUtil.dateToString(new Date(), "dd")+"/"+ctid+"/KFRM");	//	KFRM_PATH
 			stmt.setString(++index, "");//KFRM_PX_CD
 			stmt.setInt(++index,0);//TOT_KFRM_NUMS
 			stmt.setString(++index,"Y");//USE_YN
@@ -14047,8 +14071,19 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, String.valueOf(pdsInfoDO.getBit_rt()));//BIT_RT
 			stmt.setString(++index, pdsInfoDO.getFrm_per_sec());//FRM_PER_SEC
 			stmt.setString(++index, "Y");//DRP_FRM_YN
-			stmt.setInt(++index, Integer.parseInt(pdsInfoDO.getVd_hresol().replaceAll("[^0-9]", "")));  //VD_HRESOL
-			stmt.setInt(++index, Integer.parseInt(pdsInfoDO.getVd_vresol().replaceAll("[^0-9]", "")));	//VD_VRESOL	
+			int hresol = Integer.parseInt(pdsInfoDO.getVd_hresol().replaceAll("[^0-9]", ""));  //VD_HRESOL
+			int vresol = Integer.parseInt(pdsInfoDO.getVd_vresol().replaceAll("[^0-9]", ""));	//VD_VRESOL	
+			/*
+			 * 2016.03.30
+			 * 가로*세로 해상도가 바뀌어 있다면 복원해준다.
+			 */
+			if(hresol < vresol) {
+				stmt.setInt(++index, vresol);	//VD_HRESOL
+				stmt.setInt(++index, hresol);	//VD_VRESOL
+			} else {
+				stmt.setInt(++index, hresol);	//VD_HRESOL
+				stmt.setInt(++index, vresol);	//VD_VRESOL
+			}
 			stmt.setString(++index, "");//COLOR_CD
 			stmt.setString(++index, pdsInfoDO.getAudio_type());//RECORD_TYPE_CD
 			stmt.setString(++index, pdsInfoDO.getAudio_yn());//AUDIO_YN
@@ -14193,7 +14228,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, String.valueOf(pdsInfoDO.getBit_rt()));//BIT_RT
 			stmt.setString(++index, pdsInfoDO.getFrm_per_sec());//FRM_PER_SEC
 			stmt.setString(++index, "Y");//DRP_FRM_YN
-			stmt.setInt(++index, 0);//VD_HRESOL
+			stmt.setInt(++index, 0);    //VD_HRESOL
 			stmt.setInt(++index, 0);	//	VD_VRESOL	
 			stmt.setString(++index, "");//COLOR_CD
 			stmt.setString(++index, pdsInfoDO.getAudio_type());//RECORD_TYPE_CD
@@ -14206,7 +14241,8 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setInt(++index , 0);//INGEST_EQ_ID
 			stmt.setString(++index, "");	//		ENC_QLTY_CD
 			stmt.setString(++index, "");//ENC_QLTY_DESC
-			stmt.setString(++index,  "");//FL_PATH
+			String net_mp4 = dasHandler.getProperty("WINNET_MP4");
+			stmt.setString(++index, net_mp4+"/"+CalendarUtil.dateToString(new Date(), "yyyyMM")+"/"+CalendarUtil.dateToString(new Date(), "dd")+"/"+pdsInfoDO.getCt_id()); //FL_PATH
 			stmt.setString(++index,cti_id+".mp4");//WRK_FILE_NM
 			stmt.setString(++index, "");////ORG_FILE_NM
 			stmt.setLong(++index, 0);//FL_SZ
@@ -14527,7 +14563,7 @@ public class SystemManageDAO extends AbstractDAO
 				stmt.setString(++index, "00:00:00:00");	//EOM
 			}
 			stmt.setString(++index, "");	//CONT
-			stmt.setString(++index, "D080009");	//REGRID
+			stmt.setString(++index, pdsInfoDO.getRequest_id());	//REGRID
 			String dateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 			stmt.setString(++index, dateTime);	//REG_DT			
 			stmt.setString(++index, "");			//MODRID
@@ -15320,7 +15356,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "");//FILE_READY
 			stmt.setString(++index, ifCmsArchiveDO.getFile_name());//INPUT_HR_NM
 			stmt.setString(++index,"N");//JOB_ALOCATE
-			stmt.setString(++index,"002");//TC_TYPE
+			stmt.setString(++index,"002");//TC_TYPE [004로 바꿔야할 것 같은데...]
 			if(ifCmsArchiveDO.getPublisher().equals("")){
 				stmt.setString(++index,"S");//COCD
 			}else{
