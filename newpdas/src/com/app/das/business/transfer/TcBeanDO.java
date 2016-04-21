@@ -174,6 +174,12 @@ public class TcBeanDO extends DTO
 	 *  오디오샘플링
 	 */
 	private String LR_AUDIO_SAMP_FRQ  = Constants.BLANK;
+	
+	/*
+	 * 저화질 파일 경로
+	 */
+	private String LR_FL_PATH  = Constants.BLANK;
+	
 	/**
 	 *  비트전송율
 
@@ -208,6 +214,12 @@ public class TcBeanDO extends DTO
 	 *  콘텐츠 길이 
 	 */
 	private String HR_CT_LENG   = Constants.BLANK;
+	
+	/*
+	 * MXF 경로
+	 */
+	private String HR_FL_PATH   = Constants.BLANK;
+	
 	/**
 	 *  총키프렘임수 
 	 */
@@ -343,9 +355,40 @@ public class TcBeanDO extends DTO
 	 */
 	private String manual_yn  = Constants.BLANK;
 	
+	/*
+	 * 아카이브 원본 경로
+	 */
+	private String arch_path  = Constants.BLANK;
 	
+	/*
+	 * 다운로드 경로
+	 */
+	private String job_path  = Constants.BLANK;
 	
-	
+	public String getJob_path() {
+		return job_path;
+	}
+	public void setJob_path(String job_path) {
+		this.job_path = job_path;
+	}
+	public String getArch_path() {
+		return arch_path;
+	}
+	public void setArch_path(String arch_path) {
+		this.arch_path = arch_path;
+	}
+	public String getLR_FL_PATH() {
+		return LR_FL_PATH;
+	}
+	public void setLR_FL_PATH(String lR_FL_PATH) {
+		LR_FL_PATH = lR_FL_PATH;
+	}
+	public String getHR_FL_PATH() {
+		return HR_FL_PATH;
+	}
+	public void setHR_FL_PATH(String hR_FL_PATH) {
+		HR_FL_PATH = hR_FL_PATH;
+	}
 	public String getManual_yn() {
 		return manual_yn;
 	}
