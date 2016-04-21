@@ -16,8 +16,10 @@ public class PgmListTest {
 		try {
 			SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 			ProgramInfoDOXML _doXML = new ProgramInfoDOXML();
-
-			ProgramInfoDO _do = (ProgramInfoDO) _doXML.setDO("<?xml version=\"1.0\" encoding=\"utf-8\"?><das><programInfo><SRCH_TYPE>2</SRCH_TYPE><PGM_NM>TT005</PGM_NM><PGM_CD>TT005</PGM_CD><PARENTS_CD>TT005</PARENTS_CD><USE_YN></USE_YN></programInfo></das>");
+			
+			String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><das><programInfo><SRCH_TYPE>0</SRCH_TYPE><PGM_NM>테스트</PGM_NM><PGM_CD>테스트</PGM_CD><PARENTS_CD>테스트</PARENTS_CD><USE_YN>Y</USE_YN></programInfo></das>";
+			//ProgramInfoDO _do = (ProgramInfoDO) _doXML.setDO("<?xml version=\"1.0\" encoding=\"utf-8\"?><das><programInfo><SRCH_TYPE>2</SRCH_TYPE><PGM_NM>TT005</PGM_NM><PGM_CD>TT005</PGM_CD><PARENTS_CD>TT005</PARENTS_CD><USE_YN></USE_YN></programInfo></das>");
+			ProgramInfoDO _do = (ProgramInfoDO) _doXML.setDO(xml);
 
 
 			List _infoList = _processor.getPgmList(_do);
