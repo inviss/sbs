@@ -43,7 +43,7 @@ public class DBService
 	 * @param jndiPoolName  특정 Connection Pool에 대한 JNDI Name
 	 * @return  Connection  Connection Pool로 부터 얻어진 Connection Object
 	 */
-	
+	/*
 	public Connection getConnection() throws NamingException, SQLException 
 	{
 		Connection conn = null;
@@ -62,8 +62,9 @@ public class DBService
 			throw se;
 		}
 	}
+	*/
 	
-	/*
+	
 	public Connection getConnection() throws NamingException, SQLException
 	{
 		Connection conn = null;
@@ -71,6 +72,7 @@ public class DBService
 		{
 			String url = "jdbc:db2://10.150.12.161:50000/dasdb";
 			//String url = "jdbc:db2://10.30.23.48:50000/dasdb";
+			//String url = "jdbc:db2://192.168.0.113:50000/netbro";
 			String user = "das";
 			String password = "das";
 			
@@ -83,7 +85,7 @@ public class DBService
 			throw new NamingException(ne.getMessage());
 		}
 	}
-	*/
+	
 	
 	/**
 	 * Connection Pool에 대한 JNDI Name으로 ERP DB Connection을 얻어서 반환한다.
@@ -91,7 +93,7 @@ public class DBService
 	 * @param jndiPoolName  특정 Connection Pool에 대한 JNDI Name
 	 * @return  Connection  Connection Pool로 부터 얻어진 Connection Object
 	 */
-	
+	/*
 	public Connection getErpConnection() throws NamingException, SQLException 
 	{
 		Connection conn = null;
@@ -110,10 +112,10 @@ public class DBService
 			throw se;
 		}
 	}
+	*/
 	
-	/*
 	public Connection getErpConnection() throws Exception {
 		return null;
 	}
-	*/
+	
 }
