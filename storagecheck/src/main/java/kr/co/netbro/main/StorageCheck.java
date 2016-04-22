@@ -8,7 +8,6 @@ import java.util.Map;
 
 import kr.co.d2net.commons.SpringApplication;
 import kr.co.d2net.commons.system.WorkflowService;
-import kr.co.d2net.commons.utils.ExceptFoldernameFilter;
 import kr.co.d2net.commons.utils.UserFilenameFilter;
 import kr.co.d2net.commons.utils.Utility;
 
@@ -58,7 +57,7 @@ public class StorageCheck {
 
 				if ("restore".equals(company)) {
 					File userDirs = new File(rootDir + File.separator + company);
-					String[] userIds = userDirs.list(new ExceptFoldernameFilter());
+					String[] userIds = userDirs.list();
 
 					if (userIds == null)
 						continue;
