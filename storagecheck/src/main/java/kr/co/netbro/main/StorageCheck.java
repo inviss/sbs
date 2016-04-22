@@ -8,6 +8,7 @@ import java.util.Map;
 
 import kr.co.d2net.commons.SpringApplication;
 import kr.co.d2net.commons.system.WorkflowService;
+import kr.co.d2net.commons.utils.ExceptFoldernameFilter;
 import kr.co.d2net.commons.utils.UserFilenameFilter;
 import kr.co.d2net.commons.utils.Utility;
 
@@ -57,11 +58,14 @@ public class StorageCheck {
 
 				if ("restore".equals(company)) {
 					File userDirs = new File(rootDir + File.separator + company);
-					String[] userIds = userDirs.list();
+					String[] userIds = userDirs.list(new ExceptFoldernameFilter());
 
 					if (userIds == null)
 						continue;
 					for (String userId : userIds) {
+						
+						if("mp4".equals(userId)) continue;
+						
 						if (logger.isDebugEnabled()) {
 							logger.debug("restore: " + userDirs.getAbsolutePath() + File.separator + userId);
 						}
@@ -261,7 +265,6 @@ public class StorageCheck {
 																			xml.append("<cti_id>"+uniqueId+"</cti_id>");
 																			xml.append("<file_path>"+flpath+"</file_path>");
 																			xml.append("<dtl_type>das</dtl_type>");   // medianet
-																			xml.append("<archive_type>all</archive_type>");
 																		} else {
 																			// MediaNet OnAir???
 																		}
@@ -270,11 +273,13 @@ public class StorageCheck {
 																		try {
 																			if(xml.indexOf("cti_id") > -1) {
 																				workflowService.regiesterArchive(xml.toString());
+																				logger.debug("The content is registering to the Diva flatform: "+ddDir.getAbsolutePath() + File.separator + mxf);
 																			}
 																		} catch (Exception e) {
 																			logger.error("archive request error", e);
+																		} finally {
+																			xml.setLength(0);
 																		}
-																		xml.setLength(0);
 																	} else {
 																		if(StringUtils.isBlank(contentTbl.getFlPath())) {
 																			logger.debug(ddDir.getAbsolutePath()+File.separator+mxf+" 가 등록 실패된 파일임.");
