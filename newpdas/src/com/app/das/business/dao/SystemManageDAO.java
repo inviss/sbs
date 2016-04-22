@@ -9915,7 +9915,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, "");//ARRANGE_NM
 			stmt.setString(++index, "N");//LOCK_STAT_CD
 			stmt.setString(++index, "000");//ERROR_STAT_CD
-			stmt.setString(++index, "DP");//ARCH_ROUTE
+			stmt.setString(++index, "OM");//ARCH_ROUTE 2016.04.21 [DP -> OM] 수동등록
 			stmt.setString(++index, pgmDO.getRist_clf_cd());//RIST_CLF_CD
 			stmt.setString(++index, "N");//MANUAL_YN
 			stmt.setString(++index, pgmDO.getCms_id());//pds_cms_id
