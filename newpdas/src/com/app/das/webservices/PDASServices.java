@@ -16,6 +16,7 @@ package com.app.das.webservices;
 import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -107,7 +108,9 @@ import com.app.das.business.transfer.VideoPageInfoDO;
 import com.app.das.business.transfer.VideoPageMetaInfoDO;
 import com.app.das.business.transfer.WmvH264DO;
 import com.app.das.business.transfer.WorkStatusConditionDO;
+import com.app.das.log.DasPropHandler;
 import com.app.das.services.*;
+import com.app.das.util.CalendarUtil;
 import com.app.das.util.CommonUtl;
 import com.app.das.util.XmlUtil;
 import com.konantech.search.data.ParameterVO;
@@ -120,6 +123,7 @@ public class PDASServices {
 	private static ExternalDAO externalDAO = ExternalDAO.getInstance();
 	private static SystemManageDAO systemManageDAO = SystemManageDAO.getInstance();
 	private static final UserRoleDAO userRoleDAO = UserRoleDAO.getInstance();
+	private static DasPropHandler dasHandler = DasPropHandler.getInstance();
 
 	/**
 	 * PDASServices WebService 시작 전 전처리
@@ -5431,24 +5435,58 @@ public class PDASServices {
 			/**
 			 * tc 여부를 판단하고 tc 요청을 한다
 			 */
+
+			/* 2016.04.21 TC 관련 재요청 소스 수정
 			TcBeanDO tccd = externalDAO.selectTcInfo(num);
-
-
 			if(!tccd.getReq_cd().equals("")){
 				if(tccd.getReq_cd().equals("CT")){
-
 					return _processor.recreateKFRM(tccd, "");
-
 				}else if(tccd.getReq_cd().equals("LR")){
-
 					return _processor.recreateWMV(tccd, "");
-
 				}else if(tccd.getReq_cd().equals("LRCT")){
-
 					return _processor.recreateWMV_KFRM(tccd, "");
-
 				}
-			}else{
+			}
+			*/
+			
+			TcBeanDO tccd = externalDAO.selectNewTcInfo(num);
+
+			String mp4 = dasHandler.getProperty("WINMP4");
+			String net_mp4 = dasHandler.getProperty("WINNET_MP4");
+			String nearline = dasHandler.getProperty("WINNEARLINE");
+
+			if (StringUtils.isBlank(tccd.getLR_FL_PATH())) {
+				String hrPath = StringUtils.isBlank(tccd.getArch_path()) ? tccd.getHR_FL_PATH() : tccd.getArch_path();
+				String low_prefix = "M".equals(tccd.getCocd()) ? net_mp4 : mp4;
+				String lrPath = low_prefix;
+				if (StringUtils.isBlank(hrPath)) {
+					lrPath = lrPath + "/" + CalendarUtil.dateToString(new Date(), "yyyyMM") + "/" + CalendarUtil.dateToString(new Date(), "dd") + "/" + tccd.getCt_id();
+				} else {
+					String[] paths = hrPath.split("/");
+					lrPath = lrPath + "/" + paths[(paths.length - 2)] + "/" + paths[(paths.length - 1)] + "/" + tccd.getCt_id();
+				}
+				tccd.setLR_FL_PATH(lrPath);
+			}
+			if (StringUtils.isBlank(tccd.getOut_put_ct_path())) {
+				tccd.setOut_put_ct_path(tccd.getLR_FL_PATH() + "/KFRM");
+			}
+			if ((tccd.getJob_path() != null) && (tccd.getJob_path().startsWith("/"))) {
+				tccd.setJob_path(nearline + tccd.getJob_path());
+			} else {
+				tccd.setJob_path(nearline + "/" + tccd.getJob_path());
+			}
+			if (this.logger.isDebugEnabled()) {
+				this.logger.debug("TcBeanDO    : " + tccd);
+			}
+			if (StringUtils.isNotBlank(tccd.getReq_cd())) {
+				if (tccd.getReq_cd().equals("CT")) {
+					_processor.recreateKFRM(tccd, "");
+				} else if (tccd.getReq_cd().equals("LR")) {
+					_processor.recreateWMV(tccd, "");
+				} else if (tccd.getReq_cd().equals("LRCT")) {
+					_processor.recreateWMV_KFRM(tccd, "");
+				}
+			} else {
 				/**
 				 * PDS,NDS,계열사 해당하는 다운로드 요청만 DAS-TM 전송요청을 하게 됨(20110314:dekim)
 				 */
@@ -6213,30 +6251,30 @@ public class PDASServices {
 			UseInfoDO _DO = (UseInfoDO) _DOXML.setDO(useInfoDO);
 
 			UseInfoDO useInfo = _processor.getUseInfoCount(_DO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT);
-			
+
 			StringBuffer _xml = new StringBuffer();
-			
+
 			// 조회 건수가 존재하면 리스트 조회
 			if(useInfo.getTotal() > 0) {
 				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-				
+
 				UseInfoDOXML infoXML = new UseInfoDOXML();
-				
+
 				// total 건수와 전체 duration 길이를 xml에 append 함.
 				infoXML.setDO(useInfo);
 				_xml.append(infoXML.getSubXML2());
-				
+
 				// 리스트를 조회.
 				List _infoList = _processor.getNewUseInfoList(_DO, DASBusinessConstants.PageQueryFlag.NORMAL);
 				int size = _infoList.size();
-				
+
 				infoXML = new UseInfoDOXML();
 				for(int i=0; i<size; i++) {
 					infoXML.setDO(_infoList.get(i));
 
 					_xml.append(infoXML.getSubXML());
 				}
-				
+
 				_xml.append("</das>");
 			}
 			return _xml.toString();
@@ -6927,7 +6965,7 @@ public class PDASServices {
 		} catch (Exception e) {
 			logger.error("deleteNLE", e);
 		}
-		
+
 		return 0;
 	}
 
@@ -7872,7 +7910,7 @@ public class PDASServices {
 		} catch (Exception e) {
 			logger.error("insertReqComTc", e);
 		}
-		
+
 		return "";
 	}
 
@@ -10253,7 +10291,7 @@ public class PDASServices {
 			WorkStatusConditionDO _DO = (WorkStatusConditionDO) _DOXML.setDO(conditionDO);
 
 			List _infoList = _processor.getNewMetadatInfoList(_DO);
-			
+
 			if (_infoList != null && _infoList.size() > 0) {
 				StringBuffer buf = new StringBuffer();
 				buf.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
