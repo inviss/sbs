@@ -130,9 +130,9 @@ public class CornerServiceImpl implements CornerService {
 					annotInfoTbl.setAnnotClfCd(data.getAnnotClfCd());
 					annotInfoTbl.setAnnotClfCont(data.getAnnotClfCont());
 
-					long som = Long.valueOf(cornerTbl.getSom()).longValue();
-					long eom = Long.valueOf(cornerTbl.getEom()).longValue();
-					annotInfoTbl.setDuration(Long.valueOf(eom - som));
+					long som = Utility.changeTimeCode(cornerTbl.getSom());
+					long eom = Utility.changeTimeCode(cornerTbl.getEom());
+					annotInfoTbl.setDuration(eom - som);
 
 					annotInfoTbl.setsFrame(som);
 					annotInfoTbl.setGubun("L");

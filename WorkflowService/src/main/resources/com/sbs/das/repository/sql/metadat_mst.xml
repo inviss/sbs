@@ -276,6 +276,7 @@
 		<isNotNull prepend="," property="workPrioCd">WORK_PRIO_CD=#workPrioCd#</isNotNull>
 		<isNotNull prepend="," property="rsvPrdCd">RSV_PRD_CD=#rsvPrdCd#</isNotNull>
 		<isNotNull prepend="," property="cprtrNm">CPRTR_NM=#cprtrNm#</isNotNull>
+		  
 		<isNotNull prepend="," property="cprtType">CPRT_TYPE=#cprtType#</isNotNull>
 		<isNotNull prepend="," property="cprtTypeDsc">CPRT_TYPE_DSC=#cprtTypeDsc#</isNotNull>
 		<isNotNull prepend="," property="viewGrCd">VIEW_GR_CD=#viewGrCd#</isNotNull>
@@ -287,6 +288,7 @@
 		<isNotNull prepend="," property="tapeMediaClfCd">TAPE_MEDIA_CLF_CD=#tapeMediaClfCd#</isNotNull>
 		<isNotNull prepend="," property="rsvPrdEndDd">RSV_PRD_END_DD=#rsvPrdEndDd#</isNotNull>
 		<isNotNull prepend="," property="modrid">MODRID=#modrid#</isNotNull>
+		
 		<isNotNull prepend="," property="modDt">MOD_DT=#modDt#</isNotNull>
 		<isNotNull prepend="," property="gathDeptCd">GATH_DEPT_CD=#gathDeptCd#</isNotNull>
 		<isNotNull prepend="," property="dataStatCd">DATA_STAT_CD=#dataStatCd#</isNotNull>
@@ -296,6 +298,7 @@
 		<isNotNull prepend="," property="musicInfo">MUSIC_INFO=#musicInfo#</isNotNull>
 		<isNotNull prepend="," property="rstCont">RST_CONT=#rstCont#</isNotNull>
 		<isNotNull prepend="," property="rerun">RERUN=#rerun#</isNotNull>
+		
 		<isNotNull prepend="," property="acceptorId">ACCEPTOR_ID=#acceptorId#</isNotNull>
 		<isNotNull prepend="," property="subTtl">SUB_TTL=#subTtl#</isNotNull>
 		<isNotNull prepend="," property="arrangeNm">ARRANGE_NM=#arrangeNm#</isNotNull>
@@ -303,16 +306,22 @@
 		<isNotNull prepend="," property="errorStatCd">ERROR_STAT_CD=#errorStatCd#</isNotNull>
 		<isNotNull prepend="," property="archRoute">ARCH_ROUTE=#archRoute#</isNotNull>
 		<isNotNull prepend="," property="pdsCmsPgmId">PDS_CMS_PGM_ID=#pdsCmsPgmId#</isNotNull>
+		
 		<isNotNull prepend="," property="ristClfCd">RIST_CLF_CD=#ristClfCd#</isNotNull>
 		<isNotNull prepend="," property="acceptEndDd">ACCEPT_END_DD=#acceptEndDd#</isNotNull>
 		<isNotNull prepend="," property="tcStat">TC_STAT=#tcStat#</isNotNull>
 		<isNotNull prepend="," property="manualYn">MANUAL_YN=#manualYn#</isNotNull>
+		
 		<isNotNull prepend="," property="chennelCd">CHENNEL_CD=#chennelCd#</isNotNull>
 		<isNotNull prepend="," property="cocd">COCD=#cocd#</isNotNull>
+		
 		<isNotNull prepend="," property="artist">ARTIST=#artist#</isNotNull>
+		
 		<isNotNull prepend="," property="countryCd">COUNTRY_CD=#countryCd#</isNotNull>
 		<isNotNull prepend="," property="errorId">ERROR_ID=#errorId#</isNotNull>
 		<isNotNull prepend="," property="errorDt">ERROR_DT=#errorDt#</isNotNull>
+		<!--
+		-->
     	WHERE MASTER_ID = #masterId#
     </update>
 

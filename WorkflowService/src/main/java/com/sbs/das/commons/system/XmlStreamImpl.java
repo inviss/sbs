@@ -81,8 +81,8 @@ public class XmlStreamImpl implements XmlStream {
                     protected void writeText(QuickWriter writer, String text) {  
                         if (cdata) {  
                             writer.write("<![CDATA[" + text + "]]>");  
-                        } else {  
-                            writer.write(text);  
+                        } else {
+                        	writer.write(text);
                         }  
                     }
 				};

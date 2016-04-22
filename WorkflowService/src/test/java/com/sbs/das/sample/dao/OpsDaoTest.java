@@ -1,28 +1,43 @@
 package com.sbs.das.sample.dao;
 
+import java.io.File;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.sbs.das.commons.system.XmlStream;
 import com.sbs.das.dto.MetadatMstTbl;
+import com.sbs.das.dto.ops.Data;
+import com.sbs.das.dto.ops.Metadata;
 import com.sbs.das.repository.MetadatMstDao;
 import com.sbs.das.repository.PgmInfoDao;
 import com.sbs.das.sample.BaseConfig;
+import com.sbs.das.services.MetadataService;
+import com.sbs.das.services.PgmInfoService;
 
 public class OpsDaoTest extends BaseConfig {
 	final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private PgmInfoDao pgmInfoDao;
+	private PgmInfoService pgmInfoService;
 	
 	@Autowired
 	private MetadatMstDao metadatMstDao;
+	
+	@Autowired
+	private XmlStream xmlStream;
+	
+	@Autowired
+	private MetadataService metadataService;
 	
 	@Ignore
 	@Test
@@ -42,6 +57,7 @@ public class OpsDaoTest extends BaseConfig {
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void getMetadataObj() {
 		try {
@@ -50,6 +66,33 @@ public class OpsDaoTest extends BaseConfig {
 			
 			MetadatMstTbl metadatMstTbl = metadatMstDao.getMetadata(params);
 			System.out.println(metadatMstTbl.getTitle());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//@Ignore
+	@Test
+	public void savePgmInfoTest() {
+		try {
+			String xml = FileUtils.readFileToString(new File("D:/savePgm.xml"), "utf-8");
+			
+			Data data = (Data)xmlStream.fromXML(xml);
+			pgmInfoService.savePgmInfo(data.getProgram());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Ignore
+	@Test
+	public void saveMetadatInfoTest() {
+		try {
+			String xml = FileUtils.readFileToString(new File("D:/episode.xml"), "utf-8");
+			
+			Data data = (Data)xmlStream.fromXML(xml);
+			Metadata mst = (Metadata)data.getMetadatas().get(0);
+			metadataService.updateMetadataInfo(mst);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

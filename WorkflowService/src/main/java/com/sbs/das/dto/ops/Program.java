@@ -67,6 +67,11 @@ public class Program {
 	@XStreamAlias("media_cd")
 	private String mediaCd;
 
+	// 미디어 코드
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("chan_cd")
+	private String chanCd;
+
 	// 파일럿 여부
 	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("pilot_yn")
@@ -115,12 +120,33 @@ public class Program {
 	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("dept_nm")
 	private String deptNm;
-	
+
 	// 작업자
 	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("regrid")
 	private String regrid;
 
+	// 부모코드
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("parent_pgm_cd")
+	private String parentsCd;
+
+
+	public String getChanCd() {
+		return chanCd;
+	}
+
+	public void setChanCd(String chanCd) {
+		this.chanCd = chanCd;
+	}
+
+	public String getParentsCd() {
+		return parentsCd;
+	}
+
+	public void setParentsCd(String parentsCd) {
+		this.parentsCd = parentsCd;
+	}
 
 	public String getRegrid() {
 		return regrid;

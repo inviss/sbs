@@ -32,8 +32,7 @@ public class MetadatMstDaoImpl extends SqlMapClientDaoSupport implements Metadat
 
 	public void saveMetadata(MetadatMstTbl metadatMstTbl)
 			throws DaoRollbackException {
-		// TODO Auto-generated method stub
-		
+		getSqlMapClientTemplate().update("MetadatMst.updateMetadatMst", metadatMstTbl);
 	}
 
 	public MetadatMstTbl getMetadata(Map<String, Object> params)

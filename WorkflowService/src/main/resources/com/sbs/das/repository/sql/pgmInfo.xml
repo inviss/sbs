@@ -34,7 +34,7 @@
          FROM PGM_INFO_TBL pgm1
 			INNER JOIN (
 			<![CDATA[
-				SELECT MAX(pgm_id) PGM_ID FROM PGM_INFO_TBL WHERE RTRIM(VALUE(ctgr_l_cd, '')) <> '' AND use_yn = 'Y' GROUP BY pgm_cd
+				SELECT MAX(pgm_id) PGM_ID FROM PGM_INFO_TBL WHERE RTRIM(VALUE(ctgr_l_cd, '')) <> '' GROUP BY pgm_cd
 			]]>
 			) pgm2 on pgm1.PGM_ID = pgm2.PGM_ID
          <dynamic prepend="WHERE">
@@ -82,7 +82,7 @@
 		FROM PGM_INFO_TBL pgm1
 			INNER JOIN (
 			<![CDATA[
-				SELECT MAX(pgm_id) PGM_ID FROM PGM_INFO_TBL WHERE RTRIM(VALUE(ctgr_l_cd, '')) <> '' AND use_yn = 'Y' GROUP BY pgm_cd
+				SELECT MAX(pgm_id) PGM_ID FROM PGM_INFO_TBL WHERE RTRIM(VALUE(ctgr_l_cd, '')) <> '' and UPPER(USE_YN) = 'Y' GROUP BY pgm_cd
 			]]>
 			) pgm2 on pgm1.PGM_ID = pgm2.PGM_ID
          <dynamic prepend="WHERE">
@@ -114,6 +114,9 @@
    		</isNotNull>
    		<isNotNull prepend="," property="ctgrLCd">
    			CTGR_L_CD = #ctgrLCd#
+   		</isNotNull>
+   		<isNotNull prepend="," property="ctgrMCd">
+   			CTGR_M_CD = #ctgrMCd#
    		</isNotNull>
    		<isNotNull prepend="," property="ctgrSCd">
    			CTGR_S_CD = #ctgrSCd#
@@ -158,6 +161,7 @@
     	<selectKey keyProperty="pgmId" resultClass="java.lang.Long">
     		select NEXTVAL FOR das.SEQ_PGM_ID from sysibm.sysdummy1
     	</selectKey>
+    	<!--  
     	INSERT INTO PGM_INFO_TBL (
 		    PGM_ID,PGM_CD,MEDIA_CD,CHAN_CD,PGM_NM,CTGR_L_CD,CTGR_M_CD,CTGR_S_CD,BRD_BGN_DD,BRD_END_DD,PRD_DEPT_NM,SCHD_PGM_NM,AWARD_HSTR,PILOT_YN,REGRID,REG_DT,MODRID,MOD_DT,MOD_END_YN,USE_YN,PARENTS_CD
 		)VALUES(
@@ -165,5 +169,54 @@
 			#brdBgnDd:VARCHAR:NO_ENTRY#, #brdEndDd:VARCHAR:NO_ENTRY#,  #prdDeptNm:VARCHAR:NO_ENTRY#,  #schdPgmNm:VARCHAR:NO_ENTRY#, #awardHstr:VARCHAR:NO_ENTRY#, #pilotYn:VARCHAR:NO_ENTRY#,  #regrid:VARCHAR:NO_ENTRY#,  
 			#regDt:VARCHAR:NO_ENTRY#, #useYn:VARCHAR:NO_ENTRY#, #parentsCd:VARCHAR:NO_ENTRY#
 		)
+		-->
+		INSERT INTO PGM_INFO_TBL (
+		    PGM_ID,
+		    PGM_CD,
+		    MEDIA_CD,
+		    CHAN_CD,
+		    PGM_NM,
+		    CTGR_L_CD,
+		    CTGR_M_CD,
+		    CTGR_S_CD,
+		    BRD_BGN_DD,
+		    BRD_END_DD,
+		    PRD_DEPT_NM,
+		    SCHD_PGM_NM,
+		    AWARD_HSTR,
+		    PILOT_YN,
+		    REGRID,
+		    REG_DT,
+		    MODRID,
+		    MOD_DT,
+		    MOD_END_YN,
+		    USE_YN,
+		    PARENTS_CD
+		)VALUES(
+			#pgmId#, 
+			#pgmCd:VARCHAR:NO_ENTRY#, 
+			#mediaCd:VARCHAR:NO_ENTRY#, 
+			#chanCd:VARCHAR:NO_ENTRY#, 
+			#pgmNm:VARCHAR:NO_ENTRY#, 
+			#ctgrLCd:VARCHAR:NO_ENTRY#, 
+			#ctgrMCd:VARCHAR:NO_ENTRY#, 
+			#ctgrSCd:VARCHAR:NO_ENTRY#, 
+			#brdBgnDd:VARCHAR:NO_ENTRY#, 
+			#brdEndDd:VARCHAR:NO_ENTRY#,  
+			#prdDeptNm:VARCHAR:NO_ENTRY#,  
+			#schdPgmNm:VARCHAR:NO_ENTRY#, 
+			#awardHstr:VARCHAR:NO_ENTRY#, 
+			#pilotYn:VARCHAR:NO_ENTRY#,  
+			#regrid:VARCHAR:NO_ENTRY#,  
+			#regDt:VARCHAR:NO_ENTRY#, 
+			#modrid:VARCHAR:NO_ENTRY#,
+			#modDt:VARCHAR:NO_ENTRY#,
+			#modEndYn:VARCHAR:NO_ENTRY#,
+			#useYn:VARCHAR:NO_ENTRY#, 
+			#parentsCd:VARCHAR:NO_ENTRY#
+		)
+		
+		
+		
     </insert>
  </sqlMap>

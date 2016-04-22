@@ -27,8 +27,8 @@ public class Metadata {
 	private Integer pgmTms;
 
 	// 프로그램회별제목
-	@XStreamCDATA
-	//@XStreamConverter(TextUTF8Converter.class)
+	//@XStreamCDATA
+	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("pgm_tms_title")
 	private String pgmTmsTitle;
 

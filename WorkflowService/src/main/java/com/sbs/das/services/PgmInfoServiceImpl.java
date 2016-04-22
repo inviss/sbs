@@ -36,22 +36,31 @@ public class PgmInfoServiceImpl implements PgmInfoService {
 		
 		PgmInfoTbl pgmInfo = getPgmInfo(pgm.getDasPgmCd());
 		
+		if(logger.isDebugEnabled()) {
+			logger.debug("pgmInfo : "+pgmInfo);
+		}
 		if(pgmInfo == null) {
 			pgmInfo = new PgmInfoTbl();
 			pgmInfo.setPgmCd(pgm.getDasPgmCd());
+			pgmInfo.setMediaCd(StringUtils.defaultIfBlank(pgm.getMediaCd(), "T"));
+			pgmInfo.setChanCd(StringUtils.defaultIfBlank(pgm.getChanCd(), "T"));
 			pgmInfo.setPgmNm(pgm.getPgmTitle());
 			pgmInfo.setCtgrLCd(pgm.getLargeCtgCd());
 			pgmInfo.setCtgrMCd(pgm.getMidCtgCd());
 			pgmInfo.setCtgrSCd(pgm.getSmallCtgCd());
 			pgmInfo.setBrdBgnDd(pgm.getBradStDate());
 			pgmInfo.setBrdEndDd(pgm.getBradFnsDate());
-			pgmInfo.setPrdDeptNm(pgm.getDeptNm());
-			pgmInfo.setSchdPgmNm(pgm.getFrmtnNm());
+			pgmInfo.setPrdDeptNm(StringUtils.defaultIfBlank(pgm.getDeptNm(), ""));
+			pgmInfo.setSchdPgmNm(StringUtils.defaultIfBlank(pgm.getFrmtnNm(), ""));
 			pgmInfo.setPilotYn(pgm.getPilotYn());
-			pgmInfo.setAwardHstr(pgm.getAwardTxn());
-			pgmInfo.setUseYn(StringUtils.defaultIfBlank(pgm.getUseYn(), "Y"));
+			pgmInfo.setAwardHstr(StringUtils.defaultIfBlank(pgm.getAwardTxn(), ""));
+			pgmInfo.setUseYn("Y");
 			pgmInfo.setRegDt(Utility.getTimestamp("yyyyMMddHHmmss"));
 			pgmInfo.setRegrid(pgm.getRegrid());
+			pgmInfo.setModDt("");
+			pgmInfo.setModrid("");
+			pgmInfo.setModEndYn("N");
+			pgmInfo.setParentsCd(StringUtils.defaultIfBlank(pgm.getParentsCd(), ""));
 			
 			pgmInfoDao.insertPgmInfo(pgmInfo);
 		} else {
@@ -68,18 +77,26 @@ public class PgmInfoServiceImpl implements PgmInfoService {
 			if(StringUtils.isNotBlank(pgm.getBradFnsDate()))
 				pgmInfo.setBrdEndDd(pgm.getBradFnsDate());
 			if(StringUtils.isNotBlank(pgm.getDeptNm()))
-				pgmInfo.setPrdDeptNm(pgm.getDeptNm());
+				pgmInfo.setPrdDeptNm(StringUtils.defaultIfBlank(pgm.getDeptNm(), ""));
 			if(StringUtils.isNotBlank(pgm.getFrmtnNm()))
-				pgmInfo.setSchdPgmNm(pgm.getFrmtnNm());
+				pgmInfo.setSchdPgmNm(StringUtils.defaultIfBlank(pgm.getFrmtnNm(), ""));
 			if(StringUtils.isNotBlank(pgm.getPilotYn()))
 				pgmInfo.setPilotYn(pgm.getPilotYn());
 			if(StringUtils.isNotBlank(pgm.getAwardTxn()))
-				pgmInfo.setAwardHstr(pgm.getAwardTxn());
+				pgmInfo.setAwardHstr(StringUtils.defaultIfBlank(pgm.getAwardTxn(), ""));
 			if(StringUtils.isNotBlank(pgm.getUseYn()))
-				pgmInfo.setUseYn(pgm.getUseYn());
+				pgmInfo.setUseYn(pgm.getUseYn().toUpperCase());
 			if(StringUtils.isNotBlank(pgm.getRegrid()))
 				pgmInfo.setModrid(pgm.getRegrid());
+			if(StringUtils.isNotBlank(pgm.getParentsCd()))
+				pgmInfo.setParentsCd(StringUtils.defaultIfBlank(pgm.getParentsCd(), ""));
+			if(StringUtils.isNotBlank(pgm.getMediaCd()))
+				pgmInfo.setMediaCd(pgm.getMediaCd());
+			if(StringUtils.isNotBlank(pgm.getChanCd()))
+				pgmInfo.setChanCd(pgm.getChanCd());
+			
 			pgmInfo.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+			pgmInfo.setUseYn(StringUtils.defaultIfBlank(pgm.getUseYn(), "Y"));
 			
 			pgmInfoDao.updatePgmInfo(pgmInfo);
 		}

@@ -65,6 +65,7 @@ public class MetadataServiceImpl implements MetadataService {
 				mstTbl.setPgmId(pgmInfoTbl.getPgmId().intValue());
 			} else {
 				logger.error("program's info can't find out, pgm_cd: "+mst.getDasPgmCd());
+				throw new ServiceException("Can't find program info by pgm_cd. pgm_cd: "+mst.getDasPgmCd());
 			}
 		}
 		if(mst.getPgmTms() != null && mst.getPgmTms() > 0)
@@ -140,6 +141,13 @@ public class MetadataServiceImpl implements MetadataService {
 		if(StringUtils.isNotBlank(mst.getRegrid()))
 			mstTbl.setModrid(mst.getRegrid());
 		mstTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+		
+		if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
+			if(mstTbl.getArchRoute().indexOf("OPS") > -1) ; //nothing
+			else mstTbl.setArchRoute(mstTbl.getArchRoute()+"_OPS");
+		} else {
+			mstTbl.setArchRoute("OPS");
+		}
 
 		metadatMstDao.saveMetadata(mstTbl);
 	}

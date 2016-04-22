@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
 import com.sbs.das.commons.exception.ServiceException;
-import com.sbs.das.commons.system.DasCmsConnector;
 import com.sbs.das.commons.system.XmlStream;
 import com.sbs.das.commons.utils.Utility;
 import com.sbs.das.dto.ContentInstTbl;
 import com.sbs.das.dto.MetadatMstTbl;
-import com.sbs.das.dto.ops.CartContent;
 import com.sbs.das.dto.ops.Data;
 import com.sbs.das.dto.ops.DownCart;
 import com.sbs.das.dto.ops.Metadata;
@@ -46,8 +44,6 @@ public class CMSNavigator implements DasCMS {
 	private CornerService cornerService;
 	@Autowired
 	private ContentDownloadService contentDownloadService;
-	@Autowired
-	private DasCmsConnector cmsConnector;
 
 
 	public void savePgmInfo(String xml) throws RemoteException {
@@ -79,6 +75,7 @@ public class CMSNavigator implements DasCMS {
 		try {
 			pgmInfoService.savePgmInfo(data.getProgram());
 		} catch (Exception e) {
+			logger.error("savePgmInfo Error", e);
 			throw new RemoteException("Program Info Save Error", e);
 		}
 
@@ -123,6 +120,7 @@ public class CMSNavigator implements DasCMS {
 				data.addMetadatas(metadata);
 			}
 		} catch (Exception e) {
+			logger.error("findEpisodeList Error", e);
 			throw new RemoteException("Metadata Info Find Error", e);
 		}
 
@@ -147,11 +145,15 @@ public class CMSNavigator implements DasCMS {
 		if(data != null && data.getMetadatas().size() > 0) {
 			Metadata mst = (Metadata)data.getMetadatas().get(0);
 			if(mst.getDasMasterId() == null || mst.getDasMasterId() <= 0)
-				throw new RemoteException("Primary Key is null or wrong value! - master_id: "+mst.getDasMasterId());
+				throw new RemoteException("Das master_id is null or wrong value! - master_id: "+mst.getDasMasterId());
+			
+			if(StringUtils.isBlank(mst.getDasPgmCd()))
+				throw new RemoteException("Das pgm_cd is null or wrong value! - pgm_cd: "+mst.getDasPgmCd());
 
 			try {
 				metadataService.updateMetadataInfo(mst);
 			} catch (ServiceException e) {
+				logger.error("updateEpisodeInfo Error", e);
 				throw new RemoteException("Metadata Info Update Error", e);
 			}
 		}
@@ -175,12 +177,14 @@ public class CMSNavigator implements DasCMS {
 		}
 		
 		if(data == null || (data.getDasMasterId() == null || data.getDasMasterId() <= 0L)) {
+			logger.error("Primary Key is null or wrong value! master_id: "+data.getDasMasterId());
 			throw new RemoteException("Primary Key is null or wrong value!");
 		}
 
 		try {
 			cornerService.updateCorners(data);
 		} catch (Exception e) {
+			logger.error("Corners Info Update Error", e);
 			throw new RemoteException("Corners Info Update Error", e);
 		}
 		
