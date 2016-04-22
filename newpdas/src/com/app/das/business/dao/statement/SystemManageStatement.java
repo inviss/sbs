@@ -2146,7 +2146,8 @@ buf.append("\n   AND ");
 
 
 		buf.append("\n   ,case when MEAT.ARCH_ROUTE = 'P' and MEAT.COCD = 'S' THEN 'PDS'   ");
-		buf.append("\n   when MEAT.ARCH_ROUTE = 'P' AND MEAT.COCD <> 'S'THEN 'IFCMS'   ");
+		buf.append("\n   when MEAT.ARCH_ROUTE in ('P', 'O') AND MEAT.COCD <> 'S'THEN 'IFCMS'   ");
+		buf.append("\n   when MEAT.arch_route = 'OM' THEN '수동등록'      ");
 		buf.append("\n   when MEAT.ARCH_ROUTE LIKE 'D%' THEN '매체변환'      ");
 		buf.append("\n   when MEAT.ARCH_ROUTE LIKE 'O%' THEN 'ON-AIR'    ");
 		buf.append("\n   ELSE ''    ");
