@@ -915,7 +915,7 @@ public class SystemManageStatement
 		buf.append("\n	   ,''            			AS AWARD_HSTR                                                                     ");
 		buf.append("\n	   ,''              		AS PILOT_YN                                                                       ");
 		buf.append("\n	   ,''               		AS USE_YN                                                                         ");
-		buf.append("\n	FROM DAS.ERP_E_PGMMST_TBL                                                                                     ");
+		buf.append("\n	FROM DAS.E_PGMMST_TBL                                                                                     ");
 		buf.append("\n	WHERE 1=1                                                                                                 ");
 		buf.append("\n		AND PGM_CD NOT IN (SELECT  SUBSTR(PGM_CD, 3, 6) FROM PGM_INFO_TBL)                                      ");
 		buf.append("\n	    AND ((MEDIA='T' AND CHAN_CD='T') OR ((MEDIA='Z' AND CHAN_CD='Z')) OR ((MEDIA='D' AND CHAN_CD='T')))   ");
@@ -1112,9 +1112,6 @@ public class SystemManageStatement
 			buf.append("\n   WHERE   ");
 			buf.append("\n     1=1 ");
 			buf.append("\n  and pgm_cd not in (select  substr(pgm_cd,3,6) from PGM_INFO_TBL )  ");		 			 	
-			/*if(!condition2.getUse_yn().equals("")){
-buf.append("\n AND USE_YN='"+condition2.getUse_yn()+"' ");
-}*/
 
 			if(condition2.getSRCH_TYPE().equals("0")){
 				//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다

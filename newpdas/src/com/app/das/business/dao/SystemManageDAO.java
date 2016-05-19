@@ -13626,14 +13626,54 @@ public class SystemManageDAO extends AbstractDAO
 
 			String distime = CalendarUtil.getDateTime("yyyyMMdd");
 
+			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat formatter = new SimpleDateFormat ("yyyyMMdd");
 
 			String dateString = distime;
-
-
-			Date date = formatter.parse(dateString);	
-
-			Calendar calendar = Calendar.getInstance();		     
+			Date date = formatter.parse(dateString);
+			calendar.setTime(date);
+			
+			/*
+			 * 2016.05.09
+			 * 미디어넷에 설저된 존치기간과 코드가 맞지 않음.
+			 * d1:1일, d2:2일, d3:3일, d4:4일, d5:5일, w1:1주, w2:2주, w3:3주, w4:4주, m1:한달, m6: 6개월, 
+			 * y1:1년, y2:2년, y3:3년, 5:5년, y10:10년, y20:20년, p:permanent (영구)
+			 */
+			String prCd = com.app.das.util.StringUtils.right(StringUtils.defaultIfEmpty(pgmDO.getRetention_period(), "p"), 2, "0");
+			if(logger.isDebugEnabled()) {
+				logger.debug("input period: "+pgmDO.getRetention_period()+", output period: "+prCd);
+			}
+			byte[] pids = prCd.getBytes();
+			
+			int days = Integer.parseInt(new String(pids, 1, pids.length-1));
+			switch(pids[0]) {
+			case 'd':    	// 일
+				calendar.add(Calendar.DAY_OF_MONTH, days);
+				break;
+			case 'w':		// 주
+				calendar.add(Calendar.WEEK_OF_MONTH, days);
+				break;
+			case 'm':		// 월
+				calendar.add(Calendar.MONTH, days);
+				break;
+			case 'y':		// 년
+				calendar.add(Calendar.YEAR, days);
+				break;
+			default :		// 영구
+				calendar.set(Calendar.YEAR,  9999);
+				calendar.set(Calendar.MONTH,  Calendar.DECEMBER);
+				calendar.set(Calendar.DATE,  31);
+				calendar.set(Calendar.HOUR_OF_DAY,  23);
+				calendar.set(Calendar.MINUTE,  59);
+				calendar.set(Calendar.SECOND,  59);
+				break;
+			}
+			
+			getRsv_prd_end_dd = formatter.format(calendar.getTime());
+			if(logger.isDebugEnabled()) {
+				logger.debug("Retention_period: "+prCd+", Rsv_prd_end_dd: "+getRsv_prd_end_dd);
+			}
+			/*
 			if(pgmDO.getRetention_period().equals("000")){//영구
 				calendar.setTime(date);
 				calendar.add(Calendar.YEAR, +9999);
@@ -13675,7 +13715,8 @@ public class SystemManageDAO extends AbstractDAO
 			}else{
 				getRsv_prd_end_dd="99991231";
 			} 
-
+			*/
+			
 			stmt.setLong(++index,masterid);//MASTER_ID
 			stmt.setInt(++index, 0);//PGM_ID
 			stmt.setString(++index,"");//PGM_CD

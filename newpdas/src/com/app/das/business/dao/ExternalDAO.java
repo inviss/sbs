@@ -19998,7 +19998,7 @@ public class ExternalDAO extends AbstractDAO
 			pdsArchiveDO.setCocd(selectCocd(pdsArchiveDO.getCti_id())) ;
 			DivaManagerDOXML _doing = new DivaManagerDOXML();
 
-			//System.out.println(_doing.getNewArchiveXML(pdsArchiveDO));
+			System.out.println(_doing.getNewArchiveXML(pdsArchiveDO));
 			NevigatorProxy port = new NevigatorProxy();
 			_result = port.archiveService(_doing.getNewArchiveXML(pdsArchiveDO));
 			logger.debug("_ArchivePDSReq result : "+_result);
@@ -25172,28 +25172,25 @@ public class ExternalDAO extends AbstractDAO
 		Connection con = null;		
 		PreparedStatement psmt = null;		
 		ResultSet rs = null;
-
-		buf.append(" SELECT CTI.CTI_ID as cti_id, tc.INPUT_HR as fl_path, tc.input_hr_nm, ct.media_id, ct.reg_dt, rtrim(CT.VD_QLTY) as vd_qlty ,ct.ct_cla, ");
-		buf.append(" MST.CTGR_L_CD, mst.REGRID                  ");
-		buf.append("  FROM DAS.CONTENTS_TBL CT                  ");
-		buf.append("     INNER JOIN DAS.CONTENTS_INST_TBL CTI ON CTI.CT_ID= CT.CT_ID AND CTI.CTI_FMT LIKE '10%'  ");
-		buf.append("     INNER JOIN (SELECT CT_ID,MASTER_ID FROM DAS.CONTENTS_MAPP_TBL GROUP BY CT_ID,MASTER_ID) MAP ON MAP.CT_ID= CT.CT_ID   ");
-		buf.append("     INNER JOIN DAS.METADAT_MST_TBL MST ON MST.MASTER_ID = MAP.MASTER_ID  ");
-		buf.append("     INNER JOIN DAS.TC_JOB_TBL tc on tc.CT_ID=cti.CT_ID       ");
-		buf.append(" WHERE CT.CT_ID = ?        order by ct.reg_dt desc       ");
-		buf.append(" fetch first 1 rows only        ");
+		
+		buf.append("\nSELECT CTI.CTI_ID as cti_id, tc.INPUT_HR as fl_path, tc.input_hr_nm, ct.media_id, ct.reg_dt, rtrim(CT.VD_QLTY) as vd_qlty,    ");
+		buf.append("\n    ct.ct_cla, MST.CTGR_L_CD, mst.REGRID                                                                                      ");
+		buf.append("\nFROM DAS.CONTENTS_TBL CT                                                                                                      ");
+		buf.append("\n    INNER JOIN DAS.CONTENTS_INST_TBL CTI ON CTI.CT_ID= CT.CT_ID AND CTI.CTI_FMT LIKE '10%'                                    ");
+		buf.append("\n    INNER JOIN (SELECT CT_ID,MASTER_ID FROM DAS.CONTENTS_MAPP_TBL GROUP BY CT_ID,MASTER_ID) MAP ON MAP.CT_ID= CT.CT_ID        ");
+		buf.append("\n    INNER JOIN DAS.METADAT_MST_TBL MST ON MST.MASTER_ID = MAP.MASTER_ID                                                       ");
+		buf.append("\n    INNER JOIN DAS.TC_JOB_TBL tc on tc.CT_ID=cti.CT_ID                                                                        ");
+		buf.append("\nWHERE CT.CT_ID = ?                                                                                                            ");
+		buf.append("\norder by ct.reg_dt desc   																									");    
 		try {
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectCtiFromMediaidForPDS######## con : " + con);
-			//con.setAutoCommit(false);
 			psmt = con.prepareStatement(buf.toString());    
 			int index = 0;	
 			psmt.setLong(++index, pdsArchiveDO.getCt_id());
-			//psmt.setString(++index, pdsArchiveDO.getMedia_id());
 			rs = psmt.executeQuery();	
+			
 			PdsArchiveDO item = new PdsArchiveDO();
-			if(rs.next())
-			{
+			if(rs.next()) {
 				item.setCti_id(rs.getLong("cti_id"));
 				item.setFl_path(rs.getString("fl_path"));
 				item.setFl_nm(rs.getString("input_hr_nm"));
@@ -25204,18 +25201,12 @@ public class ExternalDAO extends AbstractDAO
 				item.setCtgr_l_cd(rs.getString("CTGR_L_CD"));
 				item.setReq_id(rs.getString("REGRID"));
 			}
-			//con.setAutoCommit(true);
+			
 			return item;   
-		}
-		catch (Exception ex)
-		{
-			logger.error(buf.toString());
-
+		} catch (Exception ex) {
 			DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "selectTcJon 에러 : " + buf.toString(), ex);
 			throw exception;
-		}
-		finally
-		{
+		} finally {
 			release(rs, psmt, con);
 		}
 
@@ -34700,37 +34691,36 @@ public class ExternalDAO extends AbstractDAO
 	{
 		StringBuffer buf = new StringBuffer();
 		StringBuffer strResult = new StringBuffer();
-
-		buf.append("\n select ");
-		buf.append("\n 	value(CN.CN_ID, '')as cn_id ");	
-		buf.append("\n 	,case when cn.cn_nm <>'' then CN.CN_NM ");	
-		buf.append("\n 	 when cn.CN_NM is null or cn.CN_NM=''  and ct_typ<>'003'  then ct.CT_NM ");	
-		buf.append("\n 	 else cn.CN_NM ");	
-		buf.append("\n 	 end as CN_NM ");	
-		buf.append("\n 	,value(CN.RPIMG_KFRM_SEQ, 0) as RPIMG_KFRM_SEQ, value(CN.SOM, '') as SOM, value(CN.EOM, '') as EOM, '' as CN_TYPE_CD, value(CN.RPIMG_CT_ID, '')as RPIMG_CT_ID, value(CN.CN_INFO, '')as CN_INFO");	
-		buf.append("\n 	, value(CT.CT_ID, '')as CT_ID, value(CODE.DESC, '')as CT_NM, value(CT.REG_DT, '')as REG_DT, value(CT.CT_LENG, '')as CT_LENG, value(CT.DURATION, 0)as DURATION, value(CT.CT_SEQ, 0)as CT_SEQ, value(CT.KFRM_PATH, '')as KFRM_PATH");
-		buf.append("\n 	, value(CT.KFRM_PX_CD, '')as KFRM_PX_CD, value(CT.VD_QLTY, '')as VD_QLTY, value(CT.ASP_RTO_CD, '')as ASP_RTO_CD, value(CT.CONT, '')as CONT ,value(CT.CT_CLA, '')as CT_CLA,value(CT.TOT_KFRM_NUMS, 0)as TOT_KFRM_NUMS,value(CT.MEDIA_ID, '')as MEDIA_ID");
-		buf.append(" \n	, value(CTI.INGEST_EQ_ID, 0)as INGEST_EQ_ID, value(CTI.FL_PATH, '')as FL_PATH, value(CTI.WRK_FILE_NM, '')as WRK_FILE_NM, value(CTI.CTI_FMT, '')as CTI_FMT, value(CTI.FL_SZ, '')as FL_SZ, value(CTI.CTI_ID, '')as CTI_ID ");
-		buf.append(" \n	,  value(CTI.ARCH_STE_YN, '')as ARCH_STE_YN, value(CTI.VD_HRESOL, 0)as VD_HRESOL, value(CTI.VD_VRESOL, 0)as VD_VRESOL, value(CTI.BIT_RT, '')as BIT_RT, value(CTI.FRM_PER_SEC, '')as FRM_PER_SEC, value(CTI.AUD_SAMP_FRQ, '')as AUD_SAMP_FRQ ");
-		buf.append("\n 	,  value(CTI.AUDIO_BDWT, '')as AUDIO_BDWT ");
-		buf.append("\n 	,  value(meta.title, '')as TITLE");
-		buf.append("\n	, MAP.S_DURATION, MAP.E_DURATION ");
-		buf.append("\n , meta.rpimg_ct_id as meta_rpimg_ct_id , meta.rpimg_kfrm_seq as meta_rpimg_kfrm_seq");
-		buf.append("\n from DAS.CONTENTS_TBL CT, DAS.CONTENTS_MAPP_TBL MAP , ");
-		buf.append("\n 	DAS.METADAT_MST_TBL META, DAS.CORNER_TBL CN , das.code_tbl code");
-		buf.append("\n 	, (select * from CONTENTS_INST_TBL where ct_id =? and cti_fmt like '3%' order by ct_id desc fetch first 1 rows only)  CTI");
-		buf.append("\n where  ");
-		buf.append(" \n	CT.CT_ID = CTI.CT_ID and META.MASTER_ID = MAP.MASTER_ID ");
-		buf.append(" \n	and CN.CN_ID = MAP.CN_ID ");
-		buf.append("\n 	and MAP.CT_ID = CTI.CT_ID and map.ct_id = ? ");
-		//buf.append("\n 	and (MAP.del_dd is null or MAP.del_dd = '')   ");
-		buf.append("\n 	and map.CT_ID = cti.CT_ID   ");
-		buf.append("\n 	 AND CODE.SCL_CD = CT.CT_TYP     ");
-		buf.append("\n  AND CODE.CLF_CD='P016'     ");
-		buf.append("\n 	and cti.cti_fmt like '30%'  ");
-		buf.append("\n   and  map.del_yn <>'Y'   ");
-		buf.append("\n  order by code.rmk_2 asc, cn.som asc  ");
-		buf.append("\n with ur");
+		buf.append("\nselect                                                                                                                                                    ");
+		buf.append("\n	value(CN.CN_ID, '')as cn_id, value(meta.CHENNEL_CD, '') as channel_cd,                                                                                  ");
+		buf.append("\n	case when cn.cn_nm <>'' then CN.CN_NM 	                                                                                                                ");
+		buf.append("\n		when cn.CN_NM is null or cn.CN_NM=''  and ct_typ<>'003'  then ct.CT_NM 	                                                                              ");
+		buf.append("\n		else cn.CN_NM 	                                                                                                                                      ");
+		buf.append("\n	end as CN_NM,                                                                                                                                           ");
+		buf.append("\n	value(CN.RPIMG_KFRM_SEQ, 0) as RPIMG_KFRM_SEQ, value(CN.SOM, '') as SOM, value(CN.EOM, '') as EOM, '' as CN_TYPE_CD,                                    ");
+		buf.append("\n	value(CN.RPIMG_CT_ID, '')as RPIMG_CT_ID, value(CN.CN_INFO, '')as CN_INFO, value(CT.CT_ID, '')as CT_ID,                                                  ");
+		buf.append("\n	value(CODE.DESC, '')as CT_NM, value(CT.REG_DT, '')as REG_DT, value(CT.CT_LENG, '')as CT_LENG, value(CT.DURATION, 0)as DURATION,                         ");
+		buf.append("\n	value(CT.CT_SEQ, 0)as CT_SEQ, value(CT.KFRM_PATH, '')as KFRM_PATH, value(CT.KFRM_PX_CD, '')as KFRM_PX_CD, value(CT.VD_QLTY, '')as VD_QLTY,              ");
+		buf.append("\n	value(CT.ASP_RTO_CD, '')as ASP_RTO_CD, value(CT.CONT, '')as CONT ,value(CT.CT_CLA, '')as CT_CLA,value(CT.TOT_KFRM_NUMS, 0)as TOT_KFRM_NUMS,             ");
+		buf.append("\n	value(CT.MEDIA_ID, '')as MEDIA_ID, value(CTI.INGEST_EQ_ID, 0)as INGEST_EQ_ID, value(CTI.FL_PATH, '')as FL_PATH,                                         ");
+		buf.append("\n	value(CTI.WRK_FILE_NM, '')as WRK_FILE_NM, value(CTI.CTI_FMT, '')as CTI_FMT, value(CTI.FL_SZ, '')as FL_SZ, value(CTI.CTI_ID, '')as CTI_ID,               ");
+		buf.append("\n	value(CTI.ARCH_STE_YN, '')as ARCH_STE_YN, value(CTI.VD_HRESOL, 0)as VD_HRESOL, value(CTI.VD_VRESOL, 0)as VD_VRESOL, value(CTI.BIT_RT, '')as BIT_RT,     ");
+		buf.append("\n	value(CTI.FRM_PER_SEC, '')as FRM_PER_SEC, value(CTI.AUD_SAMP_FRQ, '')as AUD_SAMP_FRQ , value(CTI.AUDIO_BDWT, '')as AUDIO_BDWT,                          ");
+		buf.append("\n	value(meta.title, '')as TITLE, MAP.S_DURATION, MAP.E_DURATION, meta.rpimg_ct_id as meta_rpimg_ct_id , meta.rpimg_kfrm_seq as meta_rpimg_kfrm_seq        ");
+		buf.append("\nfrom DAS.CONTENTS_TBL CT, DAS.CONTENTS_MAPP_TBL MAP,                                                                                                      ");
+		buf.append("\n	DAS.METADAT_MST_TBL META, DAS.CORNER_TBL CN, das.code_tbl code,                                                                                         ");
+		buf.append("\n	(select * from CONTENTS_INST_TBL where ct_id =? and cti_fmt like '3%' order by ct_id desc fetch first 1 rows only)  CTI                                 ");
+		buf.append("\nwhere                                                                                                                                                     ");
+		buf.append("\n	CT.CT_ID = CTI.CT_ID and META.MASTER_ID = MAP.MASTER_ID                                                                                                 ");
+		buf.append("\n	and CN.CN_ID = MAP.CN_ID                                                                                                                                ");
+		buf.append("\n	and MAP.CT_ID = CTI.CT_ID and map.ct_id = ?                                                                                                             ");
+		buf.append("\n	and map.CT_ID = cti.CT_ID                                                                                                                               ");
+		buf.append("\n	AND CODE.SCL_CD = CT.CT_TYP                                                                                                                             ");
+		buf.append("\n 	AND CODE.CLF_CD='P016'                                                                                                                                  ");
+		buf.append("\n	and cti.cti_fmt like '30%'                                                                                                                              ");
+		buf.append("\n  and  map.del_yn <>'Y'                                                                                                                                   ");
+		buf.append("\norder by code.rmk_2 asc, cn.som asc                                                                                                                       ");
+		buf.append("\nwith ur																																				    ");
 
 		Connection con = null;
 
@@ -34774,6 +34764,11 @@ public class ExternalDAO extends AbstractDAO
 				this.AddToResultXMLBuffer(strResult, "CT_LENG".toLowerCase(), "      ", rs.getString("CT_LENG"));
 				this.AddToResultXMLBuffer(strResult, "MEDIA_ID".toLowerCase(), "      ", rs.getString("MEDIA_ID"));
 				this.AddToResultXMLBuffer(strResult, "TITLE".toLowerCase(), "      ", rs.getString("TITLE"));
+				/*
+				 * 2016.05.09 코난 요구에의해 추가됨.
+				 */
+				this.AddToResultXMLBuffer(strResult, "CHANNEL_CD".toLowerCase(), "      ", rs.getString("CHANNEL_CD") + "");
+				
 				strResult.append("\n    <item>");
 
 				this.AddToResultXMLBuffer(strResult, "CN_ID".toLowerCase(), "      ", nCN_ID + "");
@@ -34838,8 +34833,7 @@ public class ExternalDAO extends AbstractDAO
 				//this.AddToResultXMLBuffer(strResult, "REGRID", "      ", rs.getString("REGRID") + "");
 				//this.AddToResultXMLBuffer(strResult, "MODRID", "      ", rs.getString("MODRID") + "");
 				//this.AddToResultXMLBuffer(strResult, "MOD_DT", "      ", rs.getString("MOD_DT") + "");
-
-
+				
 				// annot 관련 자료
 				strResult.append("\n      <Annot>");
 

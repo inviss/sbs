@@ -23,7 +23,7 @@ public class insertPDSArchiveTest {
 
 		PdsArchiveDOXML _doXML = new PdsArchiveDOXML();
 		try {
-			String xml = FileUtils.readFileToString(new File("D:/pds_addnode.xml"), "utf-8");
+			String xml = FileUtils.readFileToString(new File("D:/ifcms.xml"), "utf-8");
 
 			PdsArchiveDO _do = (PdsArchiveDO) _doXML.setDO(xml);	
 

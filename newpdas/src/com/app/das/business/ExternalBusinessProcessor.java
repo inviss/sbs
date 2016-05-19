@@ -3626,9 +3626,11 @@ public class ExternalBusinessProcessor
 				logger.debug("[pdsarchive][pdsarchive pADO]" + pADO);
 				String pgm_cms_id = "";
 				sResult =externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
-			}else if(ct_id>0){			
+			} else if (ct_id > 0){			
 				externalDAO.updateManual_yn(ct_id);
+				//  1051141    arcreq/SBS/manual/201604/22/  P20160422V00253_20160422162457_HR.MXF  P20160422V00253  20160422163649  001         001        100   
 				PdsArchiveDO pADO = externalDAO.selectCtiFromCtIdForPDS(pdsarchive.getCt_id());
+				//  P00692
 				String pgm_cms_id = systemManageDAO.selectPdsPgmId(pdsarchive.getCt_id());
 				pADO.setPds_cms_id(pgm_cms_id);
 				logger.debug("[pADO][Input pADO]" + pADO);
@@ -3873,12 +3875,11 @@ public class ExternalBusinessProcessor
 			if(logger.isDebugEnabled()) {
 				logger.debug("ct_id: "+tcBeanDO.getCt_id()+", tc_type: "+Tc_type);
 			}
+			
 			if(Tc_type.equals(CodeConstants.TcGubun.PDS)){  //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
 				TcBeanDO resultTC =	externalDAO.selectTcJob2(tcBeanDO);
-				
-				/**
-				 * 아카이브 요청 DTL manager
-				 */
+				//tcBeanDO.setCt_id(574856);
+
 				PdsArchiveDO pdsarchive = new PdsArchiveDO();
 				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
 				PdsArchiveDO info = externalDAO.selectAutoArchiveInfobyCt_id(tcBeanDO.getCt_id());
@@ -3895,11 +3896,7 @@ public class ExternalBusinessProcessor
 						logger.debug("[PDS][Input pADO]" + pADO);
 						externalDAO.ArchivePDSReq(pADO, pgm_cms_id);
 					}
-					/*
-					String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
-					logger.debug("[PDS][Input pADO]" + pADO);
-					externalDAO.ArchivePDSReq(pADO, pgm_cms_id);
-					*/
+
 				}
 
 				return resultTC;
@@ -3907,10 +3904,8 @@ public class ExternalBusinessProcessor
 				logger.debug("before  "+Tc_type);
 				logger.debug("before  "+req_cd);
 				TcBeanDO resultTC =	externalDAO.selectTcJob3(tcBeanDO);
-				/**
-				 * 아카이브 요청 DTL manager
-				 */
-				//tcBeanDO.setCt_id(574856);
+
+				//tcBeanDO.setCt_id(574870);
 
 				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
 				
@@ -3925,17 +3920,10 @@ public class ExternalBusinessProcessor
 					String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
 					externalDAO.ArchivePDSReq(pADO, pgm_cms_id);
 				}
-/*
-				String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
-				logger.debug("[MANUAL][Input pADO]" + pADO);
-				externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
-*/
+
 				return resultTC;
 			} else if(Tc_type.equals(CodeConstants.TcGubun.IFCMS)) {   //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
 				TcBeanDO resultTC =	externalDAO.selectTcJob4(tcBeanDO);
-				/**
-				 * 아카이브 요청 DTL manager
-				 */
 
 				PdsArchiveDO pdsarchive = new PdsArchiveDO();
 				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
@@ -3948,16 +3936,12 @@ public class ExternalBusinessProcessor
 					logger.debug("[IFCMS][Input pADO]" + pADO);
 					externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
 				}
-				/*
-				String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
-				logger.debug("[IFCMS][Input pADO]" + pADO);
-				externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
-				*/
+
 				return resultTC;
 			} else {
 				return externalDAO.selectTcJob2(tcBeanDO);
 			}
-
+			
 		} catch (Exception e) {
 			throw e;
 		}

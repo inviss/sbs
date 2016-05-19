@@ -4406,7 +4406,7 @@ public class ExternalStatement
 			buf.append("\n 			ELSE 0                                                                                                            ");
 			buf.append("\n 		END AS sum_brd_leng                                                                                                             ");
 		} else {
-			buf.append("\n		CASE WHEN instr(mst.arch_route, 'OPS') > 0 THEN 'Y' ELSE 'N' END AS can_modify,                                                                                                                                ");
+			buf.append("\n		CASE WHEN instr(mst.arch_route, 'OS') > 0 THEN 'Y' ELSE 'N' END AS can_modify,                                                                                                                                ");
 			buf.append("\n		mst.master_id,                                                                                                                                ");
 			buf.append("\n 		mst.tape_item_id,                                                                                                                             ");
 			buf.append("\n 		mst.mcuid,                                                                                                                                    ");
