@@ -38,8 +38,16 @@ public class Corner {
 	private String mediaId;
 	@XmlElement(name="ct_leng")
 	private String ctLeng;
+	@XmlElement(name="channel_cd")
+	private String channelCd;
 	
 	
+	public String getChannelCd() {
+		return channelCd;
+	}
+	public void setChannelCd(String channelCd) {
+		this.channelCd = channelCd;
+	}
 	public String getCtLeng() {
 		return ctLeng;
 	}

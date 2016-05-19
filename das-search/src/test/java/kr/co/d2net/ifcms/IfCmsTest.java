@@ -26,7 +26,7 @@ import com.sbs.ifcms.spi.Session;
 
 public class IfCmsTest {
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void loginTest() {
 		try {
@@ -249,6 +249,16 @@ public class IfCmsTest {
 			das.setSearchInfo(search);
 
 			System.out.println(convertorService.createMarshaller(das));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void frameTest() {
+		try {
+			System.out.println(Utility.changeDuration(53830));
+			//System.out.println(Utility.changeTimeCode("01:23:10:12"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

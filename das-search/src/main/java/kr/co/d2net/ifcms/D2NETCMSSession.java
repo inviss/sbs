@@ -703,7 +703,16 @@ public class D2NETCMSSession implements Session {
 								asset.setProperty("music_info", Utility.unescapeXml(StringUtils.defaultString(dasSearch.getMusicInfo(), "")));
 								asset.setProperty("media_id", "");
 								asset.setProperty("media_format","XDCAM MXF");
-								logger.debug("#################media_format + "+ "XDCAM MXF");
+
+								// 원섭이가 추가한 부분
+								logger.debug("#######dasSearch.getVdQltyNm()   =  " + dasSearch.getVdQltyNm());
+								if ((dasSearch.getVdQltyNm().equals("HD")) || (dasSearch.getVdQltyNm().equals("001"))) {
+									asset.setProperty("media_format", "XDCAM MXF");
+								} else if ((dasSearch.getVdQltyNm().equals("SD")) || (dasSearch.getVdQltyNm().equals("002"))) {
+									asset.setProperty("media_format", "IMX(D10)");
+								} else {
+									asset.setProperty("media_format", "XDCAM MXF");
+								}
 
 								asset.setProperty("resolution", StringUtils.defaultString(dasSearch.getVdQltyNm(), ""));
 								asset.setProperty("aspectratio", "");
@@ -747,16 +756,16 @@ public class D2NETCMSSession implements Session {
 								String rpUrl = (String)configMap.get("rp.image.url");
 								String rpKfrmPath = "";
 								logger.debug("############kfrmPath    :  "+kfrmPath);
-								
+
 								/* 2012.12.26 스트리밍 서버에서는 컨텍스트 정보가 빠짐
 								if(kfrmPath.indexOf("net_mp4") > -1) {
 									rpKfrmPath = kfrmPath.replace("net_mp4", "MDE_SB").replace("kfrm", "KFRM");
 								}else{
 									rpKfrmPath = kfrmPath.replace("mp4", "SBS_SB").replace("kfrm", "KFRM");
 								}
-								*/
+								 */
 								rpKfrmPath = kfrmPath.replace("kfrm", "KFRM");
-								
+
 								if(!kfrmPath.trim().equals("/")){
 									asset.setProperty("thumbnail_url", rpUrl+rpKfrmPath+kfrmSeq+".jpg");
 									logger.debug("############rpKfrmPath    :  "+rpUrl+rpKfrmPath+kfrmSeq+".jpg");
@@ -860,7 +869,9 @@ public class D2NETCMSSession implements Session {
 
 				Das das = null;    
 				if(id.startsWith("M")) { // master_Id
-					das = convertorService.unMarshaller(cmsConnector.getBaseInfo(Long.valueOf(id.substring(1))));
+					String xml = cmsConnector.getBaseInfo(Long.valueOf(id.substring(1)));
+					logger.debug(xml);
+					das = convertorService.unMarshaller(xml);
 
 					if(das != null && das.getMetaDataInfo() != null) {
 						MetaDataInfo metaDataInfo = das.getMetaDataInfo();
@@ -872,12 +883,12 @@ public class D2NETCMSSession implements Session {
 						String epis_no = StringUtils.defaultString(String.valueOf(metaDataInfo.getEpisNo()),"");
 						if(epis_no.equals("")||epis_no.equals("0")){
 							asset.setProperty("program_sequence", "");
-							
+
 						}else{
 							asset.setProperty("program_sequence", epis_no);
-							
+
 						}logger.debug("#################epis_no + "+ epis_no);
-						
+
 						asset.setProperty("program_sequence_total", "");
 						asset.setProperty("creator", StringUtils.defaultString(metaDataInfo.getProducerNm(), ""));
 						asset.setProperty("creator_sub", StringUtils.defaultString(metaDataInfo.getDrtNm(), ""));
@@ -949,7 +960,7 @@ public class D2NETCMSSession implements Session {
 						asset.setProperty("usegrade_desc", StringUtils.defaultString(metaDataInfo.getAnnotClfCont(), ""));
 
 						String value = StringUtils.defaultString(metaDataInfo.getViewGrCd());
-						
+
 						if(value.equals("001")){
 							value="0";
 						}else if(value.equals("002")){
@@ -977,8 +988,18 @@ public class D2NETCMSSession implements Session {
 						asset.setProperty("country", StringUtils.defaultString(metaDataInfo.getCountryCd(), ""));
 						asset.setProperty("music_info", Utility.unescapeXml(StringUtils.defaultString(metaDataInfo.getMusicInfo(), "")));
 
-						asset.setProperty("media_format","XDCAM MXF");
-						logger.debug("#################media_format + "+ "XDCAM MXF");
+						// 원섭이가 추가한 부분
+						logger.debug("#############getMetaVdQlty" + metaDataInfo.getMetaVdQlty());
+						if ((metaDataInfo.getMetaVdQlty().equals("HD")) || (metaDataInfo.getMetaVdQlty().equals("001"))) {
+							asset.setProperty("media_format", "XDCAM MXF");
+							logger.debug("#################media_format + XDCAM MXF");
+						} else if ((metaDataInfo.getMetaVdQlty().equals("SD")) || (metaDataInfo.getMetaVdQlty().equals("002"))) {
+							asset.setProperty("media_format", "IMX(D10)");
+							logger.debug("#################media_format + IMX(D10)");
+						} else {
+							asset.setProperty("media_format", "XDCAM MXF");
+						}
+
 
 						String value2 =StringUtils.defaultString(metaDataInfo.getMetaVdQlty(), "");
 						if(value2.equals("001")){
@@ -998,15 +1019,15 @@ public class D2NETCMSSession implements Session {
 
 						asset.setProperty("aspectratio", metaDataInfo.getMetaAspRtoCd());
 						asset.setProperty("duration", StringUtils.defaultString(metaDataInfo.getBrdLeng(), ""));
-						 String val = StringUtils.defaultString(metaDataInfo.getMetaRecordTypeCd());
+						String val = StringUtils.defaultString(metaDataInfo.getMetaRecordTypeCd());
 						if(val.equals("001")){
 							val="M";
 						}else if(val.equals("002")){
 							val="S";
 						}else if(val.equals("003")){
-							val="B";
-						}else if(val.equals("004")){
 							val="F";
+						}else if(val.equals("004")){
+							val="B";
 						}else if(val.equals("005")){
 							val="Y";
 						}else if(val.equals("006")){
@@ -1115,11 +1136,21 @@ public class D2NETCMSSession implements Session {
 					logger.debug("######################4asset.getName     " + corner.getTitle());
 					asset.setProperty("media_id", corner.getMediaId().toUpperCase());
 					asset.setProperty("duration", corner.getCtLeng());
-					asset.setProperty("media_format","XDCAM MXF");
-					logger.debug("#################media_format + "+ "XDCAM MXF");
 
+					// 원섭이가 추가한 부분
+					for (CornerItem item : das.getCorner().getItems()) {
+						logger.debug("item.getVdQlty " + item.getVdQlty());
+						if ((item.getVdQlty().equals("HD")) || (item.getVdQlty().equals("001"))) {
+							asset.setProperty("media_format", "XDCAM MXF");
+						} else if ((item.getVdQlty().equals("SD")) || (item.getVdQlty().equals("002"))) {
+							asset.setProperty("media_format", "IMX(D10)");
+							logger.debug("#################media_format + IMX(D10)");
+						} else {
+							asset.setProperty("media_format", "XDCAM MXF");
+							logger.debug("#################media_format + XDCAM MXF");
+						}
+					}
 				}
-
 
 			}
 		} catch (RemoteException e) {
@@ -1194,8 +1225,12 @@ public class D2NETCMSSession implements Session {
 							if(logger.isDebugEnabled()) {
 								logger.debug("sub ct_Id: "+ctId);
 							}
+
 							String xml = cmsConnector.getSceanInfoForIfCms(Long.valueOf(ctId));
+
 							Das das2 = convertorService.unMarshaller(xml.toLowerCase());
+							Das das3 = (Das)convertorService.unMarshaller(cmsConnector.getSceanInfoForIfCms(Long.valueOf(ctId)));
+
 							String flPath = StringUtils.defaultString(das2.getCorner().getFlPath(), "");
 							String flNm = StringUtils.defaultString(das2.getCorner().getWrkFileNm(), "");
 
@@ -1246,9 +1281,25 @@ public class D2NETCMSSession implements Session {
 									asset.setProperty("preview_url", mp4StreamUrl+flPath+flNm);
 									logger.debug("mp4 play path   : "+mp4StreamUrl+flPath+flNm);	
 								}
+
 								asset.setProperty("description","");
-								asset.setProperty("media_format","XDCAM MXF");
-								logger.debug("#################media_format + "+ "XDCAM MXF");
+								for (CornerItem item : das3.getCorner().getItems()) {
+									if ((item.getVdQlty().equals("HD")) || (item.getVdQlty().equals("001"))) {
+										asset.setProperty("media_format", "XDCAM MXF");
+									} else if ((item.getVdQlty().equals("SD")) || (item.getVdQlty().equals("002"))){
+										asset.setProperty("media_format", "IMX(D10)");
+										logger.debug("#################media_format + IMX(D10)");
+									} else {
+										asset.setProperty("media_format", "XDCAM MXF");
+										logger.debug("#################media_format + XDCAM MXF");
+									}
+								}
+
+								/*
+								 * 2016.05.09 코난 요구에의해 추가됨.
+								 */
+								String contentsChannel = StringUtils.defaultString(das2.getCorner().getChannelCd(), "");
+								asset.setProperty("contents_channel", contentsChannel);
 
 							}
 
@@ -1507,11 +1558,8 @@ public class D2NETCMSSession implements Session {
 							image = new byte[leng];
 							fis.read(image);
 
-
-				 * 샷 이미지별 byte로 이미지 파일 생성
-
+				 			// 샷 이미지별 byte로 이미지 파일 생성
 							Utility.byte2Image((String)configMap.get("file.download.tmp")+kfrmPath+num+".jpg", image);
-
 							shotList.add(num);
 						}
 
@@ -1549,8 +1597,8 @@ public class D2NETCMSSession implements Session {
 									}
 
 
-				 * 영상에대한 카탈로그 이미지 압축파일을 다운로드 받아서 CT_ID로 폴더를 생성한 후 안에 압축을 푼다.
-				 * txt파일을 읽어서 idx 별 timecode의 som, eom을 설정한 후 Segment에 Shot을 추가한다.
+				 					// 영상에대한 카탈로그 이미지 압축파일을 다운로드 받아서 CT_ID로 폴더를 생성한 후 안에 압축을 푼다.
+				 					// txt파일을 읽어서 idx 별 timecode의 som, eom을 설정한 후 Segment에 Shot을 추가한다.
 
 									shot = new Shot();
 
@@ -1562,8 +1610,8 @@ public class D2NETCMSSession implements Session {
 									shot.setStartTimecode(Utility.changeDuration(shotnum));
 
 
-				 * 코너별 사용등급제한에대한 구간은 여러개가 존재할 수 있고, 샷 이미지는 어느 제한 구간에
-				 * 속하는지 확인이 필요하므로 사용제한 구간별 체크를 해야한다.
+				 					// 코너별 사용등급제한에대한 구간은 여러개가 존재할 수 있고, 샷 이미지는 어느 제한 구간에
+				 					// 속하는지 확인이 필요하므로 사용제한 구간별 체크를 해야한다.
 
 									if(!annotList.isEmpty()) {
 										Iterator<String> it = annotList.keySet().iterator();
@@ -1649,14 +1697,14 @@ public class D2NETCMSSession implements Session {
 				logger.info("masterId: "+masterId+", ctId: "+ctId);
 			}
 			DasCmsConnector cmsConnector = new DasCmsConnectorImpl(url);
-			
+
 			if(masterId.startsWith("M")) {
 				masterId = masterId.substring(1);
 			}
 			if(ctId.startsWith("C")) {
 				ctId = ctId.substring(1);
 			}
-			
+
 			String relatedYn = cmsConnector.isVideoRelatedYN(Long.valueOf(masterId), Long.valueOf(ctId));
 			if(StringUtils.defaultIfEmpty(relatedYn, "N").equals("Y")) related = true;
 			else related = false;

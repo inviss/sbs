@@ -794,7 +794,7 @@ public class JaxbConvertorTest {
 		}
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void testSceanInfo() {
 		try {
@@ -805,7 +805,11 @@ public class JaxbConvertorTest {
 			//String xml = FileUtils.readFileToString(new File("D:/tmp/annot.xml"), "utf-8");
 			System.out.println(cmsConnector.getSceanInfoForIfCms(227021L));
 			
-			Das das = convertorService.unMarshaller(cmsConnector.getSceanInfoForIfCms(227021L));
+			Das das = convertorService.unMarshaller(cmsConnector.getSceanInfoForIfCms(559068L));
+			
+			String contentsChannel = StringUtils.defaultString(das.getCorner().getChannelCd(), "");
+			System.out.println("contents_channel => "+contentsChannel);
+			
 			//Das das = convertorService.unMarshaller(xml);
 			Corner corner = das.getCorner();
 			for(CornerItem cornerItem : corner.getItems()) {

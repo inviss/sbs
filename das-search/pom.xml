@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>kr.co.d2net</groupId>
 	<artifactId>das-search</artifactId>
-	<version>1.42a</version>
+	<version>1.43</version>
 	
 	<properties>
 		<slf.version>1.6.1</slf.version>
