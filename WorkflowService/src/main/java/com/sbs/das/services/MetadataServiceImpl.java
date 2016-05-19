@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sbs.das.commons.exception.ServiceException;
 import com.sbs.das.commons.utils.Utility;
@@ -142,11 +143,24 @@ public class MetadataServiceImpl implements MetadataService {
 			mstTbl.setModrid(mst.getRegrid());
 		mstTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
 		
-		if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
-			if(mstTbl.getArchRoute().indexOf("OPS") > -1) ; //nothing
-			else mstTbl.setArchRoute(mstTbl.getArchRoute()+"_OPS");
+		/*
+		 * 2016.05.19
+		 * OPS -> DAS 맵핑 관계를 제거를 할 경우 is_linked 값을 'N'으로 전달해야 한다.
+		 * default 'Y'
+		 */
+		if(mst.getIsLinked().equals("N")) {
+			if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
+				if(mstTbl.getArchRoute().indexOf("OS") > -1) {
+					mstTbl.setArchRoute(mstTbl.getArchRoute().replaceAll("OS", ""));
+				}
+			}
 		} else {
-			mstTbl.setArchRoute("OPS");
+			if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
+				if(mstTbl.getArchRoute().indexOf("OS") > -1) ; //nothing
+				else mstTbl.setArchRoute(mstTbl.getArchRoute()+"OS");
+			} else {
+				mstTbl.setArchRoute("OS");
+			}
 		}
 
 		metadatMstDao.saveMetadata(mstTbl);

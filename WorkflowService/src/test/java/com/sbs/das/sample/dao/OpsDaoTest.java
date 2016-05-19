@@ -71,7 +71,7 @@ public class OpsDaoTest extends BaseConfig {
 		}
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void savePgmInfoTest() {
 		try {
@@ -84,11 +84,11 @@ public class OpsDaoTest extends BaseConfig {
 		}
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void saveMetadatInfoTest() {
 		try {
-			String xml = FileUtils.readFileToString(new File("D:/episode.xml"), "utf-8");
+			String xml = FileUtils.readFileToString(new File("D:/metadata.xml"), "utf-8");
 			
 			Data data = (Data)xmlStream.fromXML(xml);
 			Metadata mst = (Metadata)data.getMetadatas().get(0);

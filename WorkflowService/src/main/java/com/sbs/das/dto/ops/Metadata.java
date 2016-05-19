@@ -202,7 +202,7 @@ public class Metadata {
 	private String chId;
 
 	// 재방송
-	@XStreamConverter(TextConverter.class)
+	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("agn_brad")
 	private String agnBrad;
 
@@ -239,8 +239,20 @@ public class Metadata {
 	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("file_nm")
 	private String filename;
+	
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("is_linked")
+	private String isLinked = "Y";
 
 	
+	public String getIsLinked() {
+		return isLinked;
+	}
+
+	public void setIsLinked(String isLinked) {
+		this.isLinked = isLinked;
+	}
+
 	public String getFilename() {
 		return filename;
 	}

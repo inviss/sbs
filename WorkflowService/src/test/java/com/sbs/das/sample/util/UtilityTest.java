@@ -326,6 +326,7 @@ public class UtilityTest {
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void listToarray() {
 		try {
@@ -345,6 +346,12 @@ public class UtilityTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void replaceTest() {
+		String route = "OAOS";
+		System.out.println(route.replaceAll("OS", ""));
 	}
 
 }
