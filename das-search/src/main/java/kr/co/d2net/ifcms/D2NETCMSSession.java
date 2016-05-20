@@ -1443,11 +1443,15 @@ public class D2NETCMSSession implements Session {
 									 */
 									if(!annotList.isEmpty()) {
 										Iterator<String> it = annotList.keySet().iterator();
+										String keys = null;
+										String[] key = null;
+										Long sSom = null;
+										Long sEom = null;
 										while(it.hasNext()) {
-											String keys = it.next();
-											String[] key = keys.split("\\,");
-											Long sSom = Long.valueOf(key[0]);
-											Long sEom = Long.valueOf(key[1]);
+											keys = it.next();
+											key = keys.split("\\,");
+											sSom = Long.valueOf(key[0]);
+											sEom = Long.valueOf(key[1]);
 											if(sSom <= shotnum && shotnum <= sEom) {
 												if(logger.isDebugEnabled()) {
 													logger.debug("shotnum : "+shotnum+", grade: "+annotList.get(keys));
