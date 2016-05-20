@@ -240,7 +240,6 @@ public class D2NETCMSSession implements Session {
 
 									if(value.equals("001")){
 										grpKwd.append("일체소유");
-
 									}else if(value.equals("002")){
 										grpKwd.append("일부소유");	
 									}else if(value.equals("003")){
@@ -271,7 +270,7 @@ public class D2NETCMSSession implements Session {
 									} else if(value.equals("006")){
 										grpKwd.append("심의제한");
 									} else if(value.equals("007")){
-										grpKwd.append(" ");
+										grpKwd.append("무제한");
 									} else{
 										grpKwd.append(value);
 									}
@@ -550,10 +549,16 @@ public class D2NETCMSSession implements Session {
 						search.setSort("D");
 					}
 					String sortcolumn = query.getSortingOrder();	
-					if(sortcolumn.equals("datetime_regist")){
+					if (sortcolumn.equals("datetime_regist")) {
 						search.setSortcolumn("REG_DT");
-					}else if(sortcolumn.equals("title")){
-						search.setSortcolumn("PGMNM_TITLE");	
+					} else if (sortcolumn.equals("title")) {
+						search.setSortcolumn("PGMNM_TITLE");
+					} else if (sortcolumn.equals("datetime_onair")) {
+						search.setSortcolumn("BRD_DD");
+					} else if (sortcolumn.equals("program_sequence")) {
+						search.setSortcolumn("EPIS_NO");
+					} else {
+						search.setSortcolumn(sortcolumn);
 					}
 
 					search.setPageSize(controls.getCountLimit());
@@ -702,7 +707,6 @@ public class D2NETCMSSession implements Session {
 								asset.setProperty("country", StringUtils.defaultString(dasSearch.getCountryCd(), ""));
 								asset.setProperty("music_info", Utility.unescapeXml(StringUtils.defaultString(dasSearch.getMusicInfo(), "")));
 								asset.setProperty("media_id", "");
-								asset.setProperty("media_format","XDCAM MXF");
 
 								// 원섭이가 추가한 부분
 								logger.debug("#######dasSearch.getVdQltyNm()   =  " + dasSearch.getVdQltyNm());
@@ -867,7 +871,8 @@ public class D2NETCMSSession implements Session {
 
 				asset = ObjectFactory.createAsset(id);
 
-				Das das = null;    
+				Das das = null;
+				String epis_no;
 				if(id.startsWith("M")) { // master_Id
 					String xml = cmsConnector.getBaseInfo(Long.valueOf(id.substring(1)));
 					logger.debug(xml);
@@ -880,7 +885,7 @@ public class D2NETCMSSession implements Session {
 						asset.setProperty("title_sub", Utility.unescapeXml(StringUtils.defaultString(metaDataInfo.getSubTtl(), "")));
 						asset.setProperty("program_name", "");
 						//asset.setProperty("program_sequence", metaDataInfo.getEpisNo() == null ? "": String.valueOf(metaDataInfo.getEpisNo()));
-						String epis_no = StringUtils.defaultString(String.valueOf(metaDataInfo.getEpisNo()),"");
+						epis_no = StringUtils.defaultString(String.valueOf(metaDataInfo.getEpisNo()),"");
 						if(epis_no.equals("")||epis_no.equals("0")){
 							asset.setProperty("program_sequence", "");
 
