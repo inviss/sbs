@@ -4067,6 +4067,7 @@ public class ExternalBusinessProcessor
 				/**
 				 * 기존 저장된 TC의 상태값이 'I'가 아닐때, 새로 들어온 값이 'I' 일때 JOB 이 있다면 작업을 할당한다.
 				 */
+				//logger.debug("old workstat: "+oldTcBeanDO.getWork_stat()+", new workstat: "+newTcBeanDO.getWork_stat());
 				if(oldTcBeanDO.getWork_stat().equals("B")&&newTcBeanDO.getWork_stat().equals("I")  
 						||oldTcBeanDO.getWork_stat().equals("I")&&newTcBeanDO.getWork_stat().equals("I")
 						||oldTcBeanDO.getWork_stat().equals("F")&&newTcBeanDO.getWork_stat().equals("I")
@@ -4077,7 +4078,7 @@ public class ExternalBusinessProcessor
 					TcBeanDO stateTcBeanDO = externalDAO.selectTcAllocationState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
 
 
-					if(jobTcBeanDO!=null&&stateTcBeanDO!=null){
+					if(jobTcBeanDO != null && stateTcBeanDO != null) {
 
 						externalDAO.getTCJob(jobTcBeanDO, stateTcBeanDO,dasHandler.getProperty("MEDIATC_DIR_INTERFACE"));
 

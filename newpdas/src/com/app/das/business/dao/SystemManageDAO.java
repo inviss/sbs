@@ -13657,9 +13657,30 @@ public class SystemManageDAO extends AbstractDAO
 				calendar.add(Calendar.MONTH, days);
 				break;
 			case 'y':		// 년
+				// 통합CMS 코드는 DAS 코드 체계로 재변환을 하여 저장하도록 한다.
+				// 000:영구, 001:1년, 030:2년, 060:5년, 120:10년, 240:20년
+				switch(days) {
+					case 1:
+						pgmDO.setRetention_period("001");
+						break;
+					case 2:
+						pgmDO.setRetention_period("030");
+						break;
+					case 5:
+						pgmDO.setRetention_period("060");
+						break;
+					case 10:
+						pgmDO.setRetention_period("120");
+						break;
+					case 20:
+						pgmDO.setRetention_period("240");
+						break;
+				}
 				calendar.add(Calendar.YEAR, days);
 				break;
 			default :		// 영구
+				pgmDO.setRetention_period("000");
+				
 				calendar.set(Calendar.YEAR,  9999);
 				calendar.set(Calendar.MONTH,  Calendar.DECEMBER);
 				calendar.set(Calendar.DATE,  31);

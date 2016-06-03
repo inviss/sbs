@@ -7866,7 +7866,6 @@ public class PDASServices {
 			TcBeanDO _do = (TcBeanDO)_doXML.setDO(tcBeanDO);
 
 
-
 			boolean result = _processor.updateTCState(_do);
 			//	logger.debug("#####updateTcState END#####     ");
 			return Boolean.toString(result);
