@@ -1,5 +1,7 @@
 package com.sbs.das.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.sbs.das.commons.exception.ServiceException;
 import com.sbs.das.commons.utils.Utility;
@@ -46,124 +47,170 @@ public class MetadataServiceImpl implements MetadataService {
 	}
 
 	public void updateMetadataInfo(Metadata mst) throws ServiceException {
-		if(mst.getDasMasterId() == null || mst.getDasMasterId() <= 0)
-			throw new ServiceException("das_master_id's value is wrong!");
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("masterId", mst.getDasMasterId());
 
-		MetadatMstTbl mstTbl = metadatMstDao.getMetadata(params);
-		if(mstTbl == null)
-			throw new ServiceException("Finding Object is null - master_id: "+mst.getDasMasterId());
-
-		if(StringUtils.isNotBlank(mst.getDasPgmCd())) {
-
-			params.put("pgmCd", mst.getDasPgmCd());
-			PgmInfoTbl pgmInfoTbl = pgmInfoDao.getPgmInfo(params);
-
-			if(pgmInfoTbl != null) {
-				mstTbl.setPgmCd(pgmInfoTbl.getPgmCd());
-				mstTbl.setPgmId(pgmInfoTbl.getPgmId().intValue());
-			} else {
-				logger.error("program's info can't find out, pgm_cd: "+mst.getDasPgmCd());
-				throw new ServiceException("Can't find program info by pgm_cd. pgm_cd: "+mst.getDasPgmCd());
-			}
-		}
-		if(mst.getPgmTms() != null && mst.getPgmTms() > 0)
-			mstTbl.setEpisNo(mst.getPgmTms());
-		if(StringUtils.isNotBlank(mst.getPgmTmsTitle()))
-			mstTbl.setTitle(mst.getPgmTmsTitle());
-		if(StringUtils.isNotBlank(mst.getUseClas()))
-			mstTbl.setRistClfCd(mst.getUseClas());
-		//if(StringUtils.isNotBlank(mst.getPgmRght()))
-		//	mstTbl.setCprtType(mst.getPgmRght());
-		if(StringUtils.isNotBlank(mst.getPgmTmsSynop()))
-			mstTbl.setSnps(mst.getPgmTmsSynop());
-		if(StringUtils.isNotBlank(mst.getLargeCtgCd()))
-			mstTbl.setCtgrLCd(mst.getLargeCtgCd());
-		if(StringUtils.isNotBlank(mst.getMidCtgCd()))
-			mstTbl.setCtgrMCd(mst.getMidCtgCd());
-		if(StringUtils.isNotBlank(mst.getSmallCtgCd()))
-			mstTbl.setCtgrSCd(mst.getSmallCtgCd());
-		if(StringUtils.isNotBlank(mst.getDrtPrsnNm()))
-			mstTbl.setDrtNm(mst.getDrtPrsnNm());
-		if(StringUtils.isNotBlank(mst.getProducerNm()))
-			mstTbl.setProducerNm(mst.getProducerNm());
-		if(StringUtils.isNotBlank(mst.getWrtrNm()))
-			mstTbl.setWriterNm(mst.getWrtrNm());
-		if(StringUtils.isNotBlank(mst.getMnfcDivCd()))
-			mstTbl.setPrdtInOutsCd(mst.getMnfcDivCd());
-		if(StringUtils.isNotBlank(mst.getMnfcDeptCd()))
-			mstTbl.setPrdtDeptCd(mst.getMnfcDeptCd());
-		if(StringUtils.isNotBlank(mst.getOrginMnfcNm()))
-			mstTbl.setOrgPrdrNm(mst.getOrginMnfcNm());
-		if(StringUtils.isNotBlank(mst.getProgrPrsnNm()))
-			mstTbl.setMcNm(mst.getProgrPrsnNm());
-		if(StringUtils.isNotBlank(mst.getCastNm()))
-			mstTbl.setCastNm(mst.getCastNm());
-		if(StringUtils.isNotBlank(mst.getCastDirtNm()))
-			mstTbl.setCmrDrtNm(mst.getCastDirtNm());
-		if(StringUtils.isNotBlank(mst.getPtghDay()))
-			mstTbl.setFmDt(mst.getPtghDay());
-		if(StringUtils.isNotBlank(mst.getPtghPlc()))
-			mstTbl.setCmrPlace(mst.getPtghPlc());
-		if(StringUtils.isNotBlank(mst.getCpyrtPrsnNm()))
-			mstTbl.setCprtrNm(mst.getCpyrtPrsnNm());
-		if(StringUtils.isNotBlank(mst.getCpyrtShapCd()))
-			mstTbl.setCprtType(mst.getCpyrtShapCd());
-		if(StringUtils.isNotBlank(mst.getCpyrtShapDesc()))
-			mstTbl.setCprtTypeDsc(mst.getCpyrtShapDesc());
-		if(StringUtils.isNotBlank(mst.getViwrClasCd()))
-			mstTbl.setViewGrCd(mst.getViwrClasCd());
-		if(StringUtils.isNotBlank(mst.getDlbResltCd()))
-			mstTbl.setDlbrCd(mst.getDlbResltCd());
-		if(StringUtils.isNotBlank(mst.getAwardTxn()))
-			mstTbl.setAwardHstr(mst.getAwardTxn());
-		if(StringUtils.isNotBlank(mst.getPclrMtr()))
-			mstTbl.setSpcInfo(mst.getPclrMtr());
-		if(StringUtils.isNotBlank(mst.getMusicInfo()))
-			mstTbl.setMusicInfo(mst.getMusicInfo());
-		if(StringUtils.isNotBlank(mst.getCmpnCd()))
-			mstTbl.setCocd(mst.getCmpnCd());
-		if(StringUtils.isNotBlank(mst.getArtist()))
-			mstTbl.setArtist(mst.getArtist());
-		if(StringUtils.isNotBlank(mst.getChId()))
-			mstTbl.setChennelCd(mst.getChId());
-		if(StringUtils.isNotBlank(mst.getAgnBrad()))
-			mstTbl.setRerun(mst.getAgnBrad());
-		if(StringUtils.isNotBlank(mst.getRstrtnMtr()))
-			mstTbl.setRstCont(mst.getRstrtnMtr());
-		if(StringUtils.isNotBlank(mst.getSubTitle()))
-			mstTbl.setSubTtl(mst.getSubTitle());
-		if(StringUtils.isNotBlank(mst.getFrmtnNm()))
-			mstTbl.setArrangeNm(mst.getFrmtnNm());
-		if(StringUtils.isNotBlank(mst.getActcCd()))
-			mstTbl.setDataStatCd(mst.getActcCd());
-		if(StringUtils.isNotBlank(mst.getRegrid()))
-			mstTbl.setModrid(mst.getRegrid());
-		mstTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
-		
 		/*
 		 * 2016.05.19
 		 * OPS -> DAS 맵핑 관계를 제거를 할 경우 is_linked 값을 'N'으로 전달해야 한다.
 		 * default 'Y'
+		 * 2016.05.25 OPS 회의결과
+		 * 변경이 발생할 경우 master_id 필드에 ',' 를 이용하여 전달됨. 예) 12345,12346
+		 * is_linked 컬럼에도 master_id 순서에 맞춰서 맵핑여부 전달됨, 예) N,Y
 		 */
-		if(mst.getIsLinked().equals("N")) {
-			if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
-				if(mstTbl.getArchRoute().indexOf("OS") > -1) {
-					mstTbl.setArchRoute(mstTbl.getArchRoute().replaceAll("OS", ""));
-				}
-			}
+		String[] masterIds = null;
+		String[] isLinkYns = null;
+		if(mst.getDasMasterId().indexOf(",") > -1 && mst.getIsLinked().indexOf(",") > -1) {
+			masterIds = mst.getDasMasterId().split("\\,");
+			isLinkYns = mst.getIsLinked().split("\\,");
 		} else {
-			if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
-				if(mstTbl.getArchRoute().indexOf("OS") > -1) ; //nothing
-				else mstTbl.setArchRoute(mstTbl.getArchRoute()+"OS");
-			} else {
-				mstTbl.setArchRoute("OS");
-			}
+			masterIds = new String[] {mst.getDasMasterId()};
+			isLinkYns = new String[] {StringUtils.defaultIfBlank(mst.getIsLinked(), "Y")};
 		}
 
-		metadatMstDao.saveMetadata(mstTbl);
+		int count = masterIds.length;
+		for(int i=0; i < count; i++) {
+
+			params.put("masterId", Long.parseLong(masterIds[i]));
+
+			MetadatMstTbl mstTbl = metadatMstDao.getMetadata(params);
+			if(mstTbl == null)
+				throw new ServiceException("Finding Object is null - master_id: "+mst.getDasMasterId());
+
+			if(StringUtils.isNotBlank(mst.getDasPgmCd())) {
+
+				params.put("pgmCd", mst.getDasPgmCd());
+				PgmInfoTbl pgmInfoTbl = pgmInfoDao.getPgmInfo(params);
+
+				if(pgmInfoTbl != null) {
+					mstTbl.setPgmCd(pgmInfoTbl.getPgmCd());
+					mstTbl.setPgmId(pgmInfoTbl.getPgmId().intValue());
+				} else {
+					logger.error("program's info can't find out, pgm_cd: "+mst.getDasPgmCd());
+					throw new ServiceException("Can't find program info by pgm_cd. pgm_cd: "+mst.getDasPgmCd());
+				}
+			}
+			if(mst.getPgmTms() != null && mst.getPgmTms() > 0)
+				mstTbl.setEpisNo(mst.getPgmTms());
+			if(StringUtils.isNotBlank(mst.getPgmTmsTitle()))
+				mstTbl.setTitle(mst.getPgmTmsTitle());
+			if(StringUtils.isNotBlank(mst.getUseClas()))
+				mstTbl.setRistClfCd(mst.getUseClas());
+			//if(StringUtils.isNotBlank(mst.getPgmRght()))
+			//	mstTbl.setCprtType(mst.getPgmRght());
+			if(StringUtils.isNotBlank(mst.getPgmTmsSynop()))
+				mstTbl.setSnps(mst.getPgmTmsSynop());
+			if(StringUtils.isNotBlank(mst.getLargeCtgCd()))
+				mstTbl.setCtgrLCd(mst.getLargeCtgCd());
+			if(StringUtils.isNotBlank(mst.getMidCtgCd()))
+				mstTbl.setCtgrMCd(mst.getMidCtgCd());
+			if(StringUtils.isNotBlank(mst.getSmallCtgCd()))
+				mstTbl.setCtgrSCd(mst.getSmallCtgCd());
+			if(StringUtils.isNotBlank(mst.getDrtPrsnNm()))
+				mstTbl.setDrtNm(mst.getDrtPrsnNm());
+			if(StringUtils.isNotBlank(mst.getProducerNm()))
+				mstTbl.setProducerNm(mst.getProducerNm());
+			if(StringUtils.isNotBlank(mst.getWrtrNm()))
+				mstTbl.setWriterNm(mst.getWrtrNm());
+			if(StringUtils.isNotBlank(mst.getMnfcDivCd()))
+				mstTbl.setPrdtInOutsCd(mst.getMnfcDivCd());
+			if(StringUtils.isNotBlank(mst.getMnfcDeptCd()))
+				mstTbl.setPrdtDeptCd(mst.getMnfcDeptCd());
+			if(StringUtils.isNotBlank(mst.getOrginMnfcNm()))
+				mstTbl.setOrgPrdrNm(mst.getOrginMnfcNm());
+			if(StringUtils.isNotBlank(mst.getProgrPrsnNm()))
+				mstTbl.setMcNm(mst.getProgrPrsnNm());
+			if(StringUtils.isNotBlank(mst.getCastNm()))
+				mstTbl.setCastNm(mst.getCastNm());
+			if(StringUtils.isNotBlank(mst.getCastDirtNm()))
+				mstTbl.setCmrDrtNm(mst.getCastDirtNm());
+			if(StringUtils.isNotBlank(mst.getPtghDay()))
+				mstTbl.setFmDt(mst.getPtghDay());
+			if(StringUtils.isNotBlank(mst.getPtghPlc()))
+				mstTbl.setCmrPlace(mst.getPtghPlc());
+			if(StringUtils.isNotBlank(mst.getCpyrtPrsnNm()))
+				mstTbl.setCprtrNm(mst.getCpyrtPrsnNm());
+			if(StringUtils.isNotBlank(mst.getCpyrtShapCd()))
+				mstTbl.setCprtType(mst.getCpyrtShapCd());
+			if(StringUtils.isNotBlank(mst.getCpyrtShapDesc()))
+				mstTbl.setCprtTypeDsc(mst.getCpyrtShapDesc());
+			if(StringUtils.isNotBlank(mst.getViwrClasCd()))
+				mstTbl.setViewGrCd(mst.getViwrClasCd());
+			if(StringUtils.isNotBlank(mst.getDlbResltCd()))
+				mstTbl.setDlbrCd(mst.getDlbResltCd());
+			if(StringUtils.isNotBlank(mst.getAwardTxn()))
+				mstTbl.setAwardHstr(mst.getAwardTxn());
+			if(StringUtils.isNotBlank(mst.getPclrMtr()))
+				mstTbl.setSpcInfo(mst.getPclrMtr());
+			if(StringUtils.isNotBlank(mst.getMusicInfo()))
+				mstTbl.setMusicInfo(mst.getMusicInfo());
+			if(StringUtils.isNotBlank(mst.getCmpnCd()))
+				mstTbl.setCocd(mst.getCmpnCd());
+			if(StringUtils.isNotBlank(mst.getArtist()))
+				mstTbl.setArtist(mst.getArtist());
+			if(StringUtils.isNotBlank(mst.getChId()))
+				mstTbl.setChennelCd(mst.getChId());
+			if(StringUtils.isNotBlank(mst.getAgnBrad()))
+				mstTbl.setRerun(mst.getAgnBrad());
+			if(StringUtils.isNotBlank(mst.getRstrtnMtr()))
+				mstTbl.setRstCont(mst.getRstrtnMtr());
+			if(StringUtils.isNotBlank(mst.getSubTitle()))
+				mstTbl.setSubTtl(mst.getSubTitle());
+			if(StringUtils.isNotBlank(mst.getFrmtnNm()))
+				mstTbl.setArrangeNm(mst.getFrmtnNm());
+			if(StringUtils.isNotBlank(mst.getActcCd()))
+				mstTbl.setDataStatCd(mst.getActcCd());
+			if(StringUtils.isNotBlank(mst.getRegrid()))
+				mstTbl.setModrid(mst.getRegrid());
+			/*
+			 * 2016.06.02
+			 * 회차 저장시 메타항목 추가
+			 */
+			if(StringUtils.isNotBlank(mst.getFinalBrdYn()))
+				mstTbl.setFinalBrdYn(mst.getFinalBrdYn());
+			if(StringUtils.isNotBlank(mst.getKeyWords()))
+				mstTbl.setKeyWords(mst.getKeyWords());
+			if(StringUtils.isNotBlank(mst.getOrgPrdrNm()))
+				mstTbl.setOrgPrdrNm(mst.getOrgPrdrNm());
+			if(StringUtils.isNotBlank(mst.getCmrDrtNm()))
+				mstTbl.setCmrDrtNm(mst.getCmrDrtNm());
+			if(StringUtils.isNotBlank(mst.getPrdtDeptNm()))
+				mstTbl.setPrdtDeptNm(mst.getPrdtDeptNm());
+			mstTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+
+			String isLinked = isLinkYns[i];
+			if(isLinked.equals("N")) {
+				if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
+					if(mstTbl.getArchRoute().indexOf("OS") > -1) {
+						mstTbl.setArchRoute(mstTbl.getArchRoute().replaceAll("OS", ""));
+					}
+				}
+			} else {
+				if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
+					if(mstTbl.getArchRoute().indexOf("OS") > -1) ; //nothing
+					else mstTbl.setArchRoute(mstTbl.getArchRoute()+"OS");
+				} else {
+					mstTbl.setArchRoute("OS");
+				}
+			}
+
+			metadatMstDao.saveMetadata(mstTbl);
+
+			if(mstTbl.getPgmId() > 0 && StringUtils.isNotBlank(mst.getBrdEndDd())) {
+				if(StringUtils.isNotBlank(mst.getFinalBrdYn()) && mst.getFinalBrdYn().equals("Y")) {
+					params.clear();
+					params.put("pgmId", mstTbl.getPgmId());
+					PgmInfoTbl pgmInfoTbl = pgmInfoDao.getPgmInfo(params);
+					if(pgmInfoTbl != null) {
+						pgmInfoTbl.setBrdEndDd(mst.getBrdEndDd());
+
+						pgmInfoDao.updatePgmInfo(pgmInfoTbl);
+					}
+				}
+			}
+
+		}
+
 	}
 
 }

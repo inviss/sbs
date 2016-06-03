@@ -144,6 +144,22 @@ public class ServiceNevigator implements Nevigator {
 							logger.debug("filesize: "+attach.getFlSz());
 						}
 						
+						if(attach.getOrgFileNm().indexOf("+") > -1 || attach.getOrgFileNm().indexOf(",") > -1) {
+							String tmp = attach.getOrgFileNm();
+							if(logger.isDebugEnabled()) {
+								logger.debug("filename is contained spcial charactor '+' or ',' : "+f.getAbsolutePath());
+							}
+							try {
+								attach.setOrgFileNm(attach.getOrgFileNm().replaceAll("([\\+]|[\\,])", "_"));
+								File nf = new File(flPath, attach.getOrgFileNm());
+								f.renameTo(nf);
+							} catch (Exception e) {
+								logger.error("orgfile rename error", e);
+								attach.setOrgFileNm(tmp);
+							}
+							
+						}
+						
 						AttachTbl attachTbl = new AttachTbl();
 						attachTbl.setMothrDataId(attach.getMothrDataId());
 						attachTbl.setAttcFileTypeCd(attach.getAttcFileTypeCd()); // 010:한글, 011:영문, 012:중문, 013:일어

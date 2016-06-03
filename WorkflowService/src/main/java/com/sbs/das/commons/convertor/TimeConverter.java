@@ -1,7 +1,5 @@
 package com.sbs.das.commons.convertor;
 
-import java.net.URLDecoder;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -33,9 +31,12 @@ public class TimeConverter implements Converter {
 		Object o = null;
 		if ( StringUtils.isNotBlank(reader.getValue())) {
 			try {
-				o = java.sql.Time.valueOf(URLDecoder.decode(reader.getValue(), "UTF-8")); 
+				o = reader.getValue().replaceAll("[\\D]", "");
+				if(logger.isDebugEnabled()) {
+					logger.debug("input msg: "+reader.getValue()+", replace msg: "+o);
+				}
 			} catch (Exception e) {
-				logger.debug("Time Error value: "+reader.getValue());
+				return "";
 			}
 			
 		}
@@ -43,7 +44,7 @@ public class TimeConverter implements Converter {
 	}
 
 	public boolean canConvert(Class cls) {
-		return cls.equals(java.sql.Time.class);
+		return cls.equals(java.lang.String.class);
 	}
 
 }

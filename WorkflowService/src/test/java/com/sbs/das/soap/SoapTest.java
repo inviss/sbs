@@ -121,7 +121,7 @@ public class SoapTest extends BaseConfig{
 			data = new Data();
 			for(MetadatMstTbl metadatMstTbl : metadatMstTbls) {
 				Metadata metadata = new Metadata();
-				metadata.setDasMasterId(metadatMstTbl.getMasterId());
+				metadata.setDasMasterId(metadatMstTbl.getMasterId().toString());
 				metadata.setDasPgmCd(metadatMstTbl.getPgmCd());
 				metadata.setChId(metadatMstTbl.getChennelCd());
 				metadata.setPgmTms(metadatMstTbl.getEpisNo());
@@ -131,6 +131,20 @@ public class SoapTest extends BaseConfig{
 				metadata.setBradFnsTime(metadatMstTbl.getBrdEndHms());
 				metadata.setBradLen(metadatMstTbl.getDuration());
 
+				/*
+				 * 2016.06.02
+				 * OPS 추가요청 메타정보
+				 */
+				metadata.setIsLinked(null);
+				metadata.setKeyWords(metadatMstTbl.getKeyWords());
+				metadata.setFinalBrdYn(metadatMstTbl.getFinalBrdYn());
+				metadata.setPrdtInOutsCd(metadatMstTbl.getPrdtInOutsCd());
+				metadata.setOrgPrdrNm(metadatMstTbl.getOrgPrdrNm());
+				metadata.setCmrDrtNm(metadatMstTbl.getCmrDrtNm());
+				metadata.setPrdtDeptNm(metadatMstTbl.getPrdtDeptNm());
+				metadata.setBrdBgnDd(metadatMstTbl.getBrdBgnDd());
+				metadata.setBrdEndDd(metadatMstTbl.getBrdEndDd());
+				
 				data.addMetadatas(metadata);
 			}
 
@@ -150,7 +164,7 @@ public class SoapTest extends BaseConfig{
 
 			Data data = new Data();
 			Metadata metadata = new Metadata();
-			metadata.setDasMasterId(234234234L);
+			metadata.setDasMasterId("234234234");
 			metadata.setDasPgmCd("XX1234");
 			metadata.setChId("dsfsdfsdf");
 			metadata.setPgmTms(234234);

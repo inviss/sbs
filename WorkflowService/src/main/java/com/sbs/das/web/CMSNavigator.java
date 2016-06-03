@@ -105,7 +105,7 @@ public class CMSNavigator implements DasCMS {
 			data = new Data();
 			for(MetadatMstTbl metadatMstTbl : metadatMstTbls) {
 				Metadata metadata = new Metadata();
-				metadata.setDasMasterId(metadatMstTbl.getMasterId());
+				metadata.setDasMasterId(metadatMstTbl.getMasterId().toString());
 				metadata.setDasPgmCd(metadatMstTbl.getPgmCd());
 				metadata.setChId(metadatMstTbl.getChennelCd());
 				metadata.setPgmTms(metadatMstTbl.getEpisNo());
@@ -116,6 +116,19 @@ public class CMSNavigator implements DasCMS {
 				metadata.setBradLen(metadatMstTbl.getDuration());
 				metadata.setObjName(metadatMstTbl.getObjName());
 				metadata.setFilename(metadatMstTbl.getFilename());
+				
+				/*
+				 * 2016.06.02
+				 * OPS 추가요청 메타정보
+				 */
+				metadata.setKeyWords(metadatMstTbl.getKeyWords());
+				metadata.setFinalBrdYn(metadatMstTbl.getFinalBrdYn());
+				metadata.setPrdtInOutsCd(metadatMstTbl.getPrdtInOutsCd());
+				metadata.setOrgPrdrNm(metadatMstTbl.getOrgPrdrNm());
+				metadata.setCmrDrtNm(metadatMstTbl.getCmrDrtNm());
+				metadata.setPrdtDeptNm(metadatMstTbl.getPrdtDeptNm());
+				metadata.setBrdBgnDd(metadatMstTbl.getBrdBgnDd());
+				metadata.setBrdEndDd(metadatMstTbl.getBrdEndDd());
 
 				data.addMetadatas(metadata);
 			}
@@ -144,7 +157,7 @@ public class CMSNavigator implements DasCMS {
 		}
 		if(data != null && data.getMetadatas().size() > 0) {
 			Metadata mst = (Metadata)data.getMetadatas().get(0);
-			if(mst.getDasMasterId() == null || mst.getDasMasterId() <= 0)
+			if(StringUtils.isBlank(mst.getDasMasterId()))
 				throw new RemoteException("Das master_id is null or wrong value! - master_id: "+mst.getDasMasterId());
 			
 			if(StringUtils.isBlank(mst.getDasPgmCd()))

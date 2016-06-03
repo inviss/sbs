@@ -6,6 +6,7 @@ import java.util.List;
 import com.sbs.das.commons.convertor.LongConverter;
 import com.sbs.das.commons.convertor.TextConverter;
 import com.sbs.das.commons.convertor.TextUTF8Converter;
+import com.sbs.das.commons.convertor.TimeConverter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
@@ -32,12 +33,12 @@ public class Data {
 	private String bradDay;
 	
 	// 방송 시작시간
-	@XStreamConverter(TextConverter.class)
+	@XStreamConverter(TimeConverter.class)
 	@XStreamAlias("brad_st_time")
 	private String bradStTime;
 	
 	// 방송 종료시간
-	@XStreamConverter(TextConverter.class)
+	@XStreamConverter(TimeConverter.class)
 	@XStreamAlias("brad_fns_time")
 	private String bradFnsTime;
 	

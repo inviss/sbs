@@ -101,13 +101,23 @@
 		<result property="chennelCd" column="CHENNEL_CD" />
 		<result property="objName" column="OBJ_NAME" />
 		<result property="filename" column="FILENAME" />
+		<result property="keyWords" column="KEY_WORDS" />
+		<result property="finalBrdYn" column="FINAL_BRD_YN" />
+		<result property="prdtInOutsCd" column="PRDT_IN_OUTS_CD" />
+		<result property="orgPrdrNm" column="ORG_PRDR_NM" />
+		<result property="cmrDrtNm" column="CMR_DRT_NM" />
+		<result property="prdtDeptNm" column="PRDT_DEPT_NM" />
+		<result property="brdBgnDd" column="BRD_BGN_DD" />
+		<result property="brdEndDd" column="BRD_END_DD" />
     </resultMap>
     
     <select id="findMetadatMst" resultMap="MetadatMstFindMap" parameterClass="map">
 	     SELECT
-			mst.MASTER_ID, mst.CHENNEL_CD, value(mst.PGM_CD, '') AS pgm_cd, VALUE(mst.EPIS_NO, 0) AS epis_no, mst.BRD_DD, loc.FILENAME,
+			mst.MASTER_ID, mst.CHENNEL_CD, RTRIM(value(mst.PGM_CD, '')) AS pgm_cd, VALUE(mst.EPIS_NO, 0) AS epis_no, mst.BRD_DD, loc.FILENAME,
 			RTRIM(VALUE(mst.BRD_BGN_HMS, '0')) as BRD_BGN_HMS, RTRIM(VALUE(mst.BRD_END_HMS, '0')) as BRD_END_HMS, loc.OBJ_NAME,
-		    case WHEN mst.CTGR_L_CD = '200' AND VALUE(pgm.PGM_ID, 0) > 0 THEN pgm.PGM_NM ELSE mst.TITLE END title, mst.PGM_CD, ct.DURATION
+		    case WHEN mst.CTGR_L_CD = '200' AND VALUE(pgm.PGM_ID, 0) > 0 THEN pgm.PGM_NM ELSE mst.TITLE END title, ct.DURATION,
+		    mst.KEY_WORDS, VALUE(mst.FINAL_BRD_YN, 'N') AS FINAL_BRD_YN, mst.PRDT_IN_OUTS_CD, mst.ORG_PRDR_NM, mst.CMR_DRT_NM, mst.PRDT_DEPT_NM,
+    		RTRIM(VALUE(pgm.BRD_BGN_DD, '')) AS BRD_BGN_DD, RTRIM(VALUE(pgm.BRD_END_DD, '')) AS BRD_END_DD
 		 FROM METADAT_MST_TBL mst
 			inner JOIN (
 		    	SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL WHERE VALUE(del_dd, '') = '' AND VALUE(del_yn, 'N') = 'N' GROUP BY master_id, ct_id

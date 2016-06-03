@@ -4,7 +4,7 @@ import com.sbs.das.commons.convertor.IntegerConverter;
 import com.sbs.das.commons.convertor.LongConverter;
 import com.sbs.das.commons.convertor.TextConverter;
 import com.sbs.das.commons.convertor.TextUTF8Converter;
-import com.sbs.das.commons.utils.XStreamCDATA;
+import com.sbs.das.commons.convertor.TimeConverter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
@@ -12,9 +12,9 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 public class Metadata {
 
 	// DAS 마스터 아이디
-	@XStreamConverter(LongConverter.class)
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("das_master_id")
-	private Long dasMasterId;
+	private String dasMasterId;
 
 	// 프로그램 코드
 	@XStreamConverter(TextConverter.class)
@@ -43,12 +43,12 @@ public class Metadata {
 	private Long bradLen;
 
 	// 방송 시작 시간
-	@XStreamConverter(TextConverter.class)
+	@XStreamConverter(TimeConverter.class)
 	@XStreamAlias("brad_st_time")
 	private String bradStTime;
 
 	// 방송 종료 시간
-	@XStreamConverter(TextConverter.class)
+	@XStreamConverter(TimeConverter.class)
 	@XStreamAlias("brad_fns_time")
 	private String bradFnsTime;
 
@@ -243,8 +243,108 @@ public class Metadata {
 	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("is_linked")
 	private String isLinked = "Y";
+	
+	/*
+	 * 2016.06.02
+	 * OPS 추가 메타정보
+	 */
+	@XStreamConverter(TextUTF8Converter.class)
+	@XStreamAlias("key_words")
+	private String keyWords = "";
+	
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("final_brd_yn")
+	private String finalBrdYn = "";
+	
+	@XStreamConverter(TextConverter.class)
+	@XStreamAlias("prdt_in_outs_cd")
+	private String prdtInOutsCd = "";
+	
+	@XStreamConverter(TextUTF8Converter.class)
+	@XStreamAlias("org_prd_nm")
+	private String orgPrdrNm = "";
+	
+	@XStreamConverter(TextUTF8Converter.class)
+	@XStreamAlias("cmr_drt_nm")
+	private String cmrDrtNm = "";
+	
+	@XStreamConverter(TextUTF8Converter.class)
+	@XStreamAlias("prdt_dept_nm")
+	private String prdtDeptNm = "";
+	
+	@XStreamConverter(TimeConverter.class)
+	@XStreamAlias("brd_bgn_dd")
+	private String brdBgnDd = "";
+	
+	@XStreamConverter(TimeConverter.class)
+	@XStreamAlias("brd_end_dd")
+	private String brdEndDd = "";
 
 	
+	public String getKeyWords() {
+		return keyWords;
+	}
+
+	public void setKeyWords(String keyWords) {
+		this.keyWords = keyWords;
+	}
+
+	public String getFinalBrdYn() {
+		return finalBrdYn;
+	}
+
+	public void setFinalBrdYn(String finalBrdYn) {
+		this.finalBrdYn = finalBrdYn;
+	}
+
+	public String getPrdtInOutsCd() {
+		return prdtInOutsCd;
+	}
+
+	public void setPrdtInOutsCd(String prdtInOutsCd) {
+		this.prdtInOutsCd = prdtInOutsCd;
+	}
+
+	public String getOrgPrdrNm() {
+		return orgPrdrNm;
+	}
+
+	public void setOrgPrdrNm(String orgPrdrNm) {
+		this.orgPrdrNm = orgPrdrNm;
+	}
+
+	public String getCmrDrtNm() {
+		return cmrDrtNm;
+	}
+
+	public void setCmrDrtNm(String cmrDrtNm) {
+		this.cmrDrtNm = cmrDrtNm;
+	}
+
+	public String getPrdtDeptNm() {
+		return prdtDeptNm;
+	}
+
+	public void setPrdtDeptNm(String prdtDeptNm) {
+		this.prdtDeptNm = prdtDeptNm;
+	}
+
+	public String getBrdBgnDd() {
+		return brdBgnDd;
+	}
+
+	public void setBrdBgnDd(String brdBgnDd) {
+		this.brdBgnDd = brdBgnDd;
+	}
+
+	public String getBrdEndDd() {
+		return brdEndDd;
+	}
+
+	public void setBrdEndDd(String brdEndDd) {
+		this.brdEndDd = brdEndDd;
+	}
+
 	public String getIsLinked() {
 		return isLinked;
 	}
@@ -285,11 +385,11 @@ public class Metadata {
 		this.frmtnNm = frmtnNm;
 	}
 
-	public Long getDasMasterId() {
+	public String getDasMasterId() {
 		return dasMasterId;
 	}
 
-	public void setDasMasterId(Long dasMasterId) {
+	public void setDasMasterId(String dasMasterId) {
 		this.dasMasterId = dasMasterId;
 	}
 

@@ -350,8 +350,14 @@ public class UtilityTest {
 	
 	@Test
 	public void replaceTest() {
-		String route = "OAOS";
-		System.out.println(route.replaceAll("OS", ""));
+		//String route = "OAOS";i
+		//System.out.println(route.replaceAll("OS", ""));
+		
+		//String route = "(헬로우)CM,VERSION.smi";
+		//System.out.println(route.replaceAll("([\\+]|[\\,])", "_"));
+		
+		String time = "00sdfsdfsdf12sdfsd33";
+		System.out.println(time.replaceAll("[\\D]", ""));
 	}
 
 }
