@@ -62,9 +62,9 @@
     		select nextval for SEQ_ANNOT_ID from sysibm.sysdummy1
     	</selectKey>
     	INSERT INTO ANNOT_INFO_TBL (
-		    ANNOT_ID, CN_ID, CT_ID, MASTER_ID, ANNOT_CLF_CD, SOM, EOM, REGRID, REG_DT, DURATION, GUBUN, ENTIRE_YN
+		    ANNOT_ID, CN_ID, CT_ID, MASTER_ID, ANNOT_CLF_CD, ANNOT_CLF_CONT, SOM, EOM, REGRID, REG_DT, DURATION, GUBUN, ENTIRE_YN
 		)VALUES(
-			#annotId#, #cnId:NUMERIC:-9999#, #ctId:NUMERIC:-9999#, #masterId:NUMERIC:-9999#, #annotClfCd:VARCHAR:NO_ENTRY#, #som:VARCHAR:NO_ENTRY#, #eom:VARCHAR:NO_ENTRY#, #regrid:VARCHAR:NO_ENTRY#, #regDt:VARCHAR:NO_ENTRY#, #duration:NUMERIC:-9999#,  #gubun:VARCHAR:NO_ENTRY#,  #entireYn:VARCHAR:NO_ENTRY#
+			#annotId#, #cnId:NUMERIC:-9999#, #ctId:NUMERIC:-9999#, #masterId:NUMERIC:-9999#, #annotClfCd:VARCHAR:NO_ENTRY#, #annotClfCont:VARCHAR:NO_ENTRY#, #som:VARCHAR:NO_ENTRY#, #eom:VARCHAR:NO_ENTRY#, #regrid:VARCHAR:NO_ENTRY#, #regDt:VARCHAR:NO_ENTRY#, #duration:NUMERIC:-9999#,  #gubun:VARCHAR:NO_ENTRY#,  #entireYn:VARCHAR:NO_ENTRY#
 		)
     </insert>
     <!-- 사용등급 벌크 등록 쿼리-->

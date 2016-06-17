@@ -136,12 +136,6 @@
    		<isNotNull prepend="," property="pilotYn">
    			PILOT_YN = #pilotYn#
    		</isNotNull>
-   		<isNotNull prepend="," property="regrid">
-   			REGRID = #regrid#
-   		</isNotNull>
-   		<isNotNull prepend="," property="regDt">
-   			REG_DT = #regDt#
-   		</isNotNull>
    		<isNotNull prepend="," property="modrid">
    			MODRID = #modrid#
    		</isNotNull>

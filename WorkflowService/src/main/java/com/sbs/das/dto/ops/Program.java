@@ -117,7 +117,7 @@ public class Program {
 	private String actcCd;
 
 	// 제작부서명
-	@XStreamConverter(TextConverter.class)
+	@XStreamConverter(TextUTF8Converter.class)
 	@XStreamAlias("dept_nm")
 	private String deptNm;
 

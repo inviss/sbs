@@ -84,9 +84,22 @@ public class OpsDaoTest extends BaseConfig {
 		}
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void saveMetadatInfoTest() {
+		try {
+			String xml = FileUtils.readFileToString(new File("D:/metadata.xml"), "utf-8");
+			
+			Data data = (Data)xmlStream.fromXML(xml);
+			Metadata mst = (Metadata)data.getMetadatas().get(0);
+			metadataService.updateMetadataInfo(mst);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void saveCornerInfoTest() {
 		try {
 			String xml = FileUtils.readFileToString(new File("D:/metadata.xml"), "utf-8");
 			

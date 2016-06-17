@@ -87,7 +87,7 @@ public class PgmInfoServiceImpl implements PgmInfoService {
 			if(StringUtils.isNotBlank(pgm.getUseYn()))
 				pgmInfo.setUseYn(pgm.getUseYn().toUpperCase());
 			if(StringUtils.isNotBlank(pgm.getRegrid()))
-				pgmInfo.setModrid(pgm.getRegrid());
+				pgmInfo.setModrid(StringUtils.defaultIfBlank(pgm.getRegrid(), ""));
 			if(StringUtils.isNotBlank(pgm.getParentsCd()))
 				pgmInfo.setParentsCd(StringUtils.defaultIfBlank(pgm.getParentsCd(), ""));
 			if(StringUtils.isNotBlank(pgm.getMediaCd()))
