@@ -40,7 +40,7 @@
 		<!--
 		<property name="address" value="http://10.150.12.62:8088/WorkflowService/services/ServiceNevigator" />
 		-->
-		<property name="address" value="http://192.168.0.112/WorkflowService/services/CMSNavigator" />
+		<property name="address" value="http://210.180.44.112/WorkflowService/services/CMSNavigator" />
 	</bean>
     
 </beans>

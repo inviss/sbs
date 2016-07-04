@@ -43,6 +43,7 @@
 		<result property="ctId" column="CT_ID" />
 		<result property="duration" column="DURATION" />
 		<result property="kfrmPath" column="KFRM_PATH" />
+		<result property="ctLeng" column="CT_LENG" />
     </resultMap>
     
     <parameterMap id="outProcedureMap" class="java.util.Map">
@@ -68,7 +69,7 @@
     
     <select id="getContentMapObj" resultMap="Content2Map" parameterClass="long">
     	SELECT
-			ct.CT_ID, ct.DURATION, ct.KFRM_PATH
+			ct.CT_ID, ct.DURATION, ct.KFRM_PATH, ct.CT_LENG
 		FROM CONTENTS_TBL ct
 			inner JOIN (
 		    	SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL

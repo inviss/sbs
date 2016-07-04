@@ -130,6 +130,9 @@
    		<isNotNull prepend="," property="prdDeptNm">
    			PRD_DEPT_NM = #prdDeptNm#
    		</isNotNull>
+   		<isNotNull prepend="," property="schdPgmNm">
+   			SCHD_PGM_NM = #schdPgmNm#
+   		</isNotNull>
    		<isNotNull prepend="," property="awardHstr">
    			AWARD_HSTR = #awardHstr#
    		</isNotNull>

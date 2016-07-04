@@ -53,7 +53,7 @@ public class SoapTest extends BaseConfig{
 	private DasCmsConnector cmsConnector;
 
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void soapConnTest() {
 		try {
@@ -85,8 +85,9 @@ public class SoapTest extends BaseConfig{
 
 			DasCMS dasCMS = (DasCMS)dasCmsProxyFactory.create();
 
-			String xml = FileUtils.readFileToString(new File("D:/tt.xml"), "utf-8");
-			dasCMS.findEpisodeList(xml);
+			String xml = FileUtils.readFileToString(new File("D:/episode.xml"), "utf-8");
+			//dasCMS.findEpisodeList(xml);
+			dasCMS.updateEpisodeInfo(xml);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,7 +109,7 @@ public class SoapTest extends BaseConfig{
 
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void findMetadataTest() {
 		

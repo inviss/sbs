@@ -30,6 +30,7 @@ import com.sbs.das.repository.ContentDao;
 import com.sbs.das.repository.ContentMapDao;
 import com.sbs.das.repository.CornerDao;
 
+@Transactional(readOnly=true)
 @Service(value="cornerService")
 public class CornerServiceImpl implements CornerService {
 
@@ -108,8 +109,8 @@ public class CornerServiceImpl implements CornerService {
 					if(!array.isEmpty()) {
 						cornerTbl.setRpimgKfrmSeq(Utility.getNearValue(array.toArray(new Integer[array.size()]), corner.getRpimgKfrmSeq()));
 					} else
-						cornerTbl.setRpimgKfrmSeq(0);
-				} else cornerTbl.setRpimgKfrmSeq(0);
+						cornerTbl.setRpimgKfrmSeq(array.get(0));
+				} else cornerTbl.setRpimgKfrmSeq(array.get(0));
 				if(logger.isDebugEnabled()) {
 					logger.debug("das rpimg_kfrm_seq: "+cornerTbl.getRpimgKfrmSeq());
 				}

@@ -1,7 +1,5 @@
 package com.sbs.das.services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,16 +9,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sbs.das.commons.exception.ServiceException;
 import com.sbs.das.commons.utils.Utility;
+import com.sbs.das.dto.ContentMapTbl;
+import com.sbs.das.dto.ContentTbl;
+import com.sbs.das.dto.CornerTbl;
 import com.sbs.das.dto.MetadatMstTbl;
 import com.sbs.das.dto.PgmInfoTbl;
 import com.sbs.das.dto.ops.Data;
 import com.sbs.das.dto.ops.Metadata;
+import com.sbs.das.repository.AnnotInfoDao;
+import com.sbs.das.repository.ContentDao;
+import com.sbs.das.repository.ContentMapDao;
+import com.sbs.das.repository.CornerDao;
 import com.sbs.das.repository.MetadatMstDao;
 import com.sbs.das.repository.PgmInfoDao;
 
+@Transactional(readOnly=true)
 @Service(value="metadataService")
 public class MetadataServiceImpl implements MetadataService {
 
@@ -30,6 +37,14 @@ public class MetadataServiceImpl implements MetadataService {
 	private MetadatMstDao metadatMstDao;
 	@Autowired
 	private PgmInfoDao pgmInfoDao;
+	@Autowired
+	private ContentDao contentDao;
+	@Autowired
+	private CornerDao cornerDao;
+	@Autowired
+	private ContentMapDao contentMapDao;
+	@Autowired
+	private AnnotInfoDao annotInfoDao;
 
 	public List<MetadatMstTbl> findMetaDataList(Data data) throws ServiceException {
 		if(logger.isDebugEnabled()) {
@@ -46,6 +61,7 @@ public class MetadataServiceImpl implements MetadataService {
 		return metadatMstDao.findMetadataList(params);
 	}
 
+	@Transactional
 	public void updateMetadataInfo(Metadata mst) throws ServiceException {
 
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -179,11 +195,80 @@ public class MetadataServiceImpl implements MetadataService {
 			mstTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
 
 			String isLinked = isLinkYns[i];
+			if(logger.isInfoEnabled()) {
+				logger.info("isLinked: "+isLinked);
+			}
 			if(isLinked.equals("N")) {
+				if(logger.isInfoEnabled()) {
+					logger.info("must be breaked a connection with OPS : master_id: "+masterIds[i]);
+				}
 				if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
 					if(mstTbl.getArchRoute().indexOf("OS") > -1) {
 						mstTbl.setArchRoute(mstTbl.getArchRoute().replaceAll("OS", ""));
 					}
+					
+					// 자료상태를 정리전으로 변경해야함.
+					mstTbl.setDataStatCd("001");
+					
+					// 분리된 코너를 초기화 해야 함.
+					ContentTbl contentTbl = contentDao.getContentWithMap(Long.parseLong(masterIds[i]));
+					if(logger.isDebugEnabled()) {
+						logger.debug("ct_id: "+contentTbl.getCtId());
+					}
+					if(contentTbl != null) {
+						CornerTbl cornerTbl = new CornerTbl();
+						cornerTbl.setMasterId(Long.parseLong(masterIds[i]));
+						cornerTbl.setCnNm("");
+						cornerTbl.setSom("00:00:00:00");
+						cornerTbl.setEom(contentTbl.getCtLeng());
+						cornerTbl.setSFrame(0L);
+						cornerTbl.setCnInfo("");
+						cornerTbl.setDuration(contentTbl.getDuration());
+						cornerTbl.setRpimgKfrmSeq(0);
+						cornerTbl.setRegDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+						cornerTbl.setRegrid(mst.getRegrid());
+						cornerTbl.setModrid(mst.getRegrid());
+						cornerTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+						
+						// 코너 삭제
+						cornerDao.deleteCtCorner(contentTbl.getCtId());
+						
+						// 기본코너 추가
+						Long cnId = cornerDao.insertCorner(cornerTbl);
+						if(logger.isDebugEnabled()) {
+							logger.debug("corner delete completed and added - corner_id: "+cnId);
+						}
+						
+						// 사용제한등급 수정
+						
+						// 맵정보를 초기화 해야 함
+						
+						ContentMapTbl contentMapTbl = new ContentMapTbl();
+						contentMapTbl.setCtId(contentTbl.getCtId());
+						contentMapTbl.setPgmId(0L);
+						contentMapTbl.setMasterId(Long.parseLong(masterIds[i]));
+						contentMapTbl.setCnId(cnId);
+						contentMapTbl.setCtSeq(1);
+						contentMapTbl.setsDuration(0L);
+						contentMapTbl.seteDuration(contentTbl.getDuration());
+						contentMapTbl.setCnSeq(0);
+						contentMapTbl.setRegDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+						contentMapTbl.setRegrid(mst.getRegrid());
+						contentMapTbl.setDelDd("");
+						contentMapTbl.setDelYn("N");
+						
+						// CT_ID 기준으로 MAP 정보 삭제
+						params.clear();
+						params.put("ctId", contentTbl.getCtId());
+						contentMapDao.deleteContentMap(params);
+						
+						// 기본 맵정보 추가
+						contentMapDao.insertContentMap(contentMapTbl);
+						if(logger.isDebugEnabled()) {
+							logger.debug("map info delete completed and added");
+						}
+					}
+					
 				}
 			} else {
 				if(StringUtils.isNotBlank(mstTbl.getArchRoute())) {
