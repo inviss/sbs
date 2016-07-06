@@ -78,6 +78,7 @@ public class CornerServiceImpl implements CornerService {
 
 			for(Corner corner : corners.getCorners()) {
 				CornerTbl cornerTbl = new CornerTbl();
+				cornerTbl.setCnId(cornerDao.getCornerNewId());
 				cornerTbl.setMasterId(data.getDasMasterId());
 				cornerTbl.setCnNm(corner.getCornerNm());
 				cornerTbl.setSom(Utility.changeDuration(corner.getFrameStSectNo()));

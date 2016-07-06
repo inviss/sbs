@@ -14,33 +14,4 @@
     <jaxws:endpoint id="serviceNevigator" implementor="#nevigator" address="/services/ServiceNevigator" />
     <jaxws:endpoint id="dasCMSNevigator" implementor="#dascms" address="/services/CMSNavigator" />
     
-    <bean id="nevigatorProxyFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
-		<property name="serviceClass" value="com.sbs.das.web.Nevigator" />
-		<!--  
-		<property name="address" value="http://localhost:8088/WorkflowService/services/ServiceNevigator" />
-		-->
-		<!--  
-		<property name="address" value="http://10.30.23.48:8088/WorkflowService/services/ServiceNevigator" />
-		-->
-		<!--
-		<property name="address" value="http://10.150.12.62:8088/WorkflowService/services/ServiceNevigator" />
-		-->
-		<property name="address" value="http://10.150.12.62:8088/WorkflowService/services/ServiceNevigator" />
-	</bean>
-	
-	
-    <bean id="dasCmsProxyFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
-		<property name="serviceClass" value="com.sbs.das.web.DasCMS" />
-		<!--  
-		<property name="address" value="http://localhost:8088/WorkflowService/services/ServiceNevigator" />
-		-->
-		<!--  
-		<property name="address" value="http://10.30.23.48:8088/WorkflowService/services/ServiceNevigator" />
-		-->
-		<!--
-		<property name="address" value="http://10.150.12.62:8088/WorkflowService/services/ServiceNevigator" />
-		-->
-		<property name="address" value="http://210.180.44.112/WorkflowService/services/CMSNavigator" />
-	</bean>
-    
 </beans>

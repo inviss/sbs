@@ -217,6 +217,7 @@ public class MetadataServiceImpl implements MetadataService {
 					}
 					if(contentTbl != null) {
 						CornerTbl cornerTbl = new CornerTbl();
+						cornerTbl.setCnId(cornerDao.getCornerNewId());
 						cornerTbl.setMasterId(Long.parseLong(masterIds[i]));
 						cornerTbl.setCnNm("");
 						cornerTbl.setSom("00:00:00:00");

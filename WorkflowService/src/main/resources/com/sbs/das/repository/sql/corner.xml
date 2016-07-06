@@ -139,9 +139,6 @@
     </delete>
     
     <insert id="insertCorner" parameterClass="Corner">
-    	<selectKey keyProperty="cnId" resultClass="java.lang.Long">
-    		select NEXTVAL FOR das.SEQ_CN_ID from sysibm.sysdummy1
-    	</selectKey>
     	INSERT INTO CORNER_TBL (
 		   CN_ID, MASTER_ID, CN_NM, CN_TYPE_CD, SOM, EOM, CN_INFO, RPIMG_KFRM_SEQ,
 		   REG_DT, REGRID, MOD_DT, MODRID, DURATION, RPIMG_CT_ID, S_FRAME
