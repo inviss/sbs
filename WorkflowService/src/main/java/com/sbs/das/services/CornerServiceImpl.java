@@ -109,9 +109,11 @@ public class CornerServiceImpl implements CornerService {
 				if(corner.getRpimgKfrmSeq() != null && corner.getRpimgKfrmSeq() > 0) {
 					if(!array.isEmpty()) {
 						cornerTbl.setRpimgKfrmSeq(Utility.getNearValue(array.toArray(new Integer[array.size()]), corner.getRpimgKfrmSeq()));
-					} else
-						cornerTbl.setRpimgKfrmSeq(array.get(0));
-				} else cornerTbl.setRpimgKfrmSeq(array.get(0));
+					} else cornerTbl.setRpimgKfrmSeq(0);
+				} else {
+					if(array.isEmpty()) cornerTbl.setRpimgKfrmSeq(0);
+					else cornerTbl.setRpimgKfrmSeq(array.get(0));
+				}
 				if(logger.isDebugEnabled()) {
 					logger.debug("das rpimg_kfrm_seq: "+cornerTbl.getRpimgKfrmSeq());
 				}
