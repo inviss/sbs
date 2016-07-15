@@ -1,10 +1,13 @@
 package test;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.app.das.util.StringUtils;
+import com.app.das.business.transfer.MyCatalogDO;
+import com.app.das.util.XmlUtil;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer;
 
 public class UtilTest {
 
@@ -13,7 +16,7 @@ public class UtilTest {
 	 */
 	public static void main(String[] args) {
 		try {
-			
+			/*
 			SimpleDateFormat formatter = new SimpleDateFormat ("yyyyMMdd");
 			Date date = formatter.parse("20160509");
 			
@@ -33,7 +36,21 @@ public class UtilTest {
 			calendar.setTime(date);
 			calendar.add(Calendar.YEAR, days);
 			
-			System.out.println(formatter.format(calendar.getTime()));		    
+			System.out.println(formatter.format(calendar.getTime()));	
+			*/
+			List<MyCatalogDO> list = new ArrayList<MyCatalogDO>();
+			
+			MyCatalogDO item = new MyCatalogDO();
+			item.setCont("1995년 9월 백두산, 천지 표석, 천지연 전경 <줄거리 1 - 5부>");
+			list.add(item);
+			
+			item = new MyCatalogDO();
+			item.setCont("1995년 10월 백두산, 천지 표석, 천지연 전경 &lt;줄거리 1 - 5부&gt;");
+			list.add(item);
+			
+			XStream xstream = new XStream(new DomDriver("UTF-8", new XmlFriendlyReplacer("-", "_")));
+			String xml = XmlUtil.getToXmlXstream(list);
+			System.out.println(xml);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

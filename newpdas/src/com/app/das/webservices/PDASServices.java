@@ -1180,6 +1180,9 @@ public class PDASServices {
 	 * @throws Exception 
 	 */
 	public String getMyCatalog(String myCatalogDO)throws Exception{
+		if(logger.isDebugEnabled()) {
+			logger.debug("getMyCatalog xml: "+myCatalogDO);
+		}
 		SearchConditionDOXML _doXML1 = new SearchConditionDOXML();
 		DASCommonDOXML _doXML2 = new DASCommonDOXML();
 		try {
@@ -1191,7 +1194,7 @@ public class PDASServices {
 
 			String _xml = "";
 			_xml = XmlUtil.getToXmlXstream(_processor.getMyCatalogList(searchConditionDO, commonDO));
-			//	logger.debug("getMyCatalog [output_xml}"+_xml);
+			//logger.debug("getMyCatalog [output_xml}"+_xml);
 			return _xml;
 		} catch (Exception e) {
 			logger.error("getMyCatalog error", e);
