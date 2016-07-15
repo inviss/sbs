@@ -21,6 +21,7 @@ import com.sbs.das.dto.ops.Metadata;
 import com.sbs.das.repository.MetadatMstDao;
 import com.sbs.das.repository.PgmInfoDao;
 import com.sbs.das.sample.BaseConfig;
+import com.sbs.das.services.CornerService;
 import com.sbs.das.services.MetadataService;
 import com.sbs.das.services.PgmInfoService;
 
@@ -38,6 +39,9 @@ public class OpsDaoTest extends BaseConfig {
 	
 	@Autowired
 	private MetadataService metadataService;
+	
+	@Autowired
+	private CornerService cornerService;
 	
 	@Ignore
 	@Test
@@ -101,11 +105,11 @@ public class OpsDaoTest extends BaseConfig {
 	@Test
 	public void saveCornerInfoTest() {
 		try {
-			String xml = FileUtils.readFileToString(new File("D:/metadata.xml"), "utf-8");
+			String xml = FileUtils.readFileToString(new File("D:/corners.xml"), "utf-8");
 			
 			Data data = (Data)xmlStream.fromXML(xml);
 			Metadata mst = (Metadata)data.getMetadatas().get(0);
-			metadataService.updateMetadataInfo(mst);
+			cornerService.updateCorners(data);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

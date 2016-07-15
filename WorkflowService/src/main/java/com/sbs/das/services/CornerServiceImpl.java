@@ -210,8 +210,8 @@ public class CornerServiceImpl implements CornerService {
 				// 코너별 정보 등록 및 코너ID 생성
 				int c=0;
 				for(CornerTbl cornerTbl : cornerTbls) {
-					Long cnId = cornerDao.insertCorner(cornerTbl);
-					cornerTbl.setCnId(cnId);
+					cornerTbl.setCnId(cornerDao.getCornerNewId());
+					cornerDao.insertCorner(cornerTbl);
 
 					cnIds[c] = cornerTbl.getCnId();
 					c++;

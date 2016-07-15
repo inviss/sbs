@@ -85,7 +85,7 @@ public class SoapTest extends BaseConfig{
 
 			DasCMS dasCMS = (DasCMS)dasCmsProxyFactory.create();
 
-			String xml = FileUtils.readFileToString(new File("D:/episode.xml"), "utf-8");
+			String xml = FileUtils.readFileToString(new File("D:/episode2.xml"), "utf-8");
 			//dasCMS.findEpisodeList(xml);
 			dasCMS.updateEpisodeInfo(xml);
 

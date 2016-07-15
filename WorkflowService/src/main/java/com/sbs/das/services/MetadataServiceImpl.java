@@ -81,7 +81,7 @@ public class MetadataServiceImpl implements MetadataService {
 			isLinkYns = mst.getIsLinked().split("\\,");
 		} else {
 			masterIds = new String[] {mst.getDasMasterId()};
-			isLinkYns = new String[] {StringUtils.defaultIfBlank(mst.getIsLinked(), "Y")};
+			isLinkYns = new String[] {StringUtils.isNotBlank(mst.getIsLinked()) ? mst.getIsLinked() : "Y"};
 		}
 
 		int count = masterIds.length;
@@ -90,8 +90,10 @@ public class MetadataServiceImpl implements MetadataService {
 			params.put("masterId", Long.parseLong(masterIds[i]));
 
 			MetadatMstTbl mstTbl = metadatMstDao.getMetadata(params);
-			if(mstTbl == null)
+			if(mstTbl == null) {
+				logger.error("Finding Object is null - master_id: "+mst.getDasMasterId());
 				throw new ServiceException("Finding Object is null - master_id: "+mst.getDasMasterId());
+			}
 
 			if(StringUtils.isNotBlank(mst.getDasPgmCd())) {
 

@@ -157,11 +157,15 @@ public class CMSNavigator implements DasCMS {
 		}
 		if(data != null && data.getMetadatas().size() > 0) {
 			Metadata mst = (Metadata)data.getMetadatas().get(0);
-			if(StringUtils.isBlank(mst.getDasMasterId()))
+			if(StringUtils.isBlank(mst.getDasMasterId())) {
+				logger.error("master_id is blank!! - : "+mst.getDasMasterId());
 				throw new RemoteException("Das master_id is null or wrong value! - master_id: "+mst.getDasMasterId());
+			}
 			
-			if(StringUtils.isBlank(mst.getDasPgmCd()))
+			if(StringUtils.isBlank(mst.getDasPgmCd())) {
+				logger.error("pgm_cd is blank!! - : "+mst.getDasPgmCd());
 				throw new RemoteException("Das pgm_cd is null or wrong value! - pgm_cd: "+mst.getDasPgmCd());
+			}
 
 			try {
 				metadataService.updateMetadataInfo(mst);
