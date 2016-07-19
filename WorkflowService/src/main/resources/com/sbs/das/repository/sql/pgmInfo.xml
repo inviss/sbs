@@ -82,7 +82,7 @@
 		FROM PGM_INFO_TBL pgm1
 			INNER JOIN (
 			<![CDATA[
-				SELECT MAX(pgm_id) PGM_ID FROM PGM_INFO_TBL WHERE RTRIM(VALUE(ctgr_l_cd, '')) <> '' and UPPER(USE_YN) = 'Y' GROUP BY pgm_cd
+				SELECT MAX(pgm_id) PGM_ID FROM PGM_INFO_TBL WHERE RTRIM(VALUE(ctgr_l_cd, '')) <> '' GROUP BY pgm_cd
 			]]>
 			) pgm2 on pgm1.PGM_ID = pgm2.PGM_ID
          <dynamic prepend="WHERE">

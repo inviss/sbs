@@ -176,8 +176,9 @@ public class MetadataServiceImpl implements MetadataService {
 				mstTbl.setSubTtl(mst.getSubTitle());
 			if(StringUtils.isNotBlank(mst.getFrmtnNm()))
 				mstTbl.setArrangeNm(mst.getFrmtnNm());
-			if(StringUtils.isNotBlank(mst.getActcCd()))
-				mstTbl.setDataStatCd(mst.getActcCd());
+			/* 2016.07.19 박복영 차장님 요청사항: 데이타 상태코드 변경 안함. '정리완료' or '검수완료'는 DAS에서 처리함. */
+			//if(StringUtils.isNotBlank(mst.getActcCd()))
+			//	mstTbl.setDataStatCd(mst.getActcCd());
 			if(StringUtils.isNotBlank(mst.getRegrid()))
 				mstTbl.setModrid(mst.getRegrid());
 			/*
@@ -242,10 +243,10 @@ public class MetadataServiceImpl implements MetadataService {
 							logger.debug("corner delete completed and added - corner_id: "+cnId);
 						}
 						
-						// 사용제한등급 수정
+						// 사용제한등급 삭제
+						annotInfoDao.deleteAnnotInfo(contentTbl.getCtId());
 						
 						// 맵정보를 초기화 해야 함
-						
 						ContentMapTbl contentMapTbl = new ContentMapTbl();
 						contentMapTbl.setCtId(contentTbl.getCtId());
 						contentMapTbl.setPgmId(0L);

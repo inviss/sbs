@@ -75,11 +75,11 @@ public class OpsDaoTest extends BaseConfig {
 		}
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void savePgmInfoTest() {
 		try {
-			String xml = FileUtils.readFileToString(new File("D:/savePgm.xml"), "utf-8");
+			String xml = FileUtils.readFileToString(new File("D:/pgm.xml"), "utf-8");
 			
 			Data data = (Data)xmlStream.fromXML(xml);
 			pgmInfoService.savePgmInfo(data.getProgram());
@@ -92,7 +92,7 @@ public class OpsDaoTest extends BaseConfig {
 	@Test
 	public void saveMetadatInfoTest() {
 		try {
-			String xml = FileUtils.readFileToString(new File("D:/metadata.xml"), "utf-8");
+			String xml = FileUtils.readFileToString(new File("D:/episode.xml"), "utf-8");
 			
 			Data data = (Data)xmlStream.fromXML(xml);
 			Metadata mst = (Metadata)data.getMetadatas().get(0);
@@ -102,6 +102,7 @@ public class OpsDaoTest extends BaseConfig {
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void saveCornerInfoTest() {
 		try {
