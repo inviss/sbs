@@ -6848,6 +6848,7 @@ public class ExternalDAO extends AbstractDAO
 	{
 
 		String query = ExternalStatement.selectSearchRelationInfoQuery(programInfoDO);
+		//System.out.println(query);
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;

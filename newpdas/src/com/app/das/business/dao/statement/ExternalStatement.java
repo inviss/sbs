@@ -462,6 +462,8 @@ public class ExternalStatement
 		buf.append("\n      	and meta.lock_stat_cd='N' " );
 		//20120727 최효정c 확인결과 관련영상은 아카이브 된것만 보여야함.
 		buf.append("\n      	and meta.arch_reg_dd <>'' " );
+		//20160719 SBS 영상만 조회가 되도록 함.
+		buf.append("\n          and meta.cocd = 'S'            ");
 		buf.append("\n      	 AND (meta.master_ID NOT IN (  " );
 		buf.append("\n      	SELECT CHILD_MASTER_ID FROM RELATION_MASTER RM  " );
 		buf.append("\n      	INNER JOIN ( SELECT MASTER_ID FROM METADAT_MST_TBL " );
@@ -470,7 +472,7 @@ public class ExternalStatement
 		buf.append("\n      	GROUP BY CHILD_MASTER_ID  " );
 		buf.append("\n      	 ) )  " );
 		buf.append("\n order by BRD_DD desc  ");
-		//		buf.append("\n WITH UR	 ");
+		buf.append("\n WITH UR	 ");
 
 		return buf.toString();
 	}
