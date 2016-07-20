@@ -21,6 +21,7 @@ import com.sbs.das.dto.AnnotInfoTbl;
 import com.sbs.das.dto.ContentMapTbl;
 import com.sbs.das.dto.ContentTbl;
 import com.sbs.das.dto.CornerTbl;
+import com.sbs.das.dto.MasterTbl;
 import com.sbs.das.dto.ops.Annot;
 import com.sbs.das.dto.ops.Corner;
 import com.sbs.das.dto.ops.Corners;
@@ -29,6 +30,7 @@ import com.sbs.das.repository.AnnotInfoDao;
 import com.sbs.das.repository.ContentDao;
 import com.sbs.das.repository.ContentMapDao;
 import com.sbs.das.repository.CornerDao;
+import com.sbs.das.repository.MasterDao;
 
 @Transactional(readOnly=true)
 @Service(value="cornerService")
@@ -44,6 +46,8 @@ public class CornerServiceImpl implements CornerService {
 	private ContentMapDao contentMapDao;
 	@Autowired
 	private AnnotInfoDao annotInfoDao;
+	@Autowired
+	private MasterDao masterDao;
 
 	@Transactional
 	public void updateCorners(Data data) throws ServiceException {
@@ -286,6 +290,20 @@ public class CornerServiceImpl implements CornerService {
 					}
 				} else {
 					throw new ServiceException("contents_mapp info not found - ct_id: "+ctId);
+				}
+				
+				/*
+				 * 2016.07.20 아카이브팀 요구사항.
+				 * 코너정보가 검색엔진에 실시간 반영이 되도록 하기 위해
+				 * 메타정보를 강제 업데이트 한다.
+				 */
+				params.clear();
+				params.put("masterId", data.getDasMasterId());
+				MasterTbl masterTbl =  masterDao.getMaster(params);
+				if(masterTbl != null) {
+					masterTbl.setModrid(data.getRegrid());
+					masterTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+					masterDao.updateMaster(masterTbl);
 				}
 			}
 		} else {
