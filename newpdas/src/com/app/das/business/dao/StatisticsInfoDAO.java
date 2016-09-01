@@ -2051,7 +2051,7 @@ public class StatisticsInfoDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectSTAT_DISUSE_TBL_QUERY######## con : " + con);
+			logger.debug("######selectSTAT_DISUSE_TBL_QUERY######## query : " + query);
 			stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();
 

@@ -62,6 +62,7 @@ public class MetaDataInfo {
 	private String		prdtDeptCd;			// VARCHAR(6)			// 제작부서코
 	@XmlElement(name="META_PRDT_DEPT_NM")
 	private String 		prdtDeptNm;			// VARCHAR(90)			// 제작부서명칭
+	@XmlJavaTypeAdapter(value = AdaptorCDATA.class)
 	@XmlElement(name="META_ORG_PRDR_NM")
 	private String		orgPrdrNm;				// VARCHAR(90)			// 원제작사명
 	@XmlElement(name="META_MC_NM")

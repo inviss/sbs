@@ -34699,12 +34699,12 @@ public class ExternalDAO extends AbstractDAO
 		buf.append("\n		else cn.CN_NM 	                                                                                                                                      ");
 		buf.append("\n	end as CN_NM,                                                                                                                                           ");
 		buf.append("\n	value(CN.RPIMG_KFRM_SEQ, 0) as RPIMG_KFRM_SEQ, value(CN.SOM, '') as SOM, value(CN.EOM, '') as EOM, '' as CN_TYPE_CD,                                    ");
-		buf.append("\n	value(CN.RPIMG_CT_ID, '')as RPIMG_CT_ID, value(CN.CN_INFO, '')as CN_INFO, value(CT.CT_ID, '')as CT_ID,                                                  ");
+		buf.append("\n	value(CN.RPIMG_CT_ID, 0)as RPIMG_CT_ID, value(CN.CN_INFO, '')as CN_INFO, value(CT.CT_ID, 0)as CT_ID,                                                  ");
 		buf.append("\n	value(CODE.DESC, '')as CT_NM, value(CT.REG_DT, '')as REG_DT, value(CT.CT_LENG, '')as CT_LENG, value(CT.DURATION, 0)as DURATION,                         ");
 		buf.append("\n	value(CT.CT_SEQ, 0)as CT_SEQ, value(CT.KFRM_PATH, '')as KFRM_PATH, value(CT.KFRM_PX_CD, '')as KFRM_PX_CD, value(CT.VD_QLTY, '')as VD_QLTY,              ");
 		buf.append("\n	value(CT.ASP_RTO_CD, '')as ASP_RTO_CD, value(CT.CONT, '')as CONT ,value(CT.CT_CLA, '')as CT_CLA,value(CT.TOT_KFRM_NUMS, 0)as TOT_KFRM_NUMS,             ");
 		buf.append("\n	value(CT.MEDIA_ID, '')as MEDIA_ID, value(CTI.INGEST_EQ_ID, 0)as INGEST_EQ_ID, value(CTI.FL_PATH, '')as FL_PATH,                                         ");
-		buf.append("\n	value(CTI.WRK_FILE_NM, '')as WRK_FILE_NM, value(CTI.CTI_FMT, '')as CTI_FMT, value(CTI.FL_SZ, '')as FL_SZ, value(CTI.CTI_ID, '')as CTI_ID,               ");
+		buf.append("\n	value(CTI.WRK_FILE_NM, '')as WRK_FILE_NM, value(CTI.CTI_FMT, '')as CTI_FMT, value(CTI.FL_SZ, '')as FL_SZ, value(CTI.CTI_ID, 0)as CTI_ID,               ");
 		buf.append("\n	value(CTI.ARCH_STE_YN, '')as ARCH_STE_YN, value(CTI.VD_HRESOL, 0)as VD_HRESOL, value(CTI.VD_VRESOL, 0)as VD_VRESOL, value(CTI.BIT_RT, '')as BIT_RT,     ");
 		buf.append("\n	value(CTI.FRM_PER_SEC, '')as FRM_PER_SEC, value(CTI.AUD_SAMP_FRQ, '')as AUD_SAMP_FRQ , value(CTI.AUDIO_BDWT, '')as AUDIO_BDWT,                          ");
 		buf.append("\n	value(meta.title, '')as TITLE, MAP.S_DURATION, MAP.E_DURATION, meta.rpimg_ct_id as meta_rpimg_ct_id , meta.rpimg_kfrm_seq as meta_rpimg_kfrm_seq        ");
