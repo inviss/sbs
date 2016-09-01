@@ -110,7 +110,7 @@ public class BitConverter {
 
 	/** byte[] -&gt; int */
 	public static int toInt(byte[] b){
-		return (int)(((b[0] & 0xff)<<24) | ((b[1] & 0xff)<<16) | ((b[2] & 0xff)<<8) | (b[3] & 0xff));
+		return toInt(b, FLAG_JAVA);
 	}
 	
 	/** byte[] -&gt; int */

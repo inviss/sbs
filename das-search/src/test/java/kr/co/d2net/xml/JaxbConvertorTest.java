@@ -33,6 +33,7 @@ import kr.co.d2net.model.CornerItem;
 import kr.co.d2net.model.Das;
 import kr.co.d2net.model.DasSearch;
 import kr.co.d2net.model.DownCart;
+import kr.co.d2net.model.MetaDataInfo;
 import kr.co.d2net.model.SearchInfo;
 import kr.co.d2net.model.Storage;
 import kr.co.d2net.model.TokenInfo;
@@ -156,18 +157,19 @@ public class JaxbConvertorTest {
 		}
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void getBaseInfoTest() {
 		try {
 
 			XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
 
-			DasCmsConnector cmsConnector = new DasCmsConnectorImpl();
-			String xml = cmsConnector.getBaseInfo(225621L).toLowerCase();
-			System.out.println(xml);
-			//Das das = convertorService.unMarshaller(xml);
-			//MetaDataInfo metaDataInfo = das.getMetaDataInfo();
+			//DasCmsConnector cmsConnector = new DasCmsConnectorImpl();
+			//String xml = cmsConnector.getBaseInfo(225621L).toLowerCase();
+			//System.out.println(xml);
+			String xml = FileUtils.readFileToString(new File("D:/ifcms.xml"), "utf-8");
+			Das das = convertorService.unMarshaller(xml);
+			MetaDataInfo metaDataInfo = das.getMetaDataInfo();
 			//System.out.println(metaDataInfo.getMasterId());
 			//System.out.println(metaDataInfo.getIngest().getItems().size());
 		} catch (Exception e) {
@@ -300,7 +302,7 @@ public class JaxbConvertorTest {
 
 				// image count
 				fis.read(b);
-				int size = BitConverter.toInt(b, -1);
+				int size = BitConverter.toInt(b, BitConverter.FLAG_REVERSE);
 				//System.out.println("size : "+size);
 
 				//File f = new File(tmpPath+"/net_mp4/201206/26/411406/KFRM/411406/");
@@ -794,7 +796,7 @@ public class JaxbConvertorTest {
 		}
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void testSceanInfo() {
 		try {
