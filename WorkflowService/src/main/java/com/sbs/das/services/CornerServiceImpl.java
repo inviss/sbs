@@ -21,7 +21,7 @@ import com.sbs.das.dto.AnnotInfoTbl;
 import com.sbs.das.dto.ContentMapTbl;
 import com.sbs.das.dto.ContentTbl;
 import com.sbs.das.dto.CornerTbl;
-import com.sbs.das.dto.MasterTbl;
+import com.sbs.das.dto.MetadatMstTbl;
 import com.sbs.das.dto.ops.Annot;
 import com.sbs.das.dto.ops.Corner;
 import com.sbs.das.dto.ops.Corners;
@@ -30,7 +30,7 @@ import com.sbs.das.repository.AnnotInfoDao;
 import com.sbs.das.repository.ContentDao;
 import com.sbs.das.repository.ContentMapDao;
 import com.sbs.das.repository.CornerDao;
-import com.sbs.das.repository.MasterDao;
+import com.sbs.das.repository.MetadatMstDao;
 
 @Transactional(readOnly=true)
 @Service(value="cornerService")
@@ -47,7 +47,7 @@ public class CornerServiceImpl implements CornerService {
 	@Autowired
 	private AnnotInfoDao annotInfoDao;
 	@Autowired
-	private MasterDao masterDao;
+	private MetadatMstDao metadatMstDao;
 
 	@Transactional
 	public void updateCorners(Data data) throws ServiceException {
@@ -162,13 +162,29 @@ public class CornerServiceImpl implements CornerService {
 						annotInfoTbl.setCtId(ctId);
 						long som = 0L;
 						long eom = 0L;
-						if(annot.getSom() != null && annot.getSom().indexOf(":") > -1) {
-							som = Utility.changeTimeCode(annot.getSom());
-							eom = Utility.changeTimeCode(annot.getEom());
+
+						if(StringUtils.isNotBlank(annot.getSom()) && StringUtils.isNotBlank(annot.getSom())) {
+							if(annot.getSom() != null && annot.getSom().indexOf(":") > -1) {
+								som = Utility.changeTimeCode(annot.getSom());
+								eom = Utility.changeTimeCode(annot.getEom());
+							} else {
+								som = Long.valueOf(annot.getSom()).longValue();
+								eom = Long.valueOf(annot.getEom()).longValue();
+							}
+							if(som < corner.getFrameStSectNo()) {
+								som = corner.getFrameStSectNo();
+							}
+							if(logger.isDebugEnabled()) {
+								logger.debug("eom: "+som+", c_eom: "+corner.getFrameFnsSectNo());
+							}
+							if(eom > corner.getFrameFnsSectNo()) {
+								eom = corner.getFrameFnsSectNo();
+							}
 						} else {
-							som = Long.valueOf(annot.getSom()).longValue();
-							eom = Long.valueOf(annot.getEom()).longValue();
+							som = 0;
+							eom = 0;
 						}
+
 						if(logger.isDebugEnabled()) {
 							logger.debug("som: "+som+", eom: "+eom);
 						}
@@ -293,17 +309,26 @@ public class CornerServiceImpl implements CornerService {
 				}
 				
 				/*
+				 * 코너정보를 검색엔진 색인을 위해 프로시저를 호출한다.
+				 */
+				try {
+					cornerDao.insertCornerSearch(data.getDasMasterId());
+				} catch (Exception e) {
+					logger.error("insert corner_search error", e);
+				}
+				
+				/*
 				 * 2016.07.20 아카이브팀 요구사항.
 				 * 코너정보가 검색엔진에 실시간 반영이 되도록 하기 위해
 				 * 메타정보를 강제 업데이트 한다.
 				 */
 				params.clear();
 				params.put("masterId", data.getDasMasterId());
-				MasterTbl masterTbl =  masterDao.getMaster(params);
-				if(masterTbl != null) {
-					masterTbl.setModrid(data.getRegrid());
-					masterTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
-					masterDao.updateMaster(masterTbl);
+				MetadatMstTbl metadatMstTbl =  metadatMstDao.getMetadata(params);
+				if(metadatMstTbl != null) {
+					metadatMstTbl.setModrid(data.getRegrid());
+					metadatMstTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
+					metadatMstDao.saveMetadata(metadatMstTbl);
 				}
 			}
 		} else {
