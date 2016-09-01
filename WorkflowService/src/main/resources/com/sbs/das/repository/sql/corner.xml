@@ -107,6 +107,10 @@
         </isEqual>
     </select>
     
+    <procedure id="insertCornerSearchInfo" parameterClass="long">
+    	{ call PRC_SET_CORNERDESC (#masterId#) }
+  	</procedure>
+    
     <select id="getCornerNewId" resultClass="long">
     	SELECT NEXTVAL FOR SEQ_CN_ID AS SEQUENCE FROM  SYSIBM.SYSDUMMY1
     </select>

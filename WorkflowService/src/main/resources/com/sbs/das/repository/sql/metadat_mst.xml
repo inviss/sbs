@@ -112,20 +112,37 @@
     </resultMap>
     
     <select id="findMetadatMst" resultMap="MetadatMstFindMap" parameterClass="map">
-	     SELECT
-			mst.MASTER_ID, mst.CHENNEL_CD, RTRIM(value(mst.PGM_CD, '')) AS pgm_cd, VALUE(mst.EPIS_NO, 0) AS epis_no, mst.BRD_DD, loc.FILENAME,
-			RTRIM(VALUE(mst.BRD_BGN_HMS, '0')) as BRD_BGN_HMS, RTRIM(VALUE(mst.BRD_END_HMS, '0')) as BRD_END_HMS, loc.OBJ_NAME,
-		    case WHEN mst.CTGR_L_CD = '200' AND VALUE(pgm.PGM_ID, 0) > 0 THEN pgm.PGM_NM ELSE mst.TITLE END title, ct.DURATION,
-		    mst.KEY_WORDS, VALUE(mst.FINAL_BRD_YN, 'N') AS FINAL_BRD_YN, mst.PRDT_IN_OUTS_CD, mst.ORG_PRDR_NM, mst.CMR_DRT_NM, mst.PRDT_DEPT_NM,
-    		RTRIM(VALUE(pgm.BRD_BGN_DD, '')) AS BRD_BGN_DD, RTRIM(VALUE(pgm.BRD_END_DD, '')) AS BRD_END_DD
-		 FROM METADAT_MST_TBL mst
-			inner JOIN (
-		    	SELECT master_id, ct_id FROM CONTENTS_MAPP_TBL WHERE VALUE(del_dd, '') = '' AND VALUE(del_yn, 'N') = 'N' GROUP BY master_id, ct_id
-		    ) mapp ON mst.MASTER_ID = mapp.MASTER_ID
-			inner JOIN CONTENTS_TBL ct ON mapp.CT_ID = ct.CT_ID
-			inner JOIN CONTENTS_INST_TBL cti ON ct.CT_ID = cti.CT_ID and cti.CTI_FMT like '1%'
-			inner JOIN CONTENTS_LOC_TBL loc ON cti.CTI_ID = loc.CTI_ID
-		    left outer JOIN PGM_INFO_TBL pgm ON mst.PGM_ID = pgm.PGM_ID
+    	select
+			mst.MASTER_ID, mst.CHENNEL_CD, RTRIM(value(mst.PGM_CD, '')) AS pgm_cd, 
+			VALUE(mst.EPIS_NO, 0) AS epis_no, mst.BRD_DD, loc.FILENAME,    
+			RTRIM(VALUE(mst.BRD_BGN_HMS, '0')) as BRD_BGN_HMS, 
+			RTRIM(VALUE(mst.BRD_END_HMS, '0')) as BRD_END_HMS, loc.OBJ_NAME,       
+			case WHEN mst.CTGR_L_CD = '200' AND VALUE(pgm.PGM_ID, 0) &gt; 0 THEN pgm.PGM_NM ELSE mst.TITLE END title, 
+			ct.DURATION, mst.KEY_WORDS, VALUE(mst.FINAL_BRD_YN, 'N') AS FINAL_BRD_YN, mst.PRDT_IN_OUTS_CD, 
+			mst.ORG_PRDR_NM, mst.CMR_DRT_NM, mst.PRDT_DEPT_NM, RTRIM(VALUE(pgm.BRD_BGN_DD, '')) AS BRD_BGN_DD, 
+			RTRIM(VALUE(pgm.BRD_END_DD, '')) AS BRD_END_DD
+		from (
+			select
+			  MASTER_ID, CHENNEL_CD, pgm_id, RTRIM(value(PGM_CD, '')) AS pgm_cd, 
+			  	VALUE(EPIS_NO, 0) AS epis_no, BRD_DD, title,     
+			  	RTRIM(VALUE(BRD_BGN_HMS, '0')) as BRD_BGN_HMS, 
+			  	case when substr(BRD_BGN_HMS,1,2) &gt; substr(BRD_END_HMS,1,2) 
+					 then (to_number(substr(BRD_END_HMS,1,2))+24)||substr(BRD_END_HMS,3,6) 
+					 else BRD_END_HMS 
+			    end BRD_END_HMS, 
+			  	CTGR_L_CD, KEY_WORDS, VALUE(FINAL_BRD_YN, 'N') AS FINAL_BRD_YN, PRDT_IN_OUTS_CD, 
+			  	ORG_PRDR_NM, CMR_DRT_NM, PRDT_DEPT_NM, RPIMG_CT_ID
+			from METADAT_MST_TBL mst
+			where 1=1 and exists (
+			  select 1 from CONTENTS_MAPP_TBL mapp
+			  where mapp.MASTER_ID = mst.MASTER_ID
+			    and mst.BRD_DD = #brdDd#
+			)
+		) mst
+			inner JOIN CONTENTS_TBL ct ON mst.RPIMG_CT_ID = ct.CT_ID    
+			inner JOIN CONTENTS_INST_TBL cti ON ct.CT_ID = cti.CT_ID and cti.CTI_FMT like '1%'    
+			left outer JOIN CONTENTS_LOC_TBL loc ON cti.CTI_ID = loc.CTI_ID       
+			left outer JOIN PGM_INFO_TBL pgm ON mst.PGM_ID = pgm.PGM_ID
          <dynamic prepend="WHERE">
 	         <isNotEmpty prepend="AND" property="brdDd">
 		         mst.BRD_DD = #brdDd#

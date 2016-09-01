@@ -75,7 +75,7 @@ public class OpsDaoTest extends BaseConfig {
 		}
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void savePgmInfoTest() {
 		try {
@@ -88,7 +88,7 @@ public class OpsDaoTest extends BaseConfig {
 		}
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void saveMetadatInfoTest() {
 		try {

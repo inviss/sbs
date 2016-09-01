@@ -64,35 +64,35 @@ public class PgmInfoServiceImpl implements PgmInfoService {
 			
 			pgmInfoDao.insertPgmInfo(pgmInfo);
 		} else {
-			if(StringUtils.isNotBlank(pgm.getPgmTitle()))
+			//if(StringUtils.isNotBlank(pgm.getPgmTitle()))
 				pgmInfo.setPgmNm(pgm.getPgmTitle());
-			if(StringUtils.isNotBlank(pgm.getLargeCtgCd()))
+			//if(StringUtils.isNotBlank(pgm.getLargeCtgCd()))
 				pgmInfo.setCtgrLCd(pgm.getLargeCtgCd());
-			if(StringUtils.isNotBlank(pgm.getMidCtgCd()))
+			//if(StringUtils.isNotBlank(pgm.getMidCtgCd()))
 				pgmInfo.setCtgrMCd(pgm.getMidCtgCd());
-			if(StringUtils.isNotBlank(pgm.getSmallCtgCd()))
+			//if(StringUtils.isNotBlank(pgm.getSmallCtgCd()))
 				pgmInfo.setCtgrSCd(pgm.getSmallCtgCd());
-			if(StringUtils.isNotBlank(pgm.getBradStDate()))
+			//if(StringUtils.isNotBlank(pgm.getBradStDate()))
 				pgmInfo.setBrdBgnDd(pgm.getBradStDate());
-			if(StringUtils.isNotBlank(pgm.getBradFnsDate()))
+			//if(StringUtils.isNotBlank(pgm.getBradFnsDate()))
 				pgmInfo.setBrdEndDd(pgm.getBradFnsDate());
-			if(StringUtils.isNotBlank(pgm.getDeptNm()))
+			//if(StringUtils.isNotBlank(pgm.getDeptNm()))
 				pgmInfo.setPrdDeptNm(pgm.getDeptNm());
-			if(StringUtils.isNotBlank(pgm.getFrmtnNm()))
+			//if(StringUtils.isNotBlank(pgm.getFrmtnNm()))
 				pgmInfo.setSchdPgmNm(pgm.getFrmtnNm());
-			if(StringUtils.isNotBlank(pgm.getPilotYn()))
+			//if(StringUtils.isNotBlank(pgm.getPilotYn()))
 				pgmInfo.setPilotYn(pgm.getPilotYn());
-			if(StringUtils.isNotBlank(pgm.getAwardTxn()))
+			//if(StringUtils.isNotBlank(pgm.getAwardTxn()))
 				pgmInfo.setAwardHstr(pgm.getAwardTxn());
-			if(StringUtils.isNotBlank(pgm.getUseYn()))
-				pgmInfo.setUseYn(pgm.getUseYn().toUpperCase());
-			if(StringUtils.isNotBlank(pgm.getRegrid()))
+			//if(StringUtils.isNotBlank(pgm.getUseYn()))
+				pgmInfo.setUseYn((StringUtils.isNotBlank(pgm.getUseYn())?pgm.getUseYn():"Y").toUpperCase());
+			//if(StringUtils.isNotBlank(pgm.getRegrid()))
 				pgmInfo.setModrid(pgm.getRegrid());
-			if(StringUtils.isNotBlank(pgm.getParentsCd()))
+			//if(StringUtils.isNotBlank(pgm.getParentsCd()))
 				pgmInfo.setParentsCd(pgm.getParentsCd());
-			if(StringUtils.isNotBlank(pgm.getMediaCd()))
+			//if(StringUtils.isNotBlank(pgm.getMediaCd()))
 				pgmInfo.setMediaCd(pgm.getMediaCd());
-			if(StringUtils.isNotBlank(pgm.getChanCd()))
+			//if(StringUtils.isNotBlank(pgm.getChanCd()))
 				pgmInfo.setChanCd(pgm.getChanCd());
 			
 			pgmInfo.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));

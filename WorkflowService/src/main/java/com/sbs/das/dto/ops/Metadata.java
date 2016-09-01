@@ -173,6 +173,7 @@ public class Metadata {
 	private String pclrMtr;
 
 	// 사용여부
+	@XStreamConverter(TextConverter.class)
 	@XStreamAlias("use_yn")
 	private String useYn;
 

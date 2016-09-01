@@ -55,4 +55,8 @@ public class CornerDaoImpl extends SqlMapClientDaoSupport implements CornerDao {
 		getSqlMapClientTemplate().delete("Corner.deleteCtCorner", ctId);
 	}
 
+	public void insertCornerSearch(Long masterId) throws DaoRollbackException {
+		getSqlMapClientTemplate().queryForObject("Corner.insertCornerSearchInfo", masterId);
+	}
+
 }

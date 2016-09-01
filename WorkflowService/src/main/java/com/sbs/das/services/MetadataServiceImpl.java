@@ -27,7 +27,7 @@ import com.sbs.das.repository.CornerDao;
 import com.sbs.das.repository.MetadatMstDao;
 import com.sbs.das.repository.PgmInfoDao;
 
-@Transactional(readOnly=true)
+@Transactional
 @Service(value="metadataService")
 public class MetadataServiceImpl implements MetadataService {
 
@@ -108,93 +108,92 @@ public class MetadataServiceImpl implements MetadataService {
 					throw new ServiceException("Can't find program info by pgm_cd. pgm_cd: "+mst.getDasPgmCd());
 				}
 			}
-			if(mst.getPgmTms() != null && mst.getPgmTms() > 0)
+			//if(mst.getPgmTms() != null && mst.getPgmTms() > 0)
 				mstTbl.setEpisNo(mst.getPgmTms());
-			if(StringUtils.isNotBlank(mst.getPgmTmsTitle()))
+			//if(StringUtils.isNotBlank(mst.getPgmTmsTitle()))
 				mstTbl.setTitle(mst.getPgmTmsTitle());
-			if(StringUtils.isNotBlank(mst.getUseClas()))
+			//if(StringUtils.isNotBlank(mst.getUseClas()))
 				mstTbl.setRistClfCd(mst.getUseClas());
-			//if(StringUtils.isNotBlank(mst.getPgmRght()))
-			//	mstTbl.setCprtType(mst.getPgmRght());
-			if(StringUtils.isNotBlank(mst.getPgmTmsSynop()))
+			//if(StringUtils.isNotBlank(mst.getPgmTmsSynop()))
 				mstTbl.setSnps(mst.getPgmTmsSynop());
-			if(StringUtils.isNotBlank(mst.getLargeCtgCd()))
+			//if(StringUtils.isNotBlank(mst.getLargeCtgCd()))
 				mstTbl.setCtgrLCd(mst.getLargeCtgCd());
-			if(StringUtils.isNotBlank(mst.getMidCtgCd()))
+			//if(StringUtils.isNotBlank(mst.getMidCtgCd()))
 				mstTbl.setCtgrMCd(mst.getMidCtgCd());
-			if(StringUtils.isNotBlank(mst.getSmallCtgCd()))
+			//if(StringUtils.isNotBlank(mst.getSmallCtgCd()))
 				mstTbl.setCtgrSCd(mst.getSmallCtgCd());
-			if(StringUtils.isNotBlank(mst.getDrtPrsnNm()))
+			//if(StringUtils.isNotBlank(mst.getDrtPrsnNm()))
 				mstTbl.setDrtNm(mst.getDrtPrsnNm());
-			if(StringUtils.isNotBlank(mst.getProducerNm()))
+			//if(StringUtils.isNotBlank(mst.getProducerNm()))
 				mstTbl.setProducerNm(mst.getProducerNm());
-			if(StringUtils.isNotBlank(mst.getWrtrNm()))
+			//if(StringUtils.isNotBlank(mst.getWrtrNm()))
 				mstTbl.setWriterNm(mst.getWrtrNm());
-			if(StringUtils.isNotBlank(mst.getMnfcDivCd()))
+			//if(StringUtils.isNotBlank(mst.getMnfcDivCd()))
 				mstTbl.setPrdtInOutsCd(mst.getMnfcDivCd());
-			if(StringUtils.isNotBlank(mst.getMnfcDeptCd()))
+			//if(StringUtils.isNotBlank(mst.getMnfcDeptCd()))
 				mstTbl.setPrdtDeptCd(mst.getMnfcDeptCd());
-			if(StringUtils.isNotBlank(mst.getOrginMnfcNm()))
+			//if(StringUtils.isNotBlank(mst.getOrginMnfcNm()))
 				mstTbl.setOrgPrdrNm(mst.getOrginMnfcNm());
-			if(StringUtils.isNotBlank(mst.getProgrPrsnNm()))
+			//if(StringUtils.isNotBlank(mst.getProgrPrsnNm()))
 				mstTbl.setMcNm(mst.getProgrPrsnNm());
-			if(StringUtils.isNotBlank(mst.getCastNm()))
+			//if(StringUtils.isNotBlank(mst.getCastNm()))
 				mstTbl.setCastNm(mst.getCastNm());
-			if(StringUtils.isNotBlank(mst.getCastDirtNm()))
+			//if(StringUtils.isNotBlank(mst.getCastDirtNm()))
 				mstTbl.setCmrDrtNm(mst.getCastDirtNm());
-			if(StringUtils.isNotBlank(mst.getPtghDay()))
+			//if(StringUtils.isNotBlank(mst.getPtghDay()))
 				mstTbl.setFmDt(mst.getPtghDay());
-			if(StringUtils.isNotBlank(mst.getPtghPlc()))
+			//if(StringUtils.isNotBlank(mst.getPtghPlc()))
 				mstTbl.setCmrPlace(mst.getPtghPlc());
-			if(StringUtils.isNotBlank(mst.getCpyrtPrsnNm()))
+			//if(StringUtils.isNotBlank(mst.getCpyrtPrsnNm()))
 				mstTbl.setCprtrNm(mst.getCpyrtPrsnNm());
-			if(StringUtils.isNotBlank(mst.getCpyrtShapCd()))
+			//if(StringUtils.isNotBlank(mst.getCpyrtShapCd()))
 				mstTbl.setCprtType(mst.getCpyrtShapCd());
-			if(StringUtils.isNotBlank(mst.getCpyrtShapDesc()))
+			//if(StringUtils.isNotBlank(mst.getCpyrtShapDesc()))
 				mstTbl.setCprtTypeDsc(mst.getCpyrtShapDesc());
-			if(StringUtils.isNotBlank(mst.getViwrClasCd()))
+			//if(StringUtils.isNotBlank(mst.getViwrClasCd()))
 				mstTbl.setViewGrCd(mst.getViwrClasCd());
-			if(StringUtils.isNotBlank(mst.getDlbResltCd()))
+			//if(StringUtils.isNotBlank(mst.getDlbResltCd()))
 				mstTbl.setDlbrCd(mst.getDlbResltCd());
-			if(StringUtils.isNotBlank(mst.getAwardTxn()))
+			//if(StringUtils.isNotBlank(mst.getAwardTxn()))
 				mstTbl.setAwardHstr(mst.getAwardTxn());
-			if(StringUtils.isNotBlank(mst.getPclrMtr()))
+			//if(StringUtils.isNotBlank(mst.getPclrMtr()))
 				mstTbl.setSpcInfo(mst.getPclrMtr());
-			if(StringUtils.isNotBlank(mst.getMusicInfo()))
+			//if(StringUtils.isNotBlank(mst.getMusicInfo()))
 				mstTbl.setMusicInfo(mst.getMusicInfo());
-			if(StringUtils.isNotBlank(mst.getCmpnCd()))
+			//if(StringUtils.isNotBlank(mst.getCmpnCd()))
 				mstTbl.setCocd(mst.getCmpnCd());
-			if(StringUtils.isNotBlank(mst.getArtist()))
+			//if(StringUtils.isNotBlank(mst.getArtist()))
 				mstTbl.setArtist(mst.getArtist());
-			if(StringUtils.isNotBlank(mst.getChId()))
+			//if(StringUtils.isNotBlank(mst.getChId()))
 				mstTbl.setChennelCd(mst.getChId());
-			if(StringUtils.isNotBlank(mst.getAgnBrad()))
+			//if(StringUtils.isNotBlank(mst.getAgnBrad()))
 				mstTbl.setRerun(mst.getAgnBrad());
-			if(StringUtils.isNotBlank(mst.getRstrtnMtr()))
+			//if(StringUtils.isNotBlank(mst.getRstrtnMtr()))
 				mstTbl.setRstCont(mst.getRstrtnMtr());
-			if(StringUtils.isNotBlank(mst.getSubTitle()))
+			//if(StringUtils.isNotBlank(mst.getSubTitle()))
 				mstTbl.setSubTtl(mst.getSubTitle());
-			if(StringUtils.isNotBlank(mst.getFrmtnNm()))
+			//if(StringUtils.isNotBlank(mst.getFrmtnNm()))
 				mstTbl.setArrangeNm(mst.getFrmtnNm());
 			/* 2016.07.19 박복영 차장님 요청사항: 데이타 상태코드 변경 안함. '정리완료' or '검수완료'는 DAS에서 처리함. */
 			//if(StringUtils.isNotBlank(mst.getActcCd()))
 			//	mstTbl.setDataStatCd(mst.getActcCd());
-			if(StringUtils.isNotBlank(mst.getRegrid()))
+			//if(StringUtils.isNotBlank(mst.getRegrid()))
 				mstTbl.setModrid(mst.getRegrid());
 			/*
 			 * 2016.06.02
 			 * 회차 저장시 메타항목 추가
 			 */
-			if(StringUtils.isNotBlank(mst.getFinalBrdYn()))
+			//if(StringUtils.isNotBlank(mst.getFinalBrdYn()))
 				mstTbl.setFinalBrdYn(mst.getFinalBrdYn());
-			if(StringUtils.isNotBlank(mst.getKeyWords()))
+			//if(StringUtils.isNotBlank(mst.getKeyWords()))
 				mstTbl.setKeyWords(mst.getKeyWords());
-			if(StringUtils.isNotBlank(mst.getOrgPrdrNm()))
+			//if(StringUtils.isNotBlank(mst.getOrgPrdrNm()))
 				mstTbl.setOrgPrdrNm(mst.getOrgPrdrNm());
-			if(StringUtils.isNotBlank(mst.getCmrDrtNm()))
+			//if(StringUtils.isNotBlank(mst.getCmrDrtNm()))
 				mstTbl.setCmrDrtNm(mst.getCmrDrtNm());
-			if(StringUtils.isNotBlank(mst.getPrdtDeptNm()))
+			//if(StringUtils.isNotBlank(mst.getPrdtDeptNm()))
 				mstTbl.setPrdtDeptNm(mst.getPrdtDeptNm());
+			
 			mstTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
 
 			String isLinked = isLinkYns[i];
