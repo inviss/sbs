@@ -9,29 +9,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.naming.NamingException;
-
 import org.apache.log4j.Logger;
 
 import com.app.das.business.constants.CodeConstants;
 import com.app.das.business.constants.DASBusinessConstants;
 import com.app.das.business.constants.ErrorConstants;
 import com.app.das.business.dao.statement.CommunityStatement;
-import com.app.das.business.dao.statement.SystemManageStatement;
 import com.app.das.business.exception.DASException;
 import com.app.das.business.transfer.BoardConditionDO;
 import com.app.das.business.transfer.BoardDO;
 import com.app.das.business.transfer.DASCommonDO;
-import com.app.das.business.transfer.DiscardDO;
 import com.app.das.business.transfer.FileInfoDO;
-import com.app.das.business.transfer.GoodMediaDO;
 import com.app.das.business.transfer.PageDO;
 import com.app.das.business.transfer.PreviewAttachDO;
 import com.app.das.business.transfer.PreviewDO;
-import com.app.das.business.transfer.ScenarioDO;
 import com.app.das.util.CalendarUtil;
 import com.app.das.util.DBService;
-import com.app.das.util.LoggableStatement;
 
 /**
  * 이용관리에 대한 Databse 관련 로직이 구현되어 있다.
@@ -96,8 +89,8 @@ public class CommunityDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 
 			//총 조회 갯수를 구한다.
-			int totalCount  = 
-					getTotalCount(con, CommunityStatement.selectBoardListQuery(conditionDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT, DASBusinessConstants.YesNo.NO));
+//			int totalCount  = 
+//					getTotalCount(con, CommunityStatement.selectBoardListQuery(conditionDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT, DASBusinessConstants.YesNo.NO));
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -275,10 +268,7 @@ public class CommunityDAO extends AbstractDAO
 			stmt.setInt(++index, mainId);
 
 			rs = stmt.executeQuery();
-
-
-
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			if(rs.next())
@@ -368,8 +358,8 @@ public class CommunityDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 			//logger.debug("######selectBoardInfoList######## con : " + con);
 			//총 조회 갯수를 구한다.
-			int totalCount  = 
-					getTotalCount(con, CommunityStatement.selectBoardInfoListQuery(conditionDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT, DASBusinessConstants.YesNo.NO));
+//			int totalCount  = 
+//					getTotalCount(con, CommunityStatement.selectBoardInfoListQuery(conditionDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT, DASBusinessConstants.YesNo.NO));
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -389,7 +379,7 @@ public class CommunityDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 
 			List resultList = new ArrayList();
 
@@ -634,12 +624,12 @@ public class CommunityDAO extends AbstractDAO
 			stmt.setString(++index, boardDO.getPopupyn());
 			stmt.setString(++index, boardDO.getPopup_start_dd());
 			stmt.setString(++index, boardDO.getPopup_end_dd());
-			int iTmp = stmt.executeUpdate();
+			stmt.executeUpdate();
 
 			boardDO.setBoardId(boardSeq);
 
 			//파일정보를 등록한다.
-			String[] File_nm = boardDO.getFile_nm().split(",");
+			//String[] File_nm = boardDO.getFile_nm().split(",");
 			//String[] File_sz = boardDO.getFl_size().split(",");
 			//String[] File_path = boardDO.getFile_path().split(",");
 
@@ -817,7 +807,7 @@ public class CommunityDAO extends AbstractDAO
 			stmt.setString(++index, boardDO.getBoardTypeCd());
 			int iTmp  = stmt.executeUpdate();
 
-			int maxSeq = selectFileInfoMaxSeq(boardDO.getBoardId()) + 1;
+			//int maxSeq = selectFileInfoMaxSeq(boardDO.getBoardId()) + 1;
 
 			if(!boardDO.getFile_nm().equals("")){
 				if(isThereFile(boardDO.getMainId())){
@@ -1476,7 +1466,7 @@ public class CommunityDAO extends AbstractDAO
 	{	
 		//			 필요한 변수들
 		StringBuffer buf = new StringBuffer();
-		StringBuffer strResultBuffer = new StringBuffer();
+		//StringBuffer strResultBuffer = new StringBuffer();
 		//			서버에 실제로 저장된 이름을 가져온다.
 		StringBuffer buf2 = new StringBuffer();
 		buf2.append("\n select ORG_FILE_NM, substr(fl_path,26) as fl_path from DAS.ATTCH_TBL ");
@@ -1540,7 +1530,7 @@ public class CommunityDAO extends AbstractDAO
 				catch (SecurityException e)
 				{            
 					con.rollback();
-					logger.debug("SecurityException 발생 : " + e.getMessage());
+					logger.error("SecurityException 발생 : " + e.getMessage());
 					return 0;
 				}
 
@@ -1555,15 +1545,17 @@ public class CommunityDAO extends AbstractDAO
 					}            		
 					else
 					{
-						con.rollback();            	
-						logger.debug("롤백된 파일 : " + strDeleteFile);
+						con.rollback();  
+						if(logger.isDebugEnabled())
+							logger.debug("롤백된 파일 : " + strDeleteFile);
 						return 0;
 					}            	
 				}
 				else
 				{
-					con.rollback();            	
-					logger.debug("존재하지 않아 롤백된 파일 : " + strDeleteFile);
+					con.rollback();  
+					if(logger.isDebugEnabled())
+						logger.debug("존재하지 않아 롤백된 파일 : " + strDeleteFile);
 					return 0;
 				}
 			}
@@ -1593,7 +1585,7 @@ public class CommunityDAO extends AbstractDAO
 	 */
 	private int selectFileInfoMaxSeq(int boardId) throws Exception
 	{
-		PageDO pageDO = new PageDO();
+		//PageDO pageDO = new PageDO();
 
 		StringBuffer buf = new StringBuffer();
 
@@ -1644,7 +1636,7 @@ public class CommunityDAO extends AbstractDAO
 
 
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			if(rs.next())
@@ -1698,7 +1690,7 @@ public class CommunityDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 
 
-			int index = 0;
+			//int index = 0;
 
 			rs = stmt.executeQuery();
 

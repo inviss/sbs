@@ -18,8 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javax.naming.NamingException;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
@@ -28,7 +26,6 @@ import com.app.das.business.constants.CodeConstants;
 import com.app.das.business.constants.Constants;
 import com.app.das.business.constants.DASBusinessConstants;
 import com.app.das.business.constants.ErrorConstants;
-import com.app.das.business.dao.statement.UserRoleStatement;
 import com.app.das.business.dao.statement.WorkStatement;
 import com.app.das.business.exception.DASException;
 import com.app.das.business.transfer.CartContDO;
@@ -37,7 +34,6 @@ import com.app.das.business.transfer.CartItemDO;
 import com.app.das.business.transfer.ContentsInfoDO;
 import com.app.das.business.transfer.DASCommonDO;
 import com.app.das.business.transfer.DownCartDO;
-import com.app.das.business.transfer.EmployeeInfoDO;
 import com.app.das.business.transfer.ErrorRegisterDO;
 import com.app.das.business.transfer.IfCmsArchiveDO;
 import com.app.das.business.transfer.PageDO;
@@ -49,13 +45,10 @@ import com.app.das.business.transfer.WorkOrdersDO;
 import com.app.das.business.transfer.WorkStatusConditionDO;
 import com.app.das.business.transfer.WorkStatusDO;
 import com.app.das.log.DasPropHandler;
-import com.app.das.log.ErrorPropHandler;
 import com.app.das.services.TransferDOXML;
 import com.app.das.util.CalendarUtil;
 import com.app.das.util.CommonUtl;
 import com.app.das.util.DBService;
-import com.app.das.util.LoggableStatement;
-import com.app.das.util.StringUtils;
 import com.app.das.util.jutil;
 import com.sbs.das.web.NevigatorProxy;
 /**
@@ -243,7 +236,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -492,7 +485,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -821,7 +814,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -961,7 +954,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -1022,7 +1015,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -1463,10 +1456,10 @@ public class WorkDAO extends AbstractDAO
 	private boolean checkCartApprove(Connection con, CartItemDO cartItemDO, String toDateTime, DASCommonDO comonDO) throws Exception
 	{
 		// 요청자를 가져온다.
-		long cartNo = cartItemDO.getCartNo();
+		//long cartNo = cartItemDO.getCartNo();
 
 		boolean sResult = true;
-		String strReqUsrID = getReqUsrID(cartNo);
+		//String strReqUsrID = getReqUsrID(cartNo);
 		StringBuffer buf = new StringBuffer();
 		buf.append(" \n select                                               ");
 		buf.append(" \n  	cont.CART_NO,                                    ");
@@ -1576,7 +1569,7 @@ public class WorkDAO extends AbstractDAO
 			contentId = (String)i.next();
 			String wrk_file_nm="";
 			String cti_fmt="";
-			String arch_ste_yn="";
+			//String arch_ste_yn="";
 			
 			buf1.append("\n select FL_PATH,CTI_ID,WRK_FILE_NM,CTI_FMT,ARCH_STE_YN from DAS.CONTENTS_INST_TBL where CT_ID = ? ");
 			buf1.append("\n WITH UR	 ");
@@ -1598,7 +1591,7 @@ public class WorkDAO extends AbstractDAO
 					filePath = rs.getString("FL_PATH");	
 					long cti_id = rs.getLong("CTI_ID"); 
 					wrk_file_nm=rs.getString("WRK_FILE_NM");
-					arch_ste_yn=rs.getString("ARCH_STE_YN");
+					//arch_ste_yn=rs.getString("ARCH_STE_YN");
 					cti_fmt=rs.getString("CTI_FMT");
 
 					//					lw.log_info("deleteContentItem FL_PATH----------------"+filePath);
@@ -1933,7 +1926,7 @@ public class WorkDAO extends AbstractDAO
 			int index = 0;			
 			stmt.setString(++index, strTii);
 
-			int updateCount = stmt.executeUpdate();
+			stmt.executeUpdate();
 
 		} 
 		catch (Exception e) 
@@ -2223,7 +2216,7 @@ public class WorkDAO extends AbstractDAO
 	public void deleteCartDetailApproveList(String cartNo, String checkList, DASCommonDO comonDO) throws Exception
 	{
 		int count = 0;
-		boolean result = false;
+		//boolean result = false;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		StringBuffer buf = new StringBuffer();
@@ -2240,9 +2233,9 @@ public class WorkDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 			count = stmt.executeUpdate();
 
-			if (count > 0) {
-				result = true;
-			}
+//			if (count > 0) {
+//				result = true;
+//			}
 
 			con.setAutoCommit(true);
 
@@ -2289,7 +2282,7 @@ public class WorkDAO extends AbstractDAO
 	public void updateCartDetailApproveList(String cartNo, String checkList, String app_cont, DASCommonDO comonDO) throws Exception
 	{
 		int count = 0;
-		boolean result = false;
+		//boolean result = false;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		StringBuffer buf = new StringBuffer();
@@ -2306,9 +2299,9 @@ public class WorkDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 			count = stmt.executeUpdate();
 
-			if (count > 0) {
-				result = true;
-			}
+//			if (count > 0) {
+//				result = true;
+//			}
 
 			con.setAutoCommit(true);
 
@@ -2350,7 +2343,7 @@ public class WorkDAO extends AbstractDAO
 	public int updateDownloadRequestDetailList(CartContDO _do) throws Exception
 	{
 		int count = 0;
-		boolean result = false;
+		//boolean result = false;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		BufferedWriter bw = null;
@@ -2416,15 +2409,15 @@ public class WorkDAO extends AbstractDAO
 					logger.debug("###################################callbackurl  " +item3.getCallback_url()+"&cmsid=das"+"&wfid="+item3.getCart_no()+"&uid="+item3.getCti_idForHigh()+"&state=error&time="+date);
 					method = new GetMethod(item3.getCallback_url()+"&cmsid=das"+"&wfid="+item3.getCart_no()+"&uid="+item3.getCti_idForHigh()+"&state=error&time="+date);
 
-					int status = 0;
-					String callresult = "";
-					try {
-						status = client.executeMethod(method);
-						callresult = method.getResponseBodyAsString();
-					
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+//					int status = 0;
+//					String callresult = "";
+//					try {
+//						status = client.executeMethod(method);
+//						callresult = method.getResponseBodyAsString();
+//					
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
 				}
 			}
 
@@ -2536,9 +2529,9 @@ public class WorkDAO extends AbstractDAO
 
 
 			}
-			if (count > 0 ) {
-				result = true;
-			}
+//			if (count > 0 ) {
+//				result = true;
+//			}
 
 
 			return count;
@@ -2588,7 +2581,7 @@ public class WorkDAO extends AbstractDAO
 	public int updateDownloadRequestOutsourcingDetailList(CartContDO _do) throws Exception
 	{
 		int count = 0;
-		boolean result = false;
+		//boolean result = false;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		StringBuffer buf = new StringBuffer();
@@ -3595,7 +3588,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -3780,7 +3773,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -4027,7 +4020,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -4092,7 +4085,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -4172,7 +4165,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -4238,7 +4231,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -4304,7 +4297,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -4399,7 +4392,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -4491,7 +4484,7 @@ public class WorkDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -4751,7 +4744,7 @@ public class WorkDAO extends AbstractDAO
 					HttpClient client = new HttpClient();
 					GetMethod method = null;
 
-					logger.debug("###################################callbackurl  " +item3.getCallback_url()+"&cmsid=das"+"&wfid="+item3.getCart_no()+"&uid="+item3.getCti_idForHigh()+"&state=error&time="+date);
+					//logger.debug("###################################callbackurl  " +item3.getCallback_url()+"&cmsid=das"+"&wfid="+item3.getCart_no()+"&uid="+item3.getCti_idForHigh()+"&state=error&time="+date);
 					method = new GetMethod(item3.getCallback_url()+"&cmsid=das"+"&wfid="+item3.getCart_no()+"&uid="+item3.getCti_idForHigh()+"&state=error&time="+date);
 
 					int status = 0;
@@ -4768,10 +4761,10 @@ public class WorkDAO extends AbstractDAO
 			//무제한일 경우 다운로드 고고싱           
 
 			if(isRiskCodeUnlimit(_do.getCartNo(),_do.getCartSeq())&&!_do.getDown_stat().equals("003")){
-				if (logger.isDebugEnabled()) 
-				{
-					logger.debug("[Start : WebService Call To WAS for DownloadCart : CartNo = " + _do.getCartNo() + "]");
-				}
+//				if (logger.isDebugEnabled()) 
+//				{
+//					logger.debug("[Start : WebService Call To WAS for DownloadCart : CartNo = " + _do.getCartNo() + "]");
+//				}
 
 				//다운로드 제한 여부가 No이 웹 서비스를 호출하여 다운로드 카트를 승인 없이  다운로드 한다
 				//cart_cont_tbl의 rist_yn이 N인 값만 던진다
@@ -4779,7 +4772,7 @@ public class WorkDAO extends AbstractDAO
 				_do.setDtl_type(getCocdInfo(_do.getCartNo(),_do.getCartSeq()));
 
 				String xml = externalDAO.getNewDownloadXmlFormat(_do);//카트번호, 카트 순번을 받아 처리 한건씩.
-				logger.debug(xml);
+				//logger.debug(xml);
 
 
 				/**
@@ -5321,9 +5314,9 @@ public class WorkDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			if(logger.isDebugEnabled()) {
-				logger.debug("######selectMyDownloadAprroveListForIfCms######## query : " + query);
-			}
+//			if(logger.isDebugEnabled()) {
+//				logger.debug("######selectMyDownloadAprroveListForIfCms######## query : " + query);
+//			}
 			stmt = con.prepareStatement(query);
 
 			int index = 0;
@@ -5510,7 +5503,7 @@ public class WorkDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			logger.debug("######selectMyDownloadAprroveListForIfCms######## query : " + query);
+//			logger.debug("######selectMyDownloadAprroveListForIfCms######## query : " + query);
 			stmt = con.prepareStatement(query);
 
 			int index = 0;

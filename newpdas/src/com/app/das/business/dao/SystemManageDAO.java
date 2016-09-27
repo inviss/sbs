@@ -324,7 +324,7 @@ public class SystemManageDAO extends AbstractDAO
 			List resultList = new ArrayList();
 
 			String lastTime = null;
-			int period;
+			//int period;
 
 			while(rs.next())
 			{
@@ -948,7 +948,7 @@ public class SystemManageDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 
 			List resultList = new ArrayList();
 
@@ -1038,7 +1038,7 @@ public class SystemManageDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 
 			List resultList = new ArrayList();
 
@@ -1174,7 +1174,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, updateEndDate);
 			stmt.setString(++index, item.getUserId());
 
-			int updateCount = stmt.executeUpdate();
+		    stmt.executeUpdate();
 
 		} 
 		catch (SQLException e) 
@@ -1303,7 +1303,7 @@ public class SystemManageDAO extends AbstractDAO
 			stmt.setString(++index, commonDO.getUserId());
 			stmt.setInt(++index, item.getCartNo());
 
-			int updateCount = stmt.executeUpdate();
+		    stmt.executeUpdate();
 
 		} 
 		catch (SQLException e) 

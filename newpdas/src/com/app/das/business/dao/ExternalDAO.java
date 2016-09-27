@@ -409,7 +409,7 @@ public class ExternalDAO extends AbstractDAO
 	@Deprecated
 	public List selectMetadatInfoList(WorkStatusConditionDO conditionDO) throws Exception
 	{
-		int nDataCount = -1;
+		//int nDataCount = -1;
 
 		Map value = null;
 
@@ -486,7 +486,7 @@ public class ExternalDAO extends AbstractDAO
 	 */
 	public String selectMetadatInfoListForString(WorkStatusConditionDO conditionDO) throws Exception
 	{
-		int nDataCount = -1;
+		//int nDataCount = -1;
 
 		Map value = null;
 
@@ -919,7 +919,7 @@ public class ExternalDAO extends AbstractDAO
 	public DownCartDO insertCartInfo(DownCartDO downCartDO) throws Exception
 	{
 		// 먼저 DEPT_CD를 찾아온다.
-		String DEPT_CD = getDECP_CDFromUserID(downCartDO.getReqUsrid());
+		//String DEPT_CD = getDECP_CDFromUserID(downCartDO.getReqUsrid());
 
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n insert into DAS.DOWN_CART_TBL( ");
@@ -3484,8 +3484,8 @@ public class ExternalDAO extends AbstractDAO
 			rs = stmt.executeQuery();
 
 			List resultList = new ArrayList();
-			String[] cnInfo = new String[2];
-			String [] fileArray = null;
+			//String[] cnInfo = new String[2];
+			//String [] fileArray = null;
 
 			while(rs.next())
 			{
@@ -15545,10 +15545,10 @@ public class ExternalDAO extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) 
+//			{
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if(updateCount == 0)
 			{
@@ -16629,10 +16629,10 @@ public class ExternalDAO extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) 
+//			{
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if(updateCount == 0)
 			{
@@ -16709,10 +16709,10 @@ public class ExternalDAO extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) 
+//			{
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 
 
@@ -27371,10 +27371,10 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setString(++index, manualArchiveDO.getNew_media_id());
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) 
+//			{
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if(updateCount == 0)
 			{
@@ -28177,10 +28177,10 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setLong(++index, ct_id);
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) 
+//			{
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if(updateCount == 0)
 			{
@@ -28258,10 +28258,10 @@ public class ExternalDAO extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) 
+//			{
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if(updateCount == 0)
 			{

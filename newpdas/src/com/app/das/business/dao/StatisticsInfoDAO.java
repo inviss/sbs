@@ -2862,7 +2862,7 @@ public class StatisticsInfoDAO extends AbstractDAO
 		String query = StatisticsInfoStatement.selectSTAT_PHOT_USE_TBL_QUERY(conditionDO);
 
 
-		StatisticsDO statisticsDO = new StatisticsDO();
+		//StatisticsDO statisticsDO = new StatisticsDO();
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -2872,7 +2872,7 @@ public class StatisticsInfoDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(query);
 
-			int index = 0;
+			//int index = 0;
 
 			rs = stmt.executeQuery();
 
@@ -2914,7 +2914,7 @@ public class StatisticsInfoDAO extends AbstractDAO
 		String query = StatisticsInfoStatement.selectSTAT_GNR_ARCH_TBL_QUERY(conditionDO);
 
 
-		StatisticsDO statisticsDO = new StatisticsDO();
+		//StatisticsDO statisticsDO = new StatisticsDO();
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -2925,7 +2925,7 @@ public class StatisticsInfoDAO extends AbstractDAO
 			//logger.debug("######selectSTAT_GNR_ARCH_TBL_QUERY######## con : " + con);
 			stmt = con.prepareStatement(query);
 
-			int index = 0;
+			//int index = 0;
 
 			rs = stmt.executeQuery();
 
@@ -2972,7 +2972,7 @@ public class StatisticsInfoDAO extends AbstractDAO
 		String query = StatisticsInfoStatement.selectSTAT_PGM_ARCH_TBL_QUERY(conditionDO);
 
 
-		StatisticsDO statisticsDO = new StatisticsDO();
+		//StatisticsDO statisticsDO = new StatisticsDO();
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -2982,7 +2982,7 @@ public class StatisticsInfoDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(query);
 
-			int index = 0;
+			//int index = 0;
 
 			rs = stmt.executeQuery();
 
@@ -3024,7 +3024,7 @@ public class StatisticsInfoDAO extends AbstractDAO
 		String query = StatisticsInfoStatement.selectSTAT_DOWN_COCD_USE_TBL_List(info);
 
 
-		StatisticsDO statisticsDO = new StatisticsDO();
+		//StatisticsDO statisticsDO = new StatisticsDO();
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -3034,7 +3034,7 @@ public class StatisticsInfoDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 			//logger.debug("######selectSTAT_DEPT_USE_TBL_QUERY######## con : " + con);
 			stmt = con.prepareStatement(query);
-			int index = 0;
+			//int index = 0;
 
 			rs = stmt.executeQuery();
 

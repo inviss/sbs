@@ -4,15 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Calendar;
+
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
@@ -22,23 +22,16 @@ import com.app.das.business.constants.Constants;
 import com.app.das.business.constants.DASBusinessConstants;
 import com.app.das.business.constants.ErrorConstants;
 import com.app.das.business.dao.statement.DisuseStatement;
-import com.app.das.business.dao.statement.ExternalStatement;
-import com.app.das.business.dao.statement.UserRoleStatement;
 import com.app.das.business.exception.DASException;
 import com.app.das.business.transfer.ArchiveIngestInfoDO;
-import com.app.das.business.transfer.CodeDO;
 import com.app.das.business.transfer.DASCommonDO;
 import com.app.das.business.transfer.DiscardDO;
 import com.app.das.business.transfer.DisuseConditionDO;
 import com.app.das.business.transfer.DisuseDO;
-import com.app.das.business.transfer.NonEmployeeDASRoleDO;
 import com.app.das.business.transfer.PageDO;
-import com.app.das.business.transfer.SubCodeDO;
-import com.app.das.business.transfer.WorkStatusConditionDO;
 import com.app.das.log.DasPropHandler;
 import com.app.das.util.CalendarUtil;
 import com.app.das.util.DBService;
-import com.app.das.util.LoggableStatement;
 import com.app.das.util.StringUtils;
 
 /**
@@ -122,7 +115,7 @@ public class DisuseDAO extends AbstractDAO
 			rs = stmt.executeQuery();
 
 			List resultList = new ArrayList();
-			String id, sCd,mCd, lCd  = null;
+			String sCd,mCd, lCd  = null;
 			while(rs.next())
 			{
 				DisuseDO item = new DisuseDO();
@@ -1725,7 +1718,7 @@ public class DisuseDAO extends AbstractDAO
 			updateDel_StaInfo();
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -1806,11 +1799,11 @@ public class DisuseDAO extends AbstractDAO
 
 			stmt = con.prepareStatement(buf.toString());
 
-			int index = 0;
+			//int index = 0;
 			updateDel_StaInfo();
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -2019,7 +2012,7 @@ public class DisuseDAO extends AbstractDAO
 				//String dateString = roleDO.getRsv_prd_end_dd();
 				String dateString = CalendarUtil.getDateTime("yyyyMMdd");
 				String dateString2 = CalendarUtil.getDateTime("yyyyMMddHHmmss");
-				String strNow = CalendarUtil.getDateTime("yyyyMMddHHmmss");
+				//String strNow = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 				SimpleDateFormat formatter = new SimpleDateFormat ("yyyyMMdd");
 				Date date = formatter.parse(dateString);	
 				Date date2 = formatter.parse(dateString);	
@@ -2193,7 +2186,7 @@ public class DisuseDAO extends AbstractDAO
 
 				cancleDisuseInfoForMapp(Integer.parseInt(Ids[i]));
 
-				int itmp = stmt.executeUpdate();
+				stmt.executeUpdate();
 
 				//사용자 정보의 수정 내역을 등록한다.
 				//insertNonEmployeeRoleHistory(con, roleDO);
@@ -2284,7 +2277,7 @@ public class DisuseDAO extends AbstractDAO
 
 				String dateTime = CalendarUtil.getDateTime("yyyyMMdd");
 				try{
-					String dateString = roleDOs.getRsv_prd_end_dd();
+					//String dateString = roleDOs.getRsv_prd_end_dd();
 
 					SimpleDateFormat formatter = new SimpleDateFormat ("yyyyMMdd");
 
@@ -2573,7 +2566,7 @@ public class DisuseDAO extends AbstractDAO
 			int totalCount  = 
 					getTotalCount(con, DisuseStatement.selecHyenDiscardCount());
 
-			int index = 0;
+			//int index = 0;
 
 			rs = stmt.executeQuery();
 
@@ -2639,7 +2632,7 @@ public class DisuseDAO extends AbstractDAO
 
 			stmt = con.prepareStatement(buf.toString());
 
-			int index = 0;
+			//int index = 0;
 			updateDel_StaInfo();
 			rs = stmt.executeQuery();
 
@@ -2707,7 +2700,7 @@ public class DisuseDAO extends AbstractDAO
 
 			stmt = con.prepareStatement(buf.toString());
 
-			int index = 0;
+			//int index = 0;
 
 			rs = stmt.executeQuery();
 
@@ -2733,7 +2726,7 @@ public class DisuseDAO extends AbstractDAO
 				resultList.add(item);
 			}
 
-			int totalPageCount = totalCount / DASBusinessConstants.PageRowCount.USER_ROLE_ROW_COUNT  + (totalCount % DASBusinessConstants.PageRowCount.USER_ROLE_ROW_COUNT != 0 ? 1 : 0);
+			//int totalPageCount = totalCount / DASBusinessConstants.PageRowCount.USER_ROLE_ROW_COUNT  + (totalCount % DASBusinessConstants.PageRowCount.USER_ROLE_ROW_COUNT != 0 ? 1 : 0);
 
 
 			return resultList;
@@ -3005,7 +2998,7 @@ public class DisuseDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 
 			//현재 시간을 받아온다.
-			String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
+			//String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 
 			int index = 0;
 
@@ -3047,7 +3040,7 @@ public class DisuseDAO extends AbstractDAO
 	 */
 	public DiscardDO getDisCardInfo(int master_id) throws Exception
 	{
-		PageDO pageDO = new PageDO();
+		//PageDO pageDO = new PageDO();
 
 		StringBuffer buf = new StringBuffer();
 		buf.append(" select * FROM                                                      										\n");
@@ -3066,7 +3059,7 @@ public class DisuseDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 			DiscardDO item = new DiscardDO();
 			while(rs.next())
@@ -3134,7 +3127,7 @@ public class DisuseDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 
 			//현재 시간을 받아온다.
-			String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
+			//String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 
 			int index = 0;
 			if(rsvcd.equals("")){
@@ -3196,10 +3189,7 @@ public class DisuseDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(buf.toString());
 
-
-			int index = 0;
-
-
+			//int index = 0;
 
 			int updateCount = stmt.executeUpdate();
 
@@ -3249,7 +3239,7 @@ public class DisuseDAO extends AbstractDAO
 			stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();	
 
-			int nCount = 0;
+			//int nCount = 0;
 			if (rs.next()){
 				nMap.put("CCOUNT", rs.getInt("CCOUNT"));
 				nMap.put("SUM_BRD_LENG",rs.getInt("SUM_BRD_LENG"));
@@ -3298,11 +3288,11 @@ public class DisuseDAO extends AbstractDAO
 
 			stmt = con.prepareStatement(buf.toString());
 
-			int index = 0;
+			//int index = 0;
 			updateDel_StaInfo();
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 			int master=0;
 			DiscardDO item = new DiscardDO();

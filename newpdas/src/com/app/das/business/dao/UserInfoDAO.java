@@ -70,7 +70,7 @@ public class UserInfoDAO  extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			if(rs.next())
@@ -182,7 +182,7 @@ public class UserInfoDAO  extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			if(rs.next())
@@ -242,12 +242,12 @@ public class UserInfoDAO  extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			if(rs.next())
 			{
-				int passwdErrorCount = rs.getInt("PW_ERN");
+				//int passwdErrorCount = rs.getInt("PW_ERN");
 				//				if(DASBusinessConstants.PASSWD_FAIL_MAX_COUNT == passwdErrorCount)
 				//				{
 				//			        DASException exception = new DASException(ErrorConstants.EXCESS_MAX_PASSWD_FAIL_COUNT, " 비밀번호 최대 실패 횟수를 초과했습니다.");
@@ -369,12 +369,12 @@ public class UserInfoDAO  extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			if(rs.next())
 			{
-				int passwdErrorCount = rs.getInt("PW_ERN");
+				//int passwdErrorCount = rs.getInt("PW_ERN");
 				//				if(DASBusinessConstants.PASSWD_FAIL_MAX_COUNT == passwdErrorCount)
 				//				{
 				//			        DASException exception = new DASException(ErrorConstants.EXCESS_MAX_PASSWD_FAIL_COUNT, " 비밀번호 최대 실패 횟수를 초과했습니다.");
@@ -509,7 +509,7 @@ public class UserInfoDAO  extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			if(rs.next())
@@ -575,7 +575,7 @@ public class UserInfoDAO  extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 
 			if(rs.next())
 			{
@@ -714,7 +714,7 @@ public class UserInfoDAO  extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -804,7 +804,7 @@ public class UserInfoDAO  extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -860,7 +860,7 @@ public class UserInfoDAO  extends AbstractDAO
 		buf.append("\n 	MODRID = ? ");
 		buf.append("\n where OUT_USER_ID = ?  ");		
 
-		boolean isUpdate = false;
+		//boolean isUpdate = false;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try 
@@ -878,10 +878,10 @@ public class UserInfoDAO  extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) 
+//			{
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if(updateCount == 0)
 			{
@@ -918,7 +918,7 @@ public class UserInfoDAO  extends AbstractDAO
 		buf.append("\n 	MODRID = ? ");
 		buf.append("\n where OUT_USER_ID = ?  ");		
 
-		boolean isUpdate = false;
+		//boolean isUpdate = false;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try 
@@ -936,10 +936,10 @@ public class UserInfoDAO  extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) 
+//			{
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if(updateCount == 0)
 			{
@@ -979,7 +979,7 @@ public class UserInfoDAO  extends AbstractDAO
 		buf.append("\n ) ");
 		buf.append("\n values(?, ?, ?, ?, ?, ?) ");
 
-		boolean isUpdate = false;
+		//boolean isUpdate = false;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try 
@@ -1000,10 +1000,10 @@ public class UserInfoDAO  extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) 
-			{
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) 
+//			{
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 		} 
 

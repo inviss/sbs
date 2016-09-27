@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -30,8 +29,6 @@ import com.app.das.util.CalendarUtil;
 import com.app.das.util.CodeCommon;
 import com.app.das.util.DBService;
 import com.konantech.search.data.ParameterVO;
-import com.konantech.search.data.ResultVO;
-import com.konantech.search.module.SearchModule;
 import com.konantech.search.util.DCUtil;
 import com.konantech.search.util.ExportXML;
 /**
@@ -45,7 +42,7 @@ public class SearchDAO extends AbstractDAO
 
 	private static SearchDAO instance;
 
-	private static ResourceBundle bundle = ResourceBundle.getBundle("search");
+	//private static ResourceBundle bundle = ResourceBundle.getBundle("search");
 
 	/**
 	 * A private constructor
@@ -1640,7 +1637,7 @@ public class SearchDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 
 			List resultList = new ArrayList();
 
@@ -1759,7 +1756,7 @@ public class SearchDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 
 			//현재 시간을 받아온다.
-			String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
+			//String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 
 			int index = 0;
 
@@ -2590,10 +2587,11 @@ public class SearchDAO extends AbstractDAO
 				logger.debug("Search pageNum ["+pageNum+"]");
 				logger.debug("Search pageSize ["+pageSize+"]");
 			}
-			long time1;long time2;
-			time1 = System.currentTimeMillis();
+			//long time1;
+			//long time2;
+			//time1 = System.currentTimeMillis();
 			String xml = ExportXML.search(scn, query.toString(),orderBy, pageNum, pageSize, 1, 1 );
-			time2 = System.currentTimeMillis();
+			//time2 = System.currentTimeMillis();
 			//logger.debug("getSearchText end time : "+ ((time2 - time1)/1000.0f) +"초");
 			return xml;
 
@@ -2603,19 +2601,19 @@ public class SearchDAO extends AbstractDAO
 	}
 
 	public String getSearchTextTest(ParameterVO srchParam) throws Exception{
-		ResultVO rVO = new ResultVO();
-		SearchModule objDOCRUZER = new SearchModule();
+		//ResultVO rVO = new ResultVO();
+		//SearchModule objDOCRUZER = new SearchModule();
 
 		/************************************/
 		/* 변수 초기화 및 카테고리별 설정                   */
 		/************************************/
 		String scn = srchParam.getScn();						//시나리오 
 		String orderBy = "";									//정렬문 (ex : order by regdate desc)
-		String orderNm = "";									//정렬명 (ex : 날짜순)
+		//String orderNm = "";									//정렬명 (ex : 날짜순)
 		int pageNum = srchParam.getPageNum();					// 페이지 번호
 		int pageSize = srchParam.getPageSize();					// 페이지 사이즈
-		String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
-		String logInfo = "";									// 검색로그
+		//String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
+		//String logInfo = "";									// 검색로그
 		StringBuffer query = new StringBuffer();				// 검색 쿼리
 		String srchFdNm = "text_idx"; 
 		/***************************************************************************/
@@ -2644,8 +2642,8 @@ public class SearchDAO extends AbstractDAO
 	 * @throws Exception 
 	 */
 	public String getSearchTextForDetail(ParameterVO srchParam) throws Exception{
-		ResultVO rVO = new ResultVO();
-		SearchModule objDOCRUZER = new SearchModule();
+		//ResultVO rVO = new ResultVO();
+		//SearchModule objDOCRUZER = new SearchModule();
 
 		/************************************/
 		/* 변수 초기화 및 카테고리별 설정                   */
@@ -2655,18 +2653,18 @@ public class SearchDAO extends AbstractDAO
 		String orderNm = "";									//정렬명 (ex : 날짜순)
 		int pageNum = srchParam.getPageNum();					// 페이지 번호
 		int pageSize = srchParam.getPageSize();					// 페이지 사이즈
-		String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
-		String logInfo = "";									// 검색로그
+		//String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
+		//String logInfo = "";									// 검색로그
 		StringBuffer query = new StringBuffer();				// 검색 쿼리
 		String srchFdNm = "text_idx"; 
 		/***************************************************************************/
 
-		int rc = 0;
+		//int rc = 0;
 
 		//로그포맷
 		query = DCUtil.makeQuery("DELETE_FLAG ", "N", "", query, "and"); 
-		logInfo = DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
-				srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
+		DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
+			srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
 				srchParam.getRecKwd());
 
 		if (srchParam.getReSrchFlag() && srchParam.getPreKwds() != null) {
@@ -2750,8 +2748,8 @@ public class SearchDAO extends AbstractDAO
 	 * @throws Exception 
 	 */
 	public String getSearchTextForMain(ParameterVO srchParam) throws Exception{
-		ResultVO rVO = new ResultVO();
-		SearchModule objDOCRUZER = new SearchModule();
+		//ResultVO rVO = new ResultVO();
+		//SearchModule objDOCRUZER = new SearchModule();
 
 		/************************************/
 		/* 변수 초기화 및 카테고리별 설정                   */
@@ -2761,14 +2759,14 @@ public class SearchDAO extends AbstractDAO
 		String orderNm = "";									//정렬명 (ex : 날짜순)
 		int pageNum = srchParam.getPageNum();					// 페이지 번호
 		int pageSize = srchParam.getPageSize();					// 페이지 사이즈
-		String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
-		String logInfo = "";									// 검색로그
+		//String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
+		//String logInfo = "";									// 검색로그
 		StringBuffer query = new StringBuffer();				// 검색 쿼리
 		String srchFdNm = "text_idx"; 
 		/***************************************************************************/
 		// kwd값이 있을 경우만 쿼리를 수행함.
 		if (srchParam.getKwd() != null && srchParam.getKwd().length() > 0) { 
-			int rc = 0;
+			//int rc = 0;
 
 			if("annot".equalsIgnoreCase(srchParam.getScn())){
 				// 주제영상 구분에 대한 전처리 
@@ -2784,7 +2782,7 @@ public class SearchDAO extends AbstractDAO
 			}
 
 			//로그포맷
-			logInfo = DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
+			 DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
 					srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
 					srchParam.getRecKwd());
 

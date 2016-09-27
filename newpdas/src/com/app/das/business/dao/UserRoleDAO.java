@@ -789,9 +789,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -983,9 +983,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -1056,9 +1056,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -1130,9 +1130,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -1196,9 +1196,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -1246,9 +1246,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -1304,9 +1304,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -1370,9 +1370,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -1975,9 +1975,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -2079,9 +2079,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -2234,9 +2234,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 		} catch (SQLException e) {
 			logger.error(buf.toString());
@@ -3070,9 +3070,9 @@ public class UserRoleDAO extends AbstractDAO {
 			updateCount = stmt.executeUpdate();
 
 			// }
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -3162,9 +3162,9 @@ public class UserRoleDAO extends AbstractDAO {
 				updateCount = stmt.executeUpdate();
 				updateCount = 0 + updateCount;
 			}
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -3664,9 +3664,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -4056,9 +4056,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -4240,9 +4240,9 @@ public class UserRoleDAO extends AbstractDAO {
 			}
 			updateCount += updateCount;
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -4375,9 +4375,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			}
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -4537,9 +4537,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -4847,9 +4847,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -4920,9 +4920,9 @@ public class UserRoleDAO extends AbstractDAO {
 			stmt.setString(++index, user_num);
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -6265,9 +6265,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Inserted Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Inserted Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -6345,9 +6345,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Inserted Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Inserted Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -6432,7 +6432,7 @@ public class UserRoleDAO extends AbstractDAO {
 			int index = 0;
 
 			//index = 0;
-			logger.debug("#####infoDO  "+infoDO);
+//			logger.debug("#####infoDO  "+infoDO);
 			stmt.setString(++index, infoDO.getCocd());
 			stmt.setString(++index, infoDO.getDept_cd());
 			stmt.setString(++index, infoDO.getDept_chap_emp_no());
@@ -6452,9 +6452,9 @@ public class UserRoleDAO extends AbstractDAO {
 			stmt.setString(++index, infoDO.getCocd());
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Inserted Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Inserted Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -6951,9 +6951,9 @@ public class UserRoleDAO extends AbstractDAO {
 			if (roleDO.getDelete_yn().equals("Y")) {
 				deleteApproveUser(roleDO.getDelete_yn());
 			}
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -7098,9 +7098,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -7704,9 +7704,9 @@ public class UserRoleDAO extends AbstractDAO {
 			stmt.setString(++index, roleDO.getSbs_user_ID());
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -7779,7 +7779,6 @@ public class UserRoleDAO extends AbstractDAO {
 
 			//			EmployeeInfoDO item = new EmployeeInfoDO();
 			while (rs.next()) {
-
 				orgpassword = rs.getString("password");
 			}
 			logger.debug("orgpassword [ " + orgpassword+"]");
@@ -7834,7 +7833,7 @@ public class UserRoleDAO extends AbstractDAO {
 				item.setAcct_code(rs.getString("acct_code"));
 				acct_code = item.getAcct_code();
 			}
-			logger.debug("acct_code   == " + acct_code);
+//			logger.debug("acct_code   == " + acct_code);
 			return acct_code;
 		}  catch (Exception e) {
 			logger.error(buf.toString());
@@ -7976,9 +7975,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			return updateCount;
 		} catch (Exception e) {
@@ -8032,9 +8031,9 @@ public class UserRoleDAO extends AbstractDAO {
 			stmt.setString(++index, roleDO.getReg_id());
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -8109,9 +8108,9 @@ public class UserRoleDAO extends AbstractDAO {
 			stmt.setString(++index, roleDO.getReg_id());
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -8198,9 +8197,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 
 
@@ -8560,9 +8559,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -8714,9 +8713,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -8973,9 +8972,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -9252,9 +9251,9 @@ public class UserRoleDAO extends AbstractDAO {
 			}
 			updateCount += updateCount;
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -9461,9 +9460,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			int updateCount = stmt.executeUpdate();
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Inserted Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Inserted Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -9641,9 +9640,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 			}
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			if (updateCount == 0) {
 				// 여기서 에러를 던진다.
@@ -9809,9 +9808,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			// 사용자 정보의 수정 내역을 등록한다.
 			// insertNonEmployeeRoleHistory(con, beforeRoleDO);
@@ -10235,9 +10234,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			deleteMonitoringInfoForPerm(roleDO);
 			con.commit();
@@ -10307,9 +10306,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			con.commit();
 			return updateCount;
@@ -10381,9 +10380,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			updateMonitoringInfoForPerm(roleDO);
 			con.commit();
@@ -10454,9 +10453,9 @@ public class UserRoleDAO extends AbstractDAO {
 
 
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("[Update Count]" + updateCount);
-			}
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("[Update Count]" + updateCount);
+//			}
 
 			con.commit();
 			return updateCount;

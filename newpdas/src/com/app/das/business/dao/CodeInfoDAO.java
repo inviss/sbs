@@ -725,7 +725,7 @@ public class CodeInfoDAO extends AbstractDAO
 	 */
 	public List getJanrCodeList11(CodeDO condition) throws Exception
 	{
-		PageDO pageDO = new PageDO();
+		//PageDO pageDO = new PageDO();
 
 		StringBuffer buf = new StringBuffer();
 
@@ -742,11 +742,9 @@ public class CodeInfoDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(buf.toString());
 
-			int index = 0;
-
+			//int index = 0;
 			rs = stmt.executeQuery();
-
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -757,8 +755,6 @@ public class CodeInfoDAO extends AbstractDAO
 				item.setSclCd(				rs.getString("SCL_CD"));
 				item.setDesc(rs.getString("DESC"));
 				item.setUseYn(rs.getString("USE_YN"));
-
-
 
 				resultList.add(item);
 			}
@@ -787,7 +783,7 @@ public class CodeInfoDAO extends AbstractDAO
 	 */
 	public List getJanrCodeList(CodeDO condition) throws Exception
 	{
-		PageDO pageDO = new PageDO();
+		//PageDO pageDO = new PageDO();
 
 		StringBuffer buf = new StringBuffer();
 
@@ -803,13 +799,9 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(buf.toString());
-
-
-			int index = 0;
-
+			//int index = 0;
 			rs = stmt.executeQuery();
-
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -879,7 +871,7 @@ public class CodeInfoDAO extends AbstractDAO
 
 			stmt = con.prepareStatement(buf.toString());
 
-			int index = 0;
+			//int index = 0;
 
 		} catch(Exception e) {
 			con.rollback();
@@ -909,13 +901,13 @@ public class CodeInfoDAO extends AbstractDAO
 
 		String scl_cd = "";
 		int scl_cd_value = 0;
-		String scl_cd_val="";
+		//String scl_cd_val="";
 		String scl_cd_result = "";
 
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(buf.toString());
@@ -967,9 +959,7 @@ public class CodeInfoDAO extends AbstractDAO
 		buf.append("\n and SCL_CD  < '"+Mcode2+"' ");
 		buf.append("\n WITH UR	 ");
 
-
-
-		String scl_cd = "";
+		//String scl_cd = "";
 
 		String scl_cd_result = "";
 		String scl_cd_value1[] = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
@@ -984,19 +974,13 @@ public class CodeInfoDAO extends AbstractDAO
 			//logger.debug("######creatMcode######## con : " + con);
 			stmt = con.prepareStatement(buf.toString());
 
-
 			rs = stmt.executeQuery();
-
 
 			try{
 				while(rs.next())
 				{
-
 					CodeDO item = new CodeDO();
-
 					item.setSclCd(				rs.getString("SCL_CD"));
-
-
 
 					if (rs.getString("SCL_CD")!="") {
 						for(int i=0 ; i<scl_cd_value2.length; i++){
@@ -1009,17 +993,11 @@ public class CodeInfoDAO extends AbstractDAO
 							}
 						}
 
-
 						for(int i=0 ; i<scl_cd_value1.length; i++){
-
 							if(item.getSclCd().substring(1,2).equals(scl_cd_value1[i])){
-
 								scl_cd_result = Mcode.substring(0, 1) + scl_cd_value1[i+1]+"0";;
 								return scl_cd_result;
 							}
-
-
-
 						}
 					}
 				}
@@ -1061,9 +1039,6 @@ public class CodeInfoDAO extends AbstractDAO
 		buf.append("\n and SCL_CD  <= '"+scode+"Z"+"' ");
 		buf.append("\n WITH UR	 ");
 
-
-
-
 		String scl_cd_value[] = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 		String scl_cd_value2[] = {"1","2","3","4","5","6","7","8","9"};
 		String scl_cd_result = "";
@@ -1076,9 +1051,7 @@ public class CodeInfoDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(buf.toString());
 
-
 			rs = stmt.executeQuery();
-
 
 			try{
 				while(rs.next())
@@ -1087,8 +1060,6 @@ public class CodeInfoDAO extends AbstractDAO
 					CodeDO item = new CodeDO();
 
 					item.setSclCd(				rs.getString("SCL_CD"));
-
-
 
 					if (rs.getString("SCL_CD") != "") {
 						for(int i=0 ; i<=scl_cd_value2.length -1; i++){
@@ -1664,7 +1635,7 @@ public class CodeInfoDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -1744,12 +1715,7 @@ public class CodeInfoDAO extends AbstractDAO
 			int updateCount = stmt.executeUpdate();
 
 			if (logger.isDebugEnabled()) 
-			{
 				logger.debug("[Inserted Count]" + updateCount);
-			}
-
-
-
 
 			con.commit();
 			return updateCount;
@@ -1764,11 +1730,9 @@ public class CodeInfoDAO extends AbstractDAO
 				try {
 					con.rollback();
 				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
 					e1.printStackTrace();
 				}
 			}
-
 
 			throw e;
 		}
@@ -1777,7 +1741,6 @@ public class CodeInfoDAO extends AbstractDAO
 			try {
 				con.setAutoCommit(false);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			release(null, stmt, con);
@@ -1852,7 +1815,7 @@ public class CodeInfoDAO extends AbstractDAO
 	 */
 	public List selectMainKeyList() throws Exception
 	{
-		PageDO pageDO = new PageDO();
+		//PageDO pageDO = new PageDO();
 
 		StringBuffer buf = new StringBuffer();
 
@@ -1866,11 +1829,9 @@ public class CodeInfoDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 
 			stmt = con.prepareStatement(buf.toString());
-			int index = 0;
-
+			//int index = 0;
 			rs = stmt.executeQuery();
-
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -1979,13 +1940,11 @@ public class CodeInfoDAO extends AbstractDAO
 	 */
 	public List getArchiveRoute(String xml ) throws Exception
 	{
-		PageDO pageDO = new PageDO();
+		//PageDO pageDO = new PageDO();
 
 		StringBuffer buf = new StringBuffer();
 
 		buf.append(CodeInfoStatement.selectArchrouteQuery());
-
-
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -1993,15 +1952,10 @@ public class CodeInfoDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-
 			stmt = con.prepareStatement(buf.toString());
-
-
-			int index = 0;
-
+			//int index = 0;
 			rs = stmt.executeQuery();
-
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 			while(rs.next())
 			{
@@ -2040,7 +1994,7 @@ public class CodeInfoDAO extends AbstractDAO
 	 */
 	public List getChennelInfo(CodeDO codeDO) throws Exception
 	{
-		PageDO pageDO = new PageDO();
+		//PageDO pageDO = new PageDO();
 
 		StringBuffer buf = new StringBuffer();
 
@@ -2054,15 +2008,10 @@ public class CodeInfoDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-
 			stmt = con.prepareStatement(buf.toString());
-
-
-			int index = 0;
-
+			//int index = 0;
 			rs = stmt.executeQuery();
-
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -2071,7 +2020,6 @@ public class CodeInfoDAO extends AbstractDAO
 
 				item.setSclCd(		rs.getString("SCL_CD"));				
 				item.setDesc(		rs.getString("DESC"));
-
 
 				resultList.add(item);
 
@@ -2102,7 +2050,7 @@ public class CodeInfoDAO extends AbstractDAO
 	 */
 	public List getCocdForChennel() throws Exception
 	{
-		PageDO pageDO = new PageDO();
+		//PageDO pageDO = new PageDO();
 
 		StringBuffer buf = new StringBuffer();
 
@@ -2120,11 +2068,11 @@ public class CodeInfoDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 
 
-			int index = 0;
+			//int index = 0;
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
@@ -2226,7 +2174,7 @@ public class CodeInfoDAO extends AbstractDAO
 	 */
 	public List selectCodeInfo2(CodeDO codeDO) throws Exception
 	{
-		PageDO pageDO = new PageDO();
+		//PageDO pageDO = new PageDO();
 
 		StringBuffer buf = new StringBuffer();
 
@@ -2244,11 +2192,11 @@ public class CodeInfoDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 
 
-			int index = 0;
+			//int index = 0;
 
 			rs = stmt.executeQuery();
 
-			int indexCount = 0;
+			//int indexCount = 0;
 			List resultList = new ArrayList();
 
 			while(rs.next())
