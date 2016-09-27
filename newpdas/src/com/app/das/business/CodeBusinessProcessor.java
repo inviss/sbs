@@ -48,6 +48,7 @@ public class CodeBusinessProcessor
 		try 
 		{
 			
+			
 			//clf_cd값이 없다면 주제영상, 사용등급 코드를 조회하고 그렇지 않으면 입력받은 clf_cd에 소속된 코드 정보를 조회한다.
 			if(codeDO.getClfCd().equals("")){
 			return codeInfoDAO.selectCodeList(codeDO);
