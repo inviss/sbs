@@ -1,12 +1,7 @@
 package com.app.das.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -14,12 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-import com.app.das.business.transfer.ArchiveInfoDO;
-import com.app.das.business.transfer.DepInfoDO;
 import com.app.das.business.transfer.PgmInfoDO;
-import com.app.das.business.transfer.PgmUserInfoDO;
-import com.app.das.business.transfer.PhotoInfoDO;
 import com.app.das.util.CommonUtl;
 /**
  * 프로그램  정보 관련 XML파서
@@ -115,8 +105,8 @@ public class PgmInfoDOXML extends DOXml{
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
 			String _nodeValue = CommonUtl.transXMLText(getNodeValue(_node));
-			NamedNodeMap startAttr = _node.getAttributes();
-			String nodeValue = getNodeValue(_node);
+			//NamedNodeMap startAttr = _node.getAttributes();
+			//String nodeValue = getNodeValue(_node);
 
 
 			if(_nodeName.equals(XML_NODE_PROGRAM_CODE)) {
@@ -135,23 +125,18 @@ public class PgmInfoDOXML extends DOXml{
 					String nName = nde.getNodeName() ;
 					String nValue = getNodeValue(nde);
 					NamedNodeMap CpdAttr = nde.getAttributes();
-					String _nValue = getNodeValue(nde);
+					//String _nValue = getNodeValue(nde);
 
 					if(nName.equals(XML_NODE_PPRODUCTION_PRODUCER_ID)){
 						for(int k = 0; k<CpdAttr.getLength();k++){
 							Node attr = CpdAttr.item(k);
 							String nodeName = attr.getNodeName() ;
-							String att= attr.getNodeValue();
-
+							//String att= attr.getNodeValue();
 							//	 infoDO.setSuccess_yn(att);
-
-
-
 							if(nodeName.equals("id")){
 								//infoDO.setCid(attr.getNodeValue());
 								cidList +=","+attr.getNodeValue();
 								infoDO.setCid(cidList);
-
 							}					
 
 						}
@@ -173,16 +158,12 @@ public class PgmInfoDOXML extends DOXml{
 					String nName = nde.getNodeName() ;
 					String nValue = getNodeValue(nde);
 					NamedNodeMap PdAttr = nde.getAttributes();
-					String _nValue = getNodeValue(nde);
+					//String _nValue = getNodeValue(nde);
 					if(nName.equals(XML_NODE_PRODUCER_ID)){
 						for(int k = 0; k<PdAttr.getLength();k++){
 							Node attr = PdAttr.item(k);
 							String nodeName = attr.getNodeName() ;
-							String att= attr.getNodeValue();
-
-
-
-
+							//String att= attr.getNodeValue();
 							if(nodeName.equals("id")){
 								pidList += ","+attr.getNodeValue();
 								infoDO.setPid(pidList);

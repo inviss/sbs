@@ -1,22 +1,11 @@
 package com.app.das.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-import com.app.das.business.transfer.DepInfoDO;
-import com.app.das.business.transfer.PhotoInfoDO;
 import com.app.das.business.transfer.TcBeanDO;
 import com.app.das.util.CommonUtl;
 /**
@@ -225,14 +214,7 @@ public class TcBeanDOXML extends DOXml{
 	/**
 	 * 파일명(H.264)
 	 */
-	private String XML_NODE_INPUT_H264_NM  = "INPUT_H264_NM";
-
-
-
-
-
-
-
+	//private String XML_NODE_INPUT_H264_NM  = "INPUT_H264_NM";
 	//H264
 
 	/**

@@ -1,7 +1,5 @@
 package com.app.das.services;
 
-import java.math.BigInteger;
-
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -65,11 +63,11 @@ public class DivaManagerDOXML extends DOXml {
 	/** 
 	 * 마스터id
 	 */
-	private String XML_NODE_MASTER_ID = "master_id";
+	//private String XML_NODE_MASTER_ID = "master_id";
 	/** 
 	 * 프로그램id
 	 */
-	private String XML_NODE_PGM_ID = "pgm_id";
+	//private String XML_NODE_PGM_ID = "pgm_id";
 	
 	/** 
 	 * 작업구분

@@ -1,12 +1,7 @@
 package com.app.das.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -14,16 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-import com.app.das.business.constants.Constants;
-import com.app.das.business.transfer.ArchiveInfoDO;
-import com.app.das.business.transfer.CartContDO;
-import com.app.das.business.transfer.DepInfoDO;
 import com.app.das.business.transfer.EmployeeInfoDO;
-import com.app.das.business.transfer.PaUserInfoDO;
-import com.app.das.business.transfer.PgmInfoDO;
-import com.app.das.business.transfer.PgmUserInfoDO;
-import com.app.das.business.transfer.PhotoInfoDO;
 import com.app.das.util.CommonUtl;
 /**
  *  유져 관리 정보 관련 XML파서
@@ -113,7 +99,7 @@ public class AllUserInfoDOXML extends DOXml{
 	/**
 	 * 해더1
 	 */
-	private String mamex_request="mamex_request";
+	//private String mamex_request="mamex_request";
 	/**
 	 * 해더2
 	 */
@@ -125,7 +111,7 @@ public class AllUserInfoDOXML extends DOXml{
 	/**
 	 * 시스템id
 	 */
-	private String system_id="system_id";
+	//private String system_id="system_id";
 	/**
 	 * 아이디
 	 */
@@ -393,12 +379,8 @@ public class AllUserInfoDOXML extends DOXml{
 	}
 
 	public String getSubXML() {
-		EmployeeInfoDO infoDO = (EmployeeInfoDO)getDO();
-
+		//EmployeeInfoDO infoDO = (EmployeeInfoDO)getDO();
 		String _xml = "<" + XML_NODE_HEAD + "> \n";
-
-
-
 		_xml = _xml + "</" + XML_NODE_HEAD + ">";
 
 		return _xml;

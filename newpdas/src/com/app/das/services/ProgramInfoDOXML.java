@@ -9,7 +9,6 @@ import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.ProgramInfoDO;
 import com.app.das.util.CommonUtl;
-import com.app.das.webservices.PDASServices;
 /**
  *   프로그램 메타 정보 관련 XML파서
  * @author asura207
@@ -130,7 +129,7 @@ public class ProgramInfoDOXML extends DOXml {
 	/**
 	 *  방송길이
 	 */
-	private String XML_NODE_PGM_CD = "PGM_CD";	//
+	//private String XML_NODE_PGM_CD = "PGM_CD";	//
 	/**
 	 * 제작부서명
 	 */

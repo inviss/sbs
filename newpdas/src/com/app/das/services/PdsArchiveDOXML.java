@@ -290,7 +290,9 @@ public class PdsArchiveDOXML extends DOXml{
 	static public List attatches = new ArrayList();
 
 	public Object setDO(String _xml) {
-		logger.debug(_xml);
+		if(logger.isDebugEnabled())
+			logger.debug(_xml);
+		
 		setDO(new PdsArchiveDO());
 
 		Document _document = getDocument(_xml);
@@ -871,8 +873,8 @@ public class PdsArchiveDOXML extends DOXml{
 						String nName = nde.getNodeName() ;
 						String nValue = getNodeValue(nde);
 
-						NamedNodeMap CpdAttr = nde.getAttributes();
-						String _nValue = getNodeValue(nde);
+						//NamedNodeMap CpdAttr = nde.getAttributes();
+						//String _nValue = getNodeValue(nde);
 						NodeList nList_1 = nde.getChildNodes();
 						int leng_1 = nList_1.getLength();	
 						if(nName.equals(XML_NODE_PREVIEW_FILE_NM)) {
@@ -972,7 +974,7 @@ public class PdsArchiveDOXML extends DOXml{
 	}
 
 	public String getSubXML() {
-		PdsArchiveDO infoDO = (PdsArchiveDO)getDO();
+		//PdsArchiveDO infoDO = (PdsArchiveDO)getDO();
 
 		String _xml = "<" + XML_NODE_HEAD + "> \n";
 		_xml = _xml + "</" + XML_NODE_HEAD + ">";

@@ -8,7 +8,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.transfer.BoardDO;
 import com.app.das.business.transfer.NdsDownDO;
 import com.app.das.business.transfer.PdsDownDO;
 import com.app.das.util.CommonUtl;
@@ -26,15 +25,15 @@ public class NdsDownDOXML extends DOXml {
 	/**
 	 * 메타데이터 genrator 이름
 	 */
-	private String XML_NODE_GENERATOR_NAME = "board_id";
+	//private String XML_NODE_GENERATOR_NAME = "board_id";
 	/**
 	 *  메타데이터 genrator 버전
 	 */
-	private String XML_NODE_GENERATOR_VER="board_type_cd";
+	//private String XML_NODE_GENERATOR_VER="board_type_cd";
 	/**
 	 * 제목
 	 */
-	private String XML_NODE_TOTAL_STREAM_SIZE="TOTAL_STREAM_SIZE";
+	//private String XML_NODE_TOTAL_STREAM_SIZE="TOTAL_STREAM_SIZE";
 
 
 	/**
@@ -163,7 +162,7 @@ public class NdsDownDOXML extends DOXml {
 		File oFile = new File(pdsdown.getDown_path()+file_nm);
 
 		if (oFile.exists()) {
-			long L = oFile.length();
+			//long L = oFile.length();
 			//System.out.println(L + " bytes : " + oFile.getAbsoluteFile());
 		}
 		else {

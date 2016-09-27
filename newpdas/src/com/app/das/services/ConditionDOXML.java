@@ -6,7 +6,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.transfer.MetaInfoDO;
 import com.app.das.business.transfer.WorkStatusConditionDO;
 import com.app.das.util.CommonUtl;
 
@@ -149,7 +148,7 @@ public class ConditionDOXML extends DOXml {
 	/**
 	 * 종료페이지
 	 */
-	private String XML_NODE_END_PAGE = "end_page";
+	//private String XML_NODE_END_PAGE = "end_page";
 	/**
 	 * 요청 등록일 
 	 */

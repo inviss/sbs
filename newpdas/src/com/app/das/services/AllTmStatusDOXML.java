@@ -3,17 +3,11 @@ package com.app.das.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.dao.ExternalDAO;
-import com.app.das.business.transfer.CodeDO;
-import com.app.das.business.transfer.DiscardDO;
-import com.app.das.business.transfer.PaUserInfoDO;
 import com.app.das.business.transfer.TransferDO;
 import com.app.das.util.CommonUtl;
 /**
@@ -56,11 +50,11 @@ public class AllTmStatusDOXML extends DOXml{
 	/**
 	 * 목적지 코드
 	 */
-	private String XML_NODE_DESTINATION = "Destination";
-	private Logger logger = Logger.getLogger(ExternalDAO.class);
+	//private String XML_NODE_DESTINATION = "Destination";
+	//private Logger logger = Logger.getLogger(ExternalDAO.class);
 	public Object getStatus(String _xml){
-		Document _document = getDocument(_xml);
-		Element _rootElement = _document.getDocumentElement();
+		//Document _document = getDocument(_xml);
+		//Element _rootElement = _document.getDocumentElement();
 		//System.out.println("_rootElement"+_rootElement);
 
 		return getDO();
@@ -132,8 +126,7 @@ public class AllTmStatusDOXML extends DOXml{
 	}
 
 	public String getSubXML() {
-		TransferDO infoDO = (TransferDO)getDO();
-
+		//TransferDO infoDO = (TransferDO)getDO();
 		String _xml = "<" + XML_NODE_HEAD+ ">";
 
 		//		_xml = _xml + "<" + XML_NODE_SEQ+ ">" + infoDO.getSeq() + "</"  + XML_NODE_SEQ + ">";

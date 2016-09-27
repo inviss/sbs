@@ -4,14 +4,9 @@ import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList; 
-
-import com.app.das.business.constants.Constants;
-
+import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.EmployeeDASRoleDO;
-import com.app.das.business.transfer.NonEmployeeDASRoleDO;
-import com.app.das.business.transfer.SubsidiaryinfoDO;
 import com.app.das.util.CommonUtl;
 
 
@@ -201,13 +196,14 @@ public class EmployeeDASRoleDOXML extends DOXml {
 		return employeeroleconditionDO;
 	}
 	public String toXML() {
+		
+		StringBuffer _xml = new StringBuffer();
+		 _xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+		 _xml.append("<das>");
+		 _xml.append(getSubXML());
+		 _xml.append("</das>");
 
-		String _xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-		_xml = _xml + "<das>";
-		_xml = _xml + getSubXML();
-		_xml = _xml + "</das>";
-
-		return _xml;
+		return _xml.toString();
 	}
 
 

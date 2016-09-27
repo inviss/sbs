@@ -1,22 +1,12 @@
 
 package com.app.das.services;
 
-import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList; 
+import org.w3c.dom.NodeList;
 
-import com.app.das.business.constants.Constants;
-
-
-import com.app.das.business.transfer.AuthorDO;
-import com.app.das.business.transfer.ManualArchiveDO;
-import com.app.das.business.transfer.MediaArchiveDO;
-import com.app.das.business.transfer.NonEmployeeDASRoleDO;
-import com.app.das.business.transfer.NonEmployeeInfoDO;
 import com.app.das.business.transfer.WmvH264DO;
-import com.app.das.log.DasPropHandler;
 import com.app.das.util.CommonUtl;
 
 
@@ -26,7 +16,7 @@ import com.app.das.util.CommonUtl;
  *
  */
 public class WmvH264DOXML extends DOXml {
-	private static DasPropHandler dasHandler = DasPropHandler.getInstance();
+	//private static DasPropHandler dasHandler = DasPropHandler.getInstance();
 	/**
 	 * xml 헤더
 	 */

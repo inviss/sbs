@@ -6,7 +6,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.transfer.ModeUserInfoDO;
 import com.app.das.business.transfer.MyCatalogDO;
 import com.app.das.util.CommonUtl;
 /**

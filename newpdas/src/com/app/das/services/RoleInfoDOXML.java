@@ -3,9 +3,8 @@ package com.app.das.services;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList; 
+import org.w3c.dom.NodeList;
 
-import com.app.das.business.constants.Constants;
 import com.app.das.business.transfer.RoleInfoDO;
 import com.app.das.util.CommonUtl;
 
@@ -158,7 +157,7 @@ public class RoleInfoDOXML extends DOXml {
 
 
 	public String getSubXML(String group_nm, String role_nm) {
-		RoleInfoDO roleInfoDO = (RoleInfoDO)getDO();
+		//RoleInfoDO roleInfoDO = (RoleInfoDO)getDO();
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<" + XML_NODE_HEAD + "> \n");	
 		_xml.append("<" + XML_NODE_ROLE_GROUP_CD + ">" + group_nm + "</"  + XML_NODE_ROLE_GROUP_CD + "> \n");
@@ -186,18 +185,14 @@ public class RoleInfoDOXML extends DOXml {
 	public String getBeans() {
 		RoleInfoDO roleInfoDO = (RoleInfoDO)getDO();
 
-
 		String a = roleInfoDO.getRole_nm();
-		String b = roleInfoDO.getRole_group_nm();
-
+		//String b = roleInfoDO.getRole_group_nm();
 
 		return a;
 	}
 
 	public String getBeans2() {
 		RoleInfoDO roleInfoDO = (RoleInfoDO)getDO();
-
-
 
 		String b = roleInfoDO.getRole_group_nm();
 

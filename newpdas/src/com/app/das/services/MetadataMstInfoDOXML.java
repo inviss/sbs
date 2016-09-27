@@ -359,31 +359,31 @@ public class MetadataMstInfoDOXML extends DOXml {
 	/**
 	 * 관련영상마스터ID
 	 */
-	private final String XML_NODE_REL_MASTER_ID = "rel_master_id";	// 
+	//private final String XML_NODE_REL_MASTER_ID = "rel_master_id";	// 
 	/**
 	 * 관련영상방송일
 	 */
-	private final String XML_NODE_REL_BRD_DD = "rel_brd_dd";	// 
+	//private final String XML_NODE_REL_BRD_DD = "rel_brd_dd";	// 
 	/**
 	 * 관련영상청구번호
 	 */
-	private final String XML_NODE_REL_REQ_CD = "rel_req_cd";	// 
+	//private final String XML_NODE_REL_REQ_CD = "rel_req_cd";	// 
 	/**
 	 * 관련영상 방송길이
 	 */
-	private final String XML_NODE_REL_BRD_LENG = "rel_brd_leng";	// 
+	//private final String XML_NODE_REL_BRD_LENG = "rel_brd_leng";	// 
 	/**
 	 * 관련영상 	부제
 	 */
-	private final String XML_NODE_REL_SUB_TTL = "rel_sub_ttl";    // 
+	//private final String XML_NODE_REL_SUB_TTL = "rel_sub_ttl";    // 
 	/**
 	 * 관련영상 화질코드
 	 */
-	private final String XML_NODE_REL_ASP_RTO_CD = "rel_asp_rto_cd";    
+	//private final String XML_NODE_REL_ASP_RTO_CD = "rel_asp_rto_cd";    
 	/**
 	 * 관련영상 컨텐츠ID
 	 */
-	private final String XML_NODE_REL_REL_CT_ID = "rel_ct_id";    //
+	//private final String XML_NODE_REL_REL_CT_ID = "rel_ct_id";    //
 	/**
 	 * 사용여부
 	 */
@@ -391,7 +391,7 @@ public class MetadataMstInfoDOXML extends DOXml {
 	/**
 	 * 관련영상 방송일
 	 */
-	private final String XML_NODE_PGM_NM = "rel_brd_dd";	// 
+	//private final String XML_NODE_PGM_NM = "rel_brd_dd";	// 
 
 
 
@@ -433,7 +433,7 @@ public class MetadataMstInfoDOXML extends DOXml {
 	/**
 	 * 세로 해상도
 	 */
-	private final String XML_NODE_VRESOL = "vresol";	// 
+	//private final String XML_NODE_VRESOL = "vresol";	// 
 	/**
 	 * 컨텐츠 타입
 	 */
@@ -464,109 +464,109 @@ public class MetadataMstInfoDOXML extends DOXml {
 	/**
 	 * 메타데이터 성능개선용
 	 */
-	private final String META_MASTER_ID = "META_MASTER_ID";	
-	private final String META_PGM_ID = "META_PGM_ID";	
-	private final String PGM_PGM_CD = "PGM_PGM_CD";	
-	private final String PGM_PGM_NM = "PGM_PGM_NM";	
-	private final String PGM_BRD_BGN_DD = "PGM_BRD_BGN_DD";	
-	private final String PGM_BRD_END_DD = "PGM_BRD_END_DD";	
-	private final String PGM_MEDIA_CD = "PGM_MEDIA_CD";	
-	private final String META_EPIS_NO = "META_EPIS_NO";	
-	private final String PGM_CHAN_CD = "PGM_CHAN_CD";	
-	private final String PGM_PILOT_YN = "PGM_PILOT_YN";	
-	private final String TITLE = "TITLE";	
-	private final String META_CTGR_L_CD = "META_CTGR_L_CD";	
-	private final String META_CTGR_M_CD = "META_CTGR_M_CD";	
-	private final String META_CTGR_S_CD = "META_CTGR_S_CD";	
-	private final String META_BRD_DD = "META_BRD_DD";	
-	private final String META_FINAL_BRD_YN = "META_FINAL_BRD_YN";	
-	private final String META_SNPS = "META_SNPS";	
-	private final String META_KEY_WORDS = "META_KEY_WORDS";	
-	private final String META_BRD_BGN_HMS = "META_BRD_BGN_HMS";	
-	private final String META_BRD_END_HMS = "META_BRD_END_HMS";	
-	private final String META_BRD_LENG = "META_BRD_LENG";	
-	private final String META_PGM_RATE = "META_PGM_RATE";	
-	private final String META_DRT_NM = "META_DRT_NM";	
-	private final String META_PRODUCER_NM = "META_PRODUCER_NM";	
-	private final String META_WRITER_NM = "META_WRITER_NM";	
-	private final String META_PRDT_IN_OUTS_CD = "META_PRDT_IN_OUTS_CD";	
-	private final String META_PRDT_DEPT_CD = "META_PRDT_DEPT_CD";	
-	private final String META_PRDT_DEPT_NM = "META_PRDT_DEPT_NM";	
-	private final String META_ORG_PRDR_NM = "META_ORG_PRDR_NM";	
-	private final String META_MC_NM = "META_MC_NM";	
-	private final String META_CAST_NM = "META_CAST_NM";	
-	private final String META_CMR_DRT_NM = "META_CMR_DRT_NM";	
-	private final String META_FM_DT = "META_FM_DT";	
-	private final String META_CMR_PLACE = "META_CMR_PLACE";	
-	private final String META_SPC_INFO = "META_SPC_INFO";	
-	private final String META_REQ_CD = "META_REQ_CD";	
-	private final String META_SEC_ARCH_NM = "META_SEC_ARCH_NM";	
-	private final String META_SEC_ARCH_ID = "META_SEC_ARCH_ID";	
-	private final String META_GATH_CO_CD = "META_GATH_CO_CD";	
-	private final String META_GATH_CLF_CD = "META_GATH_CLF_CD";	
-	private final String META_ARCH_REG_DD = "META_ARCH_REG_DD";	
-	private final String META_ARRG_END_DT = "META_ARRG_END_DT";	
-	private final String META_WORK_PRIO_CD = "META_WORK_PRIO_CD";	
-	private final String META_RSV_PRD_CD = "META_RSV_PRD_CD";	
-	private final String META_CPRTR_NM = "META_CPRTR_NM";	
-	private final String META_CPRT_TYPE = "META_CPRT_TYPE";	
-	private final String META_CPRT_TYPE_DSC = "META_CPRT_TYPE_DSC";	
-	private final String META_VIEW_GR_CD = "META_VIEW_GR_CD";	
-	private final String META_DLBR_CD = "META_DLBR_CD";	
-	private final String META_AWARD_HSTR = "META_AWARD_HSTR";	
-	private final String META_TAPE_ID = "META_TAPE_ID";	
-	private final String META_TAPE_ITEM_ID = "META_TAPE_ITEM_ID";	
-	private final String META_TAPE_MEDIA_CLF_CD = "META_TAPE_MEDIA_CLF_CD";	
-	private final String META_RSV_PRD_END_DD = "META_RSV_PRD_END_DD";	
-	private final String META_DEL_DD = "META_DEL_DD";	
-	private final String META_USE_YN = "META_USE_YN";	
-	private final String META_REG_DT = "META_REG_DT";	
-	private final String META_MODRID = "META_MODRID";	
-	private final String META_MOD_DT = "META_MOD_DT";	
-	private final String META_GATH_DEPT_CD = "META_GATH_DEPT_CD";	
-	private final String META_MCUID = "META_MCUID";	
-	private final String META_RPIMG_CT_ID = "META_RPIMG_CT_ID";	
-	private final String META_RPIMG_KFRM_SEQ = "META_RPIMG_KFRM_SEQ";	
-	private final String META_DATA_STAT_CD = "META_DATA_STAT_CD";	
-	private final String META_ING_REG_DD = "META_ING_REG_DD";	
-	private final String META_COPY_KEEP = "META_COPY_KEEP";	
-	private final String META_CLEAN_KEEP = "META_CLEAN_KEEP";	
-	private final String META_MUSIC_INFO = "META_MUSIC_INFO";	
-	private final String META_RST_CONT = "META_RST_CONT";	
-	private final String META_RERUN = "META_RERUN";	
-	private final String META_ACCEPTOR_ID = "META_ACCEPTOR_ID";	
-	private final String META_SUB_TTL = "META_SUB_TTL";	
-	private final String META_ARRANGE_NM = "META_ARRANGE_NM";	
-	private final String META_ACCEPTOR_NM = "META_ACCEPTOR_NM";	
-	private final String META_SCENARIO_TITLE = "META_SCENARIO_TITLE";	
-	private final String META_AUD_TYPE_CD = "META_AUD_TYPE_CD";	
-	private final String META_RECORD_TYPE_CD = "META_RECORD_TYPE_CD";	
-	private final String META_COLOR_CD = "META_COLOR_CD";	
-	private final String META_ME_CD = "META_ME_CD";	
-	private final String META_ASP_RTO_CD = "META_ASP_RTO_CD";	
-	private final String META_VD_QLTY = "META_VD_QLTY";	
-	private final String META_DURATION = "META_DURATION";	
-	private final String META_CT_TYP = "META_CT_TYP";	
-	private final String META_CT_CLA = "META_CT_CLA";	
-	private final String META_AUDIO_BDWT = "META_AUDIO_BDWT";	
-	private final String META_FRM_PER_SEC = "META_FRM_PER_SEC";	
-	private final String META_AUD_SAMP_FRQ = "META_AUD_SAMP_FRQ";	
-	private final String META_BIT_RT = "META_BIT_RT";	
-	private final String META_HRESOL = "META_HRESOL";	
-	private final String META_VD_HRESOL = "META_VD_HRESOL";	
-	private final String META_VD_VRESOL = "META_VD_VRESOL";	
-	private final String META_PREVIEW_SUBJ = "META_PREVIEW_SUBJ";	
-	private final String META_ARCHIVE_REQID = "META_ARCHIVE_REQID";	
-	private final String META_INGEST_EQ_ID = "META_INGEST_EQ_ID";	
-	private final String META_PDS_CMS_PGM_ID = "META_PDS_CMS_PGM_ID";	
-	private final String META_CT_ID = "META_CT_ID";	
-	private final String META_STORAGE = "META_STORAGE";	
-	private final String META_ARTIST = "META_ARTIST";	
-	private final String META_COUNTRY_CD = "META_COUNTRY_CD";	
-	private final String META_CHENNEL_CD = "META_CHENNEL_CD";	
-	private final String META_COCD = "META_COCD";	
-	private final String META_ANNOT_CLF_CD = "META_ANNOT_CLF_CD";	
-	private final String META_ANNOT_CLF_DESC = "META_ANNOT_CLF_DESC";	
+//	private final String META_MASTER_ID = "META_MASTER_ID";	
+//	private final String META_PGM_ID = "META_PGM_ID";	
+//	private final String PGM_PGM_CD = "PGM_PGM_CD";	
+//	private final String PGM_PGM_NM = "PGM_PGM_NM";	
+//	private final String PGM_BRD_BGN_DD = "PGM_BRD_BGN_DD";	
+//	private final String PGM_BRD_END_DD = "PGM_BRD_END_DD";	
+//	private final String PGM_MEDIA_CD = "PGM_MEDIA_CD";	
+//	private final String META_EPIS_NO = "META_EPIS_NO";	
+//	private final String PGM_CHAN_CD = "PGM_CHAN_CD";	
+//	private final String PGM_PILOT_YN = "PGM_PILOT_YN";	
+//	private final String TITLE = "TITLE";	
+//	private final String META_CTGR_L_CD = "META_CTGR_L_CD";	
+//	private final String META_CTGR_M_CD = "META_CTGR_M_CD";	
+//	private final String META_CTGR_S_CD = "META_CTGR_S_CD";	
+//	private final String META_BRD_DD = "META_BRD_DD";	
+//	private final String META_FINAL_BRD_YN = "META_FINAL_BRD_YN";	
+//	private final String META_SNPS = "META_SNPS";	
+//	private final String META_KEY_WORDS = "META_KEY_WORDS";	
+//	private final String META_BRD_BGN_HMS = "META_BRD_BGN_HMS";	
+//	private final String META_BRD_END_HMS = "META_BRD_END_HMS";	
+//	private final String META_BRD_LENG = "META_BRD_LENG";	
+//	private final String META_PGM_RATE = "META_PGM_RATE";	
+//	private final String META_DRT_NM = "META_DRT_NM";	
+//	private final String META_PRODUCER_NM = "META_PRODUCER_NM";	
+//	private final String META_WRITER_NM = "META_WRITER_NM";	
+//	private final String META_PRDT_IN_OUTS_CD = "META_PRDT_IN_OUTS_CD";	
+//	private final String META_PRDT_DEPT_CD = "META_PRDT_DEPT_CD";	
+//	private final String META_PRDT_DEPT_NM = "META_PRDT_DEPT_NM";	
+//	private final String META_ORG_PRDR_NM = "META_ORG_PRDR_NM";	
+//	private final String META_MC_NM = "META_MC_NM";	
+//	private final String META_CAST_NM = "META_CAST_NM";	
+//	private final String META_CMR_DRT_NM = "META_CMR_DRT_NM";	
+//	private final String META_FM_DT = "META_FM_DT";	
+//	private final String META_CMR_PLACE = "META_CMR_PLACE";	
+//	private final String META_SPC_INFO = "META_SPC_INFO";	
+//	private final String META_REQ_CD = "META_REQ_CD";	
+//	private final String META_SEC_ARCH_NM = "META_SEC_ARCH_NM";	
+//	private final String META_SEC_ARCH_ID = "META_SEC_ARCH_ID";	
+//	private final String META_GATH_CO_CD = "META_GATH_CO_CD";	
+//	private final String META_GATH_CLF_CD = "META_GATH_CLF_CD";	
+//	private final String META_ARCH_REG_DD = "META_ARCH_REG_DD";	
+//	private final String META_ARRG_END_DT = "META_ARRG_END_DT";	
+//	private final String META_WORK_PRIO_CD = "META_WORK_PRIO_CD";	
+//	private final String META_RSV_PRD_CD = "META_RSV_PRD_CD";	
+//	private final String META_CPRTR_NM = "META_CPRTR_NM";	
+//	private final String META_CPRT_TYPE = "META_CPRT_TYPE";	
+//	private final String META_CPRT_TYPE_DSC = "META_CPRT_TYPE_DSC";	
+//	private final String META_VIEW_GR_CD = "META_VIEW_GR_CD";	
+//	private final String META_DLBR_CD = "META_DLBR_CD";	
+//	private final String META_AWARD_HSTR = "META_AWARD_HSTR";	
+//	private final String META_TAPE_ID = "META_TAPE_ID";	
+//	private final String META_TAPE_ITEM_ID = "META_TAPE_ITEM_ID";	
+//	private final String META_TAPE_MEDIA_CLF_CD = "META_TAPE_MEDIA_CLF_CD";	
+//	private final String META_RSV_PRD_END_DD = "META_RSV_PRD_END_DD";	
+//	private final String META_DEL_DD = "META_DEL_DD";	
+//	private final String META_USE_YN = "META_USE_YN";	
+//	private final String META_REG_DT = "META_REG_DT";	
+//	private final String META_MODRID = "META_MODRID";	
+//	private final String META_MOD_DT = "META_MOD_DT";	
+//	private final String META_GATH_DEPT_CD = "META_GATH_DEPT_CD";	
+//	private final String META_MCUID = "META_MCUID";	
+//	private final String META_RPIMG_CT_ID = "META_RPIMG_CT_ID";	
+//	private final String META_RPIMG_KFRM_SEQ = "META_RPIMG_KFRM_SEQ";	
+//	private final String META_DATA_STAT_CD = "META_DATA_STAT_CD";	
+//	private final String META_ING_REG_DD = "META_ING_REG_DD";	
+//	private final String META_COPY_KEEP = "META_COPY_KEEP";	
+//	private final String META_CLEAN_KEEP = "META_CLEAN_KEEP";	
+//	private final String META_MUSIC_INFO = "META_MUSIC_INFO";	
+//	private final String META_RST_CONT = "META_RST_CONT";	
+//	private final String META_RERUN = "META_RERUN";	
+//	private final String META_ACCEPTOR_ID = "META_ACCEPTOR_ID";	
+//	private final String META_SUB_TTL = "META_SUB_TTL";	
+//	private final String META_ARRANGE_NM = "META_ARRANGE_NM";	
+//	private final String META_ACCEPTOR_NM = "META_ACCEPTOR_NM";	
+//	private final String META_SCENARIO_TITLE = "META_SCENARIO_TITLE";	
+//	private final String META_AUD_TYPE_CD = "META_AUD_TYPE_CD";	
+//	private final String META_RECORD_TYPE_CD = "META_RECORD_TYPE_CD";	
+//	private final String META_COLOR_CD = "META_COLOR_CD";	
+//	private final String META_ME_CD = "META_ME_CD";	
+//	private final String META_ASP_RTO_CD = "META_ASP_RTO_CD";	
+//	private final String META_VD_QLTY = "META_VD_QLTY";	
+//	private final String META_DURATION = "META_DURATION";	
+//	private final String META_CT_TYP = "META_CT_TYP";	
+//	private final String META_CT_CLA = "META_CT_CLA";	
+//	private final String META_AUDIO_BDWT = "META_AUDIO_BDWT";	
+//	private final String META_FRM_PER_SEC = "META_FRM_PER_SEC";	
+//	private final String META_AUD_SAMP_FRQ = "META_AUD_SAMP_FRQ";	
+//	private final String META_BIT_RT = "META_BIT_RT";	
+//	private final String META_HRESOL = "META_HRESOL";	
+//	private final String META_VD_HRESOL = "META_VD_HRESOL";	
+//	private final String META_VD_VRESOL = "META_VD_VRESOL";	
+//	private final String META_PREVIEW_SUBJ = "META_PREVIEW_SUBJ";	
+//	private final String META_ARCHIVE_REQID = "META_ARCHIVE_REQID";	
+//	private final String META_INGEST_EQ_ID = "META_INGEST_EQ_ID";	
+//	private final String META_PDS_CMS_PGM_ID = "META_PDS_CMS_PGM_ID";	
+//	private final String META_CT_ID = "META_CT_ID";	
+//	private final String META_STORAGE = "META_STORAGE";	
+//	private final String META_ARTIST = "META_ARTIST";	
+//	private final String META_COUNTRY_CD = "META_COUNTRY_CD";	
+//	private final String META_CHENNEL_CD = "META_CHENNEL_CD";	
+//	private final String META_COCD = "META_COCD";	
+//	private final String META_ANNOT_CLF_CD = "META_ANNOT_CLF_CD";	
+//	private final String META_ANNOT_CLF_DESC = "META_ANNOT_CLF_DESC";	
 
 
 	public Object setDO(String _xml) {

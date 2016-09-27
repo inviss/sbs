@@ -1,20 +1,15 @@
 package com.app.das.services;
 
+import java.io.File;
+
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.transfer.BoardDO;
-import com.app.das.business.transfer.DownCartDO;
 import com.app.das.business.transfer.PdsDownDO;
 import com.app.das.util.CommonUtl;
-import com.app.das.util.XmlUtil;
-
-
-
-import java.io.*;
 
 
 
@@ -61,11 +56,11 @@ public class PdsDownDOXML extends DOXml {
 	/**
 	 *  표기시작 해더
 	 */
-	private String XML_NODE_START_OF_MARK="start_of_mark";
+	//private String XML_NODE_START_OF_MARK="start_of_mark";
 	/**
 	 *  표기종료 해더
 	 */
-	private String XML_NODE_END_OF_MARK="end_of_mark";
+	//private String XML_NODE_END_OF_MARK="end_of_mark";
 	/**
 	 * 파일명(pds)
 	 * 	 */
@@ -73,11 +68,11 @@ public class PdsDownDOXML extends DOXml {
 	/**
 	 * 파일크기(실제 다운)
 	 * 	 */
-	private String XML_NODE_FILESIZE="filesize";	
+	//private String XML_NODE_FILESIZE="filesize";	
 	/**
 	 * xml 해더
 	 */
-	private String XML_NODE_ISMULTIFILE="ismultifile";
+	//private String XML_NODE_ISMULTIFILE="ismultifile";
 	/**
 	 * 미디어 id
 	 */
@@ -105,7 +100,7 @@ public class PdsDownDOXML extends DOXml {
 	/**
 	 * xml 해더
 	 */
-	private String XML_NODE_ASSETID="assetid";
+	//private String XML_NODE_ASSETID="assetid";
 	/**
 	 * 경로
 	 */
@@ -206,7 +201,7 @@ public class PdsDownDOXML extends DOXml {
 	/**
 	 * 종횡비
 	 * 	 */
-	private String XML_NODE_ASP_RTO_CD="asp_rto_cd";
+	//private String XML_NODE_ASP_RTO_CD="asp_rto_cd";
 	/**
 	 * 콘텐츠구분
 	 * 	 */

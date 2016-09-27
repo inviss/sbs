@@ -1,20 +1,10 @@
 package com.app.das.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.apache.log4j.*;
 
-import com.app.das.business.transfer.AchiveManagerSystemDO;
-import com.app.das.business.transfer.CodeDO;
-import com.app.das.business.transfer.ErrorLogDO;
-import com.app.das.business.transfer.LogInOutDO;
-import com.app.das.business.transfer.MonitoringDO;
-import com.app.das.business.transfer.MyCatalogDO;
 import com.app.das.business.transfer.ServersDO;
 import com.app.das.util.CommonUtl;
 
@@ -26,7 +16,7 @@ import com.app.das.util.CommonUtl;
  */
 public class ServersDOXML extends DOXml {
 
-	private static Logger logger = Logger.getLogger(ServersDOXML.class);
+	//private static Logger logger = Logger.getLogger(ServersDOXML.class);
 	/**
 	 * xml 해더
 	 */

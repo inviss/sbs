@@ -1,12 +1,7 @@
 package com.app.das.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -15,14 +10,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-import com.app.das.business.ExternalBusinessProcessor;
-import com.app.das.business.transfer.ArchiveInfoDO;
-import com.app.das.business.transfer.CartContDO;
-import com.app.das.business.transfer.DepInfoDO;
 import com.app.das.business.transfer.PgmInfoDO;
-import com.app.das.business.transfer.PgmUserInfoDO;
-import com.app.das.business.transfer.PhotoInfoDO;
 import com.app.das.util.CommonUtl;
 /**
  * 타시스템의 프로그램 정보 관리 정보 관련 XML파서
@@ -30,7 +18,7 @@ import com.app.das.util.CommonUtl;
  *
  */
 public class AllPgmInfoDOXML extends DOXml{
-	private static Logger logger = Logger.getLogger(AllPgmInfoDOXML.class);	
+	//private static Logger logger = Logger.getLogger(AllPgmInfoDOXML.class);	
 	PgmInfoDO InfoDO;
 	/** 
 	 * xml 헤더
@@ -39,7 +27,7 @@ public class AllPgmInfoDOXML extends DOXml{
 	/** 
 	 * 내부 xml 헤더
 	 */
-	private String XML_NODE_SUB_HEAD = "pds_ex_service_programinfo";
+	//private String XML_NODE_SUB_HEAD = "pds_ex_service_programinfo";
 	/** 
 	 * 내부 xml 헤더2
 	 */
@@ -47,15 +35,15 @@ public class AllPgmInfoDOXML extends DOXml{
 	/** 
 	 * 에러 xml 헤더
 	 */
-	private String XML_NODE_ERROR_HEAD = "error";
+	//private String XML_NODE_ERROR_HEAD = "error";
 	/** 
 	 * 책임pd xml 헤더
 	 */
-	private String XML_NODE_CP_HEAD = "cpdlist";
+	//private String XML_NODE_CP_HEAD = "cpdlist";
 	/** 
 	 * pd xml 헤더
 	 */
-	private String XML_NODE_PD_HEAD = "pdlist";
+	//private String XML_NODE_PD_HEAD = "pdlist";
 	/** 
 	 * 프로그램id
 	 */
@@ -126,35 +114,28 @@ public class AllPgmInfoDOXML extends DOXml{
 		for(int i = 0; i < _length; i++) {
 			Node _node = _nodeList.item(i);
 			NodeList _nodeList2 = _node.getChildNodes();
-			String _nodeName = _node.getNodeName() ;
-			System.out.println("_nodeName "+_nodeName);
+			//String _nodeName = _node.getNodeName() ;
 
 			Node _node2 = _nodeList2.item(i);
 			NodeList _nodeList3 = _node2.getChildNodes();
-			String _nodeName2 = _node2.getNodeName() ;
-			System.out.println("_nodeName2 "+_nodeName2);
+			//String _nodeName2 = _node2.getNodeName() ;
 
 			Node _node3 = _nodeList3.item(i);
 			NodeList _nodeList4 = _node3.getChildNodes();
-			String _nodeName3 = _node3.getNodeName() ;
-			System.out.println("_nodeName3 "+_nodeName3);
+			//String _nodeName3 = _node3.getNodeName() ;
 
 			Node _node4 = _nodeList4.item(i);
 			NodeList _nodeList5 = _node4.getChildNodes();
-			String _nodeName4 = _node4.getNodeName() ;
-
+			//String _nodeName4 = _node4.getNodeName() ;
 
 			Node _node5 = _nodeList5.item(i);
 			NodeList _nodeList6 = _node5.getChildNodes();
-			String _nodeName5 = _node5.getNodeName() ;
-
-
-
+			//String _nodeName5 = _node5.getNodeName() ;
 
 			for(int k = 0; k < _nodeList6.getLength(); k++) {
 				InfoDO = new PgmInfoDO();
 				Node _node6 = _nodeList6.item(k);
-				NodeList _nodeList7 = _node6.getChildNodes();
+				//NodeList _nodeList7 = _node6.getChildNodes();
 				String _nodeName6 = _node6.getNodeName() ;
 				if(_nodeName6.equals(XML_NODE_SUB_HEAD2)) {
 					setData((Element)_node6);
@@ -199,7 +180,7 @@ public class AllPgmInfoDOXML extends DOXml{
 
 					Node attr = startAttr.item(k);
 					String nodeName = attr.getNodeName() ;
-					String att= attr.getNodeValue();
+					//String att= attr.getNodeValue();
 
 					if(nodeName.equals(XML_NODE_USER_ID)){
 						if(cid.equals("")){
@@ -218,34 +199,26 @@ public class AllPgmInfoDOXML extends DOXml{
 							cname = cname+","+attr.getNodeValue();
 						}
 						InfoDO.setPRODUCTION_PORDUCER_NAME(cname);	
-
 					}
-
 				}
-
-
 			}
 			else if(_nodeName.equals(XML_NODE_PRODUCER_ID)) {
 
 				for(int h = 0; h<startAttr.getLength();h++){
 					Node attr = startAttr.item(h);
 					String nodeName = attr.getNodeName() ;
-					String att= attr.getNodeValue();
+					//String att= attr.getNodeValue();
 
 					if(nodeName.equals(XML_NODE_USER_ID)){
-
 						if(pid.equals("")){
 							pid = attr.getNodeValue();
-
 						}else{
 							pid = pid+","+attr.getNodeValue();
 						}
-
 						InfoDO.setPid(pid);
 					}
 
 					if(nodeName.equals(XML_NODE_USER_NAME)){
-
 						if(pid.equals("")){
 							pname = attr.getNodeValue();
 						}else{
@@ -254,17 +227,13 @@ public class AllPgmInfoDOXML extends DOXml{
 						//System.out.println(pname);
 						InfoDO.setPRODUCER_NAME(pname);	
 					}
-
 				}
-
-
 			}
-
 		}
-
 		return result;
-
-	}	    
+	}
+	
+	
 	public String toXML() {
 
 		String _xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";

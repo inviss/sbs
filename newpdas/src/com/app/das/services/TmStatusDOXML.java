@@ -7,10 +7,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.transfer.CodeDO;
-import com.app.das.business.transfer.DiscardDO;
 import com.app.das.business.transfer.TransferDO;
-import com.app.das.util.CommonUtl;
 /**
  *  DAS_TM 정보  정보 관련 XML파서
  * @author asura207
@@ -24,7 +21,7 @@ public class TmStatusDOXML extends DOXml{
 	/**
 	 * xml해더
 	 */
-	private String XML_NODE_GETSTATUS_HEAD = "Response";
+	//private String XML_NODE_GETSTATUS_HEAD = "Response";
 
 	//private String XML_NODE_SOURCE_MEDIA_FILE ="";
 	/**
@@ -38,12 +35,12 @@ public class TmStatusDOXML extends DOXml{
 	/**
 	 * 타입
 	 */
-	private String XML_NODE_TYPE = "Type";
+	//private String XML_NODE_TYPE = "Type";
 	//private String XML_NODE_ACTION = "";
 	/**
 	 * 태스크아이디
 	 */
-	private String XML_NODE_ID = "ID";
+	//private String XML_NODE_ID = "ID";
 
 	//private String XML_NODE_TASK = "Task";
 	/**
@@ -53,32 +50,31 @@ public class TmStatusDOXML extends DOXml{
 	/**
 	 * 상태값
 	 */
-	private String XML_NODE_STATUS = "Status";
+	//private String XML_NODE_STATUS = "Status";
 	/**
 	 * 진행률
 	 */
-	private String XML_NODE_PROGRESS = "Progress";
+	//private String XML_NODE_PROGRESS = "Progress";
 	/**
 	 * 파일경로
 	 */
-	private String XML_NODE_FILE_PATH = "file_path";
+	//private String XML_NODE_FILE_PATH = "file_path";
 	/**
 	 * 카드번호
 	 */
-	private String XML_NODE_CART_NO = "cart_no";
+	//private String XML_NODE_CART_NO = "cart_no";
 	/**
 	 * 카트순번
 	 */
-	private String XML_NODE_CART_SEQ = "cart_seq";
+	//private String XML_NODE_CART_SEQ = "cart_seq";
 	/**
 	 * 성공여부
 	 */
-	private String XML_NODE_SUCCESS_YN = "Success";
+	//private String XML_NODE_SUCCESS_YN = "Success";
 
 	public Object getStatus(String _xml){
-		Document _document = getDocument(_xml);
-		Element _rootElement = _document.getDocumentElement();
-
+		//Document _document = getDocument(_xml);
+		//Element _rootElement = _document.getDocumentElement();
 		return getDO();
 	}
 
@@ -126,7 +122,7 @@ public class TmStatusDOXML extends DOXml{
 			for(int k = 0; k<startAttr.getLength();k++){
 				Node attr = startAttr.item(k);
 				String nodeName = attr.getNodeName() ;
-				String att= CommonUtl.transXMLText(attr.getNodeValue());
+				//String att= CommonUtl.transXMLText(attr.getNodeValue());
 				//	 infoDO.setSuccess_yn(att);
 
 
@@ -164,15 +160,15 @@ public class TmStatusDOXML extends DOXml{
 		int _length = _nodeList.getLength();
 		for(int i = 0; i < _length; i++) {
 			Node _node = _nodeList.item(i);
-			String _nodeName = _node.getNodeName() ;
+			//String _nodeName = _node.getNodeName() ;
 			NamedNodeMap startAttr = _node.getAttributes();
-			String _nodeValue = getNodeValue(_node);
+			//String _nodeValue = getNodeValue(_node);
 
 
 			for(int k = 0; k<startAttr.getLength();k++){
 				Node attr = startAttr.item(k);
 				String nodeName = attr.getNodeName() ;
-				String att= CommonUtl.transXMLText(attr.getNodeValue());
+				//String att= CommonUtl.transXMLText(attr.getNodeValue());
 				//	 infoDO.setSuccess_yn(att);
 
 				if(nodeName.equals("TaskID")){
@@ -202,7 +198,7 @@ public class TmStatusDOXML extends DOXml{
 	}
 
 	public String getSubXML() {
-		TransferDO infoDO = (TransferDO)getDO();
+		//TransferDO infoDO = (TransferDO)getDO();
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<" + XML_NODE_ADDTASK_HEAD+ ">");
 
@@ -230,7 +226,7 @@ public class TmStatusDOXML extends DOXml{
 
 
 	public String getXML(int TaskID) {
-		TransferDO infoDO = (TransferDO)getDO();
+		//TransferDO infoDO = (TransferDO)getDO();
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<" + XML_NODE_ADDTASK_HEAD+ ">");
 

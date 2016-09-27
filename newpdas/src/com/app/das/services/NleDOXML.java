@@ -6,7 +6,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.ApproveInfoDO;
-import com.app.das.business.transfer.BoardDO;
 import com.app.das.business.transfer.NleDO;
 import com.app.das.util.CommonUtl;
 
@@ -150,7 +149,7 @@ public class NleDOXML extends DOXml {
 
 
 	public String getSubXML() {
-		ApproveInfoDO boardDO = (ApproveInfoDO)getDO();
+		//ApproveInfoDO boardDO = (ApproveInfoDO)getDO();
 		StringBuffer _xml = new StringBuffer();
 
 		_xml.append("<" + XML_NODE_HEAD + "> \n");

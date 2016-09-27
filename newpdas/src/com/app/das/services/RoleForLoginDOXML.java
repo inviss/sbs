@@ -20,7 +20,7 @@ public class RoleForLoginDOXML extends DOXml {
 	/**
 	 * xml해더
 	 */
-	private String XML_NODE_HEAD2 = "funcion";	
+	//private String XML_NODE_HEAD2 = "funcion";	
 	/**
 	 * 역할코드
 	 */
@@ -29,7 +29,7 @@ public class RoleForLoginDOXML extends DOXml {
 	/**
 	 * 사용자id
 	 */
-	private String XML_NODE_USERID="user_id";
+	//private String XML_NODE_USERID="user_id";
 	/**
 	 * 기능코드
 	 */
@@ -64,7 +64,7 @@ public class RoleForLoginDOXML extends DOXml {
 	/**
 	 * 깊이
 	 */
-	private String XML_NODE_DEPTH="depth";
+	//private String XML_NODE_DEPTH="depth";
 	/**
 	 * 사용권한
 	 */

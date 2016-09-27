@@ -6,7 +6,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.transfer.CodeDO;
 import com.app.das.business.transfer.UseInfoDO;
 import com.app.das.util.CommonUtl;
 /**
@@ -40,7 +39,7 @@ public class UseInfoDOXML extends DOXml{
 	/** 등록일 종료 */
 	private String XML_NODE_END_REG_DT = "end_reg_dt";
 	/** 구분코드 */
-	private String XML_NODE_CLF_CD = "clf_cd";
+	//private String XML_NODE_CLF_CD = "clf_cd";
 	/** 구분상세코드 */
 	private String XML_NODE_SCL_CD = "scl_cd";
 	/** 설명 */
@@ -56,7 +55,7 @@ public class UseInfoDOXML extends DOXml{
 	/** 이용횟수 종료 */
 	private String XML_NODE_USE_END_CONT = "use_end_count";
 	/** 컨텐츠id */
-	private String XML_NODE_CTI_ID = "cti_id";
+	//private String XML_NODE_CTI_ID = "cti_id";
 	/** page */
 	private String XML_NODE_PAGE = "page";
 	/** 총조회횟수 */

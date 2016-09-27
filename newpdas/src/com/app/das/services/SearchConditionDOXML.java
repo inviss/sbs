@@ -7,7 +7,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.SearchConditionDO;
-import com.app.das.business.transfer.TapeInfoDO;
 import com.app.das.util.CommonUtl;
 /**
  *  검색조건  정보 관련 XML파서

@@ -1,19 +1,13 @@
 package com.app.das.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.app.das.util.CommonUtl;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.transfer.AnnotInfoDO;
-import com.app.das.business.transfer.ErrorRegisterDO;
 import com.app.das.business.transfer.ScenarioDO;
+import com.app.das.util.CommonUtl;
 /**
  *   대본 정보 관련 XML파서
  * @author asura207
@@ -21,7 +15,7 @@ import com.app.das.business.transfer.ScenarioDO;
  */
 public class ScenarioDOXML extends DOXml {
 
-	private static Logger logger = Logger.getLogger(ScenarioDOXML.class);
+	//private static Logger logger = Logger.getLogger(ScenarioDOXML.class);
 
 	private String XML_NODE_HEAD = "scenario";
 

@@ -1,20 +1,12 @@
 package com.app.das.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.*;
 
-import com.app.das.business.transfer.AchiveManagerSystemDO;
-import com.app.das.business.transfer.CodeDO;
-import com.app.das.business.transfer.LogInOutDO;
 import com.app.das.business.transfer.MonitoringDO;
-import com.app.das.business.transfer.MyCatalogDO;
 import com.app.das.util.CommonUtl;
 
 
@@ -25,7 +17,7 @@ import com.app.das.util.CommonUtl;
  */
 public class MonitoringDOXML extends DOXml {
 
-	private static Logger logger = Logger.getLogger(MonitoringDOXML.class);
+	//private static Logger logger = Logger.getLogger(MonitoringDOXML.class);
 	/**
 	 * xml 해더
 	 */
@@ -210,7 +202,7 @@ public class MonitoringDOXML extends DOXml {
 	/**
 	 * REQ_CD
 	 */
-	private String XML_NODE_REQ_CD= "req_cd";
+	//private String XML_NODE_REQ_CD= "req_cd";
 	/**
 	 * key_id
 	 */
@@ -436,10 +428,6 @@ public class MonitoringDOXML extends DOXml {
 		_xml.append("<" + XML_NODE_JOB_ID + ">" + infoDO.getJob_id() + "</"  + XML_NODE_JOB_ID + ">");
 		_xml.append("<" + XML_NODE_REQ_DT + ">" + infoDO.getReq_dt()+ "</"  + XML_NODE_REQ_DT + ">");
 		_xml.append("<" + XML_NODE_REQ_NM + ">" + CommonUtl.transXmlText(infoDO.getReq_nm()) + "</"  + XML_NODE_REQ_NM + ">");
-
-
-
-
 		_xml.append("</" + XML_NODE_HEAD + ">");
 
 		return _xml.toString();
@@ -459,9 +447,6 @@ public class MonitoringDOXML extends DOXml {
 		_xml.append("<" + XML_NODE_CT_CLA_NM + ">" + CommonUtl.transXmlText(infoDO.getCt_cla_nm())+ "</"  + XML_NODE_CT_CLA_NM + ">");
 		_xml.append("<" + XML_NODE_CT_TYP_NM + ">" + CommonUtl.transXmlText(infoDO.getCt_typ_nm())+ "</"  + XML_NODE_CT_TYP_NM + ">");
 		_xml.append("<" + XML_NODE_MEDIA_ID + ">" + infoDO.getMedia_id() + "</"  + XML_NODE_MEDIA_ID + ">");
-
-
-
 		_xml.append("</" + XML_NODE_HEAD + ">");
 
 		return _xml.toString();
@@ -504,10 +489,6 @@ public class MonitoringDOXML extends DOXml {
 		_xml.append("<" + XML_NODE_CHANNEL_NM + ">" + CommonUtl.transXmlText(infoDO.getChennel_nm()) + "</"  + XML_NODE_CHANNEL_NM + ">");
 		_xml.append("<" + XML_NODE_ROUTE_NM + ">" + CommonUtl.transXmlText(infoDO.getRoute_nm()) + "</"  + XML_NODE_ROUTE_NM + ">");
 		_xml.append("<" + XML_NODE_TOTALCOUNT + ">" + infoDO.getTotalcount() + "</"  + XML_NODE_TOTALCOUNT + ">");
-
-
-
-
 		_xml.append("</" + XML_NODE_HEAD + ">");
 
 		return _xml.toString();
@@ -549,9 +530,6 @@ public class MonitoringDOXML extends DOXml {
 		_xml.append("<" + XML_NODE_CT_ID + ">" + infoDO.getCt_id() + "</"  + XML_NODE_CT_ID + ">");
 		_xml.append("<" + XML_NODE_CHANNEL_NM + ">" + CommonUtl.transXmlText(infoDO.getChennel_nm()) + "</"  + XML_NODE_CHANNEL_NM + ">");
 		_xml.append("<" + XML_NODE_TOTALCOUNT + ">" + infoDO.getTotalcount() + "</"  + XML_NODE_TOTALCOUNT + ">");
-
-
-
 		_xml.append("</" + XML_NODE_HEAD + ">");
 
 		return _xml.toString();
@@ -586,18 +564,10 @@ public class MonitoringDOXML extends DOXml {
 		_xml.append("<" + XML_NODE_TM_NM + ">" + CommonUtl.transXmlText(infoDO.getTm_nm()) + "</"  + XML_NODE_TM_NM + ">");
 		_xml.append("<" + XML_NODE_CT_ID + ">" + infoDO.getCt_id() + "</"  + XML_NODE_CT_ID + ">");
 		_xml.append("<" + XML_NODE_TOTALCOUNT + ">" + infoDO.getTotalcount() + "</"  + XML_NODE_TOTALCOUNT + ">");
-
-
-
-
 		_xml.append("</" + XML_NODE_HEAD + ">");
 
 		return _xml.toString();
 	}
-
-
-
-
 
 
 	public String getTCXML() {
@@ -618,17 +588,10 @@ public class MonitoringDOXML extends DOXml {
 		_xml.append("<" + XML_NODE_TC_IP + ">" + infoDO.getTc_ip() + "</"  + XML_NODE_TC_IP + ">");
 		_xml.append("<" + XML_NODE_TC_NM + ">" + CommonUtl.transXmlText(infoDO.getTc_nm()) + "</"  + XML_NODE_TC_NM + ">");
 		_xml.append("<" + XML_NODE_TOTALCOUNT + ">" + infoDO.getTotalcount() + "</"  + XML_NODE_TOTALCOUNT + ">");
-
-
-
-
 		_xml.append("</" + XML_NODE_HEAD + ">");
 
 		return _xml.toString();
 	}
-
-
-
 
 
 	public String getIfCmsXML() {
@@ -651,15 +614,10 @@ public class MonitoringDOXML extends DOXml {
 	}
 
 
-
-
-
-
 	public String getJobInfoXML() {
 		MonitoringDO infoDO = (MonitoringDO)getDO();
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<" + XML_NODE_HEAD + ">");		
-
 
 		if(!infoDO.getTc_state().equals("")){
 			_xml.append("<" + XML_NODE_JOB_NM + ">transaction</"  + XML_NODE_JOB_NM + ">");
@@ -733,11 +691,6 @@ public class MonitoringDOXML extends DOXml {
 			_xml.append("<" + XML_NODE_END_TIME + ">" + infoDO.getEnd_time() + "</"  + XML_NODE_END_TIME + ">");
 
 		}
-
-
-
-
-
 
 		_xml.append("</" + XML_NODE_HEAD + ">");
 

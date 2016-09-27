@@ -19,7 +19,7 @@ import com.app.das.util.CommonUtl;
  */
 public class AllDepInfoDOXML extends DOXml{
 	
-	private Logger logger = Logger.getLogger(AllDepInfoDOXML.class);
+	//private Logger logger = Logger.getLogger(AllDepInfoDOXML.class);
 	
 	private DepInfoDO infoDO;
 	

@@ -1,29 +1,11 @@
 package com.app.das.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-import com.app.das.business.transfer.ArchiveInfoDO;
-import com.app.das.business.transfer.DepInfoDO;
-import com.app.das.business.transfer.DiscardDO;
 import com.app.das.business.transfer.EmployeeInfoDO;
-import com.app.das.business.transfer.OtherDBDeptInfoDO;
-import com.app.das.business.transfer.OtherDBuserInfoDO;
-import com.app.das.business.transfer.PgmInfoDO;
-import com.app.das.business.transfer.PgmUserInfoDO;
-import com.app.das.business.transfer.PhotoInfoDO;
 import com.app.das.util.CommonUtl;
 /**
  * 타시스템의 유져 관리 정보 관련 XML파서
@@ -35,7 +17,7 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 	/**
 	 * xml 헤더
 	 */
-	private String XML_NODE_HEAD = "mamex_response";
+	//private String XML_NODE_HEAD = "mamex_response";
 	/**
 	 * 내부 xml 헤더1
 	 */
@@ -51,7 +33,7 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 	/**
 	 * 내부 xml 헤더4
 	 */
-	private String XML_NODE_EX_CHANGE_PW = "ex_sync_change_passwd";
+	//private String XML_NODE_EX_CHANGE_PW = "ex_sync_change_passwd";
 	/**
 	 *   사용자 이름
 	 */
@@ -99,7 +81,7 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 	/**
 	 * 바꿀암호
 	 */
-	private String XML_NODE_NEWPASSWORD = "newpasswd"; 
+	//private String XML_NODE_NEWPASSWORD = "newpasswd"; 
 	/**
 	 * 부서코드
 	 */
@@ -109,10 +91,10 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 	 */
 	private String XML_NODE_PHONE = "phone_num";
 
-	
-	
+
+
 	//20120727 신규 ifcms 로직 함수
-	
+
 	/**
 	 * TR명 - ex_regist_userinfo
 	 */
@@ -166,46 +148,45 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 	 */
 	private String account_expire_date = "account_expire_date";
 
-	
+
 	public Object setDO(String _xml) {
 		setDO(new EmployeeInfoDO());
-		
+
 		Document _document = getDocument(_xml);
 		Element _rootElement = _document.getDocumentElement();
-        NodeList _nodeList = _rootElement.getChildNodes();
-        int _length = _nodeList.getLength();
-        for(int i = 0; i < _length; i++) {
+		NodeList _nodeList = _rootElement.getChildNodes();
+		int _length = _nodeList.getLength();
+		for(int i = 0; i < _length; i++) {
 			Node _node = _nodeList.item(i);
-			String _nodeName = _node.getNodeName() ;
-			
-			
+			//String _nodeName = _node.getNodeName() ;
+
 			NodeList node2= _node.getChildNodes();
 			Node _node2 = node2.item(i);
-			String _nodeName2 = _node2.getNodeName() ;
-			
+			//String _nodeName2 = _node2.getNodeName() ;
+
 			NodeList node3= _node2.getChildNodes();
 			Node _node3 = node3.item(i);
-			String _nodeName3 = _node3.getNodeName() ;
-			
+			//String _nodeName3 = _node3.getNodeName() ;
+
 			NodeList node4= _node3.getChildNodes();
 			Node _node4 = node4.item(i);		
-			String _nodeName4 = _node4.getNodeName() ;
-			
+			//String _nodeName4 = _node4.getNodeName() ;
+
 			NodeList node5= _node4.getChildNodes();
 			Node _node5 = node5.item(i);		
 			String _nodeName5 = _node5.getNodeName() ;
-			
-			
+
+
 			if(_nodeName5.equals(XML_NODE_HEAD2)) {
 				setData((Element)_node5);
 			}
-        }
-		
+		}
+
 		return getDO();
 
 	}
-	
-/*	public Object setDO(String _xml) {
+
+	/*	public Object setDO(String _xml) {
 		List result = new ArrayList();
 		setDO(result);
 		Document _document = getDocument(_xml);
@@ -216,25 +197,25 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
         	InfoDO = new PgmUserInfoDO();
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
-			
-			
+
+
 			NodeList node2= _node.getChildNodes();
 			Node _node2 = node2.item(i);
 			String _nodeName2 = _node2.getNodeName() ;
-			
+
 			NodeList node3= _node2.getChildNodes();
 			Node _node3 = node3.item(i);
 			String _nodeName3 = _node3.getNodeName() ;
-			
+
 			NodeList node4= _node3.getChildNodes();
 			Node _node4 = node4.item(i);		
 			String _nodeName4 = _node4.getNodeName() ;
-			
+
 			NodeList node5= _node4.getChildNodes();
 			Node _node5 = node5.item(i);		
 			String _nodeName5 = _node5.getNodeName() ;
-			
-			
+
+
 			if(_nodeName5.equals(XML_NODE_HEAD2)) {
 				setData((Element)_node5);
 			}
@@ -242,41 +223,39 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
         }
 		return getDO();
 	}
-	
-	*/
-	
+
+	 */
+
 
 
 	public Object setData(Element pElement) {
 		EmployeeInfoDO InfoDO = (EmployeeInfoDO)getDO();
-		
-	
-	
-	    NodeList _nodeList = pElement.getChildNodes();
-	    int _length = _nodeList.getLength();
-	    for(int i = 0; i < _length; i++) {
+
+		NodeList _nodeList = pElement.getChildNodes();
+
+		int _length = _nodeList.getLength();
+
+		for(int i = 0; i < _length; i++) {
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
 			String _nodeValue = CommonUtl.transXMLText(getNodeValue(_node));
 			//NamedNodeMap startAttr = _node.getAttributes();
 			//String nodeValue = getNodeValue(_node);
-		
-
 			if(_nodeName.equals(XML_NODE_SBS_USER_ID)) {
 				InfoDO.setSbs_user_ID(_nodeValue);
-				}
-				
-	    }
-	    return InfoDO;
+			}
+
+		}
+		return InfoDO;
 	}	    
-	
+
 	public String toXML() {
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?> \n");
 		_xml.append("<das> \n");
 		//_xml = _xml + getSubXML();
 		_xml.append("</das>"); 
-		
+
 		return _xml.toString();
 	}
 
@@ -303,7 +282,7 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 		return _xml.toString();
 	}
 
-	
+
 	public String getSubXML2() {
 		EmployeeInfoDO infoDO = (EmployeeInfoDO)getDO();
 		StringBuffer _xml = new StringBuffer();
@@ -326,16 +305,16 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 		return _xml.toString();
 	}
 
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	//password 변환 xml
 	public String getSubXML3() {
 		EmployeeInfoDO infoDO = (EmployeeInfoDO)getDO();
-/*		String _xml = "<kscc_request><runusertransaction><transactionname>gua_sync_password</transactionname><timeout>2</timeout><requestxml>\n";
+		/*		String _xml = "<kscc_request><runusertransaction><transactionname>gua_sync_password</transactionname><timeout>2</timeout><requestxml>\n";
 		_xml =_xml + "&lt;" + XML_NODE_HEAD3 + "&gt; \n";
 		_xml = _xml + "&lt;" + XML_NODE_EX_CHANGE_PW + "&gt;";
 		_xml = _xml + "&lt;" + XML_NODE_SBS_USER_ID + "&gt;" + infoDO.getSbs_user_ID() + "&lt;/"  + XML_NODE_SBS_USER_ID + "&gt; \n";
@@ -359,8 +338,8 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 		_xml.append("</requestxml></runusertransaction></kscc_request>");
 		return _xml.toString();
 	}
-	
-	
+
+
 
 	//IFCMSpassword 변환 xml
 	public String getIfCmsPwSycn() {
@@ -380,11 +359,11 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 		_xml.append("</requestxml></runusertransaction></kscc_request>");
 		return _xml.toString();
 	}
-	
-	
-	
-	
-//ifcms동기화
+
+
+
+
+	//ifcms동기화
 	public String getIfCmsXML() {
 		EmployeeInfoDO infoDO = (EmployeeInfoDO)getDO();
 		StringBuffer _xml = new StringBuffer();
@@ -403,7 +382,7 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 		_xml.append("&lt;" + account_active_date + "&gt;" + infoDO.getVlddt_bgn() + "&lt;/"  + account_active_date + "&gt; \n");
 		_xml.append("&lt;" + account_expire_date + "&gt;" + infoDO.getVlddt_end() + "&lt;/"  + account_expire_date + "&gt; \n");
 		_xml.append("&lt;" + "phone_num" + "&gt;" + infoDO.getMobile() + "&lt;/"  + "phone_num" + "&gt; \n");
-		
+
 		//20130130 ifcms 회사코드 동기화
 		_xml.append("&lt;" + XML_NODE_PHONE + "&gt;" + infoDO.getMobile() + "&lt;/"  + XML_NODE_PHONE + "&gt; \n");	
 		_xml.append("&lt;" + department_code + "&gt;" + infoDO.getDept_cd() + "&lt;/"  + department_code + "&gt; \n");
@@ -412,9 +391,9 @@ public class AllOtherDBUserInfoDOXML extends DOXml{
 		_xml.append("</requestxml></runusertransaction></kscc_request>");
 		return _xml.toString();
 	}
-	
-	
-	
+
+
+
 
 
 }

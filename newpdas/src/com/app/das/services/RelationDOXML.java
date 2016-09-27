@@ -1,28 +1,11 @@
 package com.app.das.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-import com.app.das.business.transfer.ArchiveInfoDO;
-import com.app.das.business.transfer.CartContDO;
-import com.app.das.business.transfer.DepInfoDO;
-import com.app.das.business.transfer.DiscardDO;
-import com.app.das.business.transfer.PgmInfoDO;
-import com.app.das.business.transfer.PgmUserInfoDO;
-import com.app.das.business.transfer.PhotoInfoDO;
 import com.app.das.business.transfer.RelationDO;
 import com.app.das.util.CommonUtl;
 /**

@@ -7,7 +7,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.PreProcessingDO;
-import com.app.das.business.transfer.TotalChangeInfoDO;
 import com.app.das.log.DasPropHandler;
 import com.app.das.util.CommonUtl;
 

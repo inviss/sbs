@@ -6,8 +6,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.app.das.business.constants.DASBusinessConstants;
-import com.app.das.business.transfer.MetadataMstInfoDO;
-import com.app.das.log.ErrorPropHandler;
 import com.app.das.log.SearchPropHandler;
 import com.app.das.util.CommonUtl;
 import com.konantech.search.data.ParameterVO;

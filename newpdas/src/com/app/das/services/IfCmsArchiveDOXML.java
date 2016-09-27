@@ -1,31 +1,15 @@
 package com.app.das.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-import com.app.das.business.ExternalBusinessProcessor;
-import com.app.das.business.transfer.DepInfoDO;
 import com.app.das.business.transfer.IfCmsArchiveDO;
-import com.app.das.business.transfer.PdsArchiveDO;
-import com.app.das.business.transfer.PhotoInfoDO;
-import com.app.das.log.DasPropHandler;
 import com.app.das.util.CommonUtl;
 import com.app.das.util.XmlUtil;
-import com.app.das.util.jutil;
 
 /**
  *  pds 아카이브 정보 관련 XML파서
@@ -34,7 +18,7 @@ import com.app.das.util.jutil;
  */
 public class IfCmsArchiveDOXML extends DOXml{
 
-	private static DasPropHandler dasHandler = DasPropHandler.getInstance();
+	//private static DasPropHandler dasHandler = DasPropHandler.getInstance();
 	XmlUtil xmlutil = new XmlUtil();
 	/**
 	 * 해더1
@@ -107,7 +91,7 @@ public class IfCmsArchiveDOXML extends DOXml{
 	/**
 	 * 파일유형
 	 */
-	private String file_type = "file_type";	
+	//private String file_type = "file_type";	
 	/**
 	 * 메타데이터 헤더
 	 */
@@ -278,7 +262,7 @@ public class IfCmsArchiveDOXML extends DOXml{
 	/**
 	 * 요청일시
 	 */
-	private String datatime_request = "datatime_request";	
+	//private String datatime_request = "datatime_request";	
 	/**
 	 * 요청자ID
 	 */
@@ -373,11 +357,11 @@ public class IfCmsArchiveDOXML extends DOXml{
 	/**
 	 * 콘텐츠 소속 채널, A:SBS, P:SBS Plus, E:SBS E!, M:SBS MTV, N:NICK, S:SBS ESPN, G:SBS Golf, C:SBS CNBC
 	 */
-	private String contents_channel = "contents_channel";	
+	//private String contents_channel = "contents_channel";	
 	/**
 	 * 소재 구분, PGM:프로그램, Material:소재-
 	 */
-	private String material_type = "material_type";	
+	//private String material_type = "material_type";	
 
 	/**
 	 * 프리뷰노트경로
@@ -389,7 +373,7 @@ public class IfCmsArchiveDOXML extends DOXml{
 	 */
 	private String caption_path = "caption_path";	
 
-	private static Logger logger = Logger.getLogger(IfCmsArchiveDOXML.class);	
+	//private static Logger logger = Logger.getLogger(IfCmsArchiveDOXML.class);	
 
 
 	public Object setDO(String _xml) {
@@ -498,11 +482,6 @@ public class IfCmsArchiveDOXML extends DOXml{
 
 		IfCmsArchiveDO infoDO = (IfCmsArchiveDO)getDO();
 
-
-		String file_nms="";
-		String preview_subj="";
-		String preview_cont="";
-		String total ="";
 		NodeList _nodeList = pElement.getChildNodes();
 		int _length = _nodeList.getLength();
 		for(int i = 0; i < _length; i++) {
@@ -528,11 +507,6 @@ public class IfCmsArchiveDOXML extends DOXml{
 
 		IfCmsArchiveDO infoDO = (IfCmsArchiveDO)getDO();
 
-
-		String file_nms="";
-		String preview_subj="";
-		String preview_cont="";
-		String total ="";
 		NodeList _nodeList = pElement.getChildNodes();
 		int _length = _nodeList.getLength();
 		for(int i = 0; i < _length; i++) {
@@ -554,7 +528,7 @@ public class IfCmsArchiveDOXML extends DOXml{
 				for(int k = 0; k < under_length; k++) {
 					Node _node2 = underList.item(k);
 					String _undername = _node2.getNodeName() ;
-					String _underValue2 = getNodeValue(_node2);
+					//String _underValue2 = getNodeValue(_node2);
 					NamedNodeMap _underattbute = _node2.getAttributes();
 
 					if(_undername.equals(file)) {
@@ -631,11 +605,6 @@ public class IfCmsArchiveDOXML extends DOXml{
 
 		IfCmsArchiveDO infoDO = (IfCmsArchiveDO)getDO();
 
-
-		String file_nms="";
-		String preview_subj="";
-		String preview_cont="";
-		String total ="";
 		NodeList _nodeList = pElement.getChildNodes();
 		int _length = _nodeList.getLength();
 		for(int i = 0; i < _length; i++) {

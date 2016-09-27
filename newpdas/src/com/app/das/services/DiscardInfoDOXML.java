@@ -7,7 +7,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.DiscardDO;
-import com.app.das.business.transfer.DisuseDO;
 import com.app.das.util.CommonUtl;
 
 
@@ -26,7 +25,7 @@ public class DiscardInfoDOXML extends DOXml {
 	/**
 	 * 순번
 	 */
-	private String XML_NODE_SEQ = "seq";
+	//private String XML_NODE_SEQ = "seq";
 	/**
 	 * 대분류
 	 */

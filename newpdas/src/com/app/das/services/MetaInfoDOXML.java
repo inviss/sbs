@@ -7,7 +7,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.MetaInfoDO;
-import com.app.das.business.transfer.ProgramInfoDO;
 import com.app.das.util.CommonUtl;
 /**
  *  메타 정보 관련 XML파서
@@ -146,23 +145,23 @@ public class MetaInfoDOXML extends DOXml {
 	/**
 	 * 시작페이지
 	 */
-	private String XML_NODE_START_PAGE = "start_page";
+	//private String XML_NODE_START_PAGE = "start_page";
 	/**
 	 * 종료페이지
 	 */
-	private String XML_NODE_END_PAGE = "end_page";
+	//private String XML_NODE_END_PAGE = "end_page";
 	/**
 	 * 요청 등록일 
 	 */
-	private String XML_NODE_START_REG_DD = "start_reg_dd";
+	//private String XML_NODE_START_REG_DD = "start_reg_dd";
 	/**
 	 * 요청종료일
 	 */
-	private String XML_NODE_END_REG_DD = "end_reg_dd";
+	//private String XML_NODE_END_REG_DD = "end_reg_dd";
 	/**
 	 * 요청자ID
 	 */
-	private String XML_NODE_REQ_ID = "req_id";
+	//private String XML_NODE_REQ_ID = "req_id";
 	
 	public Object setDO(String _xml) {
 	

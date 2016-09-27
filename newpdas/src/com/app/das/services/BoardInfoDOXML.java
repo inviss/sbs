@@ -103,7 +103,7 @@ public class BoardInfoDOXML extends DOXml {
 	/**
 	 * 첨부파일 여부
 	 */
-	private String XML_NODE_ATTACH_YN="attach_yn";
+	//private String XML_NODE_ATTACH_YN="attach_yn";
 
 
 

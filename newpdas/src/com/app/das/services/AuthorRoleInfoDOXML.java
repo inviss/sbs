@@ -3,9 +3,8 @@ package com.app.das.services;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList; 
+import org.w3c.dom.NodeList;
 
-import com.app.das.business.constants.Constants;
 import com.app.das.business.transfer.RoleInfoDO;
 import com.app.das.util.CommonUtl;
 
@@ -111,18 +110,13 @@ public class AuthorRoleInfoDOXML extends DOXml {
 	public String getBeans() {
 		RoleInfoDO roleInfoDO = (RoleInfoDO)getDO();
 
-
 		String a = roleInfoDO.getRole_nm();
-		String b = roleInfoDO.getRole_group_nm();
-
-
+		//String b = roleInfoDO.getRole_group_nm();
 		return a;
 	}
 
 	public String getBeans2() {
 		RoleInfoDO roleInfoDO = (RoleInfoDO)getDO();
-
-
 
 		String b = roleInfoDO.getRole_group_nm();
 

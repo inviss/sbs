@@ -1,7 +1,6 @@
 package com.app.das.services;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,7 +17,7 @@ import com.app.das.util.CommonUtl;
  */
 public class AchiveManagerSystemDOXML extends DOXml {
 
-	private Logger logger = Logger.getLogger(AchiveManagerSystemDOXML.class);
+	//private Logger logger = Logger.getLogger(AchiveManagerSystemDOXML.class);
 
 	/**
 	 * xml 헤더

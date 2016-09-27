@@ -5,7 +5,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.transfer.ContentsInfoDO;
 import com.app.das.business.transfer.SubCodeDO;
 import com.app.das.util.CommonUtl;
 /**

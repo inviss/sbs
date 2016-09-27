@@ -3,12 +3,12 @@ package com.app.das.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.*;
 
 import com.app.das.business.transfer.AnnotInfoDO;
 import com.app.das.util.CommonUtl;
@@ -19,7 +19,7 @@ import com.app.das.util.CommonUtl;
  */
 public class AnnotInfoDOXML extends DOXml {
 	
-	private static Logger logger = Logger.getLogger(AnnotInfoDOXML.class);
+	//private static Logger logger = Logger.getLogger(AnnotInfoDOXML.class);
 	/** 
 	 * xml 헤더
 	 */

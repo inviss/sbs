@@ -33,7 +33,7 @@ public class FolderListDOXML extends DOXml{
 	/**
 	 * xml 헤더1
 	 */
-	private String XML_NODE_HEAD = "mamex_response";
+	//private String XML_NODE_HEAD = "mamex_response";
 	/**
 	 * xml 헤더2
 	 */
@@ -53,24 +53,24 @@ public class FolderListDOXML extends DOXml{
 	/**
 	 * cellname
 	 */
-	private String XML_NODE_CELLNAME = "cellname";
+	//private String XML_NODE_CELLNAME = "cellname";
 
 	/**
 	 * nodeid
 	 */
-	private String XML_NODE_NODEID = "nodeid";
+	//private String XML_NODE_NODEID = "nodeid";
 	/**
 	 * nodecaption
 	 */
-	private String XML_NODE_NODECAPTION = "nodecaption";
+	//private String XML_NODE_NODECAPTION = "nodecaption";
 	/**
 	 * parentnodeid
 	 */
-	private String XML_NODE_PARENTNODEID = "parentnodeid";
+	//private String XML_NODE_PARENTNODEID = "parentnodeid";
 	/**
 	 * parentnodecaption
 	 */
-	private String XML_NODE_PARENTNODECAPTION = "parentnodecaption";
+	//private String XML_NODE_PARENTNODECAPTION = "parentnodecaption";
 	/**
 	 * userid
 	 */
@@ -106,20 +106,20 @@ public class FolderListDOXML extends DOXml{
 		int _length = _nodeList.getLength();
 		for(int i = 0; i < _length; i++) {
 			Node _node = _nodeList.item(i);
-			String _nodeName = _node.getNodeName() ;
+			//String _nodeName = _node.getNodeName() ;
 
 
 			NodeList node2= _node.getChildNodes();
 			Node _node2 = node2.item(i);
-			String _nodeName2 = _node2.getNodeName() ;
+			//String _nodeName2 = _node2.getNodeName() ;
 
 			NodeList node3= _node2.getChildNodes();
 			Node _node3 = node3.item(i);
-			String _nodeName3 = _node3.getNodeName() ;
+			//String _nodeName3 = _node3.getNodeName() ;
 
 			NodeList node4= _node3.getChildNodes();
 			Node _node4 = node4.item(i);		
-			String _nodeName4 = _node4.getNodeName() ;
+			//String _nodeName4 = _node4.getNodeName() ;
 
 			NodeList node5= _node4.getChildNodes();
 			Node _node5 = node5.item(i);		
@@ -146,18 +146,11 @@ public class FolderListDOXML extends DOXml{
 		NodeList _nodeList = pElement.getChildNodes();
 		int _length = _nodeList.getLength();
 		for(int i = 0; i < _length; i++) {
-			Node _node = _nodeList.item(i);
-			String _nodeName = _node.getNodeName() ;
-			String _nodeValue = getNodeValue(_node);
-			NamedNodeMap startAttr = _node.getAttributes();
-			String nodeValue = getNodeValue(_node);
-
-
-			if(_nodeName.equals(XML_NODE_FOLDER)) {
-
-			}
-
-
+			//Node _node = _nodeList.item(i);
+			//String _nodeName = _node.getNodeName() ;
+			//String _nodeValue = getNodeValue(_node);
+			//NamedNodeMap startAttr = _node.getAttributes();
+			//String nodeValue = getNodeValue(_node);
 		}
 		return InfoDO;
 	}	    
@@ -173,7 +166,7 @@ public class FolderListDOXML extends DOXml{
 	}
 
 	public String getSubXML(String userid) {
-		FolderListDO infoDO = (FolderListDO)getDO();
+		//FolderListDO infoDO = (FolderListDO)getDO();
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<kscc_request><runusertransaction><transactionname>pds_ex_service_folderlist</transactionname><timeout>2</timeout><requestxml>\n");
 		_xml.append("&lt;" + XML_NODE_HEAD3 + "&gt; \n");
@@ -186,7 +179,7 @@ public class FolderListDOXML extends DOXml{
 		return _xml.toString();
 	}
 	public String getSubXML2(String userid) {
-		FolderListDO infoDO = (FolderListDO)getDO();
+		//FolderListDO infoDO = (FolderListDO)getDO();
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<kscc_request><runusertransaction><transactionname>nds_ex_service_folderlist</transactionname><timeout>2</timeout><requestxml>\n");
 		_xml.append("&lt;" + XML_NODE_HEAD3 + "&gt; \n");

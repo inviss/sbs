@@ -7,7 +7,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.CartContDO;
-import com.app.das.business.transfer.CartItemDO;
 import com.app.das.util.CommonUtl;
 
 /**

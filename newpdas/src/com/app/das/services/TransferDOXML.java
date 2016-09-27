@@ -6,7 +6,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.app.das.business.transfer.CodeDO;
 import com.app.das.business.transfer.TransferDO;
 import com.app.das.log.DasPropHandler;
 import com.app.das.util.CommonUtl;
@@ -24,7 +23,7 @@ public class TransferDOXML extends DOXml{
 	/**
 	 * xml해더
 	 */
-	private String XML_NODE_GETSTATUS_HEAD = "Response";
+	//private String XML_NODE_GETSTATUS_HEAD = "Response";
 	//	private String XML_NODE_SOURCE_MEDIA_FILE ="";
 	/**
 	 * xml해더
@@ -61,7 +60,7 @@ public class TransferDOXML extends DOXml{
 	/**
 	 * 성공여부
 	 */
-	private String XML_NODE_SUCCESS_YN = "success_yn";
+	//private String XML_NODE_SUCCESS_YN = "success_yn";
 
 
 	/**
@@ -69,8 +68,8 @@ public class TransferDOXML extends DOXml{
 	 */
 	private String XML_NODE_EQ_ID = "eq_id";
 	public Object getStatus(String _xml){
-		Document _document = getDocument(_xml);
-		Element _rootElement = _document.getDocumentElement();
+		//Document _document = getDocument(_xml);
+		//Element _rootElement = _document.getDocumentElement();
 
 		return getDO();
 	}
@@ -90,8 +89,8 @@ public class TransferDOXML extends DOXml{
 
 
 			for(int k=0; k<nList.getLength();k++){
-				Node node = nList.item(k);
-				String nodeName = node.getNodeName() ;
+				//Node node = nList.item(k);
+				//String nodeName = node.getNodeName() ;
 				if(_nodeName.equalsIgnoreCase(XML_NODE_SOURCE_RESULT)) {
 					setData((Element)_node);
 				}
@@ -190,7 +189,7 @@ public class TransferDOXML extends DOXml{
 
 	public String getSubXML2() {
 		TransferDO infoDO = (TransferDO)getDO();
-		String  file_name = infoDO.getFl_nm().substring(0, infoDO.getFl_nm().lastIndexOf("."));
+		//String  file_name = infoDO.getFl_nm().substring(0, infoDO.getFl_nm().lastIndexOf("."));
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<" + XML_NODE_ADDTASK_HEAD+ ">");
 		_xml.append("<AddTask Type=\"Transfer\" Action=\"queue\">");

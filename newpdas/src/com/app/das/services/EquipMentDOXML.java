@@ -5,17 +5,10 @@ import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList; 
+import org.w3c.dom.NodeList;
 
-import com.app.das.business.constants.Constants;
-
-
-import com.app.das.business.transfer.AuthorDO;
 import com.app.das.business.transfer.DtlInfoDO;
 import com.app.das.business.transfer.EquipMentInfoDO;
-import com.app.das.business.transfer.ManualArchiveDO;
-import com.app.das.business.transfer.NonEmployeeDASRoleDO;
-import com.app.das.business.transfer.NonEmployeeInfoDO;
 import com.app.das.log.DasPropHandler;
 import com.app.das.util.CommonUtl;
 
@@ -26,7 +19,7 @@ import com.app.das.util.CommonUtl;
  *
  */
 public class EquipMentDOXML extends DOXml {
-	private static DasPropHandler dasHandler = DasPropHandler.getInstance();
+	//private static DasPropHandler dasHandler = DasPropHandler.getInstance();
 	/**
 	 * xml 헤더
 	 */
@@ -130,18 +123,14 @@ public class EquipMentDOXML extends DOXml {
 	
 	
 	public String getSubXML() {
-		DtlInfoDO dtlInfoDO = (DtlInfoDO)getDO();
+		//DtlInfoDO dtlInfoDO = (DtlInfoDO)getDO();
 		String _xml =  "";
 		/*String _xml =   "<" + XML_NODE_HEAD + "> \n";	
 		_xml = _xml + 	"<" + XML_NODE_DTL_NM + ">" + dtlInfoDO.getDtl_nm() + "</"  + XML_NODE_DTL_NM + "> \n";
 		_xml = _xml + 	"<" + XML_NODE_ALIAS + ">" + dtlInfoDO.getAlias() + "</"  + XML_NODE_ALIAS + "> \n";
 		_xml = _xml + 	"<" + XML_NODE_DTL_CONT + ">" + dtlInfoDO.getDtl_cont() + "</"  + XML_NODE_DTL_CONT + "> \n";
-		
-		
 		_xml = _xml + "</" + XML_NODE_HEAD + ">";
 	*/
-		
-		
 		return _xml;
 	}
 

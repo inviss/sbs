@@ -9,8 +9,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.ApproveInfoDO;
-import com.app.das.business.transfer.BoardDO;
-import com.app.das.business.transfer.DiscardDO;
 import com.app.das.util.CommonUtl;
 
 /**
@@ -57,7 +55,7 @@ public class ApproveInfoDOXML2 extends DOXml {
 	/** 
 	 * 부서명
 	 */
-	private String XML_NODE_REG_DT="reg_dt";
+	//private String XML_NODE_REG_DT="reg_dt";
 	/** 
 	 * 프로그램코드
 	 */
@@ -70,7 +68,7 @@ public class ApproveInfoDOXML2 extends DOXml {
 	/** 
 	 * 회사명
 	 */
-	private String XML_NODE_CONM="conm";
+	//private String XML_NODE_CONM="conm";
 
 	/** 
 	 * 회사코드

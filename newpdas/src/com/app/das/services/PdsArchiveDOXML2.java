@@ -38,23 +38,23 @@ public class PdsArchiveDOXML2 extends DOXml{
 	/**
 	 * xml 해더
 	 */
-	private String XML_NODE_HEAD5 = "sbsdas";	
+	//private String XML_NODE_HEAD5 = "sbsdas";	
 	/**
 	 * 파일 크기
 	 */
-	private String XML_NODE_HEAD4 = "stream_total_size";	
+	//private String XML_NODE_HEAD4 = "stream_total_size";	
 	/**
 	 * xml 해더
 	 */
-	private String XML_NODE_HEAD3 = "generator";	
+	//private String XML_NODE_HEAD3 = "generator";	
 	/**
 	 * xml 해더
 	 */
-	private String XML_NODE_HEAD2 = "generator_name";	
+	//private String XML_NODE_HEAD2 = "generator_name";	
 	/**
 	 * xml 해더
 	 */
-	private String XML_NODE_HEAD6 = "das";	
+	//private String XML_NODE_HEAD6 = "das";	
 	/**
 	 * xml 해더
 	 */
@@ -264,7 +264,7 @@ public class PdsArchiveDOXML2 extends DOXml{
 	/**
 	 * 프리뷰노트
 	 */
-	private String XML_NODE_PREVIEWNOTE= "previewnote"; 
+	//private String XML_NODE_PREVIEWNOTE= "previewnote"; 
 	/**
 	 * 첨부파일
 	 */
@@ -363,8 +363,8 @@ public class PdsArchiveDOXML2 extends DOXml{
 		int _length = _nodeList.getLength();
 		for(int i = 0; i < _length; i++) {
 			Node _node = _nodeList.item(i);
-			String _nodeName = _node.getNodeName() ;
-			String _nodeValue = getNodeValue(_node);
+			//String _nodeName = _node.getNodeName() ;
+			//String _nodeValue = getNodeValue(_node);
 			//System.out.println("######  _nodeName : " + _nodeName);
 			//System.out.println("######  _nodeValue :" + _nodeValue);
 			NodeList _nodeList2 =_node.getChildNodes();
@@ -636,8 +636,8 @@ public class PdsArchiveDOXML2 extends DOXml{
 						String nName = nde.getNodeName() ;
 						String nValue = getNodeValue(nde);
 
-						NamedNodeMap CpdAttr = nde.getAttributes();
-						String _nValue = getNodeValue(nde);
+						//NamedNodeMap CpdAttr = nde.getAttributes();
+						//String _nValue = getNodeValue(nde);
 						NodeList nList_1 = nde.getChildNodes();
 						int leng_1 = nList_1.getLength();	
 						if(nName.equals(XML_NODE_PREVIEW_FILE_NM)) {
@@ -646,8 +646,8 @@ public class PdsArchiveDOXML2 extends DOXml{
 								String nName_1 = nde_1.getNodeName() ;
 								String nValue_1 = getNodeValue(nde_1);
 
-								NamedNodeMap CpdAttr_1 = nde_1.getAttributes();
-								String _nValue_1 = getNodeValue(nde_1);
+								//NamedNodeMap CpdAttr_1 = nde_1.getAttributes();
+								//String _nValue_1 = getNodeValue(nde_1);
 
 								if(nName_1.equals(XML_NODE_ATTATCHEDFILE)) {
 
@@ -738,7 +738,7 @@ public class PdsArchiveDOXML2 extends DOXml{
 	}
 
 	public String getSubXML() {
-		PdsArchiveDO infoDO = (PdsArchiveDO)getDO();
+		//PdsArchiveDO infoDO = (PdsArchiveDO)getDO();
 		StringBuffer _xml = new StringBuffer();
 
 		_xml.append("<" + XML_NODE_HEAD + "> \n");

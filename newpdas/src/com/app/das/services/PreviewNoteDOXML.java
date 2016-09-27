@@ -4,9 +4,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList; 
+import org.w3c.dom.NodeList;
 
-import com.app.das.business.constants.Constants;
 import com.app.das.business.transfer.PreviewDO;
 import com.app.das.util.CommonUtl;
 
@@ -28,7 +27,7 @@ public class PreviewNoteDOXML extends DOXml {
 	/**
 	 * xml해더
 	 */ 
-	private String XML_NODE_HEAD2 = "sbsdas";
+	//private String XML_NODE_HEAD2 = "sbsdas";
 	/**
 	 * segment
 	 */ 
@@ -90,16 +89,13 @@ public class PreviewNoteDOXML extends DOXml {
 					 
 					 Node attr = startAttr.item(k);
 					 String nodeName = attr.getNodeName() ;
-					 String att= attr.getNodeValue();
+					 //String att= attr.getNodeValue();
 //					System.out.println("###########  " + nodeName);
 //					System.out.println("###########  " + att);
 //					System.out.println("###########  " + _nodeValue);
 						if(nodeName.equals(XML_NODE_MARKIN)){
 							 markin += "," + attr.getNodeValue();
-						  
 						}
-						
-				
 				 }
 				 cont += "," + _nodeValue;
 			 }
@@ -122,7 +118,6 @@ public class PreviewNoteDOXML extends DOXml {
 		return _xml;
 	}
 	
-	
 /*	public String getSubXML() {
 		RoleInfoDO roleInfoDO = (RoleInfoDO)getDO();
 		
@@ -138,9 +133,6 @@ public class PreviewNoteDOXML extends DOXml {
 		
 		return _xml;
 }*/
-	
-	
-	
 	
 
 }

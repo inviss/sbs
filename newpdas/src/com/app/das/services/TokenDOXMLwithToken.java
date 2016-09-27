@@ -1,22 +1,10 @@
 package com.app.das.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-import com.app.das.business.JNI_Des;
-import com.app.das.business.transfer.DepInfoDO;
-import com.app.das.business.transfer.PhotoInfoDO;
 import com.app.das.business.transfer.TokenDO;
 import com.app.das.util.CommonUtl;
 /**
@@ -32,15 +20,15 @@ public class TokenDOXMLwithToken extends DOXml{
 	/**
 	 * 사번
 	 */
-	private String XML_NODE_USER_NO = "user_no"; 
+	//private String XML_NODE_USER_NO = "user_no"; 
 	/**
 	 * 주민등록번호
 	 */
-	private String XML_NODE_PER_REG_NO = "per_reg_no"; 
+	//private String XML_NODE_PER_REG_NO = "per_reg_no"; 
 	/**
 	 * 회사코드
 	 */
-	private String XML_NODE_COCD = "cocd";
+	//private String XML_NODE_COCD = "cocd";
 	/**
 	 * 유저id
 	 */
@@ -48,15 +36,15 @@ public class TokenDOXMLwithToken extends DOXml{
 	/**
 	 * 소스시스템
 	 */
-	private String XML_NODE_SOURCESYS = "sourcesys"; 
+	//private String XML_NODE_SOURCESYS = "sourcesys"; 
 	/**
 	 * 토큰만료일
 	 */
-	private String XML_NODE_ENDTOKEN = "endtoken";
+	//private String XML_NODE_ENDTOKEN = "endtoken";
 	/**
 	 * 직원유형
 	 */
-	private String XML_NODE_ACCT_CODE = "acct_code";
+	//private String XML_NODE_ACCT_CODE = "acct_code";
 	/**
 	 * 결과값.
 	 */
@@ -76,11 +64,11 @@ public class TokenDOXMLwithToken extends DOXml{
 	/**
 	 * 직원유형(정직원 개별ID: S,비직원 개별ID: N,비직원 공용ID: C )
 	 */
-	private String XML_NODE_EMPTYPE = "emptype";
+	//private String XML_NODE_EMPTYPE = "emptype";
 	/**
 	 * 실행시스템 Count 
 	 */
-	private String XML_NODE_EXECNT = "execnt";
+	//private String XML_NODE_EXECNT = "execnt";
 	/**
 	 * 패스워드
 	 */
