@@ -15,11 +15,8 @@ package com.app.das.business.dao.statement;
 
 import java.rmi.RemoteException;
 
-import org.apache.log4j.Logger;
-
 import com.app.das.business.constants.CodeConstants;
 import com.app.das.business.constants.DASBusinessConstants;
-import com.app.das.business.dao.ExternalDAO;
 import com.app.das.business.exception.DASException;
 import com.app.das.business.transfer.ApproveInfoDO;
 import com.app.das.business.transfer.CartItemDO;

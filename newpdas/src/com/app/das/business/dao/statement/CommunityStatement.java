@@ -332,7 +332,7 @@ public class CommunityStatement
 	//	buf.append("\n 		LEFT OUTER JOIN DAS.OUTSIDER_INFO_TBL out ON out.OUT_USER_ID = brd.REGRID ");
 		buf.append("\n 		LEFT OUTER JOIN DAS.user_info_tbl erp ON erp.SBS_USER_ID = brd.REGRID ");
 		buf.append("\n where brd.BOARD_TYPE_CD = '001' ");
-		String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
+		//String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 		//buf.append("\n where brd.POPUP_END_DD > "+toDateTime);
 		buf.append("\n FETCH FIRST 5 ROWS ONLY   ");
 			

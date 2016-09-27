@@ -179,7 +179,7 @@ public class SystemManageStatement
 	 */
 	public static String  selectEquipmentMonitoringListForWorkQuery(SystemManageConditionDO conditionDO, String searchFlag)
 	{
-		String toDate = CalendarUtil.getToday();
+		//String toDate = CalendarUtil.getToday();
 
 		StringBuffer buf  = new StringBuffer();
 		buf.append("\n select distinct ");
@@ -315,8 +315,8 @@ public class SystemManageStatement
 	 */
 	public static String selectContentsUseInfoListQuery(SystemManageConditionDO conditionDO, String searchFlag) 
 	{
-		String Erp_Com_UserNm = "";
-		String Outsider_Info_UserNm = "";
+		//String Erp_Com_UserNm = "";
+		//String Outsider_Info_UserNm = "";
 
 
 		StringBuffer buf  = new StringBuffer();
@@ -1002,7 +1002,7 @@ public class SystemManageStatement
 		if(condition2.getSRCH_TYPE().equals("1")){
 			//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
 			String Big = condition2.getPgmCd().toUpperCase();
-			String small = condition2.getPgmCd().toLowerCase();
+			//String small = condition2.getPgmCd().toLowerCase();
 
 
 
@@ -1013,7 +1013,7 @@ public class SystemManageStatement
 		if(condition2.getSRCH_TYPE().equals("2")){
 			//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
 			String Big = condition2.getParents_cd().toUpperCase();
-			String small = condition2.getParents_cd().toLowerCase();
+			//String small = condition2.getParents_cd().toLowerCase();
 
 			buf.append("\n AND (PGM_CD LIKE '%"+Big+"%' ");
 			buf.append("\n or PARENTS_CD LIKE '%"+Big+"%' ");	
@@ -1065,7 +1065,7 @@ public class SystemManageStatement
 		if(condition2.getSRCH_TYPE().equals("1")){
 			//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
 			String Big = condition2.getPgmCd().toUpperCase();
-			String small = condition2.getPgmCd().toLowerCase();
+			//String small = condition2.getPgmCd().toLowerCase();
 
 
 			buf.append("\n AND (PGM_CD LIKE '%"+Big+"%' ");
@@ -1075,7 +1075,7 @@ public class SystemManageStatement
 		if(condition2.getSRCH_TYPE().equals("2")){
 			//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
 			String Big = condition2.getParents_cd().toUpperCase();
-			String small = condition2.getParents_cd().toLowerCase();
+			//String small = condition2.getParents_cd().toLowerCase();
 
 			buf.append("\n AND (PGM_CD LIKE '%"+Big+"%' ");
 			buf.append("\n or PARENTS_CD LIKE '%"+Big+"%' ");	
@@ -1126,7 +1126,7 @@ public class SystemManageStatement
 			if(condition2.getSRCH_TYPE().equals("1")){
 				//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
 				String Big = condition2.getPgmCd().toUpperCase();
-				String small = condition2.getPgmCd().toLowerCase();
+				//String small = condition2.getPgmCd().toLowerCase();
 
 
 				buf.append("\n AND (PGM_CD LIKE '%"+Big+"%') ");
@@ -1135,7 +1135,7 @@ public class SystemManageStatement
 			if(condition2.getSRCH_TYPE().equals("2")){
 				//대소문자 구별없이 조회하기위하여 소문자인경우와 대문자인경우 둘다 조회한다
 				String Big = condition2.getParents_cd().toUpperCase();
-				String small = condition2.getParents_cd().toLowerCase();
+				//String small = condition2.getParents_cd().toLowerCase();
 
 				buf.append("\n AND (PGM_CD LIKE '%"+Big+"%' ) ");
 				//buf.append("\n or PARENTS_CD LIKE '%"+Big+"%' ");	
@@ -1148,18 +1148,6 @@ public class SystemManageStatement
 		buf.append("\n   ) A");	
 		buf.append("\n  ORDER BY " );	 
 		buf.append("\n  A.ORDER_STD ,A.PGM_CD ");	
-
-
-
-
-
-
-
-
-
-
-
-
 
 		return buf.toString();
 	}		

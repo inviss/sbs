@@ -1,28 +1,17 @@
 package com.app.das.business.dao.statement;
 
-import org.apache.log4j.Logger;
-
 import com.app.das.business.constants.CodeConstants;
 import com.app.das.business.constants.DASBusinessConstants;
 import com.app.das.business.exception.DASException;
 import com.app.das.business.transfer.AuthorDO;
-import com.app.das.business.transfer.DASCommonDO;
 import com.app.das.business.transfer.DepInfoDO;
-import com.app.das.business.transfer.DiscardDO;
-import com.app.das.business.transfer.EmployeeDASRoleDO;
 import com.app.das.business.transfer.EmployeeInfoDO;
-import com.app.das.business.transfer.EmployeeRoleConditionDO;
 import com.app.das.business.transfer.ErpAppointDO;
 import com.app.das.business.transfer.LogInOutDO;
 import com.app.das.business.transfer.NonEmployeeDASRoleDO;
-import com.app.das.business.transfer.NonEmployeeInfoDO;
-import com.app.das.business.transfer.OtherDBDeptInfoDO;
-import com.app.das.business.transfer.OtherDBuserInfoDO;
 import com.app.das.business.transfer.RoleInfoDO;
-import com.app.das.business.transfer.SubCodeDO;
 import com.app.das.business.transfer.SubsidiaryinfoDO;
 import com.app.das.util.CodeCommon;
-import com.app.das.util.StringUtils;
 
 /**
  * 사용자 관리(내부, 외부, 역할)에 대한 SQL 쿼리가 정의되어 있다.
