@@ -1435,7 +1435,7 @@ public class ExternalDAO extends AbstractDAO
 			release(null, stmt, con);
 		}
 	}
-	
+
 	/**
 	 * 관련영상 정보를 삭제한다.
 	 * @param parent_master_id  부모 마스터 정보
@@ -1452,7 +1452,7 @@ public class ExternalDAO extends AbstractDAO
 		try {
 			con=DBService.getInstance().getConnection();
 			con.setAutoCommit(false);
-			
+
 			buf.append("\n delete from  DAS.RELATION_MASTER where PARENT_MASTER_ID =? and  CHILD_MASTER_ID=? ");
 			stmt=con.prepareStatement(buf.toString());
 			int index=0;
@@ -1460,7 +1460,7 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setLong(++index    , child_master_id);
 
 			int iTmp = stmt.executeUpdate();
-			
+
 			con.commit();
 			return iTmp;
 		} catch (Exception e) {
@@ -1512,7 +1512,7 @@ public class ExternalDAO extends AbstractDAO
 			int iTmp = stmt.executeUpdate();
 
 			insertSceanarioForProceduer(scenarioDO.getMasterId());
-			
+
 			con.commit();
 			return  iTmp;
 
@@ -15545,10 +15545,10 @@ public class ExternalDAO extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-//			if (logger.isDebugEnabled()) 
-//			{
-//				logger.debug("[Update Count]" + updateCount);
-//			}
+			//			if (logger.isDebugEnabled()) 
+			//			{
+			//				logger.debug("[Update Count]" + updateCount);
+			//			}
 
 			if(updateCount == 0)
 			{
@@ -16629,10 +16629,10 @@ public class ExternalDAO extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-//			if (logger.isDebugEnabled()) 
-//			{
-//				logger.debug("[Update Count]" + updateCount);
-//			}
+			//			if (logger.isDebugEnabled()) 
+			//			{
+			//				logger.debug("[Update Count]" + updateCount);
+			//			}
 
 			if(updateCount == 0)
 			{
@@ -16709,10 +16709,10 @@ public class ExternalDAO extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-//			if (logger.isDebugEnabled()) 
-//			{
-//				logger.debug("[Update Count]" + updateCount);
-//			}
+			//			if (logger.isDebugEnabled()) 
+			//			{
+			//				logger.debug("[Update Count]" + updateCount);
+			//			}
 
 
 
@@ -27371,10 +27371,10 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setString(++index, manualArchiveDO.getNew_media_id());
 			updateCount = stmt.executeUpdate();
 
-//			if (logger.isDebugEnabled()) 
-//			{
-//				logger.debug("[Update Count]" + updateCount);
-//			}
+			//			if (logger.isDebugEnabled()) 
+			//			{
+			//				logger.debug("[Update Count]" + updateCount);
+			//			}
 
 			if(updateCount == 0)
 			{
@@ -28177,10 +28177,10 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setLong(++index, ct_id);
 			int updateCount = stmt.executeUpdate();
 
-//			if (logger.isDebugEnabled()) 
-//			{
-//				logger.debug("[Update Count]" + updateCount);
-//			}
+			//			if (logger.isDebugEnabled()) 
+			//			{
+			//				logger.debug("[Update Count]" + updateCount);
+			//			}
 
 			if(updateCount == 0)
 			{
@@ -28258,10 +28258,10 @@ public class ExternalDAO extends AbstractDAO
 
 			int updateCount = stmt.executeUpdate();
 
-//			if (logger.isDebugEnabled()) 
-//			{
-//				logger.debug("[Update Count]" + updateCount);
-//			}
+			//			if (logger.isDebugEnabled()) 
+			//			{
+			//				logger.debug("[Update Count]" + updateCount);
+			//			}
 
 			if(updateCount == 0)
 			{
@@ -28499,8 +28499,6 @@ public class ExternalDAO extends AbstractDAO
 		String filepath = "";
 		if(path.indexOf("\\") > -1) tmpPath= path.replaceAll("\\\\", "/");
 		if(!path.startsWith("/")) tmpPath="/"+path.replace("//", "/").trim();
-		//    
-
 		if(tmpPath.indexOf("mp2") > -1) {
 			filepath = (new StringBuilder("")).append(tmpPath.replace("/mp2", dasHandler.getProperty("MP2")).trim()).toString();
 		}else if(tmpPath.indexOf("arcreq") > -1) {
@@ -38540,7 +38538,7 @@ public class ExternalDAO extends AbstractDAO
 			psmt.setLong(++index, nMasterID);
 			rs = psmt.executeQuery();
 			Attach attach = new Attach();
-			
+
 			while (rs.next()) {
 				AttachItem item = new AttachItem();
 				item.setFlNm(rs.getString("FL_NM"));
@@ -38594,7 +38592,7 @@ public class ExternalDAO extends AbstractDAO
 
 		try {	
 			con = DBService.getInstance().getConnection();
-			
+
 			psmt = con.prepareStatement(buf.toString());    
 			int index = 0;			
 			psmt.setLong(++index, nMasterID);
@@ -38603,7 +38601,7 @@ public class ExternalDAO extends AbstractDAO
 			String annot_cont ="00";
 			String newannot_nm ="00";
 			String newannot_cont ="00";
-			
+
 			Annot annot = new Annot();
 			while (rs.next()) {
 				AnnotInfo annotInfo = new AnnotInfo();
