@@ -135,7 +135,7 @@ public class CodeInfoDAO extends AbstractDAO
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(buf.toString());
 			rs = stmt.executeQuery();
-			
+
 			List resultList = new ArrayList();
 			while(rs.next())
 			{
@@ -207,7 +207,7 @@ public class CodeInfoDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-		 
+
 			CodeDO item = new CodeDO();
 			if(rs.next())
 			{
@@ -223,7 +223,7 @@ public class CodeInfoDAO extends AbstractDAO
 				item.setModrId(	rs.getString("MODRID"));
 				item.setUseYn(		rs.getString("USE_YN"));
 				item.setGubun(rs.getString("GUBUN"));
- 
+
 			}
 			return item;
 		} 
@@ -292,7 +292,7 @@ public class CodeInfoDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 
 		} 
@@ -432,7 +432,7 @@ public class CodeInfoDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}	
 		finally
@@ -478,7 +478,7 @@ public class CodeInfoDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 
 		} 
@@ -553,7 +553,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -615,7 +615,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -656,7 +656,7 @@ public class CodeInfoDAO extends AbstractDAO
 			release(null, stmt, con);
 		}
 	}
-	
+
 	public String getMediaId(Connection con) throws Exception{
 		CallableStatement stmt = null;
 		String mediaId ="";
@@ -665,7 +665,7 @@ public class CodeInfoDAO extends AbstractDAO
 		try {
 			if(con == null)
 				con = DBService.getInstance().getConnection();
-			
+
 			stmt = con.prepareCall(buf.toString());
 
 			stmt.registerOutParameter(1, Types.VARCHAR);
@@ -680,8 +680,8 @@ public class CodeInfoDAO extends AbstractDAO
 			release(null, stmt, null);
 		}
 	}
-	
-	
+
+
 	/**
 	 * PDS 시스템 구축에 따른 미디어ID 식별체계에 따라서 DAS의 미디어 ID를 발급
 	 * 'SYYYYMMDDGXXXXX'
@@ -770,7 +770,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -841,7 +841,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -882,16 +882,13 @@ public class CodeInfoDAO extends AbstractDAO
 			int index = 0;
 
 		} catch(Exception e) {
-			logger.error(buf.toString());
+			con.rollback();
 			throw e;
 		}finally{
 			try {
 				con.setAutoCommit(true);
 				release(null, stmt, con);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} catch (SQLException e) {}
 		}
 		return 0;
 
@@ -910,8 +907,6 @@ public class CodeInfoDAO extends AbstractDAO
 		buf.append("\n WHERE CLF_CD  = 'P002' ");
 		buf.append("\n WITH UR	 ");
 
-
-
 		String scl_cd = "";
 		int scl_cd_value = 0;
 		String scl_cd_val="";
@@ -920,22 +915,17 @@ public class CodeInfoDAO extends AbstractDAO
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		try 
-		{
+		
+		try {
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(buf.toString());
 
-
 			rs = stmt.executeQuery();
 
-
-			while(rs.next())
-			{
+			while(rs.next()) {
 				CodeDO item = new CodeDO();
 
-				item.setSclCd(				rs.getString("SCL_CD"));
-
-
+				item.setSclCd(rs.getString("SCL_CD"));
 				if (scl_cd != null) {
 					try{
 						if(!item.getSclCd().equals("900")){
@@ -944,25 +934,17 @@ public class CodeInfoDAO extends AbstractDAO
 							scl_cd_result = scl_cd_result + scl_cd_value;
 						}
 					}catch (Exception e){
-
 						return Integer.parseInt(scl_cd_result);
 					}
-
 				}
-
 			}
 
 			return Integer.parseInt(scl_cd_result);
-		} 
-
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			logger.error(buf.toString());
 
 			return Integer.parseInt(scl_cd_result);
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
@@ -1126,7 +1108,7 @@ public class CodeInfoDAO extends AbstractDAO
 								}else{
 									scl_cd_result = scode + scl_cd_value[i+1];
 								}
-							
+
 								return scl_cd_result;
 							}
 
@@ -1503,7 +1485,7 @@ public class CodeInfoDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}	
 		finally
@@ -1563,7 +1545,7 @@ public class CodeInfoDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}	
 		finally
@@ -1623,7 +1605,7 @@ public class CodeInfoDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}	
 		finally
@@ -1720,7 +1702,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1787,7 +1769,7 @@ public class CodeInfoDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -1847,7 +1829,7 @@ public class CodeInfoDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-		
+
 			throw e;
 		}	
 		finally
@@ -1912,7 +1894,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1961,7 +1943,7 @@ public class CodeInfoDAO extends AbstractDAO
 
 			}
 			String cd =scl_cd.substring(1, 3);
-			
+
 			int scl= (Integer.parseInt(cd))+1;
 
 			if(scl < 10){
@@ -1969,7 +1951,7 @@ public class CodeInfoDAO extends AbstractDAO
 			}else {
 				result =  "0"+scl;
 			}
-		
+
 
 			return result;
 		} 
@@ -1978,7 +1960,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2038,7 +2020,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2101,7 +2083,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2160,7 +2142,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2223,7 +2205,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2296,7 +2278,7 @@ public class CodeInfoDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally

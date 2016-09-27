@@ -210,7 +210,6 @@ public class CommunityDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-
 			List resultList = new ArrayList();
 
 			while(rs.next())

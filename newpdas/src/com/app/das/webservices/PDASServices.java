@@ -130,11 +130,11 @@ public class PDASServices {
 	 * - metadat_mst_tbl.lock_stat_cd 'N' SET
 	 * jeus로딩시 db connection 문제로 lock_stat_cd의 값을 수정하는 것은 로그인후 권한 정보를 받아오는 시점에서 풀어준다.
 	 */
-
+/*
 	static{
 		PDASInit.init();
 	}
-
+*/
 	/**
 	 * 테스트 인터페이스 메소드
 	 * 
@@ -7010,8 +7010,9 @@ public class PDASServices {
 	 * @throws RemoteException
 	 */
 	public String getSearchText(String searchInfoDO) throws RemoteException{
-
-		logger.info("#####getSearchText searchInfoDO input ["      +  searchInfoDO+"] ");
+		if(logger.isDebugEnabled()) {
+			logger.debug("#####getSearchText searchInfoDO input ["      +  searchInfoDO+"] ");
+		}
 		SearchInfoDOXML _doXML = new SearchInfoDOXML();
 		try {
 			ParameterVO _do = (ParameterVO) _doXML.setDO(searchInfoDO);
@@ -10355,8 +10356,6 @@ public class PDASServices {
 		String xml = "";
 		try {
 			xml = _processor.getBaseInfo(master_id);
-
-			logger.info("######getBaseInfo end######## master_id : " + master_id);
 		} catch (Exception e) {
 			logger.error("getBaseInfo", e);
 		}
@@ -11895,10 +11894,8 @@ public class PDASServices {
 		try {
 			String xml =_processor.getSceanInfoForIfCms(ct_id);
 
-
 			return xml;
 		} catch (Exception e) {
-
 			logger.error("getSceanInfoForIfCms", e);
 		}
 		return "";

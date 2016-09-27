@@ -64,7 +64,6 @@ import com.app.das.business.transfer.ManualDeleteDO;
 import com.app.das.business.transfer.MediaArchiveDO;
 import com.app.das.business.transfer.MediaInfoDO;
 import com.app.das.business.transfer.MetaDataInfo;
-import com.app.das.business.transfer.MetaInfoDO;
 import com.app.das.business.transfer.MetadataMstInfoDO;
 import com.app.das.business.transfer.MonitoringDO;
 import com.app.das.business.transfer.NdsDownDO;
@@ -125,7 +124,7 @@ public class ExternalBusinessProcessor
 	private static DisuseDAO disuseDAO = DisuseDAO.getInstance();
 
 	private static WorkDAO workDAO = WorkDAO.getInstance();
-	
+
 
 	/**
 	 * 카트정보를 조회한다(다운로드 카트정보, 카트내용정보)
@@ -180,21 +179,13 @@ public class ExternalBusinessProcessor
 	 */
 	public DownCartDO insertDownCartInfo(DownCartDO downCartDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertDownCartInfo][Input DownCartDO]" + downCartDO);
-		}
 
 		DownCartDO resultDownCartDO = null;
 		try 
 		{
 			//이미 카트가 존재하는지를 검증한다.
 			long nCartNo = externalDAO.isNewThereDownCart(downCartDO.getReqUsrid(), downCartDO.getMaster_id()); 
-			if( nCartNo >= 0)
-			{
-				DASException exception = new DASException(
-						ErrorConstants.ALREADY_DOWN_CART, "동일 요청자아이디, 화질코드, 종횡비코드에 해당하는 다운로드 카트 정보가 존재합니다.");
-
+			if( nCartNo >= 0) {
 				downCartDO.setCartStat(DASBusinessConstants.DOWN_CART_EXIST);
 				downCartDO.setCartNo(nCartNo);
 				return downCartDO;
@@ -202,14 +193,8 @@ public class ExternalBusinessProcessor
 
 			resultDownCartDO = externalDAO.insertCartInfo(downCartDO);
 
-			if(logger.isDebugEnabled())
-			{
-				logger.debug("[insertCartInfo][Output DownCartDO]" + resultDownCartDO);
-			}
 			return resultDownCartDO;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}		
 
@@ -223,28 +208,14 @@ public class ExternalBusinessProcessor
 	 */
 	public DownCartDO insertStDownCartInfo(DownCartDO downCartDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertStDownCartInfo][Input DownCartDO]" + downCartDO);
-		}
 
 		DownCartDO resultDownCartDO = null;
-		try 
-		{
+		try {
 			//새로 카트 정보를 입력한다.
-
 			resultDownCartDO = externalDAO.insertCartInfo(downCartDO);
 
-			if(logger.isDebugEnabled())
-			{
-				logger.debug("[insertStDownCartInfo][Output DownCartDO]" + resultDownCartDO);
-			}
 			return resultDownCartDO;
-		} 
-		catch (Exception e)
-		{
-
-
+		} catch (Exception e) {
 			throw e;
 		}		
 
@@ -258,28 +229,14 @@ public class ExternalBusinessProcessor
 	 */
 	public DownCartDO insertDownCartInfoTotal(long master_id) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertDownCartInfoTotal][Input master_id]" + master_id);
-		}
-
 		DownCartDO resultDownCartDO = null;
-		try 
-		{
+		try {
 			//이미 카트가 존재하는지를 검증한다.
 
 			resultDownCartDO = externalDAO.selectMetadatList(master_id);
 
-			if(logger.isDebugEnabled())
-			{
-				logger.debug("[insertCartInfo][Output DownCartDO]" + resultDownCartDO);
-			}
 			return resultDownCartDO;
-		} 
-		catch (Exception e)
-		{
-
-
+		} catch (Exception e) {
 			throw e;
 		}		
 
@@ -293,14 +250,9 @@ public class ExternalBusinessProcessor
 	 */
 	public ErrorRegisterDO insertErrorInfo(ErrorRegisterDO errorRegisterDO) throws Exception
 	{
-		try 
-		{						
+		try {						
 			return externalDAO.insertErrorInfo(errorRegisterDO);
-
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -314,13 +266,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getRelationMaster(long masterId) throws Exception
 	{
-		try 
-		{
+		try {
 			return externalDAO.selectRelationMaster(masterId);
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -335,13 +283,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getRelationTotaly(long masterId) throws Exception
 	{
-		try 
-		{
+		try {
 			return externalDAO.selectRelationMaster(masterId);
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -355,13 +299,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getLastPgmInfolist(ProgramInfoDO	programInfoDO) throws Exception
 	{
-		try 
-		{
+		try {
 			return externalDAO.selectLastPgmInfolist(programInfoDO);
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -374,24 +314,20 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 * @throws RemoteException
 	 */
-	public List getSearchRelationInfoList(ProgramInfoDO	programInfoDO) throws Exception
+	public List getSearchRelationInfoList(ProgramInfoDO programInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
+		if(logger.isDebugEnabled()) {
 			logger.debug("[getLastPgmInfolist][Input ProgramInfoDO]" + programInfoDO);		
 		}
 
-		try 
-		{
+		try {
 			return externalDAO.selectSearchRelationInfolist(programInfoDO);
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 
 	}
+
 	/**
 	 * 관련영상 정보를 등록한다.
 	 * @param parent_master_id 부모 마스터 정보
@@ -402,16 +338,13 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertRelationMaster(long parent_master_id,long child_master_id) throws Exception
 	{
-		try 
-		{
+		try {
 			return externalDAO.insertRelationMaster(parent_master_id,child_master_id);
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 	}
+
 	/**
 	 * 관련영상 정보를 삭제한다.
 	 * @param parent_master_id  부모 마스터 정보
@@ -422,16 +355,13 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteRelationMaster(long parent_master_id,long child_master_id) throws Exception
 	{
-		try 
-		{
+		try {
 			return externalDAO.deleteRelationMaster(parent_master_id,child_master_id);
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 	}
+
 	/**
 	 * 주석정보를 저장한다.
 	 * @param masterId 마스터 ID	
@@ -440,14 +370,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List insertAnnotinfo(long masterId, List annotInfoList) throws Exception
 	{
-		try 
-		{						
+		try {						
 			return externalDAO.insertAnnotinfo(masterId, annotInfoList);
-
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -460,15 +385,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List insertAttachFile(List attachFileInfo) throws Exception
 	{
-		try 
-		{						
+		try {						
 			return externalDAO.insertAttachFile(attachFileInfo);
-
-		} 
-		catch (Exception e)
-		{
-
-
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -482,13 +401,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List insertCornerinfo(long masterId, List cornerInfoDOList) throws Exception
 	{
-		try 
-		{						
+		try {						
 			return externalDAO.insertCornerinfoByBatch(masterId, cornerInfoDOList);
-
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -505,16 +420,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String insertTapeinfo(long masterId, String IDhead, String userId, String year) throws Exception
 	{
-		try 
-		{						
+						
 			return externalDAO.insertTapeinfo(masterId, IDhead, userId, year);
 
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}	
 	}
 
 
@@ -528,97 +436,18 @@ public class ExternalBusinessProcessor
 	public int insertContentsMappinfo(long masterId, List contentMappInfoDOList ) throws Exception
 	{
 
-		try 
-		{			
+		try {			
 			int result = externalDAO.insertContentsMappinfo(masterId, contentMappInfoDOList);
-
 
 			//프로시져 호출 함수
 			String master = String.valueOf(masterId);
 			int masteri = Integer.parseInt(master);
 			systemManageDAO.insertCornerInfoForProceduer(masteri);
 			return result;
-
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
-
-
-
-
-
-	//	/**
-	//	 * 코너 정보를 저장한다.
-	//	 * @param cornerInfoDO 코너 정보	
-	//	 * @throws Exception
-	//	 */
-	/*
-	public void insertCornerinfo(CornerInfoDO cornerInfoDO) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertCornerinfo][Input cornerInfoDO]" + cornerInfoDO);
-		}		
-
-		try 
-		{						
-			externalDAO.insertCornerinfo(cornerInfoDO);
-
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg + e.getMessage());
-			}
-			logger.error(e.getExceptionMsg(), e);
-
-			throw e;
-		}	
-	}
-	 */
-
-	//	/**
-	//	 * 콘텐트 멥 정보를 저장한다.
-	//	 * @param contentMappInfoDO 주석 정보	
-	//	 * @throws Exception
-	//	 */
-	/*
-	public void insertContentsMappinfo(ContentMappInfoDO contentMappInfoDO) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertContentsMappinfo][Input ContentMappInfoDO]" + contentMappInfoDO);
-		}		
-
-		try 
-		{						
-			externalDAO.insertContentsMappinfo(contentMappInfoDO);
-
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg + e.getMessage());
-			}
-			logger.error(e.getExceptionMsg(), e);
-
-			throw e;
-		}	
-	}
-	 */
-
-
 
 	/**
 	 * 카트의 내용을 저장한다.
@@ -628,17 +457,9 @@ public class ExternalBusinessProcessor
 	 */
 	public CartContDO insertCartContInfo(CartContDO cartContDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertCartContInfo][Input CartContDO]" + cartContDO);
-		}
-
-		try 
-		{
+		try {
 			return externalDAO.insertCartContInfo(cartContDO);
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -652,21 +473,15 @@ public class ExternalBusinessProcessor
 	 */
 	public CartContDO insertStCartContInfo(CartContDO cartContDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertStCartContInfo][Input CartContDO]" + cartContDO);
-		}
 
-		try 
-		{
+		try {
 			return externalDAO.insertStCartContInfo(cartContDO);
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
 	}
+
 	/**
 	 * 스토리지에 있는 존재하는 클립에 대해서 리스토어 요청시 DAS-TM에 전달 요청하게 된다.
 	 * 풀다운로드 한건에 대해서 요청하게 된다.
@@ -677,17 +492,10 @@ public class ExternalBusinessProcessor
 	 */
 	public CartContDO insertStCartContInfo(DownCartDO downCartDO,CartContDO cartContDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertStCartContInfo][Input DownCartDO]"+downCartDO+" \n[Input CartContDO]" + cartContDO);
-		}
 
-		try 
-		{
+		try {
 			return externalDAO.insertStCartContInfo(downCartDO,cartContDO);
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -701,26 +509,13 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertScenario(ScenarioDO scenarioDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertScenario][Input scenarioDO]" + scenarioDO);
-		}
-
-		try 
-		{
+		try {
 			return externalDAO.insertScenario(scenarioDO);
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 
 	}
-
-
-
-
 
 	/**
 	 * 대본 내용을 삭제한다.
@@ -730,12 +525,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteScenario(long master_id) throws Exception
 	{
-		try 
-		{
+		try {
 			return externalDAO.deleteScenario(master_id);
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -754,14 +546,9 @@ public class ExternalBusinessProcessor
 	public int updateDownCartState(long cartNo, String cartState, String title) throws Exception
 	{
 
-		try 
-		{   
+		try {   
 			return externalDAO.updateDownCartState(cartNo, cartState, title);
-
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -775,13 +562,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateDownCart(DownCartDO downCartDO) throws Exception
 	{
-		try 
-		{   
+		try {   
 			return externalDAO.updateDownCart(downCartDO);
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -796,18 +579,7 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateStDownCart(DownCartDO downCartDO,CartContDO cartContDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateStDownCart]\n[Input DownCartDO]" + downCartDO+"\n[Input cartContDO]"+cartContDO);
-		}
-		try 
-		{   
-			return externalDAO.updateStDownCart(downCartDO,cartContDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.updateStDownCart(downCartDO,cartContDO);
 
 	}
 
@@ -819,21 +591,7 @@ public class ExternalBusinessProcessor
 	 */
 	public int[] updateStCartContInfo(List cartContDOs) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateStCartContInfo][Input CartContDO]" + cartContDOs);
-		}
-
-		try 
-		{   
-			return externalDAO.updateCartContInfo(cartContDOs);
-
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
-
+		return externalDAO.updateCartContInfo(cartContDOs);
 	}
 
 
@@ -846,16 +604,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int[] updateCartContInfo(List cartContDOs) throws Exception
 	{
-		try 
-		{   
-			return externalDAO.updateCartContInfo(cartContDOs);
 
-		} 
-		catch (Exception e) 
-		{
-
-			throw e;
-		}
+		return externalDAO.updateCartContInfo(cartContDOs);
 
 	}
 
@@ -870,15 +620,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateDatastatCd(long masterID, String secArchId, String secArchNm) throws Exception
 	{
-		try 
-		{
-			return externalDAO.updateDatastatCd(masterID, secArchId, secArchNm);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.updateDatastatCd(masterID, secArchId, secArchNm);
 
 	}
 
@@ -892,15 +635,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateVd_qlty(int ctID, String vd_qlty,String asp_rto_cd) throws Exception
 	{
-		try 
-		{
-			return externalDAO.updateVd_qlty(ctID, vd_qlty,asp_rto_cd,"");
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.updateVd_qlty(ctID, vd_qlty,asp_rto_cd,"");
+
 
 	}
 
@@ -913,15 +650,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateSDIngestStatus(String itemId, String ingestStatus) throws Exception
 	{
-		try 
-		{
-			return externalDAO.updateSDIngestStatus(itemId, ingestStatus);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.updateSDIngestStatus(itemId, ingestStatus);
+
 
 	}
 
@@ -934,14 +665,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateModUserid(long masterId, String userId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.updateModUserid(masterId, userId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.updateModUserid(masterId, userId);
 
 	}
 
@@ -953,19 +678,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateCornerDuration(ContentMappInfoDO contentMappInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateClipRepinfo][Input rpimgKfrmSeq]" + contentMappInfoDO);
-		}
 
-		try 
-		{
-			return externalDAO.updateCornerDuration(contentMappInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.updateCornerDuration(contentMappInfoDO);
 
 	}
 
@@ -984,15 +698,8 @@ public class ExternalBusinessProcessor
 			String moddt, String lock_stat_cd, String error_stat_cd) throws Exception
 			{
 
-		try 
-		{
-			return externalDAO.updateMetadataStatusCd(masterId, statCd, modrid, moddt, lock_stat_cd, 
-					error_stat_cd);
-		} 
-		catch (Exception e)
-		{						
-			throw e;
-		}
+		return externalDAO.updateMetadataStatusCd(masterId, statCd, modrid, moddt, lock_stat_cd, error_stat_cd);
+
 
 			}	
 
@@ -1007,19 +714,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateClipRepinfo(int rpimgKfrmSeq, long rpimgCtId, long masterId) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateClipRepinfo][Input rpimgKfrmSeq]" + rpimgKfrmSeq);
-		}
 
-		try 
-		{
-			return externalDAO.updateClipRepinfo(rpimgKfrmSeq, rpimgCtId,masterId);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return externalDAO.updateClipRepinfo(rpimgKfrmSeq, rpimgCtId,masterId);
 
 	}	
 
@@ -1033,19 +729,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateCornerRepinfo(int rpimgKfrmSeq, long rpimgCtId, long cnId) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateCornerRepinfo][Input rpimgKfrmSeq]" + rpimgKfrmSeq);
-		}
 
-		try 
-		{
-			return externalDAO.updateClipRepinfo(rpimgKfrmSeq, rpimgCtId,cnId);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return externalDAO.updateClipRepinfo(rpimgKfrmSeq, rpimgCtId,cnId);
 
 	}	
 
@@ -1058,22 +743,10 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateMetadat(MetadataMstInfoDO metadataMstInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateMetadat][Input metadataMstInfoDO]" + metadataMstInfoDO);
-		}
 
-		try 
-		{
+		int result =externalDAO.updateMetadat(metadataMstInfoDO);
 
-			int result =externalDAO.updateMetadat(metadataMstInfoDO);
-
-			return result;
-		} 
-		catch (Exception e)
-		{  
-			throw e;
-		}
+		return result;
 
 	}
 
@@ -1086,15 +759,8 @@ public class ExternalBusinessProcessor
 	 */
 	public void deleteAllCartInfo(long cartNo) throws Exception
 	{
-		try 
-		{
-			externalDAO.deleteAllCartInfo(cartNo);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		externalDAO.deleteAllCartInfo(cartNo);
 
 	}
 
@@ -1106,14 +772,9 @@ public class ExternalBusinessProcessor
 	 */
 	public void deleteCartInfoList(long cartNo, int seq) throws Exception
 	{
-		try 
-		{
-			externalDAO.deleteCartInfo(cartNo, seq);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		externalDAO.deleteCartInfo(cartNo, seq);
+
 	}
 
 	/**
@@ -1126,19 +787,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String deletePhotoFiles(List photoInfoList) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[deletePhotoFiles][Input cartNo]" + photoInfoList);		
-		}
 
-		try 
-		{
-			return externalDAO.deletePhotoFiles(photoInfoList);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return externalDAO.deletePhotoFiles(photoInfoList);
+
 	}
 
 	/**
@@ -1160,47 +811,10 @@ public class ExternalBusinessProcessor
 				}
 			}
 			return result;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 	}
-
-	//	/**
-	//	 * 코너 정보를 삭제 후 멥, 코너 정보를 insert한다.
-	//	 * @param masterId  마스터 ID
-	//	 * @param contentMappInfoDO 주석 정보
-	//	 * @param cornerInfoDO 코너 정보	 	
-	//	 * @throws Exception
-	//	 */
-	/*
-	public CornerInfoDO deleteCornerInfo(long masterId, ContentMappInfoDO contentMappInfoDO, CornerInfoDO cornerInfoDO) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[deleteCornerInfo][Input masterId]" + masterId);	
-		}
-
-		try 
-		{
-			return externalDAO.deleteCornerInfo(masterId, contentMappInfoDO, cornerInfoDO);
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg + e.getMessage());
-			}
-			logger.error(e.getExceptionMsg(), e);
-
-			throw e;
-		}
-	}
-	 */
 
 
 	/**
@@ -1211,16 +825,8 @@ public class ExternalBusinessProcessor
 	 */
 	public String deleteFiles(int days) throws Exception
 	{
-		try 
-		{
-			return externalDAO.deleteContentFiles(days);
 
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return externalDAO.deleteContentFiles(days);
 
 	}
 
@@ -1233,20 +839,8 @@ public class ExternalBusinessProcessor
 	 */
 	public String deleteKfrmFiles(String krfmFileList) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[deleteKfrmFiles][Input krfmFileList]" + krfmFileList);			
-		}		
 
-		try 
-		{
-			return externalDAO.deleteKfrmFiles(krfmFileList);			
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
-
+		return externalDAO.deleteKfrmFiles(krfmFileList);			
 
 	}
 
@@ -1259,15 +853,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getStorageIP() throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectStorageIP();
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectStorageIP();
 
 	}
 
@@ -1279,15 +866,8 @@ public class ExternalBusinessProcessor
 	 */
 	public MetadataMstInfoDO getModDatastatcd(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectModDatastatcd(masterId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectModDatastatcd(masterId);
 
 	}
 
@@ -1300,14 +880,7 @@ public class ExternalBusinessProcessor
 	public List getCommonInfoList(String clfCd) throws Exception
 	{
 
-		try 
-		{
-			return externalDAO.selectCommonInfoList(clfCd);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.selectCommonInfoList(clfCd);
 
 	}
 
@@ -1319,15 +892,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getProgramInfoList(String pgmNm) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectProgramInfo(pgmNm);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectProgramInfo(pgmNm);
 
 	}
 
@@ -1339,19 +905,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getPgmInfoFromName(ProgramInfoDO programInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getPgmInfoFromName][Input pgmNm]" + programInfoDO);		
-		}
 
-		try 
-		{
-			return externalDAO.selectPgmInfoFromName(programInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.selectPgmInfoFromName(programInfoDO);
+
 
 	}
 
@@ -1364,19 +920,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getPgmInfoFromName3(String pgmNm) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getPgmInfoFromName][Input pgmNm]" + pgmNm);		
-		}
 
-		try 
-		{
-			return externalDAO.selectPgmInfoFromName(pgmNm);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return externalDAO.selectPgmInfoFromName(pgmNm);
 
 	}
 
@@ -1390,14 +935,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getPgmInfoFromName2(String pgmNm) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectPgmInfoFromName2(pgmNm);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectPgmInfoFromName2(pgmNm);
 
 	}
 
@@ -1413,15 +952,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getScenario(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectScenario(masterId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectScenario(masterId);
+
 
 	}
 	/**
@@ -1433,14 +966,7 @@ public class ExternalBusinessProcessor
 	public ScenarioDO getScenario2(ScenarioDO scenarioDO) throws Exception
 	{
 
-		try 
-		{
-			return externalDAO.selectScenario2(scenarioDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.selectScenario2(scenarioDO);
 
 	}
 	/**
@@ -1452,14 +978,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getPgmInfoFromMasterid(int episNo, long pgmId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectPgmInfoFromMasterid(episNo, pgmId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectPgmInfoFromMasterid(episNo, pgmId);
 
 	}
 
@@ -1471,15 +991,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getLastPgmInfolist(String pgmNm) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectLastPgmInfolist(pgmNm);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectLastPgmInfolist(pgmNm);
 
 	}
 
@@ -1492,14 +1005,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getLastPgmInfolistByPgmId(long pgmId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectLastPgmInfolistByPgmId(pgmId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectLastPgmInfolistByPgmId(pgmId);
+
 
 	}
 	/**
@@ -1511,14 +1019,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getLastPgmInfolistByPgmId2(long pgmId,String brd_dd) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectLastPgmInfolistByPgmId2(pgmId,brd_dd);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+
+		return externalDAO.selectLastPgmInfolistByPgmId2(pgmId,brd_dd);
 
 	}
 
@@ -1531,15 +1033,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getPgmContentsInfoList(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectPgmContentsInfo(masterId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectPgmContentsInfo(masterId);
 
 	}
 
@@ -1551,15 +1046,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getCornerInfoList(long masterId, String keyWord) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectCornerInfoList(masterId, keyWord);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectCornerInfoList(masterId, keyWord);
 
 	}
 
@@ -1570,15 +1058,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getFLIngestCommonCodeList() throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectFLIngestCommonCodeList();
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}		
+		return externalDAO.selectFLIngestCommonCodeList();
+
 	}
 
 	/**
@@ -1588,14 +1070,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getFlIngestLastCommandList() throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectFlIngestLastCommandList();
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}		
+
+		return externalDAO.selectFlIngestLastCommandList();
+
 	}
 
 	/**
@@ -1606,14 +1083,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getIngestServerList(String clfCd) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectIngestServerList(clfCd);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}		
+
+		return externalDAO.selectIngestServerList(clfCd);
+
 	}
 
 	/**
@@ -1623,15 +1095,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getSDIngestCommonCodeList() throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectSDIngestCommonCodeList();
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}		
+		return externalDAO.selectSDIngestCommonCodeList();
+
 	}
 
 	/**
@@ -1642,15 +1108,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getSDIngestRefreshTapeInfo(String tapeId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectSDIngestRefreshTapeInfo(tapeId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}		
+		return externalDAO.selectSDIngestRefreshTapeInfo(tapeId);
+
 	}
 
 	/**
@@ -1661,15 +1121,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getSDIngestServerList(String eqClfCd) throws Exception
 	{
-		logger.debug("getSDIngestServerList : " + eqClfCd);
-		try 
-		{
-			return externalDAO.selectSDIngestServerList(eqClfCd);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}		
+
+		return externalDAO.selectSDIngestServerList(eqClfCd);
+
 	}
 
 	/**
@@ -1680,15 +1134,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getSDIngestStatusInfo(String tapeItemId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectSDIngestStatusInfo(tapeItemId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}		
+		return externalDAO.selectSDIngestStatusInfo(tapeItemId);
+
 	}
 
 	/**
@@ -1701,14 +1149,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getSDTapeInfoList(String reqNum, String pgmNm, String IngestStatus, boolean OnAirDateSearch,String OnAirDateStart, String OnAirDateEnd) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectSDTapeInfoList(reqNum,pgmNm,IngestStatus,OnAirDateSearch,OnAirDateStart,OnAirDateEnd);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}		
+
+		return externalDAO.selectSDTapeInfoList(reqNum,pgmNm,IngestStatus,OnAirDateSearch,OnAirDateStart,OnAirDateEnd);
+
 	}
 
 	/**
@@ -1723,41 +1166,21 @@ public class ExternalBusinessProcessor
 	public List getNewMetadatInfoList(WorkStatusConditionDO conditionDO) throws Exception {
 		return externalDAO.selectNewMetadatInfoList(conditionDO);
 	}
-	
-	
+
+
 	@Deprecated
 	public List getMetadatInfoList(WorkStatusConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getMetadatInfoList][Input ]" + conditionDO);		
-		}
 
-		try 
-		{
-			return externalDAO.selectMetadatInfoList(conditionDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}		
+		return externalDAO.selectMetadatInfoList(conditionDO);
+
 	}
 
 	public String getMetadatInfoListForString(WorkStatusConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getMetadatInfoList][Input ]" + conditionDO);		
-		}
 
-		try 
-		{
-			return externalDAO.selectMetadatInfoListForString(conditionDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}		
+		return externalDAO.selectMetadatInfoListForString(conditionDO);
+
 	}
 	/**
 	 * 마스터 ID에 대한 모든 메타데이타 마스터 정보를 조회한다.
@@ -1767,14 +1190,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getMetadataInfo(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectMetadataInfo(masterId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}		
+
+		return externalDAO.selectMetadataInfo(masterId);
+
 	}
 
 
@@ -1785,15 +1203,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getErrorInfoList(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectErrorInfoList(masterId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}		
+		return externalDAO.selectErrorInfoList(masterId);
+
 	}
 
 	/**
@@ -1804,15 +1216,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getTapeOutIngestCartItemInfo(long cartNo) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectTapeOutIngestCartItemInfo(cartNo);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}		
+		return externalDAO.selectTapeOutIngestCartItemInfo(cartNo);
+
 	}
 
 	/**
@@ -1822,15 +1228,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getTapeOutIngestCommonCodeList() throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectTapeOutIngestCommonCodeList();
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}		
+		return externalDAO.selectTapeOutIngestCommonCodeList();
+
 	}
 
 	/**
@@ -1844,15 +1244,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getTapeOutIngestDownCartInfoList(String reqUserId, int resolution, boolean reqDtChk, String reqDt) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectTapeOutIngestDownCartInfoList(reqUserId,resolution,reqDtChk,reqDt);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}		
+		return externalDAO.selectTapeOutIngestDownCartInfoList(reqUserId,resolution,reqDtChk,reqDt);
+
 	}
 
 
@@ -1867,15 +1261,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getKeyFrameInfoInfoList(long ctId, int fromSeq, int toSeq) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectKeyFrameInfoInfoList(ctId, fromSeq, toSeq);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectKeyFrameInfoInfoList(ctId, fromSeq, toSeq);
 
 	}
 
@@ -1887,15 +1274,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getAnnotInfoInfoList(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectAnnotInfoInfoList(masterId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectAnnotInfoInfoList(masterId);
 
 	}
 
@@ -1907,15 +1287,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getReflectionInfoList(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectReflectionInfoList(masterId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectReflectionInfoList(masterId);
+
 
 	}
 
@@ -1927,14 +1301,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getAttachFileInfoList(long mothrId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectAttachedFileInfoList(mothrId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectAttachedFileInfoList(mothrId);
 
 	}
 
@@ -1946,14 +1314,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getContentPreInfoList(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectConentPreInfoList(masterId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectConentPreInfoList(masterId);
 
 	}
 
@@ -1965,15 +1327,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getCartContList(long cartNo) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectCartContList(cartNo);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectCartContList(cartNo);
 
 	}
 
@@ -1985,15 +1340,8 @@ public class ExternalBusinessProcessor
 	 */
 	public ContentsInfoDO getContentsInfo(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectContentsInfo(masterId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectContentsInfo(masterId);
 
 	}
 
@@ -2006,14 +1354,7 @@ public class ExternalBusinessProcessor
 	public TapeInfoDO getTapeInfo(long masterId) throws Throwable
 	{
 
-		try 
-		{
-			return externalDAO.selectTapeInfo(masterId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.selectTapeInfo(masterId);
 
 	}
 
@@ -2025,15 +1366,8 @@ public class ExternalBusinessProcessor
 	 */
 	public MediaInfoDO getMediaInfo(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectMediaInfo(masterId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectMediaInfo(masterId);
 
 	}
 
@@ -2046,15 +1380,7 @@ public class ExternalBusinessProcessor
 	public List getModeUserInfoList(long masterId) throws Exception
 	{
 
-		try 
-		{
-			return externalDAO.selectModeUserInfoList(masterId);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return externalDAO.selectModeUserInfoList(masterId);
 
 	}	
 
@@ -2066,14 +1392,8 @@ public class ExternalBusinessProcessor
 	 */
 	public VideoPageInfoDO getVideoPageInfo(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectVideoPageInfo(masterId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectVideoPageInfo(masterId);
 
 	}
 
@@ -2085,14 +1405,8 @@ public class ExternalBusinessProcessor
 	 */
 	public VideoPageMetaInfoDO getVideoPageMetaInfo(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectVideoPageMetaInfo(masterId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectVideoPageMetaInfo(masterId);
 
 	}
 
@@ -2104,14 +1418,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getVideoPageContentsInfoList(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectVideoPageContentInfoList(masterId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectVideoPageContentInfoList(masterId);
 
 	}
 
@@ -2124,15 +1432,7 @@ public class ExternalBusinessProcessor
 	public ManagementInfoDO getManagementInfo(long masterId) throws Exception
 	{
 
-		try 
-		{
-			return externalDAO.selectManagementInfo(masterId);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return externalDAO.selectManagementInfo(masterId);
 
 	}
 
@@ -2144,15 +1444,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getPhotoInfoList(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectPhotoInfoList(masterId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectPhotoInfoList(masterId);
 
 	}
 
@@ -2165,15 +1458,8 @@ public class ExternalBusinessProcessor
 	 */
 	public KeyFrameImgDO getCornerHeaderImgInfo(long ctId, long cnId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectCornerHeaderImgInfo(ctId, cnId);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.selectCornerHeaderImgInfo(ctId, cnId);
 
 	}
 
@@ -2185,14 +1471,8 @@ public class ExternalBusinessProcessor
 	 */
 	public KeyFrameImgDO getClipHeaderImgInfo(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectClipHeaderImgInfo(masterId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectClipHeaderImgInfo(masterId);
 
 	}
 
@@ -2206,14 +1486,8 @@ public class ExternalBusinessProcessor
 	public int getLogRcdPeriod(int dasEqId, String dasEqPsCd) throws Exception
 	{
 
-		try 
-		{
-			return externalDAO.selectLogRcdPeriod(dasEqId, dasEqPsCd);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.selectLogRcdPeriod(dasEqId, dasEqPsCd);
+
 	}
 	/**
 	 * 로그인 서비스 (das 1.0 로그인 서비스 현재 사용하지 않는 로직)
@@ -2225,28 +1499,12 @@ public class ExternalBusinessProcessor
 	public String loginService(String userId, String passwd) throws Exception
 	{
 		String str = null;
-		try 
-		{
-
+		try {
 			//정직원의 경우 SSO 로그인 처리를 하고 정직원이 아닌 경우 자체 DAS DB의 로그인처리를 한다.
 			if(userId.toUpperCase().startsWith("S"))
 			{
 				Object locator;
-				//SSO 로그인 처리를 한다. 만약 리턴되는 Map 객체에 데이타가 존재하지 않으면 ERP User Table 를 통한 로그인 처리를 한다.
-				//				Map userInfoMap = locator.loginSSO(userId, passwd);
-				//				//COMM DB 를 통한 로그인 처리를 한다.
-				//				if(userInfoMap.isEmpty())
-				//				{
-				//					str = userInfoDAO.EmployeeRoleLoginService(userId, passwd);
-				//				}
-				//				//정상 로그인이 되었기 때문에 사용자 정보를 조회한다.
-				//				else
-				//				{
-				//					str = userInfoDAO.selectEmployeeInfoService(userId);	
-				//				}
-			}
-			else
-			{
+			} else {
 				str = userInfoDAO.selectNonEmployeeInfoService(userId, passwd);
 
 				//비밀번호 실패횟수를 0으로 클리어 시킨다.
@@ -2257,11 +1515,8 @@ public class ExternalBusinessProcessor
 			userInfoDAO.insertIdLog(userId);
 
 			return str;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
-
 		}
 	}
 
@@ -2274,15 +1529,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getPlayMediaInfo(long CTI_ID) throws Exception 
 	{
-		try 
-		{
-			return externalDAO.getPlayMediaInfo(CTI_ID);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.getPlayMediaInfo(CTI_ID);
+
 	}
 
 
@@ -2294,15 +1543,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getPlayContentInfo(long MasterID) throws Exception 
 	{
-		try 
-		{
-			return externalDAO.getPlayContentInfo(MasterID);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.getPlayContentInfo(MasterID);
+
 	}
 
 
@@ -2315,21 +1558,9 @@ public class ExternalBusinessProcessor
 	 */
 	public ArrayList getMetaList(String searchColumn, String searchKey) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getClipHeaderImgInfo][Input ctId]" + searchColumn + ", " + searchKey);
-		}
 
-		ArrayList list = new ArrayList();
+		return externalDAO.getMetaList(searchColumn, searchKey);
 
-		try 
-		{
-			list = externalDAO.getMetaList(searchColumn, searchKey);
-		} catch (Exception e) {
-			throw e;
-		}
-
-		return list;
 	}
 
 	/**
@@ -2341,19 +1572,8 @@ public class ExternalBusinessProcessor
 	public ArrayList getMappingList(String master_id) throws Exception
 	{
 
-		ArrayList list = new ArrayList();
+		return externalDAO.getMappingList(master_id);
 
-		try 
-		{
-			list = externalDAO.getMappingList(master_id);
-		} catch (Exception e) {
-			throw e;
-		}
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getClipHeaderImgInfo][Input ctId]" + list.size());
-		}
-		return list;
 	}
 
 	/**
@@ -2365,20 +1585,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertMappinfo(String master_id, String cn_id, String ct_id, ArrayList beans, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertMappinfo][Input beans size]" + beans.size());
-		}		
 
-		try 
-		{						
-			return externalDAO.insertMappinfo(master_id, cn_id, ct_id, beans, commonDO);
+		return externalDAO.insertMappinfo(master_id, cn_id, ct_id, beans, commonDO);
 
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}	
 	}
 
 	/**
@@ -2390,15 +1599,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteAttachFile(String attachFilename, String file_type, String clf_cd) throws Exception
 	{	
-		try 
-		{				
-			return externalDAO.deleteAttachFile(attachFilename, file_type, clf_cd);			
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}	
+		return externalDAO.deleteAttachFile(attachFilename, file_type, clf_cd);			
+
 	}
 
 	/**
@@ -2410,15 +1613,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteBoardAttachFile(String attachFilename, String fl_path, int board) throws Exception
 	{	
-		try 
-		{			
-			return externalDAO.deleteBoardAttachFile(attachFilename,fl_path,  board);			
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}	
+		return externalDAO.deleteBoardAttachFile(attachFilename,fl_path,  board);			
+
 	}
 	/**
 	 * 사진을 다운로드했다는 기록을 남긴다.(통계를 위해서) 
@@ -2431,15 +1628,12 @@ public class ExternalBusinessProcessor
 	public int InsertPhotoDownloadInfo(long Phot_ID, String REQ_ID, long PGM_ID) throws Exception
 	{
 
-		try 
-		{
+		try {
 			if(PGM_ID == 0){
 				PGM_ID = externalDAO.selectPhotIdForPgmId(Phot_ID);
 			}
 			return externalDAO.InsertPhotoDownloadInfo(Phot_ID, REQ_ID, PGM_ID);
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -2450,15 +1644,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int InsertPhotoDownInfo(PhotDownDO PhotoInfoDO) throws Exception
 	{
-		try 
-		{
-			return externalDAO.InsertPhotoDownInfo(PhotoInfoDO);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.InsertPhotoDownInfo(PhotoInfoDO);
+
 	}
 	/**
 	 * 오디오 관련 정보를 업데이트한다.
@@ -2471,16 +1659,8 @@ public class ExternalBusinessProcessor
 	public int UpdateContentMediaInfo(long Master_ID, String aud_type_cd, 
 			String record_type_cd, String me_cd, String color_cd)  throws Exception
 			{
-		try 
-		{
-			return externalDAO.UpdateContentMediaInfo(Master_ID, aud_type_cd,
-					record_type_cd, me_cd, color_cd);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.UpdateContentMediaInfo(Master_ID, aud_type_cd, record_type_cd, me_cd, color_cd);
 
 			}
 
@@ -2492,14 +1672,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int UpdateDatacdWithMasterid_XML(String strXML) throws Exception
 	{
-		try 
-		{
-			return externalDAO.UpdateDatacdWithMasterid_XML(strXML);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}	
+		return externalDAO.UpdateDatacdWithMasterid_XML(strXML);
+
 	}
 
 
@@ -2512,17 +1686,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String insertERPTapeInfo(Das das) throws Exception
 	{
-		try 
-		{
-			String result=null;
-			result = externalDAO.insertERPTapeInfo(das);
-			return result;
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}	
+		return  externalDAO.insertERPTapeInfo(das);
+
 	}
 
 	/**
@@ -2534,20 +1700,8 @@ public class ExternalBusinessProcessor
 	 */
 	public String updateERPTapeInfo(String xml) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateERPTapeInfo][xml]" + xml);
-		}
+		return externalDAO.updateERPTapeInfo(xml);
 
-		try 
-		{
-			return externalDAO.updateERPTapeInfo(xml);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}	
 	}
 
 	/**
@@ -2604,28 +1758,28 @@ public class ExternalBusinessProcessor
 
 			for (int i=0; i<list.size(); i++) {
 				String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"+
-				"<das>"+
-				"<info>"+		
-				"<das_eq_id>4</das_eq_id>"+
-				"<das_eq_ps_cd>005</das_eq_ps_cd>"+
-				"<cti_id>" + list.get(i).toString() + "</cti_id>"+
-				"<priority>3</priority>"+
-				"<sgl_group_nm>m2_%25</sgl_group_nm>"+
-				"<job_id>008</job_id>"+
-				"<som>0</som>"+
-				"<eom>0</eom>"+
-				"<file_path></file_path>"+ 
-				"<req_id>requester</req_id>"+
-				"<regrid>register</regrid>"+
-				"</info>"+
-				"<db_table>"+ 
-				"<contents_mapp_tbl>"+
-				"<ct_id>0</ct_id>"+
-				"<master_id>0</master_id>"+
-				"<pgm_id></pgm_id>"+
-				"</contents_mapp_tbl>"+
-				"</db_table>"+
-				"</das>";
+						"<das>"+
+						"<info>"+		
+						"<das_eq_id>4</das_eq_id>"+
+						"<das_eq_ps_cd>005</das_eq_ps_cd>"+
+						"<cti_id>" + list.get(i).toString() + "</cti_id>"+
+						"<priority>3</priority>"+
+						"<sgl_group_nm>m2_%25</sgl_group_nm>"+
+						"<job_id>008</job_id>"+
+						"<som>0</som>"+
+						"<eom>0</eom>"+
+						"<file_path></file_path>"+ 
+						"<req_id>requester</req_id>"+
+						"<regrid>register</regrid>"+
+						"</info>"+
+						"<db_table>"+ 
+						"<contents_mapp_tbl>"+
+						"<ct_id>0</ct_id>"+
+						"<master_id>0</master_id>"+
+						"<pgm_id></pgm_id>"+
+						"</contents_mapp_tbl>"+
+						"</db_table>"+
+						"</das>";
 
 				// log
 				Cti_IdWriter.write(today + " xml = " + xml + "\n");
@@ -2634,12 +1788,9 @@ public class ExternalBusinessProcessor
 				boolean _result = false;
 				logger.debug("str="+str);
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw e;
-		}	
-		finally
-		{
+		} finally {
 			try {
 				Cti_IdWriter.close();
 			} catch (Exception e) {
@@ -2685,15 +1836,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getUserAuthCD(String UserID) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getUserAuthCD(UserID);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}	
+		return externalDAO.getUserAuthCD(UserID);
+
 	}
 	/**
 	 * 다운로드카트 리스트의 정보조회
@@ -2706,14 +1851,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getDownCartList(String ReqUsrID, String DateStart, String DateEnd, String down_nm) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getDownCartList(ReqUsrID, DateStart, DateEnd, down_nm);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}	
+
+		return externalDAO.getDownCartList(ReqUsrID, DateStart, DateEnd, down_nm);
+
 	}
 
 	/**
@@ -2725,19 +1865,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getBasicPageInfo(long masterId) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getBasicPageInfo][down_nm]" + masterId);
-		}
 
-		try 
-		{
-			return externalDAO.getBasicPageInfo(masterId);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}	
+		return externalDAO.getBasicPageInfo(masterId);
+
 	}
 
 	/**
@@ -2749,15 +1879,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String recreateWMV(long cti_id) throws Exception
 	{
-		try 
-		{
-			return externalDAO.recreateWMV(cti_id);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}	
+		return externalDAO.recreateWMV(cti_id);
+
 	}
 
 	/**
@@ -2769,15 +1893,9 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 */
 	public String recreateWMV(TcBeanDO tcbean,String user_nm) throws Exception {
-		if(logger.isDebugEnabled()) {
-			logger.debug("[RecreateWMV][ct_id]" + tcbean.getCt_id()+"[user_nm]"+user_nm);
-		}
 
-		try {
-			return externalDAO.recreateNewWMV(tcbean, user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
-		} catch (Exception e) {
-			throw e;
-		}	
+		return externalDAO.recreateNewWMV(tcbean, user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
+
 	}
 
 	/**
@@ -2788,15 +1906,9 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 */
 	public String recreateWMV_KFRM(TcBeanDO tcbean,String user_nm) throws Exception {
-		if(logger.isDebugEnabled()) {
-			logger.debug("[recreateWMV_KFRM][ct_id]" + tcbean.getCt_id()+"[user_nm]"+tcbean.getRegrid());
-		}
 
-		try {
-			return externalDAO.recreateNewWMV_KFRM(tcbean, user_nm, dasHandler.getProperty("TC_DIR_INTERFACE"));
-		} catch (Exception e) {
-			throw e;
-		}	
+		return externalDAO.recreateNewWMV_KFRM(tcbean, user_nm, dasHandler.getProperty("TC_DIR_INTERFACE"));
+
 	}
 
 
@@ -2808,17 +1920,11 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 */
 	public String recreateKFRM(TcBeanDO tcbean,String user_nm) throws Exception {
-		if(logger.isDebugEnabled()) {
-			logger.debug("[recreateKFRM][ct_id]" + tcbean.getCt_id()+"[user_nm]"+user_nm);
-		}
 
-		try {
-			return externalDAO.recreateNewKFRM(tcbean,user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
-		} catch (Exception e) {
-			throw e;
-		}	
+		return externalDAO.recreateNewKFRM(tcbean,user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
+
 	}
-	
+
 	/**
 	 * 키프레임 생성(클라이언트 신청시)
 	 * @param ct_id 콘텐츠id 
@@ -2829,15 +1935,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String recreateKFRM(long ct_id,String user_nm) throws Exception
 	{
-		try 
-		{
-			return externalDAO.recreateKFRM(ct_id,user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}	
+		return externalDAO.recreateKFRM(ct_id,user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"));
+
 	}
 
 
@@ -2850,20 +1950,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int UnlockByUserID(String strUserID) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[UnlockByUserID][UserID]" + strUserID);
-		}
 
-		try 
-		{
-			return externalDAO.UnlockByUserID(strUserID);
-		} 
-		catch (Exception e)
-		{
+		return externalDAO.UnlockByUserID(strUserID);
 
-			throw e;
-		}
 	}
 
 
@@ -2875,15 +1964,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getMergedFilenames(long master_id) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getMergedFilenames(master_id);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.getMergedFilenames(master_id);
+
 	}
 
 	/**
@@ -2894,15 +1977,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int MultiLockUnlock(String xml) throws Exception
 	{
-		try 
-		{
-			return externalDAO.MultiLockUnlock(xml);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.MultiLockUnlock(xml);
+
 	}
 
 	/**
@@ -2913,14 +1990,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getMasterDataTotaly(String xml) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getMasterDataTotaly(xml);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.getMasterDataTotaly(xml);
+
 	}
 
 
@@ -2937,125 +2009,11 @@ public class ExternalBusinessProcessor
 
 	public String getMasterDataAll(String xml) throws NumberFormatException, Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getMasterDataAll][xml]" + xml);
-		}
 
-		try 
-		{
+		return externalDAO.getMasterDataAll(xml);
 
-			return externalDAO.getMasterDataAll(xml);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
-	}
-	/*
-	public String getBaseInfo(String xml) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getBaseInfo][xml]" + xml);
-		}
-
-		try 
-		{
-
-			return externalDAO.getBaseInfo(xml);
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg);
-			}
-			logger.error(e.getExceptionMsg(), e);
-
-			throw e;
-		}
-	}
-	public String getSceanInfo(String xml) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSceanInfo][xml]" + xml);
-		}
-
-		try 
-		{
-			return externalDAO.getSceanInfo(xml);
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg);
-			}
-			logger.error(e.getExceptionMsg(), e);
-
-			throw e;
-		}
-	}
-	public String getPhotoInform(String xml) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getPhotoInform][xml]" + xml);
-		}
-
-		try 
-		{
-			return externalDAO.getPhotoInform(xml);
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg);
-			}
-			logger.error(e.getExceptionMsg(), e);
-
-			throw e;
-		}
-	}
-	public String getRelationScean(String xml) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getRelationScean][xml]" + xml);
-		}
-
-		try 
-		{
-			return externalDAO.getRelationScean(xml);
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg);
-			}
-			logger.error(e.getExceptionMsg(), e);
-
-			throw e;
-		}
 	}
 
-	 */
 
 	/**
 	 * 기초정보를 조회
@@ -3068,10 +2026,7 @@ public class ExternalBusinessProcessor
 	public String getBaseInfo(long master_id) throws NumberFormatException, Exception
 	{
 
-		try 
-		{
-
-
+		try {
 			long nMasterID = master_id;
 			long rMasterID = 0;
 			// XML에서 masterID를 찾아낸다.
@@ -3108,13 +2063,9 @@ public class ExternalBusinessProcessor
 				logger.error("getBaseInfo Xml Create Error", e);
 			}
 
-
 			return xml;
 
-		} 
-		catch (Exception e)
-		{
-			logger.error(e);
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -3128,15 +2079,11 @@ public class ExternalBusinessProcessor
 	 */
 	public String getSceanInfo(long master_id) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getSceanInfo2(master_id);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.getSceanInfo2(master_id);
+
 	}
+
 	/**
 	 * 관련영상을 조회한다.
 	 * @param master_id
@@ -3148,58 +2095,10 @@ public class ExternalBusinessProcessor
 
 	public String getRelationScean(long master_id) throws NumberFormatException, Exception
 	{
-		try 
-		{
-			return externalDAO.getRelationScean(master_id);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.getRelationScean(master_id);
+
 	}
-
-
-
-	/*public String testArchive(String date) {
-		try{
-		}
-		catch (Exception e) {
-			e.printStackTrace(); 
-			System.exit(1);
-		}	
-		finally
-		{
-		}	
-
-		return "";
-	}*/
-
-	/*public int updateWmvStatusCommand(int Re_no, String Stat_cd) throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateWmvStatusCommand][Input Re_no]" + Re_no+"[Input Stat_cd]"+Stat_cd);
-		}
-
-		try 
-		{   
-			return externalDAO.updateWmvStatusCommand(Re_no, Stat_cd);
-
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg + e.getMessage());
-			}
-			logger.error(e.getExceptionMsg(), e);
-
-			throw e;
-		}
-	}*/
 
 	/**
 	 * 일괄수정할 데이터를 수정한다.
@@ -3208,37 +2107,18 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 */
 	public int updateTotalChange(TotalChangeInfoDO totalChangeInfoDO)throws Exception{
-		if(logger.isDebugEnabled()){
-			logger.debug("[updateTotalChange][Input totalChangeInfoDO]"+totalChangeInfoDO);
-		}
-		try {
-			return externalDAO.updateTotalChange(totalChangeInfoDO);
-		} catch (Exception e){
-			throw e;
-			// TODO: handle exception
-		}
+
+		return externalDAO.updateTotalChange(totalChangeInfoDO);
+
 	}
 
 	public int getTotalChangeCount(ProgramInfoDO	programInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getLastPgmInfolist][Input ProgramInfoDO]" + programInfoDO);		
-		}
 
-		try
-		{
-			return externalDAO.selectNewTotalChangeCount(programInfoDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT);
-			//return externalDAO.selectTotalChangeCount(programInfoDO);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return externalDAO.selectNewTotalChangeCount(programInfoDO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT);
 
 	}
-	
+
 	/**
 	 * 일괄수정할 마스터 정보를 조회한다.
 	 * @param programInfoDO 마스터 정보 조회할 정보가 들어있는 beans
@@ -3246,8 +2126,8 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 */
 	public List getTotalChangelist(ProgramInfoDO	programInfoDO) throws Exception {
-			return externalDAO.selectNewTotalChangelist(programInfoDO, DASBusinessConstants.PageQueryFlag.NORMAL);
-			//return externalDAO.selectTotalChangelist(programInfoDO);
+		return externalDAO.selectNewTotalChangelist(programInfoDO, DASBusinessConstants.PageQueryFlag.NORMAL);
+		//return externalDAO.selectTotalChangelist(programInfoDO);
 	}
 
 
@@ -3259,21 +2139,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getAttachPhotoList(PhotoInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getAttachPhotoList][Input PhotoInfoDO]" + condition);
-		}
 
-		try 
-		{
-			return externalDAO.getAttachPhotoList(condition);
+		return externalDAO.getAttachPhotoList(condition);
 
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 	/**
@@ -3284,17 +2152,11 @@ public class ExternalBusinessProcessor
 	 */
 	public List getPhotoList(int master_id) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getPhotoList(master_id);
 
+		return externalDAO.getPhotoList(master_id);
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
+
 	/**
 	 * 첨부사진 정보를 저장한다.
 	 * @param photoInfoDO 사진 정보 리스트	
@@ -3303,19 +2165,11 @@ public class ExternalBusinessProcessor
 	 */
 	public String insertPhotoInfo(List attachphotoInfoDOList) throws Exception
 	{
-		if(logger.isDebugEnabled())
-			logger.debug("[insertphotoinfo][Input attachphotoInfoDOList]" + attachphotoInfoDOList);			
 
-		try 
-		{						
-			return externalDAO.insertPhotoinfo(attachphotoInfoDOList);
+		return externalDAO.insertPhotoinfo(attachphotoInfoDOList);
 
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}	
 	}
+
 	/**
 	 * 사진 정보를 저장한다.
 	 * @param photoInfoDO                                                                                                                        
@@ -3324,15 +2178,9 @@ public class ExternalBusinessProcessor
 	 */ 
 	public int insertPotoInfo(PhotoInfoDO photoInfoDO) throws Exception
 	{
-		try 
-		{						
-			return externalDAO.insertPotoinfo(photoInfoDO);
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}	
+		return externalDAO.insertPotoinfo(photoInfoDO);
+
 	}
 
 
@@ -3345,19 +2193,11 @@ public class ExternalBusinessProcessor
 	 */ 
 	public int insertAttachPotoInfo(PhotoInfoDO photoInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-			logger.debug("[insertAttachPotoInfo][Input photoInfoDO]" + photoInfoDO);			
 
-		try 
-		{						
-			return externalDAO.insertAttachPotoinfo(photoInfoDO);
+		return externalDAO.insertAttachPotoinfo(photoInfoDO);
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}	
 	}
+
 	/**
 	 * DAS-TM 에 전송 작업을 요청한다.-사용하지 않음 completeDown에 통합
 	 * @param addTask
@@ -3369,18 +2209,19 @@ public class ExternalBusinessProcessor
 
 		String rtnValue="";
 		try {
-			logger.debug("[getAddTask][input xml]"+CommonUtl.transXmlText(xml));
+			if(logger.isDebugEnabled())
+				logger.debug("[getAddTask][input xml]"+CommonUtl.transXmlText(xml));
 
 			TansferPortTypeProxy port = new TansferPortTypeProxy();
 			rtnValue = port.addTask(CommonUtl.transXmlText(xml));
 			rtnValue="";
 			return rtnValue;
-			// TODO Auto-generated catch block
 
 		} catch (Exception e) {
 			throw e;
 		}
 	}
+
 	/**
 	 * 클라이언트의 요청으로 DAS-TM 서버로 상태값을 요청한다.
 	 * @param getStatus
@@ -3389,21 +2230,17 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public String getTmStatus(String xml)throws Exception{
-		if(logger.isDebugEnabled())
-			logger.debug("[getStatus][input xml]"+xml);
 
 		String rtnValue="";
-
 		try {
 			TansferPortTypeProxy port = new TansferPortTypeProxy();
 			rtnValue = port.getTaskStatus(xml);
 			return rtnValue;
-			// TODO Auto-generated catch block
-
 		} catch (Exception e) {
 			throw e;
 		}
 	}
+
 	/**
 	 * DAS-TM 의 데이타를 받는 벌그
 	 * @param getTmStatusAll
@@ -3412,14 +2249,9 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public int insertTmStatusAll(List<TransferDO> transferDO)throws Exception{
-		try {
-			externalDAO.updateTaskidAll(transferDO);
 
-			return 1;
-		} catch (Exception e){
-			throw e;
-		}
-
+		int[] retVal = externalDAO.updateTaskidAll(transferDO);
+		return retVal.length;
 	}
 
 
@@ -3433,20 +2265,16 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertAddTask(TransferDO transfer) throws Exception
 	{
-		if(logger.isDebugEnabled())
-			logger.debug("[insertAddTask][Input transfer] cart_no is " + transfer.getCart_no()+"  cart_seq is "+transfer.getCart_seq());			
+
 		try {		//이미 존재하는 사용자인지를 검증한다.
 			if(externalDAO.isThereTaskid(transfer.getTaskID())) {
 				return externalDAO.updateTaskid(transfer.getTaskID(), transfer.getStatus());
 			}
 			return externalDAO.insertAddTaskinfo(transfer);
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
-		//return 1;
+
 	}
 
 	/**
@@ -3457,15 +2285,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updatPhotoCount(PhotoInfoDO photInfoDO) throws Exception
 	{
-		try 
-		{   
-			return externalDAO.updatPhotoCount(photInfoDO);
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.updatPhotoCount(photInfoDO);
 
 	}
 
@@ -3477,19 +2298,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getPreProcessingList(PreProcessingDO preProcessingDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getPreProcessing][Input PreProcessingDO]" + preProcessingDO);		
-		}
 
-		try 
-		{
-			return externalDAO.selectPreProcessingList(preProcessingDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.selectPreProcessingList(preProcessingDO);
 
 	}
 
@@ -3501,19 +2311,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getArchPreProcessing(WorkStatusConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getArchPreProcessing][Input ]" + conditionDO);		
-		}
 
-		try 
-		{
-			return externalDAO.selectArchPreProcessingList(conditionDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}		
+		return externalDAO.selectArchPreProcessingList(conditionDO);
+
 	}
 
 	/**
@@ -3524,19 +2324,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertMetadat(MetadataMstInfoDO metadataMstInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertMetadat][Input metadataMstInfoDO]" + metadataMstInfoDO);
-		}
 
-		try 
-		{
-			return externalDAO.insertMetadat(metadataMstInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.insertMetadat(metadataMstInfoDO);
 
 	}
 
@@ -3548,19 +2337,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertCopyMetadat(MetadataMstInfoDO metadataMstInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertCopyMetadat][Input metadataMstInfoDO]" + metadataMstInfoDO);
-		}
 
-		try 
-		{
-			return externalDAO.insertCopyMetadat(metadataMstInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.insertCopyMetadat(metadataMstInfoDO);
 
 	}
 
@@ -3576,25 +2354,17 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertTmStatus(TransferDO transfer, int TaskID) throws Exception
 	{
-		if(logger.isDebugEnabled())
-			logger.debug("[insertTmStatus][Input transfer]" + transfer);			
-		try 
-		{		//이미 존재하는 사용자인지를 검증한다.
-			if(externalDAO.isThereTaskid(TaskID))
-			{
+
+		try {		//이미 존재하는 사용자인지를 검증한다.
+			if(externalDAO.isThereTaskid(TaskID)) {
 				return externalDAO.updateTaskid(TaskID,transfer.getProgress());
 			}
 			return externalDAO.insertTMstatusinfo(transfer, TaskID);
 
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 	}
-
-
 
 
 	/**
@@ -3606,10 +2376,6 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertNLEandDTL(ManualArchiveDO manualArchiveDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertNLE][Input ct_id][Input dtl_gubun]" + manualArchiveDO.getCt_id()+","+manualArchiveDO.getDtl_gubun());
-		}
 
 		try 
 		{
@@ -3641,13 +2407,12 @@ public class ExternalBusinessProcessor
 			}else{
 				return 0;
 			}
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
 	}
+
 	/**
 	 * NLE  & DTL 등록한다.
 	 * @param metadataMstInfoDO
@@ -3682,9 +2447,7 @@ public class ExternalBusinessProcessor
 			}else{
 				return 0;
 			}
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -3700,14 +2463,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteNLE(long ct_id) throws Exception
 	{	
-		try  
-		{						
-			return externalDAO.deleteNLE(ct_id);			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}	
+
+		return externalDAO.deleteNLE(ct_id);			
+
 	}
 
 
@@ -3720,14 +2478,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteNLEForDown( long cart_no) throws Exception
 	{	
-		try  
-		{						
-			return externalDAO.deleteNLEForDown(cart_no);			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}	
+
+		return externalDAO.deleteNLEForDown(cart_no);			
+
 	}
 
 
@@ -3740,19 +2493,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertDTL(String master_id) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertDTL][Input master_id]" + master_id);
-		}
 
-		try 
-		{
-			return externalDAO.insertDTL(master_id);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return externalDAO.insertDTL(master_id);
 
 	}
 
@@ -3766,14 +2508,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getRelationLink(long masterId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectRelationLink(masterId);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.selectRelationLink(masterId);
 
 	}
 
@@ -3788,17 +2524,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getPDSList(PdsDownDO pdsDownDO) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getPDSList(pdsDownDO);
 
+		return externalDAO.getPDSList(pdsDownDO);
 
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 
@@ -3812,17 +2540,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getNDSList(NdsDownDO ndsDownDO) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getNDSList(ndsDownDO);
 
+		return externalDAO.getNDSList(ndsDownDO);
 
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 
@@ -3836,16 +2556,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getRepBaseInfo(long master_id) throws Exception
 	{
-		try 
-		{
 
-			return externalDAO.getRepBaseInfo(master_id);
-		} 
-		catch (Exception e)
-		{
+		return externalDAO.getRepBaseInfo(master_id);
 
-			throw e;
-		}
 	}
 
 
@@ -3857,25 +2570,21 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public TcBeanDO insertReqJobTC(TcBeanDO tcBeanDO) throws Exception{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertReqJobTC][TcBeanDO]" + tcBeanDO);
-		}
-		try 
-		{
+
+		try {
 			String Tc_type = systemManageDAO.isPDSorRecreate(tcBeanDO.getJob_id());
 			String req_cd = systemManageDAO.isReq_cd(tcBeanDO.getJob_id());
-			
+
 			//데이터가 없다면 그냥 null 리턴
 			if(Tc_type.equals("") || req_cd.equals("")){
 				return null;
 			}
-			
+
 			tcBeanDO.setReq_cd(req_cd);
 			if(logger.isDebugEnabled()) {
 				logger.debug("ct_id: "+tcBeanDO.getCt_id()+", tc_type: "+Tc_type);
 			}
-			
+
 			if(Tc_type.equals(CodeConstants.TcGubun.PDS)){  //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
 				TcBeanDO resultTC =	externalDAO.selectTcJob2(tcBeanDO);
 				//tcBeanDO.setCt_id(574856);
@@ -3886,7 +2595,7 @@ public class ExternalBusinessProcessor
 				pdsarchive.setCt_cla(ctcla);
 				pdsarchive.setCt_id(tcBeanDO.getCt_id());
 				pdsarchive.setMedia_id(tcBeanDO.getMedia_id());
-				
+
 				boolean result = systemManageDAO.getAutoArchvieList(pdsarchive.getCt_cla(),tcBeanDO.getCocd(),info.getChennel(),info.getArch_route());
 				if(result){
 					// IfCMS 삭제 콘텐츠가 아니라면 아카이브 요청
@@ -3908,12 +2617,12 @@ public class ExternalBusinessProcessor
 				//tcBeanDO.setCt_id(574870);
 
 				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
-				
+
 				PdsArchiveDO pdsarchive = new PdsArchiveDO();
 				pdsarchive.setCt_id(tcBeanDO.getCt_id());
 				pdsarchive.setCt_cla(ctcla);
 				pdsarchive.setMedia_id(tcBeanDO.getMedia_id());
-				
+
 				PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForPDS(pdsarchive);
 				if(pADO != null) {
 					logger.debug("[MANUAL][Input pADO]" + pADO);
@@ -3941,7 +2650,7 @@ public class ExternalBusinessProcessor
 			} else {
 				return externalDAO.selectTcJob2(tcBeanDO);
 			}
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -3970,7 +2679,7 @@ public class ExternalBusinessProcessor
 				}else {
 					externalDAO.updateTcProgress(newTcBeanDO);	
 				}
-				
+
 				//das 장비테이블에 상태값 저장하는 로직
 				externalDAO.updateDasEquipMent(newTcBeanDO);
 
@@ -3978,9 +2687,9 @@ public class ExternalBusinessProcessor
 
 				// work_stat의 상태가 F일때는 실패로 등록한다
 				if(newTcBeanDO.getWork_stat().equals("F")){
-					
+
 					externalDAO.updateErrTcjob(newTcBeanDO);
-					
+
 					long eq_id = externalDAO.selectTcEqId(newTcBeanDO);
 					String error_cont = "";
 					String error_code="";
@@ -4026,7 +2735,7 @@ public class ExternalBusinessProcessor
 				if(oldTcBeanDO.getWork_stat().equals("B") && newTcBeanDO.getWork_stat().equals("I")  
 						||oldTcBeanDO.getWork_stat().equals("I") && newTcBeanDO.getWork_stat().equals("I")
 						||oldTcBeanDO.getWork_stat().equals("F") && newTcBeanDO.getWork_stat().equals("I")
-				){
+						){
 
 					TcBeanDO jobTcBeanDO = externalDAO.selectTcJob();   // 작업이 있는지 확인하는 곳.
 
@@ -4040,15 +2749,15 @@ public class ExternalBusinessProcessor
 						externalDAO.updateTcJobState(jobTcBeanDO.getSeq(),stateTcBeanDO.getTc_id());
 
 						externalDAO.updateTcState(stateTcBeanDO.getSeq()+"");
-						
+
 						sleep(3000);
-						
+
 						return true;
 					}
 				}
 				return false;
 			} else {
-				
+
 				//미디어넷 TC 전용
 				externalDAO.updateTcState(newTcBeanDO);
 				externalDAO.updateTcProgress(newTcBeanDO);
@@ -4071,7 +2780,7 @@ public class ExternalBusinessProcessor
 				if(oldTcBeanDO.getWork_stat().equals("B")&&newTcBeanDO.getWork_stat().equals("I")  
 						||oldTcBeanDO.getWork_stat().equals("I")&&newTcBeanDO.getWork_stat().equals("I")
 						||oldTcBeanDO.getWork_stat().equals("F")&&newTcBeanDO.getWork_stat().equals("I")
-				){
+						){
 
 					TcBeanDO jobTcBeanDO = externalDAO.selectMediaTcJob();   // 작업이 있는지 확인하는 곳.
 
@@ -4091,42 +2800,10 @@ public class ExternalBusinessProcessor
 				}
 				return false;
 			}
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 	}
-	/*public TcBeanDO updateReqComTc(TcBeanDO tcBeanDO) throws Exception{
-	if(logger.isDebugEnabled())
-	{
-		logger.debug("[updateReqComTc][TcBeanDO]" + tcBeanDO);
-	}
-
-	try 
-	{
-
-		 return externalDAO.updateReqComTc();
-
-
-	} 
-	catch (Exception e)
-	{
-		e.printStackTrace();
-
-		String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-		if(!StringUtils.isEmpty(errorMsg))
-		{
-			e.setExceptionMsg(errorMsg);
-		}
-		logger.error(e.getExceptionMsg(), e);
-
-		throw e;
-	}
-}*/
-
-
-
 
 	/**
 	 * 첨부파일 정보를 조회한다.
@@ -4136,19 +2813,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getAttachFileInfo(long master_id) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getAttachFileInfo(master_id);
-		} 
-		catch (Exception e)
-		{
+		return externalDAO.getAttachFileInfo(master_id);
 
-			throw e;
-		}
 	}
-
-
-
 
 
 	/**
@@ -4161,28 +2828,10 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateErrorDownCart(DownCartDO downCartDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateErrorDownCart][Input DownCartDO]" + downCartDO);
-		}
 
-		try 
-		{   
-
-
-			return externalDAO.updateErrorDownCart(downCartDO);
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return externalDAO.updateErrorDownCart(downCartDO);
 
 	}
-
-
-
 
 	/**
 	 * 다운로드 승인 조회한다.(등록시)
@@ -4192,22 +2841,11 @@ public class ExternalBusinessProcessor
 	 */
 	public List getApproveInfoList(ApproveInfoDO ApproveInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getApproveInfoList][Input ApproveInfoDO]" + ApproveInfoDO);
-		}
 
-		try 
-		{
-			return externalDAO.selectApproveInfoList(ApproveInfoDO);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return externalDAO.selectApproveInfoList(ApproveInfoDO);
 
 	}
+
 	/**
 	 * 다운로드 승인 조회한다.
 	 * @param ApprveDO                                                                                                                                                                                              
@@ -4216,20 +2854,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getApproveInfo(ApproveInfoDO ApproveInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getApproveInfo][Input ApproveInfoDO]" + ApproveInfoDO);
-		}
 
-		try 
-		{
-			return externalDAO.getApproveInfo(ApproveInfoDO);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return externalDAO.getApproveInfo(ApproveInfoDO);
 
 	}
 
@@ -4244,23 +2870,10 @@ public class ExternalBusinessProcessor
 
 	public int insertApproveInfo(List roleDO)  throws Exception
 	{
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[insertApproveInfo][Input roleDO]" + roleDO);
-		}
 
-		try 
-		{
+		externalDAO.insertApproveInfo(roleDO);
+		return 1;
 
-
-			externalDAO.insertApproveInfo(roleDO);
-			return 1;
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 
@@ -4276,15 +2889,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteApproveInfo(String user_no,String dept_Cd) throws Exception
 	{
-		try 
-		{
-			return externalDAO.deleteApproveInfo(user_no,dept_Cd);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.deleteApproveInfo(user_no,dept_Cd);
+
 	}
 
 
@@ -4297,26 +2904,10 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteApproveInfo2(ApproveInfoDO approveInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[deleteApproveInfo2][approveInfoDO]" + approveInfoDO);
 
-		}
+		return externalDAO.deleteApproveInfo2(approveInfoDO.getUser_no(),approveInfoDO.getDept_cd(),approveInfoDO.getPgm_id());
 
-		try 
-		{
-			return externalDAO.deleteApproveInfo2(approveInfoDO.getUser_no(),approveInfoDO.getDept_cd(),approveInfoDO.getPgm_id());
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
-
-
-
-
 
 
 	/**
@@ -4329,15 +2920,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String recreateWMVForClient(long ct_id,String user_id) throws Exception
 	{
-		try 
-		{
-			return externalDAO.recreateWMV_KFRMForClient(ct_id,user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"LR");
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}	
+		return externalDAO.recreateWMV_KFRMForClient(ct_id,user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"LR");
+
 	}
 
 	/**
@@ -4358,10 +2943,7 @@ public class ExternalBusinessProcessor
 				externalDAO.recreateWMV_KFRMForClient(Long.parseLong(ct[i]),user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"LR");
 			}
 			return "1";
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -4375,20 +2957,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String recreateWMV_KFRMForClient(long ct_id,String user_nm) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[recreateWMV_KFRMForClient][ct_id]" + ct_id+"[user_nm]"+user_nm);
-		}
 
-		try 
-		{
-			return externalDAO.recreateWMV_KFRMForClient(ct_id,user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"),"LRCT");
-		} 
-		catch (Exception e)
-		{
+		return externalDAO.recreateWMV_KFRMForClient(ct_id,user_nm,dasHandler.getProperty("TC_DIR_INTERFACE"),"LRCT");
 
-			throw e;
-		}	
 	}
 
 	/**
@@ -4401,8 +2972,7 @@ public class ExternalBusinessProcessor
 	public String recreateWMV_KFRMforMainSean(long master_id,String user_nm) throws Exception
 	{
 
-		try 
-		{
+		try {
 			String ct_ids = externalDAO.getIdFormasterId(master_id);
 			String[] ct = ct_ids.split(",");
 
@@ -4411,10 +2981,7 @@ public class ExternalBusinessProcessor
 			} 
 
 			return "1";
-		}
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -4428,19 +2995,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String recreateKFRMForClient(long ct_id,String user_id) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[recreateKFRMForClient][ct_id]" + ct_id+"[user_id]"+user_id);
-		}
 
-		try 
-		{
-			return externalDAO.recreateWMV_KFRMForClient(ct_id,user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"CT");
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}	
+		return externalDAO.recreateWMV_KFRMForClient(ct_id,user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"CT");
+
 	}
 
 
@@ -4453,8 +3010,7 @@ public class ExternalBusinessProcessor
 	 */
 	public String recreateKFRMforMainSean(long master_id,String user_id) throws Exception
 	{
-		try 
-		{
+		try {
 
 			String ct_ids = externalDAO.getIdFormasterId(master_id);
 			String[] ct = ct_ids.split(",");
@@ -4462,10 +3018,7 @@ public class ExternalBusinessProcessor
 				externalDAO.recreateWMV_KFRMForClient(Long.parseLong(ct[i]),user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"CT");
 			} 
 			return "1";
-		}
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -4479,17 +3032,15 @@ public class ExternalBusinessProcessor
 	 */
 	public String DoAddTask(int num) throws Exception {
 
-		logger.debug("[DoAddTask][input num]"+num);
-		
 		String rtnValue="";
 		String xml = externalDAO.selectNewAddTaskForXml(num);
-		
+
 		String tmURL = dasHandler.getProperty("DAS_TM_URL");
 		for(int i=0; i<3; i++) {
 			try {
 				Tansfer transfer = new TansferLocator();
 				TansferPortType  port = transfer.getTansferPort(new URL(tmURL));
-				
+
 				rtnValue = port.addTask(xml);
 				break;
 			} catch (Exception e) {
@@ -4497,7 +3048,7 @@ public class ExternalBusinessProcessor
 				continue;
 			}
 		}
-		
+
 		return rtnValue;
 	}
 
@@ -4507,10 +3058,8 @@ public class ExternalBusinessProcessor
 	 * @return boolean
 	 * @throws Exception
 	 */
-	public boolean getUsedDasTmYn(int num) throws Exception{
-		if(logger.isDebugEnabled()){
-			logger.debug("[getUsedDasTmYn][int num]"+num);
-		}
+	public boolean getUsedDasTmYn(int num) {
+
 		try {//
 			return externalDAO.getUsedDasTmYn(num);
 		} catch (Exception e) {
@@ -4527,14 +3076,9 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public TransferDO getCartInfo(int num) throws Exception{
-		if(logger.isDebugEnabled()){
-			logger.debug("[getCartInfo][int num]"+num);
-		}
-		try {//
-			return externalDAO.getCartInfo(num);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.getCartInfo(num);
+
 	}
 
 
@@ -4562,20 +3106,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updatePhotInfo(PhotoInfoDO photoInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updatePhotInfo][Input PhotoInfoDO]" + photoInfoDO);
-		}
 
-		try 
-		{
-			return externalDAO.updatePhotInfo(photoInfoDO);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return externalDAO.updatePhotInfo(photoInfoDO);
 
 	}
 
@@ -4590,20 +3122,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertArchiveReq(String xml) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertArchiveReq][xml]" + xml);
-		}
 
-		try 
-		{
-			return externalDAO.insertArchiveReq(xml);
-		} 
-		catch (Exception e)
-		{
+		return externalDAO.insertArchiveReq(xml);
 
-			throw e;
-		}	
 	}
 
 	/**
@@ -4615,11 +3136,11 @@ public class ExternalBusinessProcessor
 	 */
 	public boolean updateArchiveReq(ArchiveReqDO newTcBeanDO) throws Exception{
 		try {
-			
+
 			//tc를 상태를 변화시킨다.
 			externalDAO.updateArchive(newTcBeanDO);
 			externalDAO.updateOnAirIngestStatus(String.valueOf(newTcBeanDO.getSEQ()));
-			
+
 			ArchiveReqDO oldBeanDO = externalDAO.selectArchiveState(newTcBeanDO);
 
 			// work_stat의 상태가 F일때는 실패로 등록한다
@@ -4632,9 +3153,9 @@ public class ExternalBusinessProcessor
 			 */
 			if(oldBeanDO.getWork_stat().equals("B") && newTcBeanDO.getWork_stat().equals("I")  
 					||oldBeanDO.getWork_stat().equals("I") && newTcBeanDO.getWork_stat().equals("I")  ){
-				
+
 				ArchiveReqDO jobArchiveBeanDO = externalDAO.selectArchiveJob();   // 작업이 있는지 확인하는 곳.
-				
+
 				//20111228 받은   장비에 바로 리턴.
 				ArchiveReqDO stateArchiveBeanDO = externalDAO.selectArchiveState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
 
@@ -4643,17 +3164,15 @@ public class ExternalBusinessProcessor
 					externalDAO.getArchveJob(jobArchiveBeanDO, stateArchiveBeanDO,dasHandler.getProperty("ON_AIR_DIR_INTERFACE"));
 
 					externalDAO.updateArchiveState(newTcBeanDO.getSEQ()+"");
-					
+
 					jobArchiveBeanDO.setArchive_id(String.valueOf(stateArchiveBeanDO.getSEQ()));
 					externalDAO.updateArchiveInfo(jobArchiveBeanDO);
-					
+
 					return true;
 				}
 			}
 			return false;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -4666,36 +3185,24 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public ArchiveReqDO insertReqJobArchive(ArchiveReqDO archiveReqDO) throws Exception{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertReqJobArchive][ArchiveReqDO]" + archiveReqDO);
-		}
-		try 
-		{
 
-			return externalDAO.selectArchiveJob(archiveReqDO);
- 	} 
-		catch (Exception e)
-		{
+		return externalDAO.selectArchiveJob(archiveReqDO);
 
-			throw e;
-		}
 	}
-/**
- * SBS ERP DB에서 발령정보를 받아온다
- * 가장 최근에 받아온 발령정보의 SEQ값을 받아와서 그이후의 발령정보를
- * 받도록 한다.
- */
+
+	/**
+	 * SBS ERP DB에서 발령정보를 받아온다
+	 * 가장 최근에 받아온 발령정보의 SEQ값을 받아와서 그이후의 발령정보를
+	 * 받도록 한다.
+	 */
 	public String getOrderInfo() throws Exception{
-		if(logger.isDebugEnabled()){
-			logger.debug("[getOrderInfo] start getOrderInfo Service");	
-		}
+
 		try {
 			String maxValue = externalDAO.selectERPAppointMaxSeqQuery();
 			if(logger.isDebugEnabled()) {
 				logger.debug("order max value : "+maxValue);
 			}
-			
+
 			OrderCallServiceProxy port = new OrderCallServiceProxy();
 			return port.getOrderInfoList(Integer.parseInt(maxValue));
 		} catch (Exception e) {
@@ -4715,19 +3222,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getCartInfoForUser(CartItemDO cartItemDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getCartInfoForUser][Input cartItemDO]" + cartItemDO);
-		}
 
-		try 
-		{
-			return externalDAO.getCartInfoForUser(cartItemDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getCartInfoForUser(cartItemDO);
 
 	}
 
@@ -4751,9 +3247,7 @@ public class ExternalBusinessProcessor
 			disuseDAO.insertDisuseForMeta(dis);
 
 			return "1";		
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -4770,7 +3264,7 @@ public class ExternalBusinessProcessor
 			externalDAO.deleteMasterSceanForMapp(deleteDO.getMaster_id());	
 			externalDAO.deleteMasterSceanForMst(deleteDO.getMaster_id());	
 			DiscardDO dis =  externalDAO.getDiscardInfo(deleteDO.getMaster_id()); // metadat_mst_tbl에서 메타정보 수집
-			
+
 			dis.setMasterId(deleteDO.getMaster_id());
 			dis.setDisuse_cont(deleteDO.getDel_cont()); // 폐기 요청 사유
 			dis.setReg_id(deleteDO.getReg_id());
@@ -4793,10 +3287,6 @@ public class ExternalBusinessProcessor
 	 */
 	public List getManualArchiveInfo(ManualArchiveDO manualArchiveDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getManualArchiveInfo][Input manualArchiveDO]" + manualArchiveDO);
-		}
 
 		try 
 		{
@@ -4826,9 +3316,7 @@ public class ExternalBusinessProcessor
 				resultList.add(item);
 			}
 			return resultList;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -4844,20 +3332,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getManualInfo(ManualArchiveDO manualArchiveDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getManualInfo][Input manualArchiveDO]" + manualArchiveDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getManualInfo(manualArchiveDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getManualInfo(manualArchiveDO);
 
 	}
 
@@ -4872,21 +3348,11 @@ public class ExternalBusinessProcessor
 	 */
 	public String updateRetryArchive(long seq) throws Exception
 	{
-		try 
-		{  
-
-			/**
-			 * 아카이브 요청 DTL manager
-			 */
-
+		try {  
 
 			PdsArchiveDO pdsarchive = externalDAO.updateRetryArchive(seq);
 			return	externalDAO.ArchivePDSReq(pdsarchive,pdsarchive.getPds_cms_id());
-
-
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -4902,23 +3368,11 @@ public class ExternalBusinessProcessor
 	 */
 	public String updateRetryArchiveByCtId(long ct_id) throws Exception
 	{
-		try 
-		{  
-
-			/**
-			 * 아카이브 요청 DTL manager
-			 */
-
-
+		try {  
 			PdsArchiveDO pdsarchive = externalDAO.updateRetryArchiveByCtId(ct_id);
 
-			logger.debug("[pADO][Input pADO]" + pdsarchive);
 			return	externalDAO.ArchivePDSReq(pdsarchive,pdsarchive.getPds_cms_id());
-
-
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -4930,26 +3384,10 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 */
 	public List insertCornerContinfo(long cn_id, List annotInfoList) throws Exception
-	{
+	{				
+		return externalDAO.insertCornerContinfoByBatch(cn_id,annotInfoList);
 
-		try 
-		{						
-			return externalDAO.insertCornerContinfoByBatch(cn_id,annotInfoList);
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}	
 	}
-
-
-
-
-
-
-
 
 
 	/**
@@ -4960,22 +3398,10 @@ public class ExternalBusinessProcessor
 	 */
 	public String insertMediaId() throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertMediaId]");
+		for(int i =0; i<4;i++){
+			externalDAO.insertMediaid();
 		}
-
-		try   
-		{
-			for(int i =0; i<4;i++){
-				externalDAO.insertMediaid();
-			}
-			return "1";
-
-
-		} catch (Exception e) {
-			throw e;
-		}
+		return "1";
 
 	}
 
@@ -4990,8 +3416,6 @@ public class ExternalBusinessProcessor
 	}
 
 
-
-
 	/**
 	 * 다운로드 완료  DAS2.0 
 	 * @param downCartDO 다운로드 요청 정보가 담겨있는 beans
@@ -5000,25 +3424,10 @@ public class ExternalBusinessProcessor
 	 */
 	public int compledownprocess(int cart_no, int cart_seq) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[compledownprocess]" + cart_no+" +  "+cart_seq);
-		}
-		try 
-		{   
-			return externalDAO.updateCompleteDown(cart_no,cart_seq);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.updateCompleteDown(cart_no,cart_seq);
 
 	}
-
-
-
-
 
 
 	/**
@@ -5031,33 +3440,9 @@ public class ExternalBusinessProcessor
 	public String updateBrdLeng() throws Exception
 	{
 
-		try 
-		{  
+		return	externalDAO.updateBrdLeng();
 
-			/**
-			 * 방송길이 조회
-			 */
-
-
-
-
-			return	externalDAO.updateBrdLeng();
-
-
-
-		} 
-		catch (Exception e) {
-			throw e;
-		}
 	}
-
-
-
-
-
-	//2012.4.16 das2.0 확장 함수 부분 
-
-
 
 
 	/**
@@ -5068,23 +3453,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String updateMetadataStatusCd(MetadataMstInfoDO metadataMstInfoDO) throws Exception{
 
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateMetadataStatusCd][Input statCd]" + metadataMstInfoDO);
-		}
+		int result = externalDAO.updateMetaDatastatCd(metadataMstInfoDO);
 
-		int result =0;
-		try 
-		{
-
-			result=externalDAO.updateMetaDatastatCd(metadataMstInfoDO);
-
-			return String.valueOf(result);
-		} 
-		catch (Exception e)
-		{						
-			throw e;
-		}
+		return String.valueOf(result);
 
 	}	
 
@@ -5098,10 +3469,7 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public TcBeanDO insertComMedia(TcBeanDO tcBeanDO) throws Exception{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertComMedia][TcBeanDO]" + tcBeanDO);
-		}
+
 		try 
 		{
 			//미디어 ID를 검색한다.
@@ -5126,9 +3494,7 @@ public class ExternalBusinessProcessor
 				tcDO.setResult("TRUE");
 			}
 			return tcDO;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -5144,20 +3510,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getApproveInfoForChennel(ApproveInfoDO ApproveInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getApproveInfoForChennel][Input ApproveInfoDO]" + ApproveInfoDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getApproveInfoForChennel(ApproveInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getApproveInfoForChennel(ApproveInfoDO);
 
 	}
 
@@ -5172,20 +3526,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getApproveInfoListForChennel(ApproveInfoDO ApproveInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getApproveInfoListForChennel][Input ApproveInfoDO]" + ApproveInfoDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.selectApproveInfoListForChennel(ApproveInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.selectApproveInfoListForChennel(ApproveInfoDO);
 
 	}
 
@@ -5193,22 +3535,10 @@ public class ExternalBusinessProcessor
 
 	public int insertApproveInfoForChennel(List roleDO)  throws Exception
 	{
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[insertApproveInfoForChennel][Input roleDO]" + roleDO);
-		}
 
-		try 
-		{
+		externalDAO.insertApproveInfoForChennel(roleDO);
+		return 1;
 
-
-			externalDAO.insertApproveInfoForChennel(roleDO);
-			return 1;
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 
@@ -5221,20 +3551,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteApproveInfoForChennel(ApproveInfoDO approveInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[deleteApproveInfoForChennel][approveInfoDO]" + approveInfoDO);
 
-		}
+		return externalDAO.deleteApproveInfoForChennel(approveInfoDO);
 
-		try 
-		{
-			return externalDAO.deleteApproveInfoForChennel(approveInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 
@@ -5248,24 +3567,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List getClipInfoList(MediaArchiveDO manualArchiveDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getClipInfoList][Input ManualArchiveDO]" + manualArchiveDO);
-		}
 
-		try 
-		{
+		return	externalDAO.getClipInfoList(manualArchiveDO);
 
-
-			return	externalDAO.getClipInfoList(manualArchiveDO);
-
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 
@@ -5279,19 +3583,9 @@ public class ExternalBusinessProcessor
 	 *  */
 	public int insertDtlInfo(DtlInfoDO dtlInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertDtlInfo][dtlInfoDO]" + dtlInfoDO);
-		}
 
-		try 
-		{
-			return externalDAO.insertDtlInfo(dtlInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}	
+		return externalDAO.insertDtlInfo(dtlInfoDO);
+
 	}
 
 
@@ -5306,15 +3600,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getDtlInfo() throws Exception
 	{
-		try 
-		{
 
-			return externalDAO.getDtlInfo();
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getDtlInfo();
 
 	}
 
@@ -5329,20 +3616,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getLogInOutInfo(LogInOutDO logInOutDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getDtlInfo][logInOutDO] "+logInOutDO );
-		}
 
-		try 
-		{
-
-			return externalDAO.getLogInOutInfo(logInOutDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getLogInOutInfo(logInOutDO);
 
 	}
 
@@ -5355,15 +3630,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getArchiveInfo(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled()) {
-			logger.debug("[getArchiveInfo][MonitoringDO] "+ monitoringDO);
-		}
 
-		try {
-			return externalDAO.getArchiveInfo(monitoringDO);
-		} catch (Exception e) {
-			throw e;
-		}
+		return externalDAO.getArchiveInfo(monitoringDO);
 
 	}
 
@@ -5377,20 +3645,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getTCinfo(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getTCinfo][MonitoringDO] "+ monitoringDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getTCinfo(monitoringDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getTCinfo(monitoringDO);
 
 	}
 
@@ -5405,20 +3661,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getTminfo(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getTminfo][MonitoringDO] "+ monitoringDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getTminfo(monitoringDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getTminfo(monitoringDO);
 
 	}
 
@@ -5436,10 +3680,6 @@ public class ExternalBusinessProcessor
 	 */
 	public List getDetailInfo(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getDetailInfo][MonitoringDO] "+ monitoringDO);
-		}
 
 		try 
 		{
@@ -5453,9 +3693,7 @@ public class ExternalBusinessProcessor
 				//tm 상세구분
 				return externalDAO.getDetailInfoForTM(monitoringDO);
 			}
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 		return null;
@@ -5475,10 +3713,6 @@ public class ExternalBusinessProcessor
 	 */
 	public int changePriority(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[changePriority][Input monitoringDO]" + monitoringDO);
-		}
 		try 
 		{
 			if(monitoringDO.getGubun().equals("001")){
@@ -5518,9 +3752,7 @@ public class ExternalBusinessProcessor
 				return externalDAO.changePriorityForDown(monitoringDO);
 			}
 			return 0;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -5536,10 +3768,7 @@ public class ExternalBusinessProcessor
 	 */
 	public int cancelJob(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[cancelJob][Input monitoringDO]" + monitoringDO);
-		}
+
 		try 
 		{
 			if(monitoringDO.getGubun().equals("001")){
@@ -5581,9 +3810,7 @@ public class ExternalBusinessProcessor
 			}
 
 			return 0;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -5599,27 +3826,10 @@ public class ExternalBusinessProcessor
 	 */
 	public List getManualDeleteList(ManualDeleteDO manualDeleteDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getManualDeleteList][ManualDeleteDO] "+ manualDeleteDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getManualDeleteList(manualDeleteDO);
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
-
+		return externalDAO.getManualDeleteList(manualDeleteDO);
 
 	}
-
-
-
 
 
 	/**
@@ -5631,12 +3841,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int manualDelete(ManualDeleteDO manualDeleteDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[manualDelete][Input manualDeleteDO]" + manualDeleteDO);
-		}
-		try 
-		{
+
+		try {
 
 			if(manualDeleteDO.getGubun().equals("001")){
 				systemManageDAO.deleteRequest(manualDeleteDO);
@@ -5646,17 +3852,12 @@ public class ExternalBusinessProcessor
 
 			}
 
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 		return 0;
 
 	}
-
-
-
 
 
 	/**
@@ -5667,25 +3868,11 @@ public class ExternalBusinessProcessor
 	 */
 	public List getErroeList(ErrorLogDO errorLogDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getErroeList][ErrorLogDO] "+ errorLogDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getErroeList(errorLogDO);
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getErroeList(errorLogDO);
 
 
 	}
-
 
 
 	/**
@@ -5696,25 +3883,11 @@ public class ExternalBusinessProcessor
 	 */
 	public List getServerList(ServersDO serversDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getServerList][serversDO] "+ serversDO);
-		}
 
-		try 
-		{
-			externalDAO.updateServerStatus(serversDO);
-			return externalDAO.getServerList(serversDO);
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
-
+		externalDAO.updateServerStatus(serversDO);
+		return externalDAO.getServerList(serversDO);
 
 	}
-
 
 
 	/**
@@ -5725,20 +3898,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertError(ErrorLogDO errorLogDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertError][Input ErrorLogDO]" + errorLogDO);
-		}		
 
-		try 
-		{						
-			return externalDAO.insertError(errorLogDO);
+		return externalDAO.insertError(errorLogDO);
 
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}	
 	}
 
 
@@ -5751,19 +3913,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateMediaCilpStatus(MediaArchiveDO mediaArchiveDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateMediaCilpStatus][Input mediaArchiveDO]" + mediaArchiveDO);
-		}
 
-		try 
-		{
-			return externalDAO.updateMediaCilpStatus(mediaArchiveDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.updateMediaCilpStatus(mediaArchiveDO);
 
 	}
 
@@ -5777,24 +3928,12 @@ public class ExternalBusinessProcessor
 	 */
 	public List getWmvList(WmvH264DO wmvH264DO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getClipInfoList][Input wmvH264DO]" + wmvH264DO);
-		}
 
-		try 
-		{
+		return	externalDAO.getWmvList(wmvH264DO);
 
-
-			return	externalDAO.getWmvList(wmvH264DO);
-
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
+
+
 	/**
 	 * WMV- H264 완료 상태를 업데이트 한다.
 	 * @param DepInfoDO                                                                                                                                                                                             
@@ -5803,22 +3942,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List updateWmvStatus(WmvH264DO xml) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateWmvStatus][Input xml]" + xml);
-		} 
 
-		try 
-		{
-
-			return externalDAO.updateWmvStatus(xml);
-
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.updateWmvStatus(xml);
 
 	}
 
@@ -5834,14 +3959,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getGroupForMaster(long master_id) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getGroupForMaster(master_id);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.getGroupForMaster(master_id);
 
 	}
 
@@ -5854,15 +3973,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getSceanInfoForIfCms(long ct_id)  throws Exception
 	{
-		try 
-		{
-			return externalDAO.getSceanInfoForIfCms(ct_id);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return externalDAO.getSceanInfoForIfCms(ct_id);
+
 	}
 
 
@@ -5877,18 +3990,12 @@ public class ExternalBusinessProcessor
 	 */
 	public String tryAgain(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[tryAgain][Input monitoringDO]" + monitoringDO);
-		}
 
-		try 
-		{  
-
+		try {  
 
 			if(monitoringDO.getGubun().equals("001")){
 				//아카이브 상세 구분
- 
+
 				ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 				_processor.updateRetryArchive(monitoringDO.getKey());
 				return "success";
@@ -5997,9 +4104,7 @@ public class ExternalBusinessProcessor
 
 			}
 			return "fail";
-		} 
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -6016,20 +4121,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getDowninfo(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getDowninfo][MonitoringDO] "+ monitoringDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getDowninfo(monitoringDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getDowninfo(monitoringDO);
 
 	}
 
@@ -6042,20 +4135,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getManualJobinfo(MonitoringDO monitoringDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getManualJobinfo][MonitoringDO] "+ monitoringDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getManualJobinfo(monitoringDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getManualJobinfo(monitoringDO);
 
 	}
 
@@ -6071,20 +4152,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getMyArchiveRequestList(WorkStatusConditionDO dO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getMyArchiveRequestList]"  + dO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getMyArchiveRequestList(dO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getMyArchiveRequestList(dO);
 
 	}
 
@@ -6096,26 +4165,10 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 */
 	public List getDowninfoForIfCms(MonitoringDO monitoringDO)  throws Exception{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getDowninfoForIfCms][MonitoringDO] "+ monitoringDO);
-		}
 
-		try 
-		{
-
-			return externalDAO.getDowninfoForIfCms(monitoringDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.getDowninfoForIfCms(monitoringDO);
 
 	}
-
-
-
-
 
 
 	/**
@@ -6127,8 +4180,6 @@ public class ExternalBusinessProcessor
 	public String TryAgingAddTask(int num) throws Exception {
 
 		String rtnValue="";
-		if(logger.isDebugEnabled())
-			logger.debug("[TryAgingAddTask][input num]"+num);
 		String xml="";
 		int errorcount =0;
 		try {
@@ -6138,7 +4189,6 @@ public class ExternalBusinessProcessor
 			rtnValue = port.addTask(String.valueOf(num));
 
 			return 		rtnValue;
-			// TODO Auto-generated catch block
 
 		} catch (RemoteException e) {
 			try {
@@ -6155,21 +4205,15 @@ public class ExternalBusinessProcessor
 					rtnValue = port.addTask(CommonUtl.transXmlText(xml));
 					return 		CommonUtl.transXMLText(rtnValue);
 				} catch (RemoteException e2) {
-				 
 					logger.error(e2);
 				}
 			}
 
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("TryAgingAddTask error", e);
 		}
 		return "";
 	}
-
-
-
-
-
 
 
 	/**
@@ -6188,10 +4232,8 @@ public class ExternalBusinessProcessor
 			}else if(monitoringDO.getGubun().equals("002")){
 				return externalDAO.getJobStatusForDownload(monitoringDO);	
 			}
-		} 
-		catch (Exception e)
-		{
-			logger.error(e);
+		} catch (Exception e) {
+			logger.error("getJobStatus error", e);
 		}
 		return null;
 
@@ -6207,14 +4249,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateEquipMentStatus(EquipMentInfoDO mediaArchiveDO) throws Exception
 	{
-		try 
-		{
-			return externalDAO.updateEquipMentStatus(mediaArchiveDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.updateEquipMentStatus(mediaArchiveDO);
 
 	}
 
@@ -6231,14 +4267,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getGroupForMasterForClient(long master_id) throws Exception
 	{
-		try 
-		{
-			return externalDAO.getGroupForMasterForClient(master_id);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return externalDAO.getGroupForMasterForClient(master_id);
 
 	}
 
@@ -6253,20 +4283,10 @@ public class ExternalBusinessProcessor
 	 */
 	public String updateRistClfCd() throws Exception
 	{
-
-		try   
-		{
-			for(int i =0; i<3;i++){
-				externalDAO.updateRistClfCd();
-			}
-			return "1";
-
-
-		} catch (Exception e) {
-			throw e;
+		for(int i =0; i<3;i++){
+			externalDAO.updateRistClfCd();
 		}
-
-
+		return "1";
 	}
 
 
@@ -6326,13 +4346,9 @@ public class ExternalBusinessProcessor
 				logger.error("getBaseInfo Xml Create Error", e);
 			}
 
-
-
 			return xml;
 
-		} 
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -6349,34 +4365,16 @@ public class ExternalBusinessProcessor
 	 */
 	public List insertStCartContInfoForList(DownCartDO downCartDO,CartContDO cartContDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertStCartContInfoForList][Input DownCartDO]"+downCartDO+" \n[Input CartContDO]" + cartContDO);
-		}
 
-		try 
-		{
-			return externalDAO.insertStCartContInfoForList(downCartDO,cartContDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.insertStCartContInfoForList(downCartDO,cartContDO);
 
 	}
 
 
 	public String isVideoReleateYN(long master_id,long ct_id) throws Exception
 	{
-		try 
-		{
-			return externalDAO.isVideoReleateYN(master_id,ct_id);
 
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return externalDAO.isVideoReleateYN(master_id,ct_id);
 	}
 
 
@@ -6391,18 +4389,11 @@ public class ExternalBusinessProcessor
 	public String getRistClfInfoListForTime(Das das) throws Exception
 	{
 		String xml = "";
-		try 
-		{
-			for(TimeRistInfo info : das.getTimeRist().getItems()){
-				xml =  externalDAO.getRistClfInfoListForTime(info);
-			}
-			return xml;
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 
+		for(TimeRistInfo info : das.getTimeRist().getItems()){
+			xml =  externalDAO.getRistClfInfoListForTime(info);
+		}
+		return xml;
 	}
 
 
@@ -6441,10 +4432,7 @@ public class ExternalBusinessProcessor
 			}
 
 			return xml;
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}	
 	}
@@ -6515,14 +4503,12 @@ public class ExternalBusinessProcessor
 					xml = externalDAO.updateRistClfInfoListForTime(info);
 				}
 
-
 			}
 
 			return xml;
 		} catch (Exception e) {
 			throw e;
 		}
-
 
 	}
 
@@ -6533,21 +4519,14 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 */
 	public String deleteRistClfInfoListForTime(Das das) throws Exception
-	{
+	{  
 
-		try   
-		{
-			String xml = "";
-			for(TimeRistInfo info : das.getTimeRist().getItems()){
-				xml = externalDAO.deleteRistClfInfoListForTime(info);
-			}
-
-			return xml;
-
-		} catch (Exception e) {
-			throw e;
+		String xml = "";
+		for(TimeRistInfo info : das.getTimeRist().getItems()){
+			xml = externalDAO.deleteRistClfInfoListForTime(info);
 		}
 
+		return xml;
 
 	}
 
@@ -6561,18 +4540,17 @@ public class ExternalBusinessProcessor
 	 */
 	public String updateReqCd(Das das) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateReqCd][Input metadataMstInfoDO]" + das);
-		}
 
 		try 
 		{
 			String result="";
 			int erpDuple = externalDAO.countErpReqCd(das.getMetaDataInfo().getReqCd());
 			int dasDuple = externalDAO.countDasReqCd(das.getMetaDataInfo().getReqCd());
-			logger.debug("###########################erpDuple "+erpDuple);
-			logger.debug("###########################dasDuple "+dasDuple);
+
+			if(logger.isDebugEnabled()) {
+				logger.debug("###########################erpDuple "+erpDuple);
+				logger.debug("###########################dasDuple "+dasDuple);
+			}
 
 			if(erpDuple == 1 && dasDuple ==0){
 				result =externalDAO.updateReqCd(das);				
@@ -6587,9 +4565,7 @@ public class ExternalBusinessProcessor
 			}
 
 			return result;
-		} 
-		catch (Exception e)
-		{  
+		} catch (Exception e) {  
 			throw e;
 		}
 
@@ -6606,18 +4582,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getSchedulerList() throws Exception
 	{
-		String xml = "";
-		try 
-		{
+		String xml =  externalDAO.getSchedulerList();
 
-			xml =  externalDAO.getSchedulerList();
-
-			return xml;
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return xml;
 
 	}
 
@@ -6632,18 +4599,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String getDuplicateReqCd(Das das) throws Exception
 	{
-		String xml = "";
-		try 
-		{
+		String xml =  externalDAO.getDuplicateReqCd(das);
 
-			xml =  externalDAO.getDuplicateReqCd(das);
-
-			return xml;
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return xml;
 
 	}
 

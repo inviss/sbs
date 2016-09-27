@@ -2,6 +2,8 @@ package com.app.das.business.transfer;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import com.app.das.util.Reflector;
 
 
@@ -28,7 +30,8 @@ public abstract class DTO implements Serializable
 	 */
 	public String toString()
 	{
-		return Reflector.objectToString(this);
+		return ToStringBuilder.reflectionToString(this);
+		//return Reflector.objectToString(this);
 	}
 
 }

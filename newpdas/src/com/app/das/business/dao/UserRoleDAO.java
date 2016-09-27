@@ -5178,7 +5178,6 @@ public class UserRoleDAO extends AbstractDAO {
 				return false;
 			}
 		}catch (Exception e) {
-			logger.error(buf.toString());
 			throw e;
 		} finally {
 			release(null, null, con);

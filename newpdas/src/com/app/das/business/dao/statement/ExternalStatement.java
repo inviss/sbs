@@ -4494,7 +4494,7 @@ public class ExternalStatement
 				} else if(McuidYn[i].equals(DASBusinessConstants.SourceGubun.ONAIR)) { // 주조
 					buf.append("\n mst.arch_route LIKE 'O%'");
 				} else if(McuidYn[i].equals(DASBusinessConstants.SourceGubun.PDS)) {
-					buf.append("\n mst.arch_route ='P'");
+					buf.append("\n mst.arch_route LIKE 'P%'");
 				}
 			}
 			buf.append("\n ) ");

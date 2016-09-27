@@ -166,7 +166,7 @@ public class SearchDAO extends AbstractDAO
 			{
 				logger.error(buf.toString());
 
-				
+
 				throw e;
 			}
 			finally
@@ -484,7 +484,7 @@ public class SearchDAO extends AbstractDAO
 		{
 
 			logger.error(buf.toString());
-			
+
 			throw e;
 
 		} 
@@ -542,7 +542,7 @@ public class SearchDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}
 		finally
@@ -663,7 +663,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -786,7 +786,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -845,7 +845,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -887,7 +887,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -922,7 +922,7 @@ public class SearchDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		} 
 		finally
@@ -1012,7 +1012,7 @@ public class SearchDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -1095,7 +1095,7 @@ public class SearchDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -1152,7 +1152,7 @@ public class SearchDAO extends AbstractDAO
 				}
 			}
 
-		
+
 			throw e;
 		}
 		finally
@@ -1202,7 +1202,7 @@ public class SearchDAO extends AbstractDAO
 				}
 			}
 
-			
+
 			throw e;
 		}
 		finally
@@ -1259,7 +1259,7 @@ public class SearchDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}
 		finally
@@ -1312,7 +1312,7 @@ public class SearchDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}
 		finally
@@ -1366,7 +1366,7 @@ public class SearchDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}
 		finally
@@ -1444,7 +1444,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1521,7 +1521,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1574,7 +1574,7 @@ public class SearchDAO extends AbstractDAO
 		catch (Exception e) 
 		{
 			logger.error(buf.toString());
-			
+
 			throw e;
 		}
 		finally
@@ -1675,7 +1675,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1725,7 +1725,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1776,7 +1776,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -1918,7 +1918,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-		
+
 			throw e;
 		}
 		finally
@@ -2140,7 +2140,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-			
+
 			throw e;
 		}
 		finally
@@ -2206,7 +2206,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-		
+
 			throw e;
 		}
 		finally
@@ -2267,7 +2267,7 @@ public class SearchDAO extends AbstractDAO
 		{
 			logger.error(buf.toString());
 
-		
+
 			throw e;
 		}
 		finally
@@ -2289,8 +2289,8 @@ public class SearchDAO extends AbstractDAO
 	 * @throws Exception 
 	 */
 	public String getSearchText(ParameterVO srchParam) throws Exception{
-		ResultVO rVO = new ResultVO();
-		SearchModule objDOCRUZER = new SearchModule();
+		//ResultVO rVO = new ResultVO();
+		//SearchModule objDOCRUZER = new SearchModule();
 
 		/************************************/
 		/* 변수 초기화 및 카테고리별 설정                   */
@@ -2300,9 +2300,9 @@ public class SearchDAO extends AbstractDAO
 		String orderNm = srchParam.getSortColunm();				//정렬명 (ex : 날짜순)
 		int pageNum = srchParam.getPageNum();					// 페이지 번호
 		int pageSize = srchParam.getPageSize();					// 페이지 사이즈
-		String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
-		String logInfo = "";									// 검색로그
-		StringBuffer query = new StringBuffer();				// 검색 쿼리
+		//String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
+		//String logInfo = "";									// 검색로그
+
 		String srchFdNm = "text_idx"; 
 		String ctgr_l_cd = srchParam.getCtgrlcd();				//소재 구분
 		String browser = srchParam.getBrowser();				//브라우져
@@ -2310,6 +2310,8 @@ public class SearchDAO extends AbstractDAO
 		String[] program_yns = srchParam.getProgram_yn();				//프로그램 조회권한
 		String[] material_yns = srchParam.getMaterial_yn();				//소재 조회 권한
 		/***************************************************************************/
+
+		StringBuffer query = new StringBuffer();				// 검색 쿼리
 
 		if(scn.equalsIgnoreCase("program")){
 			query = DCUtil.makeQuery("DELETE_FLAG ", "N", "", query, "and");
@@ -2343,7 +2345,7 @@ public class SearchDAO extends AbstractDAO
 
 		if (!orderNm.equals("")) {
 			//20110518 mailFrom: [SBS]PGM_NM_TITLE 필드 관련 내용 [수정처리완료.]
-			if(orderNm.equals("PGMNM_TITLE")&& srchParam.getScn().equals("annot")){
+			if(orderNm.equals("PGMNM_TITLE") && srchParam.getScn().equals("annot")){
 				orderNm ="TITLE";
 			}else 	if(orderNm.equals("PGMNM_TITLE")){
 				orderNm ="PGMNM_TITLE_STR";
@@ -2363,17 +2365,18 @@ public class SearchDAO extends AbstractDAO
 		} 
 
 		//로그포맷
-		logInfo = DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
-				srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
-				srchParam.getRecKwd());
+		//logInfo = DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
+		//		srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
+		//		srchParam.getRecKwd());
 
 
 		//20120813 ifcms용 조회 쿼리 추가 권한.
 		if(!channel_cds.equals("")){
 			int length = channel_cds.length;
-			String newQuery ="";
-			String nextjob="";
-			boolean all = false;
+			StringBuffer newQuery = new StringBuffer();
+			//String newQuery ="";
+			//String nextjob="";
+			//boolean all = false;
 			for(int j =0 ; j<length;j++){
 				boolean pgm = false;
 				boolean material = false;
@@ -2389,58 +2392,57 @@ public class SearchDAO extends AbstractDAO
 				if(!pgm && !material){
 
 				} else if(!pgm || !material) {
+					String ctgrLCd = (pgm) ? "200" : material ? "100" : "200";
+					if(newQuery.length() == 0) {
+						newQuery.append("(CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='"+ctgrLCd+"')");
+					} else {
+						newQuery.append(" OR (CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='"+ctgrLCd+"')");
+					}
+					/*
 					if(pgm) {
-						/*newQuery= newQuery + "(chennel_cd ='"+channelCd+"'" +" and ctgr_l_cd='200')";
-					   if(nextjob.equals("")||nextjob.equals("N")){
-						   newQuery= newQuery ; 
-					   }else if(nextjob.equals("Y")){
-						   newQuery= newQuery+ "OR " ;   
-					   }*/
+
 						if(newQuery.equals("")){
 							newQuery= "(CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='200')";
 						}else{
 							newQuery= newQuery + " OR (CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='200')";
 						}
+
 					} else if(material){
-						/*newQuery= newQuery + "(chennel_cd ='"+channelCd+"'" +" and ctgr_l_cd='100')";
-						 if(nextjob.equals("")||nextjob.equals("N")){
-							   newQuery= newQuery ; 
-						   }else if(nextjob.equals("Y")){
-							   newQuery= newQuery+ "OR " ;   
-						   }
-					}*/
+
 						if(newQuery.equals("")){
 							newQuery= "(CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='100')";
 						}else{
 							newQuery= newQuery + " OR (CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='100')";
 						}
+
 					}
-				}
-				else {
-					/*newQuery= newQuery + "(chennel_cd ='"+channelCd+"'";
-					 if(nextjob.equals("")||nextjob.equals("N")){
-						   newQuery= newQuery ; 
-					   }else if(nextjob.equals("Y")){
-						   newQuery= newQuery+ "OR " ;   
-					   }*/
+					 */
+				} else {
+					if(newQuery.length() == 0) {
+						newQuery.append("(CHENNEL_CD ='"+channelCd+"'" +" )");
+					} else {
+						newQuery.append(" OR (CHENNEL_CD ='"+channelCd+"'" +" )");
+					}
+					/*
 					if(newQuery.equals("")){
 						newQuery= "(CHENNEL_CD ='"+channelCd+"'" +" )";
 					}else{
 						newQuery= newQuery + " OR (CHENNEL_CD ='"+channelCd+"'" +" )";
 					}
+					 */
 				}
 
-
-
+				/*
 				if(j<=length){
 					nextjob="Y";
 				}else{
 					nextjob="N";
 				}
-
+				 */
 			}
 			if(!newQuery.equals("")){
-				query =  DCUtil.makeQueryForAuth(newQuery, query);
+				//query =  DCUtil.makeQueryForAuth(newQuery, query);
+				query =  DCUtil.makeQueryForAuth(newQuery.toString(), query);
 			}
 		}
 
@@ -2448,44 +2450,36 @@ public class SearchDAO extends AbstractDAO
 		if (srchParam.getReSrchFlag() && srchParam.getPreKwds() != null) {
 			for (int cnt = 0; cnt < srchParam.getPreKwds().length; cnt++) {
 				query = DCUtil.makePreQuery(srchFdNm, srchParam.getKwd(), srchParam.getPreKwds(), 
-						srchParam.getPreKwds().length,query, "allwordthruindex synonym");
+						srchParam.getPreKwds().length, query, "allwordthruindex synonym");
 			}
 		}
 
 
 		//기본 키워드 검색 
-
 		if(srchParam.getGrpSrchFd() == null){
 			if(channel_cds.length!=0){
 				query.append(")");
 			}
 			query = DCUtil.makeQuery(srchFdNm, srchParam.getKwd(), "allwordthruindex synonym", query, "and");
-
-			/*  if(srchParam.getKwd() != null && srchParam.getKwd().length() > 0){
-						     query = DCUtil.makeQuery(srchFdNm, srchParam.getKwd(), "allword", query, "and");
-						    }*/
 		}else{
 			String[] grpKwd = srchParam.getGrpKwd(); // 상세검색 검색어
 			String[] grSrchFd = srchParam.getGrpSrchFd(); // 상세검색 검색대상
 			String[] grpAndOr   = srchParam.getGrpAndOr(); // 상세검색 연결 첨언
 
-
-
 			/**
 			 * grpStartDD & grpEndDD 값이 현재 상세검색 조건값으로 들어올수 있는 값들에 대해서 정의해 Object 인데
 			 * 방송일/촬영일에 대해서 정의해 놓고 가는 것이당. 
 			 */
-			String[] grpStartDD   = srchParam.getGrpStartDD();  // 시작일(
+			String[] grpStartDD   = srchParam.getGrpStartDD();  // 시작일
 			String[] grpEndDD   = srchParam.getGrpEndDD();      // 종료일
 			String kwd = "";
 			String srch_fd = "";
 			String use_start_dd = "";
 			String use_end_Dd = "";
 			int count=0;
-			int DdCount=0;
+			//int DdCount=0;
 
 			if (srchParam.getDetailSearch()) {	//상세검색일 경우 쿼리 생성
-
 
 				if(srchParam.getGrpStartDD() != null){
 					String startVal = "";
@@ -2505,14 +2499,12 @@ public class SearchDAO extends AbstractDAO
 									use_start_dd=use_start_dd+","+startVal;
 								}
 							}
-							//										startVal = grpStartDD[cnt]+"000000";
-							logger.debug("startVal ["+startVal+"]");
 						}
+
 						if (!srchParam.getGrpEndDD().equals("")&&(grSrchFd[cnt].equals("REG_DT")||grSrchFd[cnt].equals("FM_DT")||grSrchFd[cnt].equals("BRD_DD"))) {
 							if(browser.equals("")){
 								endVal = grpEndDD[0];
 							}else{
-
 								for(int i =0; i<grpEndDD.length;i++){
 									if(!use_end_Dd.matches(".*"+grpEndDD[i]+".*")){
 										endVal = grpEndDD[i];
@@ -2520,9 +2512,8 @@ public class SearchDAO extends AbstractDAO
 									use_end_Dd=use_end_Dd+","+endVal;
 								}
 							}
-							//										endVal = grpEndDD[cnt]+"999999";
-							logger.debug("endVal ["+endVal+"]");
 						}
+
 						//if cms의 상세 조건중 방송,촬영, 등록일 조건추가 (20120921 by mentis)
 						if(browser.equals("")){
 							query = DCUtil.makeRangeQueryBrd_ddFm_dt(startVal, endVal, query);
@@ -2531,75 +2522,39 @@ public class SearchDAO extends AbstractDAO
 
 							query = DCUtil.makeRangeQueryBrd_dd(SrchFd, startVal, endVal, query, count);	
 							count++;
-
-							/*   	if(cnt==0){
-									    		tempQuery.append("OR (");
-									    	}else if ( query != null && query.length() > 0 ){
-									    		tempQuery.append(query);
-									    		tempQuery.append(" OR ");			
-									    	}
-
-									    	tempQuery.append("(");
-
-									    	if(!startVal.equals("")){		
-									    		tempQuery.append(SrchFd);
-									    		tempQuery.append(" >= '");
-									    		tempQuery.append(startVal);
-									    		tempQuery.append("'");
-									    	}       
-
-
-									    	if(!endVal.equals("")){	
-									    		if(!startVal.equals("")){
-									    			tempQuery.append(" AND ");
-									    		}
-									    		tempQuery.append(SrchFd);
-									    		tempQuery.append(" <= '");
-									    		tempQuery.append(endVal);
-									    		tempQuery.append("'");
-									    	}
-
-									    	tempQuery.append(")");
-									    	if(cnt==grSrchFd.length){
-									    		tempQuery.append(")");
-
-									    	}*/
 						}
 
-
-
 						if(count==3 && StringUtils.isNotBlank(browser)){
-				
 							query.append(" ) ");
-
 						}
 					}
 
 					if(count!=0 && count<3 && StringUtils.isNotBlank(browser)){
-
 						query.append(" ) ");
-
 					}
-					//query.append(tempQuery);
 				}
-				if(channel_cds.length!=0){
 
+				if(channel_cds.length!=0){
 					query.append(")");
 				}
 
 				if(srchParam.getGrpKwd() != null){
 					for(int cnt = 0; cnt < grSrchFd.length; cnt++){
+
 						if(grSrchFd[cnt].equalsIgnoreCase("TITLE")){
 							grSrchFd[cnt] ="PGMNM_TITLE";
 						}
+
 						//무제한은 공백 값이므로 공백으로 조회하도록 수정 20121022
 						for(int kcnt =0; kcnt< grpKwd.length; kcnt++){
+
 							if(grSrchFd[cnt].equalsIgnoreCase("ANNOT_CLF_NM")){
 								if(grpKwd[kcnt].equals("무제한")){
 									//	grpKwd[kcnt]="";
 								}
 							}
-							if(!srch_fd.matches(".*"+grSrchFd[cnt]+".*")&&!kwd.matches(".*"+grpKwd[kcnt]+".*")&&!(grSrchFd[cnt].equals("REG_DT")||grSrchFd[cnt].equals("FM_DT")||grSrchFd[cnt].equals("BRD_DD"))){
+
+							if(!srch_fd.matches(".*"+grSrchFd[cnt]+".*") && !kwd.matches(".*"+grpKwd[kcnt]+".*") && !(grSrchFd[cnt].equals("REG_DT")||grSrchFd[cnt].equals("FM_DT")||grSrchFd[cnt].equals("BRD_DD"))){
 								query = DCUtil.makeQuery(grSrchFd[cnt], grpKwd[kcnt], "", query, grpAndOr[kcnt]);
 								kwd=kwd+grpKwd[kcnt]+",";
 								srch_fd=srch_fd+grSrchFd[cnt]+",";
@@ -2609,31 +2564,6 @@ public class SearchDAO extends AbstractDAO
 					}
 
 				}
-
-				/*		if(srchParam.getGrpStartDD() == null){
-
-							    for (int cnt = 0; cnt < grSrchFd.length; cnt++) {
-							    	if(grSrchFd[cnt].equalsIgnoreCase("TITLE")){
-							    		grSrchFd[cnt] ="PGMNM_TITLE";
-									}
-							     query = DCUtil.makeQuery(grSrchFd[cnt], grpKwd[cnt], "", query, grpAndOr[cnt]);
-							    }
-
-
-							}*/
-				//날짜 쿼리 추가
-				/*	if (!"".equals(srchParam.getGrpStartDD()) || !"".equals(srchParam.getGrpEndDD())) {
-								String startVal = "";
-								String endVal = "";
-								if (!"".equals(srchParam.getGrpStartDD())) {
-									startVal = srchParam.getStartDate();
-								}
-								if (!"".equals(srchParam.getEndDate())) {
-									endVal = srchParam.getEndDate();
-								}
-
-//								query = DCUtil.makeRangeQuery("regdate", startVal, endVal, query);
-							}*/
 
 				if (!"".equals(srchParam.getExclusiveKwd()) || srchParam.getExclusiveKwd().length() > 0) {
 					query = DCUtil.makeQuery(srchFdNm, srchParam.getExclusiveKwd(), "", query, "and not");
@@ -2647,33 +2577,29 @@ public class SearchDAO extends AbstractDAO
 			if(browser.equals("")){	
 				query = DCUtil.makeRangeQueryBrd_ddFm_dt(startVal, endVal, query);
 			}else{
-				// query = DCUtil.makeRangeQueryBrd_ddFm_dt(startVal, endVal, query);
-
 				query = DCUtil.makeRangeQueryBrd_ddFm_dtForIfCms(startVal, endVal, query);	 
 			}
 		}
 
 
-
-
 		try {
-			logger.debug("Search Query ["+query.toString()+"]");
-			logger.debug("Search scn ["+scn+"]");
-			logger.debug("Search orderBy ["+orderBy+"]");
-			logger.debug("Search pageNum ["+pageNum+"]");
-			logger.debug("Search pageSize ["+pageSize+"]");
+			if(logger.isDebugEnabled()) {
+				logger.debug("Search Query ["+query.toString()+"]");
+				logger.debug("Search scn ["+scn+"]");
+				logger.debug("Search orderBy ["+orderBy+"]");
+				logger.debug("Search pageNum ["+pageNum+"]");
+				logger.debug("Search pageSize ["+pageSize+"]");
+			}
 			long time1;long time2;
 			time1 = System.currentTimeMillis();
 			String xml = ExportXML.search(scn, query.toString(),orderBy, pageNum, pageSize, 1, 1 );
 			time2 = System.currentTimeMillis();
-			logger.debug("getSearchText end time : "+ ((time2 - time1)/1000.0f) +"초");
+			//logger.debug("getSearchText end time : "+ ((time2 - time1)/1000.0f) +"초");
 			return xml;
 
 		} catch (Exception ex) {
-			logger.error(query.toString());
 			throw ex;
 		}
-		//}
 	}
 
 	public String getSearchTextTest(ParameterVO srchParam) throws Exception{
@@ -2750,9 +2676,6 @@ public class SearchDAO extends AbstractDAO
 			}
 		}
 
-
-
-
 		String[] grpKwd = srchParam.getGrpKwd();
 		String[] grSrchFd = srchParam.getGrpSrchFd();
 		String[] grpAndOr   = srchParam.getGrpAndOr();
@@ -2774,7 +2697,7 @@ public class SearchDAO extends AbstractDAO
 					}
 
 					query = DCUtil.makeRangeQuery(grSrchFd[cnt], startVal, endVal, query);
-					
+
 				}
 			}
 		}else{
@@ -2805,18 +2728,16 @@ public class SearchDAO extends AbstractDAO
 				query = DCUtil.makeQuery(srchFdNm, srchParam.getExclusiveKwd(), "", query, "and not");
 			}
 		}
-		try {
+
+		if(logger.isDebugEnabled()) {
 			logger.debug("Search Query ["+query.toString()+"]");
 			logger.debug("Search scn ["+scn+"]");
 			logger.debug("Search orderBy ["+orderBy+"]");
 			logger.debug("Search pageNum ["+pageNum+"]");
 			logger.debug("Search pageSize ["+pageSize+"]");
-			return ExportXML.search(scn, query.toString(),orderBy, pageNum, pageSize, 1, 1 );
-
-		} catch (Exception ex) {
-			logger.error(query.toString());
-			throw ex;
 		}
+		
+		return ExportXML.search(scn, query.toString(),orderBy, pageNum, pageSize, 1, 1 );
 
 	}
 

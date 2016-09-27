@@ -59,12 +59,14 @@ public class PDASInit {
 		 * 초기 실행함수
 		 * 
 		 */	
+	 /*
 	 public static void init(){
-	/*	 try {
+		 try {
 			updateLockStatCd();
 		} catch (DASException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	 }
+	 */
 }

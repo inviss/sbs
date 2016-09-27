@@ -35,7 +35,7 @@ public class ExportXML {
 	public static String search(String scn, String query,String orderBy, int startNum, int pageSize, int nLanguage, int nCharset) throws Exception {
 		SearchModule module = new SearchModule();
 		module.dcSubmitQuery(scn, query, "", "", orderBy, startNum, pageSize, false, rsb, nLanguage, nCharset);
-		return makeXML("das", "DAS_SEARCH", "utf-8",orderBy,startNum,pageSize,rsb.getTotal());
+		return makeXML("das", "DAS_SEARCH", "utf-8", orderBy, startNum,pageSize, rsb.getTotal());
 	}
 	
 	/**

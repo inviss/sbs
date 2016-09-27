@@ -132,7 +132,7 @@ public class LoginBusinessProcessor {
 			decryptionDO(_do);
 
 		}
-		logger.debug("isValidUserWithToken  decryption TokenDO [" + _do + "] ");
+		//logger.debug("isValidUserWithToken  decryption TokenDO [" + _do + "] ");
 
 		String dateTime = CalendarUtil.getDateTime("yyyyMMddHHmm");
 
@@ -162,12 +162,11 @@ public class LoginBusinessProcessor {
 			String sResult="";
 
 			JNI_Des hj =new JNI_Des();
-			sResult = hj.getAuthentication(_do.getUser_id(),
-					_do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
+			sResult = hj.getAuthentication(_do.getUser_id(), _do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
 
 			_do.setResult(sResult);
 
-			logger.debug("JNI_Des getAuthentication Result [" + sResult + "] ");
+			//logger.debug("JNI_Des getAuthentication Result [" + sResult + "] ");
 			if (_do.getResult().startsWith("0")&& token.getApprove_yn().equals("2")) // 사용자 인증성공
 			{
 				// // Token 만료일자 갱신,
@@ -181,8 +180,7 @@ public class LoginBusinessProcessor {
 				 */
 			} else // 인증실패
 			{
-				_do.setAuth_result(errorHandler
-						.getProperty(ErrorConstants.NOT_EXIST_USER)); // authResult
+				_do.setAuth_result(errorHandler.getProperty(ErrorConstants.NOT_EXIST_USER)); // authResult
 				// =
 				// 존재하지
 				// 않는
@@ -193,8 +191,7 @@ public class LoginBusinessProcessor {
 		/**
 		 * 암호화 부분 추가.
 		 */
-		logger.debug("isValidUserWithToken  before encryption TokenDO [" + _do
-				+ "] ");
+		//logger.debug("isValidUserWithToken  before encryption TokenDO [" + _do+ "] ");
 		encryptionDO(_do);
 
 		return _do;

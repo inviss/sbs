@@ -39,8 +39,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import com.app.das.util.CommonUtl;
-import javax.naming.NamingException;
+
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -55,7 +54,6 @@ import org.w3c.dom.NodeList;
 
 import com.app.das.business.ExternalBusinessProcessor;
 import com.app.das.business.constants.CodeConstants;
-import com.app.das.business.constants.Constants;
 import com.app.das.business.constants.DASBusinessConstants;
 import com.app.das.business.constants.ErrorConstants;
 import com.app.das.business.dao.statement.ExternalStatement;
@@ -86,7 +84,6 @@ import com.app.das.business.transfer.DiscardDO;
 import com.app.das.business.transfer.DivaManagerDO;
 import com.app.das.business.transfer.DownCartDO;
 import com.app.das.business.transfer.DtlInfoDO;
-import com.app.das.business.transfer.EmployeeInfoDO;
 import com.app.das.business.transfer.EquipMentInfoDO;
 import com.app.das.business.transfer.EquipmentMonitoringDO;
 import com.app.das.business.transfer.ErrorLogDO;
@@ -110,7 +107,6 @@ import com.app.das.business.transfer.MetaInfoDO;
 import com.app.das.business.transfer.MetadataMstInfoDO;
 import com.app.das.business.transfer.ModeUserInfoDO;
 import com.app.das.business.transfer.MonitoringDO;
-import com.app.das.business.transfer.MyCatalogDO;
 import com.app.das.business.transfer.NdsDownDO;
 import com.app.das.business.transfer.PageDO;
 import com.app.das.business.transfer.PathInfoDO;
@@ -147,7 +143,6 @@ import com.app.das.services.DivaManagerDOXML;
 import com.app.das.services.IfCmsArchiveDOXML;
 import com.app.das.services.PdsDownDOXML;
 import com.app.das.services.TcBeanDOXML;
-import com.app.das.services.TokenDOXML;
 import com.app.das.services.TransferByStorageDOXML;
 import com.app.das.services.TransferDOXML;
 import com.app.das.services.XmlConvertorService;
@@ -156,7 +151,6 @@ import com.app.das.util.CalendarUtil;
 import com.app.das.util.CommonUtl;
 import com.app.das.util.DBService;
 import com.app.das.util.DateTime;
-import com.app.das.util.LoggableStatement;
 import com.app.das.util.StringUtils;
 import com.app.das.util.XmlUtil;
 import com.app.das.util.jutil;
@@ -168,7 +162,6 @@ import com.sbs.tm.service.Tansfer;
 import com.sbs.tm.service.TansferLocator;
 import com.sbs.tm.service.TansferPortType;
 import com.sbs.tm.service.TansferPortTypeProxy;
-import com.sun.swing.internal.plaf.basic.resources.basic;
 /**
  * 우리 시스템의 외부 인터페이스하는 함수 들이 모여있는 classs로
  * ExternalDAO 외부 시스템과 인터페이스 통신 하거나 관련된 함수를 정의한다
@@ -263,15 +256,9 @@ public class ExternalDAO extends AbstractDAO
 
 			return item;
 
-		} 
-		catch (Exception e) 
-		{
-			logger.error(query);
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 
@@ -309,17 +296,9 @@ public class ExternalDAO extends AbstractDAO
 				nMap.put("SUM_BRD_LENG",k);
 			}
 			return nMap;
-		} 
-
-		catch (Exception e) 
-		{
-			logger.error(query);
-
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
@@ -491,16 +470,9 @@ public class ExternalDAO extends AbstractDAO
 			}
 
 			return resultList;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(query);
-
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
@@ -575,17 +547,9 @@ public class ExternalDAO extends AbstractDAO
 
 
 			return strResult.toString();
-		} 
-
-		catch (Exception e) 
-		{
-			logger.error(query);
-
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
@@ -780,16 +744,9 @@ public class ExternalDAO extends AbstractDAO
 
 			return resultList;			
 
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-
+		} catch (Exception e) {
 			throw e;
-		} 
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 
@@ -810,8 +767,7 @@ public class ExternalDAO extends AbstractDAO
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(query);
 
@@ -856,16 +812,9 @@ public class ExternalDAO extends AbstractDAO
 			}	
 
 			return resultList;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(query);
-
-
+		} catch (Exception e) {
 			throw e;
-		} 
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 
@@ -908,17 +857,9 @@ public class ExternalDAO extends AbstractDAO
 			}	
 
 			return resultList;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(query);
-
-
+		} catch (Exception e) {
 			throw e;
-		} 
-
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 
@@ -937,17 +878,14 @@ public class ExternalDAO extends AbstractDAO
 			buf.append(" select DEPT_CD from DAS.OUTSIDER_INFO_TBL outsider, DAS.ERP_COM_USER_TBL erp ");
 			buf.append(" where outsider.GAURANTOR_ID = erp.USER_ID ");
 			buf.append(" and outsider.OUT_USER_ID = ? with ur ");
-		}
-		else	// 정직원이면 COM USER TBL에서 바로 부서 정보를 찾아 넘겨준다.
-		{
+		} else { // 정직원이면 COM USER TBL에서 바로 부서 정보를 찾아 넘겨준다.
 			buf.append(" select DEPT_CD from DAS.ERP_COM_USER_TBL erp where erp.USER_ID = ? with ur ");
 		}
 
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
 
 			stmt = con.prepareStatement(buf.toString());
@@ -957,23 +895,13 @@ public class ExternalDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			if (rs.next())
-			{
+			if (rs.next()) {
 				return rs.getString("DEPT_CD");
-			}	
-			else
+			} else
 				return "";
-		} 
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 
@@ -1087,149 +1015,13 @@ public class ExternalDAO extends AbstractDAO
 			downCartDO.setCartNo(cartNo);			
 
 			return downCartDO;
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(null, stmt, con);
 		}
 
 	}
-
-	/**
-	 * 해당 카트번호에 해당하는 카트내용을 테이블에 저장한다.
-	 * @param cartNo 카트번호
-	 * @param cartContDOList 카트내용 DataObject인 CartContDO 를 포함하고 있는 List
-	 * @return List 
-	 * @throws Exception 
-	 */
-	/*public CartContDO insertCartContInfo(CartContDO cartContDO) throws DASException
-		{
-			Connection con = null;
-			try 
-			{
-				con = DBService.getInstance().getConnection();
-
-				//현재 시간을 받아온다.
-				String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
-
-				//입력받은 카트번호에 해당하는 카트 내용들 중에 가장 큰 카트 내 순번을 구한다.
-				int seq = selectCartContMaxSeq(cartContDO.getCartNo());
-				if(cartContDO.getDown_typ().equals("F")){
-					//풀다운로드인데 마스터아이디만 잇는경우(das 2.0)
-					if(cartContDO.getMasterId()!=0&&(cartContDO.getCtId()==0&&cartContDO.getCtiId()==0)){
-
-						CartContDO cart = getIdForMasterId(cartContDO.getMasterId());
-						CartContDO cart2 =  selectAspVdInfo(cart.getCtId());
-						cartContDO.setCtId(cart.getCtId());
-						cartContDO.setCtiId(cart.getCtiId());
-						cartContDO.setVd_qlty(cart2.getVd_qlty());
-						cartContDO.setAsp_rto_cd(cart2.getAsp_rto_cd());
-					}else{
-						//풀다운로드인데 ct_id,cti_id둘다 존재하는 경우
-						CartContDO cart2 =  selectAspVdInfo(cartContDO.getCtId());
-
-						cartContDO.setVd_qlty(cart2.getVd_qlty());
-						cartContDO.setAsp_rto_cd(cart2.getAsp_rto_cd());	
-					}
-				}else if(cartContDO.getDown_typ().equals("P")){
-					CartContDO cart;
-					if(cartContDO.getMasterId()==0){
-						cart = getIdsForCtId(cartContDO.getCtId());
-						cartContDO.setMasterId(cart.getMaster_id());
-					}else{
-						cart = getIdForCtId(cartContDO.getCtId());
-
-					}
-
-					CartContDO cart2 =  selectAspVdInfo(cartContDO.getCtId());
-					//	cartContDO.setCtId(cart.getCtId());
-					cartContDO.setCtiId(cart.getCtiId());
-					cartContDO.setVd_qlty(cart2.getVd_qlty());
-					cartContDO.setAsp_rto_cd(cart2.getAsp_rto_cd());
-				}
-				String riskYn = DASBusinessConstants.YesNo.NO;
-
-				cartContDO.setCartSeq(++seq);
-
-
-
-
-				// 풀다운로드 요청에 대한 EOM 값 Call
-				if(StringUtils.isEmpty(cartContDO.getEom())||cartContDO.getEom().equals("00:00:00:00")){
-					cartContDO.setEom(selectEomByCtId(cartContDO.getCtId()));
-				}
-				if(StringUtils.isEmpty(cartContDO.getAsp_rto_cd())){
-					cartContDO.setAsp_rto_cd(selectAspRtoCDByCtId(cartContDO.getCtId()));
-				}
-				String riskClfCd = getRiskClfCd(cartContDO);
-				String riskclfnm = getRistClfcd(riskClfCd);
-				cartContDO.setRistClfCd(riskClfCd);
-				cartContDO.setRist_clf_nm(riskclfnm);
-				//사용제한구분이 무제한이 아니면 사용제한포함여부는 'Y'이
-				//if(!CodeConstants.RiskCode.UNLIMIT.equals(riskClfCd))
-				if(riskClfCd.equals(CodeConstants.AnnotCode.UNLIMITED))
-				{
-					riskYn = DASBusinessConstants.YesNo.NO;
-				}else if (riskClfCd.equals(CodeConstants.AnnotCode.USE_LIMITED)){
-					riskYn = DASBusinessConstants.YesNo.NO;
-				}else if (riskClfCd.equals(CodeConstants.AnnotCode.CHECK_BY_COMPANY)){
-					riskYn = DASBusinessConstants.YesNo.YES;
-				}else if (riskClfCd.equals(CodeConstants.AnnotCode.CHECK_BY_PD)){
-					riskYn = DASBusinessConstants.YesNo.YES;
-				}else if (riskClfCd.equals(CodeConstants.AnnotCode.NOT_USE)){
-					riskYn = DASBusinessConstants.YesNo.YES;
-				}else if (riskClfCd.equals(CodeConstants.AnnotCode.LIMITED_BY_BROADCASTCENTER)){
-					riskYn = DASBusinessConstants.YesNo.YES;
-				}else {
-					riskYn = DASBusinessConstants.YesNo.NO;
-				}
-
-				if(StringUtils.isEmpty(cartContDO.getSom())){
-					cartContDO.setDuration(Long.parseLong(selectDurationByCtId(cartContDO.getCtId())));
-				}
-				insertCartContInfo(con, cartContDO, toDateTime, riskClfCd);
-
-				//사용제한 여부가 'Y'이면 다운로드카트의 사용제한포함여부를 'Y'로 수정한다.
-				if(DASBusinessConstants.YesNo.YES.equals(riskYn))
-				{
-					updateRiskYn(con, cartContDO.getCartNo(),cartContDO.getCartSeq(), riskYn);
-				}
-				String epis_no = getEpisNo(cartContDO.getCtId());
-				cartContDO.setEpis_no(epis_no);
-				return cartContDO;
-			} 
-			catch (NamingException e) 
-			{
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-
-				DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "시스템 장애입니다.", e);
-				throw exception;
-
-			} 
-			catch (SQLException e) 
-			{
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-
-				DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "시스템 장애입니다.", e);
-				throw exception;
-			}
-			finally
-			{
-				release(null, null, con);
-			}
-
-		}
-	 */
-
 
 	//20120926. 원본소스 복원후 수정시작 마스터id별 중복카트 담기.
 	public CartContDO insertCartContInfo(CartContDO cartContDO) throws Exception
@@ -1436,15 +1228,9 @@ public class ExternalDAO extends AbstractDAO
 			}
 
 			return cartContDO;
-		} 
-
-		catch (Exception e) 
-		{
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(null, null, con);
 		}
 
@@ -1462,8 +1248,7 @@ public class ExternalDAO extends AbstractDAO
 	public CartContDO insertStCartContInfo(CartContDO cartContDO) throws Exception
 	{
 		Connection con = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
 
 			//현재 시간을 받아온다.
@@ -1525,14 +1310,9 @@ public class ExternalDAO extends AbstractDAO
 			}
 
 			return cartContDO;
-		} 
-		catch (Exception e) 
-		{
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(null, null, con);
 		}
 
@@ -1547,8 +1327,7 @@ public class ExternalDAO extends AbstractDAO
 	public CartContDO insertStCartContInfo(DownCartDO downCartDO,CartContDO cartContDO) throws Exception
 	{
 		Connection con = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
 			//현재 시간을 받아온다.
 			String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
@@ -1612,14 +1391,9 @@ public class ExternalDAO extends AbstractDAO
 			}
 
 			return cartContDO;
-		} 
-		catch (Exception e) 
-		{
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(null, null, con);
 		}
 
@@ -1641,6 +1415,7 @@ public class ExternalDAO extends AbstractDAO
 		StringBuffer buf=new StringBuffer();
 		try {
 			con=DBService.getInstance().getConnection();
+			con.setAutoCommit(false);
 
 			buf.append("\n insert into DAS.RELATION_MASTER (PARENT_MASTER_ID,CHILD_MASTER_ID) VALUES(?,?) ");
 			stmt=con.prepareStatement(buf.toString());
@@ -1650,31 +1425,17 @@ public class ExternalDAO extends AbstractDAO
 
 			int iTmp = stmt.executeUpdate();
 
+			con.commit();
 			return iTmp;
-		}
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-			if(con != null)
-			{
-				try {
-					con.rollback();					
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
-			}
-
-
+		} catch (Exception e) {
+			if(con != null) con.rollback();
 			throw e;
-
-		} 
-
-		finally
-		{
+		} finally {
+			if(con != null) con.setAutoCommit(true);
 			release(null, stmt, con);
 		}
 	}
+	
 	/**
 	 * 관련영상 정보를 삭제한다.
 	 * @param parent_master_id  부모 마스터 정보
@@ -1690,7 +1451,8 @@ public class ExternalDAO extends AbstractDAO
 		StringBuffer buf=new StringBuffer();
 		try {
 			con=DBService.getInstance().getConnection();
-
+			con.setAutoCommit(false);
+			
 			buf.append("\n delete from  DAS.RELATION_MASTER where PARENT_MASTER_ID =? and  CHILD_MASTER_ID=? ");
 			stmt=con.prepareStatement(buf.toString());
 			int index=0;
@@ -1698,26 +1460,14 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setLong(++index    , child_master_id);
 
 			int iTmp = stmt.executeUpdate();
+			
+			con.commit();
 			return iTmp;
-		}
-
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-			if(con != null)
-			{
-				try {
-					con.rollback();					
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
-			}
-
+		} catch (Exception e) {
+			if(con != null) con.rollback();
 			throw e;
-		}
-		finally
-		{
+		} finally {
+			if(con != null) con.setAutoCommit(true);
 			release(null, stmt, con);
 		}
 	}
@@ -1761,45 +1511,21 @@ public class ExternalDAO extends AbstractDAO
 			stmt.setInt(++index, scenarioDO.getSeq() );
 			int iTmp = stmt.executeUpdate();
 
-
-			con.commit();
 			insertSceanarioForProceduer(scenarioDO.getMasterId());
+			
+			con.commit();
 			return  iTmp;
 
-		} 
-		catch (Exception e) 
-		{
-			logger.error(buf.toString());
-
-			if(con != null)
-			{
-				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					e1.printStackTrace();
-				}
-			}
-
-
+		} catch (Exception e) {
+			if(con != null) con.rollback();
 			throw e;
 
-		} 
-		finally
-		{
-			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				logger.error(e);
-			}
+		} finally {
+			con.setAutoCommit(true);
 			release(null, stmt, con);
 		}
 
 	}
-
-
-
 
 
 	/**
@@ -6732,15 +6458,9 @@ public class ExternalDAO extends AbstractDAO
 				return child_master_id;
 			}
 
-		} 
-		catch (Exception e) 
-		{
-			logger.error(query);
-
+		} catch (Exception e) {
 			throw e;
-		} 
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
@@ -12960,17 +12680,17 @@ public class ExternalDAO extends AbstractDAO
 			tc.setInput_lr(tcbean.getLR_FL_PATH());
 			tc.setOut_put_lr_path(tcbean.getLR_FL_PATH());
 			tc.setOut_put_ct_path(tcbean.getOut_put_ct_path());
-			
+
 			TcBeanDO _do2 = inserWmv_nm(tc);
 			updateWMVdate(tcbean.getCt_id());
-			
+
 			return "1";
 
 		} catch (Exception e) {
 			throw e;		    
 		}
 	}
-	
+
 	@Deprecated
 	public String recreateWMV(TcBeanDO tcbean,String user_id,String tc_inter_path) throws Exception
 	{
@@ -13051,10 +12771,10 @@ public class ExternalDAO extends AbstractDAO
 			tc.setInput_lr(tcbean.getLR_FL_PATH());
 			tc.setOut_put_lr_path(tcbean.getLR_FL_PATH());
 			tc.setOut_put_ct_path(tcbean.getOut_put_ct_path());
-			
+
 			inserWmv_KFRM(tc);
 			updateWMVdate(tc.getCt_id());
-			
+
 			return "1";
 		} catch (Exception e) {
 			throw e;
@@ -13186,7 +12906,7 @@ public class ExternalDAO extends AbstractDAO
 			tc.setInput_lr(tcbean.getLR_FL_PATH());
 			tc.setOut_put_lr_path(tcbean.getLR_FL_PATH());
 			tc.setOut_put_ct_path(tcbean.getOut_put_ct_path());
-			
+
 			TcBeanDO tc1 = inserKFRM(tc);
 
 			return "1";
@@ -13195,7 +12915,7 @@ public class ExternalDAO extends AbstractDAO
 		}
 
 	}
-	
+
 	@Deprecated
 	public String recreateKFRM(TcBeanDO tcbean,String user_nm,String tc_inter_path)throws Exception{
 
@@ -18910,8 +18630,7 @@ public class ExternalDAO extends AbstractDAO
 		PreparedStatement stmt = null;
 		Connection con = null;		
 
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
 			//logger.debug("######updateTcState######## con : " + con);
 			//stmt = con.prepareStatement(buf.toString());
@@ -18923,17 +18642,10 @@ public class ExternalDAO extends AbstractDAO
 			int updateCount = stmt.executeUpdate();
 
 			return updateCount;
-		}
-
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			logger.error(buf.toString());
-
-
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(null, stmt, con);
 		}
 
@@ -19307,7 +19019,7 @@ public class ExternalDAO extends AbstractDAO
 
 
 	}
-	
+
 	public TcBeanDO inserNewWmv_KFRM(TcBeanDO TcBeanDO) throws Exception
 	{
 
@@ -19995,7 +19707,7 @@ public class ExternalDAO extends AbstractDAO
 
 		String _result = "";
 		try{
-			
+
 			pdsArchiveDO.setCocd(selectCocd(pdsArchiveDO.getCti_id())) ;
 			DivaManagerDOXML _doing = new DivaManagerDOXML();
 
@@ -22021,44 +21733,19 @@ public class ExternalDAO extends AbstractDAO
 	public int deleteApproveInfo(String user_no,String DEPT_CD) throws Exception
 	{
 		Connection con = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######deleteApproveInfo######## con : " + con);
 			con.setAutoCommit(false);
 
 			int result = deletapproveInfo(con, user_no,DEPT_CD);
 
 			con.commit();
 			return result;
-		} 
-
-		catch (Exception e) 
-		{
-			logger.error(user_no);
-			logger.error(DEPT_CD);
-
-			if(con != null)
-			{
-				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					logger.error(e1);
-				}
-			}
-
-
+		} catch (Exception e) {
+			con.rollback();
 			throw e;
-		}
-		finally
-		{
-			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				logger.error(e);
-			}
+		} finally {
+			con.setAutoCommit(true);
 			release(null, null, con);
 		}
 
@@ -22076,49 +21763,24 @@ public class ExternalDAO extends AbstractDAO
 	public int deleteApproveInfo2(String user_no,String DEPT_CD,String pgm_Cd) throws Exception
 	{
 		Connection con = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######deleteApproveInfo2######## con : " + con);
 			con.setAutoCommit(false);
 
 			int result = deletapproveInfo2(con, user_no,DEPT_CD,pgm_Cd);
 
 			con.commit();
 			return result;
-		} 
-
-		catch (Exception e) 
-		{
-			logger.error(user_no);
-			logger.error(DEPT_CD);
-			logger.error(pgm_Cd);
-
-			if(con != null)
-			{
-				try {
-					con.rollback();
-				} catch (SQLException e1) {
-					// TODO 자동 생성된 catch 블록
-					logger.error(e1);
-				}
-			}
-
-
+		} catch (Exception e) {
+			con.rollback();
 			throw e;
-		}
-		finally
-		{
-			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				logger.error(e);
-			}
+		} finally {
+			con.setAutoCommit(true);
 			release(null, null, con);
 		}
 
 	}
+
 	private int deletapproveInfo(Connection con, String user_no,String deptcd) throws SQLException
 	{
 		StringBuffer buf = new StringBuffer();
@@ -22126,8 +21788,7 @@ public class ExternalDAO extends AbstractDAO
 		buf.append("\n delete from DAS.approve_info_tbl where APPROVE_USER_NUM = ?  ");
 		buf.append("\n and dept_cd = ?  ");
 		PreparedStatement stmt = null;
-		try 
-		{
+		try {
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -22136,7 +21797,6 @@ public class ExternalDAO extends AbstractDAO
 			String[] userno= user_no.split(",");
 			String[] dept_cd= deptcd.split(",");
 			for(int i =0;i<userno.length;i++){
-
 				if(userno[i].equals("")){
 					stmt.setString(++index, "");
 				}else{
@@ -22146,23 +21806,15 @@ public class ExternalDAO extends AbstractDAO
 				result =  stmt.executeUpdate();
 			}
 
-
-
 			return result;
-		} 
-		catch (SQLException e) 
-		{
-			logger.error(buf.toString());
-
+		} catch (SQLException e) {
 			throw e;
-		}
-		finally
-		{
-			// panboy. 이 처리도 나중에 문제가 생기면 확인
-			try { 	if (stmt != null)  stmt.close();	} catch (SQLException e) {}
+		} finally {
+			release(null, stmt, null);
 		}
 
 	}
+
 	private int deletapproveInfo2(Connection con, String user_no,String deptcd,String pgm_cd) throws SQLException
 	{
 		StringBuffer buf = new StringBuffer();
@@ -22170,8 +21822,7 @@ public class ExternalDAO extends AbstractDAO
 		buf.append("\n delete from DAS.approve_info_tbl where APPROVE_USER_NUM = ?  ");
 		buf.append("\n and dept_cd = ? and pgm_id = ?  ");
 		PreparedStatement stmt = null;
-		try 
-		{
+		try {
 
 			stmt = con.prepareStatement(buf.toString());
 
@@ -22192,28 +21843,14 @@ public class ExternalDAO extends AbstractDAO
 				result =  stmt.executeUpdate();
 			}
 
-
-
 			return result;
-		} 
-		catch (SQLException e) 
-		{
-			logger.error(buf.toString());
-
+		} catch (SQLException e) {
 			throw e;
-		}
-		finally
-		{
-			// panboy. 이 처리도 나중에 문제가 생기면 확인
-			try { 	if (stmt != null)  stmt.close();	} catch (SQLException e) {}
+		} finally {
+			release(null, stmt, null);
 		}
 
 	}
-
-
-
-
-
 
 	/**
 	 * 검색어를 포함하는 프로그램 이름을 모두 가져온다
@@ -22228,8 +21865,7 @@ public class ExternalDAO extends AbstractDAO
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		try 
-		{
+		try {
 			con = DBService.getInstance().getConnection();
 			//logger.debug("######selectProgramInfo2######## con : " + con);
 			stmt = con.prepareStatement(query);
@@ -22237,8 +21873,7 @@ public class ExternalDAO extends AbstractDAO
 			String str = null;		
 			rs = stmt.executeQuery();
 			List resultList  = new ArrayList();
-			while(rs.next())
-			{
+			while(rs.next()) {
 				ProgramInfoDO item = new ProgramInfoDO();
 				item.setPgmId(rs.getLong("PGM_ID"));
 				item.setMasterId(rs.getLong("MASTER_ID"));
@@ -22259,15 +21894,9 @@ public class ExternalDAO extends AbstractDAO
 
 			return resultList;
 
-		} 
-		catch (Exception e) 
-		{
-			logger.error(query);
-
+		} catch (Exception e) {
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			release(rs, stmt, con);
 		}
 	}
@@ -25173,7 +24802,7 @@ public class ExternalDAO extends AbstractDAO
 		Connection con = null;		
 		PreparedStatement psmt = null;		
 		ResultSet rs = null;
-		
+
 		buf.append("\nSELECT CTI.CTI_ID as cti_id, tc.INPUT_HR as fl_path, tc.input_hr_nm, ct.media_id, ct.reg_dt, rtrim(CT.VD_QLTY) as vd_qlty,    ");
 		buf.append("\n    ct.ct_cla, MST.CTGR_L_CD, mst.REGRID                                                                                      ");
 		buf.append("\nFROM DAS.CONTENTS_TBL CT                                                                                                      ");
@@ -25189,7 +24818,7 @@ public class ExternalDAO extends AbstractDAO
 			int index = 0;	
 			psmt.setLong(++index, pdsArchiveDO.getCt_id());
 			rs = psmt.executeQuery();	
-			
+
 			PdsArchiveDO item = new PdsArchiveDO();
 			if(rs.next()) {
 				item.setCti_id(rs.getLong("cti_id"));
@@ -25202,7 +24831,7 @@ public class ExternalDAO extends AbstractDAO
 				item.setCtgr_l_cd(rs.getString("CTGR_L_CD"));
 				item.setReq_id(rs.getString("REGRID"));
 			}
-			
+
 			return item;   
 		} catch (Exception ex) {
 			DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "selectTcJon 에러 : " + buf.toString(), ex);
@@ -30106,7 +29735,7 @@ public class ExternalDAO extends AbstractDAO
 			String dateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 			long cti_id= systemManageDAO.selectCtiid();
 			tcbean.setCti_id(cti_id);
-			
+
 			stmt.setLong(++index, cti_id);//CTI_ID
 			stmt.setLong(++index, tcbean.getCt_id());//CT_ID
 			stmt.setString(++index, "301");//CTI_FMT
@@ -34666,7 +34295,7 @@ public class ExternalDAO extends AbstractDAO
 	 * @return
 	 * @throws RemoteException
 	 */
-	public String getSceanInfoForIfCms(long ct_id) throws DASException
+	public String getSceanInfoForIfCms(long ct_id) throws Exception
 	{	
 		StringBuffer strResultBuffer = new StringBuffer();
 
@@ -34688,7 +34317,7 @@ public class ExternalDAO extends AbstractDAO
 
 
 	// 코너 정보를 가져온다.
-	private String getCornerResultXMLForIfCms(long ct_id) throws DASException
+	private String getCornerResultXMLForIfCms(long ct_id) throws Exception
 	{
 		StringBuffer buf = new StringBuffer();
 		StringBuffer strResult = new StringBuffer();
@@ -34746,95 +34375,94 @@ public class ExternalDAO extends AbstractDAO
 			rs = psmt.executeQuery();	
 			String gubun="";
 			long gcn_id =0L;
-			while(rs.next())
-			{		
-				long nCN_ID = rs.getLong("CN_ID");
-				this.AddToResultXMLBuffer(strResult, "KFRM_PATH".toLowerCase(), "      ", rs.getString("KFRM_PATH"));
-				logger.debug("path :    "+rs.getString("KFRM_PATH")+"/"+rs.getLong("CT_ID")+".mer");
-				File f = new File("/"+rs.getString("KFRM_PATH")+"/"+rs.getLong("CT_ID")+".mer");
 
-				if(f.exists()){
-					logger.debug("file is exist");
-				}else{
-					logger.debug("file is not exist");
+			while(rs.next()) {		
+				long nCN_ID = rs.getLong("CN_ID");
+				this.AddToResultXMLBuffer(strResult, "kfrm_path", "      ", rs.getString("KFRM_PATH"));
+
+				String kfrmPath = rs.getString("KFRM_PATH");
+				long fSize = 0L;
+				if(kfrmPath != null && kfrmPath.trim().length() > 0) {
+					logger.debug("kfrm_path :    "+kfrmPath+"/"+rs.getLong("CT_ID")+".mer");
+
+					File f = new File("/"+kfrmPath+"/"+rs.getLong("CT_ID")+".mer");
+					if(!f.exists()){
+						logger.debug(f.getAbsolutePath()+ " is not exist");
+					}
+					fSize = f.length();
 				}
-				this.AddToResultXMLBuffer(strResult, "KFRM_SIZE".toLowerCase(), "      ", f.length()+"");
-				this.AddToResultXMLBuffer(strResult, "META_RPIMG_KFRM_SEQ".toLowerCase(), "      ",rs.getLong("META_RPIMG_KFRM_SEQ")+ "");
-				this.AddToResultXMLBuffer(strResult, "FL_PATH".toLowerCase(), "      ", rs.getString("FL_PATH"));
-				this.AddToResultXMLBuffer(strResult, "WRK_FILE_NM".toLowerCase(), "      ", rs.getString("WRK_FILE_NM"));
-				this.AddToResultXMLBuffer(strResult, "CT_LENG".toLowerCase(), "      ", rs.getString("CT_LENG"));
-				this.AddToResultXMLBuffer(strResult, "MEDIA_ID".toLowerCase(), "      ", rs.getString("MEDIA_ID"));
-				this.AddToResultXMLBuffer(strResult, "TITLE".toLowerCase(), "      ", rs.getString("TITLE"));
+
+				this.AddToResultXMLBuffer(strResult, "kfrm_size", "      ", fSize+"");
+				this.AddToResultXMLBuffer(strResult, "meta_rpimg_kfrm_seq", "      ",rs.getLong("META_RPIMG_KFRM_SEQ")+ "");
+				this.AddToResultXMLBuffer(strResult, "fl_path", "      ", rs.getString("FL_PATH"));
+				this.AddToResultXMLBuffer(strResult, "wrk_file_nm", "      ", rs.getString("WRK_FILE_NM"));
+				this.AddToResultXMLBuffer(strResult, "ct_leng", "      ", rs.getString("CT_LENG"));
+				this.AddToResultXMLBuffer(strResult, "media_id", "      ", rs.getString("MEDIA_ID"));
+				this.AddToResultXMLBuffer(strResult, "title", "      ", rs.getString("TITLE"));
 				/*
 				 * 2016.05.09 코난 요구에의해 추가됨.
 				 */
-				this.AddToResultXMLBuffer(strResult, "CHANNEL_CD".toLowerCase(), "      ", rs.getString("CHANNEL_CD") + "");
-				
+				this.AddToResultXMLBuffer(strResult, "channel_cd", "      ", rs.getString("CHANNEL_CD") + "");
+
 				strResult.append("\n    <item>");
 
-				this.AddToResultXMLBuffer(strResult, "CN_ID".toLowerCase(), "      ", nCN_ID + "");
-				this.AddToResultXMLBuffer(strResult, "CN_NM".toLowerCase(), "      ", rs.getString("CN_NM"));
-				this.AddToResultXMLBuffer(strResult, "TITLE".toLowerCase(), "      ", rs.getString("TITLE"));
+				this.AddToResultXMLBuffer(strResult, "cn_id", "      ", nCN_ID + "");
+				this.AddToResultXMLBuffer(strResult, "cn_nm", "      ", rs.getString("CN_NM"));
+				this.AddToResultXMLBuffer(strResult, "title", "      ", rs.getString("TITLE"));
 				//2009.08.05 CT_NM ----->CN_NM  CHANGE 
-				this.AddToResultXMLBuffer(strResult, "RPIMG_KFRM_SEQ".toLowerCase(), "      ", rs.getLong("RPIMG_KFRM_SEQ") + "");
-				this.AddToResultXMLBuffer(strResult, "SOM".toLowerCase(), "      ", rs.getString("SOM"));
-				this.AddToResultXMLBuffer(strResult, "EOM".toLowerCase(), "      ", rs.getString("EOM"));
-				this.AddToResultXMLBuffer(strResult, "CN_TYPE_CD".toLowerCase(), "      ", rs.getString("CN_TYPE_CD"));
-				this.AddToResultXMLBuffer(strResult, "RPIMG_CT_ID".toLowerCase(), "      ", rs.getLong("RPIMG_CT_ID") + "");
+				this.AddToResultXMLBuffer(strResult, "rpimg_kfrm_seq", "      ", rs.getLong("RPIMG_KFRM_SEQ") + "");
+				this.AddToResultXMLBuffer(strResult, "som", "      ", rs.getString("SOM"));
+				this.AddToResultXMLBuffer(strResult, "eom", "      ", rs.getString("EOM"));
+				this.AddToResultXMLBuffer(strResult, "cn_type_cd", "      ", rs.getString("CN_TYPE_CD"));
+				this.AddToResultXMLBuffer(strResult, "rpimg_ct_id", "      ", rs.getLong("RPIMG_CT_ID") + "");
 
-				this.AddToResultXMLBuffer(strResult, "META_RPIMG_KFRM_SEQ".toLowerCase(), "      ", rs.getLong("META_RPIMG_KFRM_SEQ")+ "");
-				this.AddToResultXMLBuffer(strResult, "META_RPIMG_CT_ID".toLowerCase(), "      ", rs.getLong("META_RPIMG_CT_ID") + "");
+				this.AddToResultXMLBuffer(strResult, "meta_rpimg_kfrm_seq", "      ", rs.getLong("META_RPIMG_KFRM_SEQ")+ "");
+				this.AddToResultXMLBuffer(strResult, "meta_rpimg_ct_id", "      ", rs.getLong("META_RPIMG_CT_ID") + "");
 
 				/**
 				 * 문제의 특수문자있는 곳 김동은 20090731 청구번호 BS92-0550 으로 조회시에....
 				 */
-				this.AddToResultXMLBuffer(strResult, "CN_INFO".toLowerCase(), "      ", rs.getString("CN_INFO"));
+				this.AddToResultXMLBuffer(strResult, "cn_info", "      ", rs.getString("CN_INFO"));
 
 				// CT 관련 자료
-				this.AddToResultXMLBuffer(strResult, "CT_ID".toLowerCase(), "      ", rs.getLong("CT_ID") + "");
+				this.AddToResultXMLBuffer(strResult, "ct_id", "      ", rs.getLong("CT_ID") + "");
 
-				this.AddToResultXMLBuffer(strResult, "CT_NM".toLowerCase(), "      ", rs.getString("CT_NM"));
-				this.AddToResultXMLBuffer(strResult, "REG_DT".toLowerCase(), "      ", rs.getString("REG_DT"));
-				this.AddToResultXMLBuffer(strResult, "CT_LENG".toLowerCase(), "      ", rs.getString("CT_LENG"));
-				this.AddToResultXMLBuffer(strResult, "DURATION".toLowerCase(), "      ", rs.getLong("DURATION") + "");
-				this.AddToResultXMLBuffer(strResult, "CT_SEQ".toLowerCase(), "      ", rs.getLong("CT_SEQ") + "");
-				this.AddToResultXMLBuffer(strResult, "KFRM_PX_CD".toLowerCase(), "      ", rs.getString("KFRM_PX_CD"));
-				this.AddToResultXMLBuffer(strResult, "VD_QLTY".toLowerCase(), "      ", rs.getString("VD_QLTY"));
-				this.AddToResultXMLBuffer(strResult, "ASP_RTO_CD".toLowerCase(), "      ", rs.getString("ASP_RTO_CD"));
-				this.AddToResultXMLBuffer(strResult, "CT_CLA".toLowerCase(), "      ", rs.getString("CT_CLA"));
-				this.AddToResultXMLBuffer(strResult, "TOT_KFRM_NUMS".toLowerCase(), "      ", rs.getString("TOT_KFRM_NUMS"));
+				this.AddToResultXMLBuffer(strResult, "ct_nm", "      ", rs.getString("CT_NM"));
+				this.AddToResultXMLBuffer(strResult, "reg_dt", "      ", rs.getString("REG_DT"));
+				this.AddToResultXMLBuffer(strResult, "ct_leng", "      ", rs.getString("CT_LENG"));
+				this.AddToResultXMLBuffer(strResult, "duration", "      ", rs.getLong("DURATION") + "");
+				this.AddToResultXMLBuffer(strResult, "ct_seq", "      ", rs.getLong("CT_SEQ") + "");
+				this.AddToResultXMLBuffer(strResult, "kfrm_px_cd", "      ", rs.getString("KFRM_PX_CD"));
+				this.AddToResultXMLBuffer(strResult, "vd_qlty", "      ", rs.getString("VD_QLTY"));
+				this.AddToResultXMLBuffer(strResult, "asp_rto_cd", "      ", rs.getString("ASP_RTO_CD"));
+				this.AddToResultXMLBuffer(strResult, "ct_cla", "      ", rs.getString("CT_CLA"));
+				this.AddToResultXMLBuffer(strResult, "tot_kfrm_nums", "      ", rs.getString("TOT_KFRM_NUMS"));
 
 				/**
 				 * 문제의 특수문자가 있는 cont
 				 */
-				this.AddToResultXMLBuffer(strResult, "CONT".toLowerCase(), "      ", rs.getString("CONT"));
+				this.AddToResultXMLBuffer(strResult, "cont", "      ", rs.getString("CONT"));
 
 				// CTI 관련 자료
-				this.AddToResultXMLBuffer(strResult, "CTI_ID".toLowerCase(), "      ", rs.getLong("CTI_ID") + "");
-				this.AddToResultXMLBuffer(strResult, "INGEST_EQ_ID".toLowerCase(), "      ", rs.getLong("INGEST_EQ_ID") + "");
-				this.AddToResultXMLBuffer(strResult, "FL_PATH".toLowerCase(), "      ", rs.getString("FL_PATH"));
-				this.AddToResultXMLBuffer(strResult, "WRK_FILE_NM".toLowerCase(), "      ", rs.getString("WRK_FILE_NM"));
-				this.AddToResultXMLBuffer(strResult, "CTI_FMT".toLowerCase(), "      ", rs.getString("CTI_FMT"));
-				this.AddToResultXMLBuffer(strResult, "FL_SZ".toLowerCase(), "      ", rs.getLong("FL_SZ") + "");
-				this.AddToResultXMLBuffer(strResult, "ARCH_STE_YN".toLowerCase(), "      ", rs.getString("ARCH_STE_YN"));
-				this.AddToResultXMLBuffer(strResult, "VD_HRESOL".toLowerCase(), "      ", rs.getString("VD_HRESOL"));
-				this.AddToResultXMLBuffer(strResult, "VD_VRESOL".toLowerCase(), "      ", rs.getString("VD_VRESOL") + "");
-				this.AddToResultXMLBuffer(strResult, "BIT_RT".toLowerCase(), "      ", rs.getString("BIT_RT") + "");
-				this.AddToResultXMLBuffer(strResult, "FRM_PER_SEC".toLowerCase(), "      ", rs.getString("FRM_PER_SEC"));
-				this.AddToResultXMLBuffer(strResult, "AUD_SAMP_FRQ".toLowerCase(), "      ", rs.getString("AUD_SAMP_FRQ") + "");
-				this.AddToResultXMLBuffer(strResult, "AUDIO_BDWT".toLowerCase(), "      ", rs.getString("AUDIO_BDWT") + "");
+				this.AddToResultXMLBuffer(strResult, "cti_id", "      ", rs.getLong("CTI_ID") + "");
+				this.AddToResultXMLBuffer(strResult, "ingest_eq_id", "      ", rs.getLong("INGEST_EQ_ID") + "");
+				this.AddToResultXMLBuffer(strResult, "fl_path", "      ", rs.getString("FL_PATH"));
+				this.AddToResultXMLBuffer(strResult, "wrk_file_nm", "      ", rs.getString("WRK_FILE_NM"));
+				this.AddToResultXMLBuffer(strResult, "cti_fmt", "      ", rs.getString("CTI_FMT"));
+				this.AddToResultXMLBuffer(strResult, "fl_sz", "      ", rs.getLong("FL_SZ") + "");
+				this.AddToResultXMLBuffer(strResult, "arch_ste_yn", "      ", rs.getString("ARCH_STE_YN"));
+				this.AddToResultXMLBuffer(strResult, "vd_hresol", "      ", rs.getString("VD_HRESOL"));
+				this.AddToResultXMLBuffer(strResult, "vd_vresol", "      ", rs.getString("VD_VRESOL") + "");
+				this.AddToResultXMLBuffer(strResult, "bit_rt", "      ", rs.getString("BIT_RT") + "");
+				this.AddToResultXMLBuffer(strResult, "frm_per_sec", "      ", rs.getString("FRM_PER_SEC"));
+				this.AddToResultXMLBuffer(strResult, "aud_samp_frq", "      ", rs.getString("AUD_SAMP_FRQ") + "");
+				this.AddToResultXMLBuffer(strResult, "audio_bdwt", "      ", rs.getString("AUDIO_BDWT") + "");
 
 
 				// MAP 관련 자료
-				this.AddToResultXMLBuffer(strResult, "S_DURATION".toLowerCase(), "      ", rs.getLong("S_DURATION") + "");
-				this.AddToResultXMLBuffer(strResult, "E_DURATION".toLowerCase(), "      ", rs.getLong("E_DURATION") + "");
+				this.AddToResultXMLBuffer(strResult, "s_duration", "      ", rs.getLong("S_DURATION") + "");
+				this.AddToResultXMLBuffer(strResult, "e_duration", "      ", rs.getLong("E_DURATION") + "");
 
-				// CART 관련 자료
-				//this.AddToResultXMLBuffer(strResult, "RIST_CLF_CD", "      ", rs.getString("RIST_CLF_CD") + "");
-				//this.AddToResultXMLBuffer(strResult, "REGRID", "      ", rs.getString("REGRID") + "");
-				//this.AddToResultXMLBuffer(strResult, "MODRID", "      ", rs.getString("MODRID") + "");
-				//this.AddToResultXMLBuffer(strResult, "MOD_DT", "      ", rs.getString("MOD_DT") + "");
-				
 				// annot 관련 자료
 				strResult.append("\n      <Annot>");
 
@@ -34859,25 +34487,25 @@ public class ExternalDAO extends AbstractDAO
 					while(rs_annot.next())
 					{                	
 						strResult.append("\n        <Annot_item>");
-						gcn_id=rs_annot.getLong("ANNOT_ID");
-						this.AddToResultXMLBuffer(strResult, "ANNOT_ID".toLowerCase(), "      ", rs_annot.getLong("ANNOT_ID") + "");
-						this.AddToResultXMLBuffer(strResult, "CT_ID".toLowerCase(), "      ", rs_annot.getLong("CT_ID") + "");
-						this.AddToResultXMLBuffer(strResult, "ANNOT_CLF_CD".toLowerCase(), "      ", rs_annot.getString("ANNOT_CLF_CD"));
+						gcn_id=rs_annot.getLong("annot_id");
+						this.AddToResultXMLBuffer(strResult, "annot_id", "      ", rs_annot.getLong("ANNOT_ID") + "");
+						this.AddToResultXMLBuffer(strResult, "ct_id", "      ", rs_annot.getLong("CT_ID") + "");
+						this.AddToResultXMLBuffer(strResult, "annot_clf_cd", "      ", rs_annot.getString("ANNOT_CLF_CD"));
 						/**
 						 * 특수문자가 있는 annot_clf_conf
 						 */
-						this.AddToResultXMLBuffer(strResult, "ANNOT_CLF_CONT".toLowerCase(), "      ", rs_annot.getString("ANNOT_CLF_CONT"));
-						this.AddToResultXMLBuffer(strResult, "SOM".toLowerCase(), "      ", rs_annot.getString("SOM"));
-						this.AddToResultXMLBuffer(strResult, "EOM".toLowerCase(), "      ", rs_annot.getString("EOM"));
-						this.AddToResultXMLBuffer(strResult, "GUBUN".toLowerCase(), "      ", rs_annot.getString("GUBUN"));
+						this.AddToResultXMLBuffer(strResult, "annot_clf_cont", "      ", rs_annot.getString("ANNOT_CLF_CONT"));
+						this.AddToResultXMLBuffer(strResult, "som", "      ", rs_annot.getString("SOM"));
+						this.AddToResultXMLBuffer(strResult, "eom", "      ", rs_annot.getString("EOM"));
+						this.AddToResultXMLBuffer(strResult, "gubun", "      ", rs_annot.getString("GUBUN"));
 						String yn = isEntireRistcdForCT_ID(ct_id);
 						if(yn.equals("")){
-							this.AddToResultXMLBuffer(strResult, "ENTIRE_YN".toLowerCase(), "      ","N" );	
+							this.AddToResultXMLBuffer(strResult, "entire_yn", "      ","N" );	
 						}else if(!yn.equals("")){
 							if(yn.equals(rs_annot.getString("ANNOT_CLF_CD"))){
-								this.AddToResultXMLBuffer(strResult, "ENTIRE_YN".toLowerCase(), "      ","Y" );
+								this.AddToResultXMLBuffer(strResult, "entire_yn", "      ","Y" );
 							}else {
-								this.AddToResultXMLBuffer(strResult, "ENTIRE_YN".toLowerCase(), "      ","N" );		
+								this.AddToResultXMLBuffer(strResult, "entire_yn", "      ","N" );		
 							}
 						}
 
@@ -34886,19 +34514,6 @@ public class ExternalDAO extends AbstractDAO
 
 					}	// while annot
 
-					/*  if(gcn_id==0&&nCN_ID != gcn_id ){
-	            		this.AddToResultXMLBuffer(strResult, "ANNOT_ID", "      ","0" + "");
-	                	this.AddToResultXMLBuffer(strResult, "CT_ID", "      ", rs.getLong("CT_ID") + "");
-	                	this.AddToResultXMLBuffer(strResult, "ANNOT_CLF_CD", "      ", "007");
-					 *//**
-					 * 특수문자가 있는 annot_clf_conf
-					 *//*
-	                	this.AddToResultXMLBuffer(strResult, "ANNOT_CLF_CONT", "      ", "");
-	                	this.AddToResultXMLBuffer(strResult, "SOM", "      ", rs.getString("SOM"));
-	                	this.AddToResultXMLBuffer(strResult, "EOM", "      ", rs.getString("EOM"));
-	                	this.AddToResultXMLBuffer(strResult, "GUBUN", "      ", "L");
-	                	strResult.append("\n        </Annot_item>");    
-	            	}*/
 				}                
 
 				strResult.append("\n      </Annot>");
@@ -34909,17 +34524,9 @@ public class ExternalDAO extends AbstractDAO
 
 			strResult.append("  </corner>");
 
-		}
-
-		catch (Exception ex)
-		{
-			logger.error(buf.toString());
-
-			DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "getCornerResultXML 에러 : " + buf.toString(), ex);
-			throw exception;
-		}
-		finally
-		{
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
 			release(rs, psmt, null);
 			release(rs_annot, psmt_annot, con);
 		}        
@@ -38690,7 +38297,7 @@ public class ExternalDAO extends AbstractDAO
 	 * @param nMasterID 마스터id
 	 * @return xml
 	 */
-	public Ingest getIngestMetaResult(long nMasterID) throws DASException
+	public Ingest getIngestMetaResult(long nMasterID) throws Exception
 	{
 		StringBuffer buf = new StringBuffer();
 		StringBuffer strResult = new StringBuffer();
@@ -38746,21 +38353,21 @@ public class ExternalDAO extends AbstractDAO
 			rs = psmt.executeQuery();
 			int i=0;
 			Ingest ingest = new Ingest();
-			while (rs.next())
-			{		
+			while (rs.next()) {		
 				IngestInfo ingestInfo = new IngestInfo();
 				i++;
-				logger.debug(i);
-				logger.debug("META_CT_ID  " + rs.getLong("META_CT_ID"));
-				logger.debug("META_CTI_ID  " + rs.getLong("META_CTI_ID"));
-				logger.debug("META_M2_SZ  " + rs.getString("META_M2_SZ"));
-				logger.debug("META_M4_SZ  " + rs.getString("META_M4_SZ"));
-				logger.debug("META_VD_HRESOL  " + rs.getInt("META_VD_HRESOL"));
-				logger.debug("META_VD_VRESOL  " + rs.getInt("META_VD_VRESOL"));
-				logger.debug("META_INGEST_EQ_ID  " + rs.getInt("META_INGEST_EQ_ID"));
-				logger.debug("META_TOT_KFRM_NUMS   " + rs.getInt("META_TOT_KFRM_NUMS"));
-				logger.debug("");
-
+				if(logger.isDebugEnabled()) {
+					logger.debug(i);
+					logger.debug("META_CT_ID  " + rs.getLong("META_CT_ID"));
+					logger.debug("META_CTI_ID  " + rs.getLong("META_CTI_ID"));
+					logger.debug("META_M2_SZ  " + rs.getString("META_M2_SZ"));
+					logger.debug("META_M4_SZ  " + rs.getString("META_M4_SZ"));
+					logger.debug("META_VD_HRESOL  " + rs.getInt("META_VD_HRESOL"));
+					logger.debug("META_VD_VRESOL  " + rs.getInt("META_VD_VRESOL"));
+					logger.debug("META_INGEST_EQ_ID  " + rs.getInt("META_INGEST_EQ_ID"));
+					logger.debug("META_TOT_KFRM_NUMS   " + rs.getInt("META_TOT_KFRM_NUMS"));
+					logger.debug("");
+				}
 				ingestInfo.setCtId(rs.getLong("META_CT_ID"));
 				ingestInfo.setCtiId(rs.getLong("META_CTI_ID"));
 				ingestInfo.setCtNm(rs.getString("META_CT_NM"));
@@ -38802,8 +38409,6 @@ public class ExternalDAO extends AbstractDAO
 				if(logger.isDebugEnabled()) {
 					logger.debug("ctgrLCd: ["+ctgrLCd+"] hresol: "+ingestInfo.getVdHresol()+" * vresol: "+ingestInfo.getVdVresol());
 				}
-				//ingestInfo.setVdHresol(rs.getInt("META_VD_HRESOL"));
-				//ingestInfo.setVdVresol(rs.getInt("META_VD_VRESOL"));
 				ingestInfo.setBitRt(rs.getString("META_BIT_RT"));
 
 				// 2016.03.31
@@ -38811,7 +38416,6 @@ public class ExternalDAO extends AbstractDAO
 				String frmPerSec = org.apache.commons.lang.StringUtils.defaultIfEmpty(rs.getString("META_FRM_PER_SEC"), "29.97");
 				if(frmPerSec.indexOf("M") > -1) ingestInfo.setFrmPerSec("29.97");
 				else ingestInfo.setFrmPerSec(frmPerSec);
-				//ingestInfo.setFrmPerSec(rs.getString("META_FRM_PER_SEC"));
 
 				ingestInfo.setIngestEqId(String.valueOf(rs.getInt("META_INGEST_EQ_ID")));
 				ingestInfo.setAudSampFrq(rs.getString("META_AUD_SAMP_FRQ"));
@@ -38821,22 +38425,12 @@ public class ExternalDAO extends AbstractDAO
 				ingestInfo.setDelDd(rs.getString("META_DEL_DD").trim());
 
 				ingest.addItem(ingestInfo);
-
 			}	
 
-
-			release(rs, psmt, con);
 			return ingest;
-		}
-		catch (Exception ex)
-		{
-			logger.error(buf.toString());
-			logger.error(ex);
-			DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "getMetaResultXML 에러 : " + buf.toString(), ex);
-			throw exception;
-		}
-		finally
-		{
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
 			release(rs, psmt, con);
 		}        
 	}
@@ -38848,7 +38442,7 @@ public class ExternalDAO extends AbstractDAO
 	 * @return String xml
 	 * @throws RemoteException
 	 */
-	public Relation getRelationMetaResult(long nMasterID) throws DASException
+	public Relation getRelationMetaResult(long nMasterID) throws Exception
 	{
 		StringBuffer buf = new StringBuffer();
 		StringBuffer strResult = new StringBuffer();
@@ -38874,8 +38468,7 @@ public class ExternalDAO extends AbstractDAO
 		PreparedStatement psmt = null;		
 		ResultSet rs = null;
 
-		try
-		{
+		try {
 
 			con = DBService.getInstance().getConnection();
 			//logger.debug("######getRelationMetaResult######## con : " + con);
@@ -38884,8 +38477,7 @@ public class ExternalDAO extends AbstractDAO
 			psmt.setLong(++index, nMasterID);
 			rs = psmt.executeQuery();
 			Relation relation = new Relation();	
-			if (rs.next())
-			{		
+			if (rs.next()) {		
 				long nCurMasterID = rs.getLong("REL_MASTER_ID");
 				relation.setMasterId(nCurMasterID);
 				relation.setBrdDd(rs.getString("REL_BRD_DD"));
@@ -38894,21 +38486,12 @@ public class ExternalDAO extends AbstractDAO
 				relation.setSubTtl(rs.getString("REL_SUB_TTL"));
 				relation.setAspRtoCd(rs.getString("REL_ASP_RTO_CD"));
 				relation.setVdQlty(rs.getString("REL_VD_QLTY"));
-
-
 			}	
 
 			return relation;
-		}
-		catch (Exception ex)
-		{
-			logger.error(buf.toString());
-
-			DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "getMetaResultXML 에러 : " + buf.toString(), ex);
-			throw exception;
-		}
-		finally
-		{
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
 			release(rs, psmt, con);
 		}        
 	}
@@ -38922,7 +38505,7 @@ public class ExternalDAO extends AbstractDAO
 	 * @return
 	 * @throws RemoteException
 	 */
-	public Attach getAttachResult(long nMasterID) throws DASException
+	public Attach getAttachResult(long nMasterID) throws Exception
 	{
 		StringBuffer buf = new StringBuffer();
 		StringBuffer strResult = new StringBuffer();
@@ -38949,8 +38532,7 @@ public class ExternalDAO extends AbstractDAO
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 
-		try
-		{	
+		try {	
 			con = DBService.getInstance().getConnection();
 			//logger.debug("######getAttachResult######## con : " + con);
 			psmt = con.prepareStatement(buf.toString());    
@@ -38958,9 +38540,8 @@ public class ExternalDAO extends AbstractDAO
 			psmt.setLong(++index, nMasterID);
 			rs = psmt.executeQuery();
 			Attach attach = new Attach();
-			while (rs.next())
-			{
-
+			
+			while (rs.next()) {
 				AttachItem item = new AttachItem();
 				item.setFlNm(rs.getString("FL_NM"));
 				item.setDesc(rs.getString("DESC"));
@@ -38976,17 +38557,9 @@ public class ExternalDAO extends AbstractDAO
 			}	//while (rs.next()) 
 
 			return attach;
-		}
-
-		catch (Exception ex)
-		{
-			logger.error(buf.toString());
-
-			DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "getAttachResultXML 에러 : " + buf.toString(), ex);
-			throw exception;
-		}
-		finally
-		{
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
 			release(rs, psmt, con);
 		}        
 	}
@@ -38997,19 +38570,11 @@ public class ExternalDAO extends AbstractDAO
 	 * @return xml
 	 * @throws RemoteException
 	 */
-	public Annot getAnnotInfo(long nMasterID) throws DASException
+	public Annot getAnnotInfo(long nMasterID) throws Exception
 	{
 		StringBuffer buf = new StringBuffer();
 		StringBuffer strResult = new StringBuffer();
-		/*
-		buf.append("\n select  ");
-		buf.append("\n  value (code.DESC, '') AS ANNOT_CLF_NM, ");
-		buf.append("\n value (annot.ANNOT_CLF_CONT, '') AS ANNOT_CONT   ");
-		buf.append("\n from annot_info_tbl annot  ");
-		buf.append("\n inner join CODE_TBL code on code.clf_cd='P018' and code.SCL_CD = annot.ANNOT_CLF_CD and code.GUBUN = 'L' ");
-		buf.append("\n where annot.master_id= ? ");
-		buf.append("\n and annot.ANNOT_CLF_cd <> '007' ");
-		 */
+
 		buf.append("\n SELECT                                                                                 ");
 		buf.append("\n 	code.DESC AS annot_clf_nm,                                                            ");
 		buf.append("\n     VALUE(annot.ANNOT_CLF_CONT, '') AS annot_cont                                      ");
@@ -39027,10 +38592,9 @@ public class ExternalDAO extends AbstractDAO
 
 		ResultSet rs = null;
 
-		try
-		{	
+		try {	
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######getAnnotInfo######## con : " + con);
+			
 			psmt = con.prepareStatement(buf.toString());    
 			int index = 0;			
 			psmt.setLong(++index, nMasterID);
@@ -39039,9 +38603,9 @@ public class ExternalDAO extends AbstractDAO
 			String annot_cont ="00";
 			String newannot_nm ="00";
 			String newannot_cont ="00";
+			
 			Annot annot = new Annot();
-			while (rs.next())
-			{
+			while (rs.next()) {
 				AnnotInfo annotInfo = new AnnotInfo();
 				newannot_nm = rs.getString("ANNOT_CLF_NM").trim();
 				newannot_cont = rs.getString("ANNOT_CONT").trim();
@@ -39059,16 +38623,9 @@ public class ExternalDAO extends AbstractDAO
 			}	//while (rs.next()) 
 
 			return annot;
-		}
-		catch (Exception ex)
-		{
-			logger.error(buf.toString());
-
-			DASException exception = new DASException(ErrorConstants.SYSTEM_ERR, "getAttachResultXML 에러 : " + buf.toString(), ex);
-			throw exception;
-		}
-		finally
-		{
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
 			release(rs, psmt, con);
 		}        
 	}
