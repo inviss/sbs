@@ -9,7 +9,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.app.das.business.transfer.PaUserInfoDO;
-import com.app.das.business.transfer.PgmInfoDO;
 import com.app.das.util.CommonUtl;
 /**
  * 타시스템의 유져 관리 정보 관련 XML파서
@@ -175,7 +174,7 @@ public class AllPauserInfoDOXML extends DOXml{
 	}
 
 	public String getSubXML() {
-		PgmInfoDO infoDO = (PgmInfoDO)getDO();
+		//PgmInfoDO infoDO = (PgmInfoDO)getDO();
 		
 		String _xml = "<" + XML_NODE_HEAD + "> \n";
 		_xml = _xml + "</" + XML_NODE_HEAD + ">";
