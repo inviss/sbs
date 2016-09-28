@@ -14,7 +14,9 @@ public class ArchiveStatusList {
 	 */
 	public static void main(String[] args) {
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+
 		MonitoringDOXML _doXML = new MonitoringDOXML();
+		MonitoringDOXML _do2 = new MonitoringDOXML();
 		try {
 			MonitoringDO _do = (MonitoringDO) _doXML.setDO("<?xml version=\"1.0\" encoding=\"utf-8\"?><das><monitoring><req_id /><req_nm /><title>토요</title><start_search_dd>20151204</start_search_dd><end_search_dd>20151209</end_search_dd><start_page>1</start_page><status>E</status></monitoring></das>");
 
@@ -28,7 +30,6 @@ public class ArchiveStatusList {
 				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 
-				MonitoringDOXML _do2 = new MonitoringDOXML();
 
 				int i = 1;
 				while (_iter.hasNext()) {
