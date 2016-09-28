@@ -342,14 +342,13 @@ public class ExternalDAO extends AbstractDAO
 
 			// 검색 리스트
 			String query = ExternalStatement.selectNewMetadatInfoQuery(conditionDO, DASBusinessConstants.PageQueryFlag.NORMAL);
-			if(logger.isDebugEnabled()) logger.debug(query);
+			//if(logger.isDebugEnabled()) logger.debug(query);
 
 			con = DBService.getInstance().getConnection();
 			stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();
 
 			List resultList = new ArrayList();	
-			logger.debug("searched count: "+metaInfoDO.getCount());
 			if(metaInfoDO.getCount() > 0) {
 				while(rs.next()) {
 					MetaInfoDO item = new MetaInfoDO();
