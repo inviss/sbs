@@ -143,6 +143,7 @@ public class CornerInfoDOXML extends DOXml {
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
 			if(_nodeName.equals(XML_NODE_HEAD)) {
+				
 				resultList.add(setData((Element)_node));
 			}
         }
