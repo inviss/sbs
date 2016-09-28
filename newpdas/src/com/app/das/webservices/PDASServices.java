@@ -269,28 +269,25 @@ public class PDASServices {
 	 * @throws Exception 
 	 * @throws DASException
 	 */
-	public String getCartInfo(long cartNo, String reqUserId)
-			throws Exception {
+	public String getCartInfo(long cartNo, String reqUserId) throws Exception {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getCartInfo########" + "cartNo : " + cartNo + ", reqUserId : " + reqUserId);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		DownCartDOXML _do = new DownCartDOXML();
 		try {
 			DownCartDO _infoList = _processor.getCartInfo(cartNo, reqUserId);
 
 			StringBuffer buff = new StringBuffer();
 			buff.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 
-
-			DownCartDOXML _do = new DownCartDOXML();
 			_do.setDO(_infoList);
-
 			buff.append(_do.getSubXML());
 
-
 			buff.append("</das>");
-			return buff.toString();
 
+			return buff.toString();
 		} catch (Exception e) {
 			logger.error("getCartInfo error", e);
 		}
@@ -385,8 +382,7 @@ public class PDASServices {
 	 * @throws DASException
 	 */
 
-	public String getVideoPageContentsInfoList(long masterId)
-			throws Exception {
+	public String getVideoPageContentsInfoList(long masterId) throws Exception {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getVideoPageContentsInfoList########"  + " masterId : " + masterId);
 		}
@@ -425,10 +421,10 @@ public class PDASServices {
 			logger.info("######insertBoardInfo######## : "+xml);
 		}
 
+		CommunityBusinessProcessor _processor = new CommunityBusinessProcessor();
 		BoardInfoDOXML _doXML = new BoardInfoDOXML();
 		try {
 			BoardDO _do = (BoardDO) _doXML.setDO(xml);		
-			CommunityBusinessProcessor _processor = new CommunityBusinessProcessor();
 
 			return _processor.insertBoardInfo(_do);
 		} catch (Exception e) {
@@ -668,10 +664,7 @@ public class PDASServices {
 	 * @throws Exception 
 	 * @throws DASException
 	 */
-	public String insertCornerinfo(long masterId, String cornerInfo)
-			throws Exception {
-		long sTime1 = System.currentTimeMillis();
-		long sTime2;
+	public String insertCornerinfo(long masterId, String cornerInfo) throws Exception {
 		if(logger.isInfoEnabled()) {
 			logger.info("######insertCornerinfo######## masterId: " + masterId +" cornerInfo: " + cornerInfo );
 		}
@@ -716,16 +709,15 @@ public class PDASServices {
 	 * @throws Exception 
 	 * @throws DASException
 	 */
-	public int insertContentsMappinfo(long masterId, String contentMappInfo)
-			throws Exception {
+	public int insertContentsMappinfo(long masterId, String contentMappInfo) throws Exception {
 		if(logger.isInfoEnabled()) {
 			logger.info("######insertContentsMappinfo######  contentMappInfo : " +contentMappInfo + " masterId : " + masterId);
 		}
 
+		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		ContentMappInfoDOXML _doXML = new ContentMappInfoDOXML();
 		try {
-			ContentMappInfoDOXML _doXML = new ContentMappInfoDOXML();
 			List _list = (List) _doXML.setDO(contentMappInfo);
-			ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 
 			int result = _processor.insertContentsMappinfo(masterId, _list);
 
@@ -775,7 +767,6 @@ public class PDASServices {
 		
 		MyCatalogInfoDOXML2 _doXML = new MyCatalogInfoDOXML2();
 		SearchBusinessProcessor _processor = new SearchBusinessProcessor();
-		
 		try {
 			MyCatalogDO _do = (MyCatalogDO) _doXML.setDO(myCatalogDO);
 
@@ -796,28 +787,27 @@ public class PDASServices {
 	 * @param annotInfoDO                                                                                                                                    	
 	 * @throws DASException
 	 */
-	public String insertAnnotinfo(long masterId, String annotInfoDO)
-			throws RemoteException {
+	public String insertAnnotinfo(long masterId, String annotInfoDO) throws RemoteException {
 		if(logger.isInfoEnabled()) {
 			logger.info("######insertAnnotinfo######## annotInfoDO : " + annotInfoDO + " masterId : " + masterId);
 		}
 		
 		AnnotInfoDOXML _doXML = new AnnotInfoDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		AnnotInfoDOXML _do = new AnnotInfoDOXML();
+		
 		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _list = (List) _doXML.setDO(annotInfoDO);
 
 			List _infoList = _processor.insertAnnotinfo(masterId, _list);
 			if (_infoList != null && _infoList.size() > 0) {
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					AnnotInfoDOXML _do = new AnnotInfoDOXML();
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
 				_xml.append("</das>");
 				return _xml.toString();
 			}
@@ -840,10 +830,12 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getCodeList######## : " + xml);
 		}
+		
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
 		CodeDOXML _doXML = new CodeDOXML();
-		StringBuffer _xml = new StringBuffer();
+		CodeDOXML _do2 = new CodeDOXML();
 		
+		StringBuffer _xml = new StringBuffer();
 		try {
 			CodeDO _do = (CodeDO) _doXML.setDO(xml);
 
@@ -852,11 +844,9 @@ public class PDASServices {
 				Iterator _iter = _infoList.iterator();
 				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					CodeDOXML _do2 = new CodeDOXML();
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-
 				_xml.append("</das>");
 				
 				return _xml.toString();
@@ -1045,6 +1035,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("#####insertRelationMaster##### parent_master_id : " + parent_master_id + ", child_master_id : " + child_master_id);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
 			return _processor.insertRelationMaster(parent_master_id, child_master_id);
@@ -1066,6 +1057,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("#####deleteRelationMaster##### parent_master_id : " + parent_master_id + ", child_master_id : " + child_master_id);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
 			return _processor.deleteRelationMaster(parent_master_id, child_master_id);
@@ -1087,6 +1079,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("#####getRelationMaster##### : " + masterId);
 		}
+		
 		ExternalBusinessProcessor _prosessor = new ExternalBusinessProcessor();
 		try{
 			return _prosessor.getRelationMaster(masterId);
@@ -1106,6 +1099,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("#####getRelationTotaly##### : " + masterId);
 		}
+		
 		ExternalBusinessProcessor _prosessor = new ExternalBusinessProcessor();
 		try{
 			return _prosessor.getRelationTotaly(masterId);
@@ -1131,6 +1125,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("#####getScenario###### : " + masterId);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
 			List _infoList = _processor.getScenario(masterId);
@@ -1167,15 +1162,14 @@ public class PDASServices {
 			logger.info("#####getScenario2######" + xml);
 		}
 
+		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ScenarioDOXML _doXML = new ScenarioDOXML();
 		ScenarioDOXML _do2 = new ScenarioDOXML();
-		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		
 		StringBuffer _xml = new StringBuffer();
 		try {
 			ScenarioDO _do = (ScenarioDO) _doXML.setDO(xml);
 			ScenarioDO _infoList = _processor.getScenario2(_do);
-
 
 			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			_do2.setDO(_infoList);
@@ -1203,13 +1197,13 @@ public class PDASServices {
 			logger.info("#####getMyCatalogBySort######" + xml);
 		}
 
+		SearchBusinessProcessor _processor = new SearchBusinessProcessor();
 		SearchConditionDOXML _doXML1 = new SearchConditionDOXML();
 		DASCommonDOXML _doXML2 = new DASCommonDOXML();
 		try {
 			SearchConditionDO searchConditionDO = (SearchConditionDO) _doXML1.setDO(xml);
 			DASCommonDO commonDO = (DASCommonDO) _doXML2.setDO(xml);
 
-			SearchBusinessProcessor _processor = new SearchBusinessProcessor();
 
 			String _xml = XmlUtil.getToXmlXstream(_processor.getMyCatalogList(searchConditionDO, commonDO));
 			if(logger.isDebugEnabled()) {
@@ -1234,6 +1228,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("getMyCatalog xml: "+xml);
 		}
+		
 		SearchConditionDOXML _doXML1 = new SearchConditionDOXML();
 		DASCommonDOXML _doXML2 = new DASCommonDOXML();
 		SearchBusinessProcessor _processor = new SearchBusinessProcessor();
@@ -1405,10 +1400,11 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("#####updateCartContInfo##### cartContDO : " + cartContDO);
 		}
+		
+		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		CartContsDOXML _doXML = new CartContsDOXML();
 		try {
-			CartContsDOXML _doXML = new CartContsDOXML();
 			List _result = (List)_doXML.setDO(cartContDO);
-			ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 			_processor.updateStCartContInfo(_result); 
 		} catch (Exception e) {
 			logger.error("updateStCartContInfo error", e);
@@ -1659,7 +1655,10 @@ public class PDASServices {
 	 * @throws DASException
 	 */
 	public void deleteCartInfoList(long cartNo, int seq) throws Exception {
-		logger.info("######deleteCartInfoList######## cartNo : " + cartNo + ", seq : " + seq );
+		if(logger.isInfoEnabled()) {
+			logger.info("######deleteCartInfoList######## cartNo : " + cartNo + ", seq : " + seq );
+		}
+
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
 			_processor.deleteCartInfoList(cartNo, seq);
@@ -1801,6 +1800,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getContentsPreInfoList######## masterId : " + masterId);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ContentsPreInfoDOXML _do = new ContentsPreInfoDOXML();
 		try {
@@ -1833,6 +1833,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getClipHeaderImgInfo######## masterId: " + masterId);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		KeyFrameImgDOXML _xmlDO = new KeyFrameImgDOXML();
 		try {
@@ -2429,6 +2430,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getModDatastatcd######## masterId : " + masterId);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MetadataMstInfoDOXML _xmlDO = new MetadataMstInfoDOXML();
 		try {
@@ -2456,6 +2458,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getPhotoInfoList######## masterId : " + masterId);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		PhotoInfoDOXML _do = new PhotoInfoDOXML();
 		try {
@@ -2521,6 +2524,7 @@ public class PDASServices {
 	public String getStorageIP() throws Exception {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		StorageIPXML _do = new StorageIPXML();
 		try {
 			List _infoList = _processor.getStorageIP();
 			if (_infoList != null && _infoList.size() > 0) {
@@ -2528,7 +2532,6 @@ public class PDASServices {
 				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					StorageIPXML _do = new StorageIPXML();
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
@@ -2786,8 +2789,8 @@ public class PDASServices {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
 				_xml.append("</das>");
+				
 				if (logger.isDebugEnabled()) {
 				//	logger.debug("_xml" + _xml);
 				}
@@ -2819,6 +2822,7 @@ public class PDASServices {
 			ProgramInfoDO _doing = (ProgramInfoDO)_doXML.setDO(programDO);
 
 			List _infoList = _processor.getLastPgmInfolist(_doing);
+			
 			StringBuffer _xml = new StringBuffer();
 			logger.debug("####"+_infoList.size()+_xml.toString());
 			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
