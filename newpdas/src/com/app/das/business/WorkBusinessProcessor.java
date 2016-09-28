@@ -58,23 +58,11 @@ public class WorkBusinessProcessor
 	 */
 	public PageDO getWorkStatusMesiumChangeList(WorkStatusConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getWorkStatusMesiumChangeList][Input WorkStatusConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			PageDO pageDO = workDAO.selectWorkStatusList(conditionDO, DASBusinessConstants.WorkOrdersKind.MESIUM, commonDO);
+		PageDO pageDO = workDAO.selectWorkStatusList(conditionDO, DASBusinessConstants.WorkOrdersKind.MESIUM, commonDO);
 
-			return pageDO;
+		return pageDO;
 
-		} 
-		catch (Exception e) 
-		{
-
-			throw e;
-		}
 	}
 
 	/**
@@ -86,21 +74,11 @@ public class WorkBusinessProcessor
 	 */
 	public PageDO getWorkStatusMainOperationTransferList(WorkStatusConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getWorkStatusMainOperationTransferList][Input WorkStatusConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			PageDO pageDO = workDAO.selectWorkStatusList(conditionDO, DASBusinessConstants.WorkOrdersKind.MAIN_TRANSFER, commonDO);
+		PageDO pageDO = workDAO.selectWorkStatusList(conditionDO, DASBusinessConstants.WorkOrdersKind.MAIN_TRANSFER, commonDO);
 
-			return pageDO;
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return pageDO;
+
 	}
 
 	/**
@@ -112,19 +90,9 @@ public class WorkBusinessProcessor
 	 */
 	public ErrorRegisterDO getErrorRegisterInfo(String masterId, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getErrorRegisterInfo][Input masterId]" + masterId);
-		}
 
-		try 
-		{
-			return workDAO.selectErrorRegisterInfo(masterId, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return workDAO.selectErrorRegisterInfo(masterId, commonDO);
+
 	}
 
 	/**
@@ -135,19 +103,8 @@ public class WorkBusinessProcessor
 	 */
 	public void reWorkOrder(ErrorRegisterDO errorRegisterDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[reWorkOrder][Input ErrorRegisterDO]" + errorRegisterDO);
-		}
 
-		try 
-		{
-			workDAO.updateReWorkOrder(errorRegisterDO, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		workDAO.updateReWorkOrder(errorRegisterDO, commonDO);
 
 	}
 
@@ -160,22 +117,11 @@ public class WorkBusinessProcessor
 	 */
 	public PageDO getWorkOrdersList(WorkOrdersConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getWorkOrdersList][Input WorkOrdersConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			PageDO pageDO = workDAO.selectWorkOrdersList(conditionDO, commonDO);
+		PageDO pageDO = workDAO.selectWorkOrdersList(conditionDO, commonDO);
 
-			return pageDO;
-		} 
-		catch (Exception e) 
-		{
-		
-			throw e;
-		}
+		return pageDO;
+
 	}
 
 	/**
@@ -186,48 +132,10 @@ public class WorkBusinessProcessor
 	 */
 	public void updateWorkOrdersList(List workOdersDOList, DASCommonDO commonDO) throws Exception
 	{
-		try 
-		{
-			workDAO.updateWorkOrdersList(workOdersDOList, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+
+		workDAO.updateWorkOrdersList(workOdersDOList, commonDO);
+
 	}
-
-	//	/**
-	//	 * 오류 내역 항목의 작업 순위를 수정한다.
-	//	 * @param errorRegisterDO 오류 내역 등록 정보를 포함하는 DataObject
-	//	 * @param comonDO 공통정보
-	//	 */	
-	/*
-	public void updateErrorItemWorkOrders(ErrorRegisterDO errorRegisterDO, DASCommonDO commonDO) throws DASException
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateErrorItemWorkOrders][Input ErrorRegisterDO]" + errorRegisterDO);
-		}
-
-		try 
-		{
-			workDAO.updateErrorItemWorkOrders(errorRegisterDO, commonDO);
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg + e.getMessage());
-			}
-			logger.error(e.getExceptionMsg(), e);
-
-			throw e;
-		}
-	}
-	 */	
 
 	/**
 	 * 요청인별 다운로드 승인요청 목록조회를 한다.
@@ -237,14 +145,9 @@ public class WorkBusinessProcessor
 	 */
 	public List getApproveCartList(DASCommonDO commonDO) throws Exception
 	{
-		try 
-		{
-			return workDAO.selectApproveCartList(commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+
+		return workDAO.selectApproveCartList(commonDO);
+
 	}
 
 	/**
@@ -256,19 +159,9 @@ public class WorkBusinessProcessor
 	 */
 	public List getApproveCartDetailsList(String cartNo, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getApproveCartDetailsList][Input cartNo]" + cartNo);
-		}
 
-		try 
-		{
-			return workDAO.selectApproveCartDetailsList(cartNo, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return workDAO.selectApproveCartDetailsList(cartNo, commonDO);
+
 	}
 
 	/**
@@ -279,20 +172,9 @@ public class WorkBusinessProcessor
 	 */
 	public void approveCartList(List cartItemDOList, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[approveCartList][Input cartItemDOList]" + cartItemDOList);
-		}
 
-		try 
-		{
-			workDAO.updateCartApproveList(cartItemDOList, commonDO);
-		} 
-		catch (Exception e) 
-		{
+		workDAO.updateCartApproveList(cartItemDOList, commonDO);
 
-			throw e;
-		}
 	}
 
 	/**
@@ -303,22 +185,8 @@ public class WorkBusinessProcessor
 	 */
 	public boolean checkCartList(List cartItemDOList, DASCommonDO commonDO) throws Exception
 	{
-		boolean sResult = true;
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[checkCartList][Input cartItemDOList]" + cartItemDOList);
-		}
-
-		try 
-		{
-			sResult = workDAO.checkCartApproveList(cartItemDOList, commonDO);
-			return sResult;
-		} 
-		catch (Exception e) 
-		{
-		
-			throw e;
-		}
+		boolean sResult = workDAO.checkCartApproveList(cartItemDOList, commonDO);
+		return sResult;
 	}
 
 
@@ -329,16 +197,11 @@ public class WorkBusinessProcessor
 	 */
 	public void deleteContentItemList(String msterIdGrp) throws Exception
 	{
-		try 
-		{
-			workDAO.deleteContentItemList(msterIdGrp);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		workDAO.deleteContentItemList(msterIdGrp);
+
 	}
+
 	/**
 	 * 요청건별 상세내역에서 선택된 목록을 삭제한다.
 	 * @param cartNo 카트번호
@@ -347,19 +210,9 @@ public class WorkBusinessProcessor
 	 */
 	public void approveCartDetailList(String cartNo, String checkList,  DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[approveCartList][Input cartItemDOList]" + cartNo + checkList);
-		}
 
-		try 
-		{
-			workDAO.deleteCartDetailApproveList(cartNo, checkList, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		workDAO.deleteCartDetailApproveList(cartNo, checkList, commonDO);
+
 	}
 
 
@@ -371,21 +224,11 @@ public class WorkBusinessProcessor
 	 */
 	public void CartDetailUpdate(String cartNo, String[] checkList, String[] app_cont, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[approveCartList][Input cartItemDOList]" + cartNo + checkList);
+
+		for (int i = 0; i<checkList.length; i++) {
+			workDAO.updateCartDetailApproveList(cartNo, checkList[i], app_cont[i], commonDO);
 		}
 
-		try 
-		{
-			for (int i = 0; i<checkList.length; i++) {
-				workDAO.updateCartDetailApproveList(cartNo, checkList[i], app_cont[i], commonDO);
-			}
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
 	}
 
 
@@ -397,14 +240,9 @@ public class WorkBusinessProcessor
 	 */
 	public PageDO getApproveCartList(String pageCount, DASCommonDO commonDO, String startDate, String endDate) throws Exception
 	{
-		try 
-		{
-			return workDAO.selectApproveCartList(pageCount, commonDO, startDate, endDate);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+
+		return workDAO.selectApproveCartList(pageCount, commonDO, startDate, endDate);
+
 	}
 
 	/**
@@ -414,40 +252,18 @@ public class WorkBusinessProcessor
 	 */	
 	public void requestDownloadCart(String cartNum, String state) throws Exception
 	{
+		int updateCount;
 
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[requestDownloadCart][Input cartNum]" + cartNum);
-		}
-
-		try 
-		{   int updateCount;
-
-		if(state.equals(CodeConstants.CartStatus.APPROVE))
-		{
+		if(state.equals(CodeConstants.CartStatus.APPROVE)) {
 			// 상태 코드를 다운 로드 진행중 "006" 으로 변경한다
 			updateCount = externalDAO.updateDownCartState(Long.parseLong(cartNum), CodeConstants.CartStatus.DOWNLOAD, "");
-
-			// 다운로드 제한 여부가 No이 웹 서비스를 호출하여 다운로드 카트를 승인 없이  다운로드 한다
-			//				ServiceNevigatorIF port = new ServiceNevigatorService_Impl().getServiceNevigatorIFPort();
-			//				port.downloadService(cartNum);
-		}
-		else
+		} else
 			// 상태 코드를  승인거부  "005" 으로 변경한다
 			updateCount = externalDAO.updateDownCartState(Long.parseLong(cartNum), CodeConstants.CartStatus.APPROVE_REJECT, "");
 
 		if (updateCount == 0){
 			DASException exception = new DASException(ErrorConstants.NO_MACHING_FILED, "UPDATE 또는 DELETE에 대한 행이 없습니다.");
 			throw exception;
-		}
-
-		} 
-	
-		catch (Exception e) 
-		{
-			throw e;
-
-			
 		}
 	}
 
@@ -457,6 +273,7 @@ public class WorkBusinessProcessor
 	 * @return String xml형식으로 된 목록을  돌려준다.
 	 * @throws Exception 
 	 */
+	@Deprecated
 	public String getSearchList(String xmlParam) throws Exception
 	{
 		PrintWriter printWriter = null;
@@ -567,242 +384,6 @@ public class WorkBusinessProcessor
 
 			printNodeName(root.getChildNodes(), searchDO);
 
-
-			//			// 받은 데이터에서 값을 추출한다.
-			//			// 검색 인덱스 명
-			//			NodeList node1 = root.getElementsByTagName("indexName");
-			//			searchDO.setSearchKey(node1.item(0).getTextContent());
-			//			// 검색어 
-			//			NodeList node2 = root.getElementsByTagName("searchKey");
-			//			searchDO.setSearchKey(node2.item(0).getTextContent());
-			//			if (!"".equals(node2.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 검색어 목록 <결과내 검색>
-			//			NodeList node3 = root.getElementsByTagName("searchKeyList");
-			//			searchDO.setSearchKeyList(node3.item(0).getTextContent());
-			//			if (!"".equals(node3.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 검색 연산자 <AND, OR, NOT>
-			//			NodeList node4 = root.getElementsByTagName("operatorList");
-			//			searchDO.setOperatorList(node4.item(0).getTextContent());
-			//			// 방송일 검색 시작일
-			//			NodeList node5 = root.getElementsByTagName("startdate");
-			//			searchDO.setStartdate(node5.item(0).getTextContent());
-			//			if (!"".equals(node5.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 방송일 검색 종료일
-			//			NodeList node6 = root.getElementsByTagName("enddate");
-			//			searchDO.setEnddate(node6.item(0).getTextContent());
-			//			if (!"".equals(node6.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 현재 페이지 
-			//			NodeList node7 = root.getElementsByTagName("nowPage");
-			//			searchDO.setNowPage(Integer.parseInt(node7.item(0).getTextContent()));
-			//			// 출력시킬 목록 수
-			//			NodeList node8 = root.getElementsByTagName("pageCount");
-			//			searchDO.setPageCount(Integer.parseInt(node8.item(0).getTextContent()));
-			//			// 정렬 컬럼
-			//			NodeList node8_1 = root.getElementsByTagName("sortColumn");
-			//			searchDO.setSortColumn(node8_1.item(0).getTextContent());
-			//			// 정렬 방식 (오름차순(on) / 내림차순(off))
-			//			NodeList node8_2 = root.getElementsByTagName("asc");
-			//			searchDO.setAsc(node8_2.item(0).getTextContent());
-			//			
-			//			
-			//			
-			//			
-			//			
-			//			// 상세검색 
-			//			// 시작 생성일
-			//			NodeList node9 = root.getElementsByTagName("startReg_dt");
-			//			searchDO.setStartReg_dt(node9.item(0).getTextContent());
-			//			if (!"".equals(node9.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 종료 생성일
-			//			NodeList node10 = root.getElementsByTagName("endReg_dt");
-			//			searchDO.setEndReg_dt(node10.item(0).getTextContent());
-			//			if (!"".equals(node10.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 대분류 장르
-			//			NodeList node11 = root.getElementsByTagName("largeJanre");
-			//			searchDO.setLargeJanre(node11.item(0).getTextContent());
-			//			if (!"".equals(node11.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 중분류 장르
-			//			NodeList node12 = root.getElementsByTagName("mediumJanre");
-			//			searchDO.setMediumJanre(node12.item(0).getTextContent());
-			//			if (!"".equals(node12.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 소분류 장르
-			//			NodeList node13 = root.getElementsByTagName("smallJanre");
-			//			searchDO.setSmallJanre(node13.item(0).getTextContent());
-			//			if (!"".equals(node13.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 프로그램 명
-			//			NodeList node14 = root.getElementsByTagName("pgm_nm");
-			//			searchDO.setPgm_nm(node14.item(0).getTextContent());
-			//			if (!"".equals(node14.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 타이틀
-			//			NodeList node15 = root.getElementsByTagName("title");
-			//			searchDO.setTitle(node15.item(0).getTextContent());
-			//			if (!"".equals(node15.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 진행자
-			//			NodeList node16 = root.getElementsByTagName("mc_nm");
-			//			searchDO.setMc_nm(node16.item(0).getTextContent());
-			//			if (!"".equals(node16.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 촬영자
-			//			NodeList node17 = root.getElementsByTagName("cmr_drt_nm");
-			//			searchDO.setCmr_drt_nm(node17.item(0).getTextContent());
-			//			if (!"".equals(node17.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 작가
-			//			NodeList node18 = root.getElementsByTagName("writer_nm");
-			//			searchDO.setWriter_nm(node18.item(0).getTextContent());
-			//			if (!"".equals(node18.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 연출자
-			//			NodeList node19 = root.getElementsByTagName("drt_nm");
-			//			searchDO.setDrt_nm(node19.item(0).getTextContent());
-			//			if (!"".equals(node19.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 특이사항
-			//			NodeList node20 = root.getElementsByTagName("spc_info");
-			//			searchDO.setSpc_info(node20.item(0).getTextContent());
-			//			if (!"".equals(node20.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 프로듀서명
-			//			NodeList node21 = root.getElementsByTagName("producer_nm");
-			//			searchDO.setProducer_nm(node21.item(0).getTextContent());
-			//			if (!"".equals(node21.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 저작권 형태 설명
-			//			NodeList node22 = root.getElementsByTagName("cprt_type_dsc");
-			//			searchDO.setCprt_type_dsc(node22.item(0).getTextContent());
-			//			if (!"".equals(node22.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 촬영장소
-			//			NodeList node23 = root.getElementsByTagName("cmr_place");
-			//			searchDO.setCmr_place(node23.item(0).getTextContent());
-			//			if (!"".equals(node23.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 제작부서
-			//			NodeList node24 = root.getElementsByTagName("prdt_dept_nm");
-			//			searchDO.setPrdt_dept_nm(node24.item(0).getTextContent());
-			//			if (!"".equals(node24.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 편성명
-			//			NodeList node25 = root.getElementsByTagName("schd_pgm_nm");
-			//			searchDO.setSchd_pgm_nm(node25.item(0).getTextContent());
-			//			if (!"".equals(node25.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 부제
-			//			NodeList node26 = root.getElementsByTagName("sub_ttl");
-			//			searchDO.setSub_ttl(node26.item(0).getTextContent());
-			//			if (!"".equals(node26.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 출연자명
-			//			NodeList node27 = root.getElementsByTagName("cast_nm");
-			//			searchDO.setCast_nm(node27.item(0).getTextContent());
-			//			if (!"".equals(node27.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 아카이버 명
-			//			NodeList node28 = root.getElementsByTagName("sec_arch_nm");
-			//			searchDO.setSec_arch_nm(node28.item(0).getTextContent());
-			//			if (!"".equals(node28.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 음악정보
-			//			NodeList node29 = root.getElementsByTagName("music_info");
-			//			searchDO.setMusic_info(node29.item(0).getTextContent());
-			//			if (!"".equals(node29.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 수상내역
-			//			NodeList node30 = root.getElementsByTagName("award_hstr");
-			//			searchDO.setAward_hstr(node30.item(0).getTextContent());
-			//			if (!"".equals(node30.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 시청등급
-			//			NodeList node31 = root.getElementsByTagName("view_gr_cd");
-			//			searchDO.setView_gr_cd(node31.item(0).getTextContent());
-			//			if (!"".equals(node31.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 명장면 명대사
-			//			NodeList node32 = root.getElementsByTagName("cont");
-			//			searchDO.setCont(node32.item(0).getTextContent());
-			//			if (!"".equals(node32.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 코너제목
-			//			NodeList node33 = root.getElementsByTagName("cn_nm");
-			//			searchDO.setCn_nm(node33.item(0).getTextContent());
-			//			if (!"".equals(node33.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 심의등급
-			//			NodeList node34 = root.getElementsByTagName("dlbr_cd");
-			//			searchDO.setDlbr_cd(node34.item(0).getTextContent());
-			//			if (!"".equals(node34.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 저작권형태
-			//			NodeList node35 = root.getElementsByTagName("cprt_type");
-			//			searchDO.setCprt_type(node35.item(0).getTextContent());
-			//			if (!"".equals(node35.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 저작권자명
-			//			NodeList node36 = root.getElementsByTagName("cprtr_nm");
-			//			searchDO.setCprtr_nm(node36.item(0).getTextContent());
-			//			if (!"".equals(node36.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 영상 ID
-			//			NodeList node37 = root.getElementsByTagName("ct_id");
-			//			searchDO.setCt_id(node37.item(0).getTextContent());
-			//			if (!"".equals(node37.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 시청률
-			//			NodeList node38 = root.getElementsByTagName("pgm_rate");
-			//			searchDO.setPgm_rate(node38.item(0).getTextContent());
-			//			if (!"".equals(node38.item(0).getTextContent())) {
-			//				count++;
-			//			}
-			//			// 제작구분
-			//			NodeList node39 = root.getElementsByTagName("prdt_in_outs_cd");
-			//			searchDO.setPrdt_in_outs_cd(node39.item(0).getTextContent());
-			//			if (!"".equals(node39.item(0).getTextContent())) {
-			//				count++;
-			//			}
 			list = workDAO.selectSearchList(searchDO);
 
 			if (list.size() != 0) {
@@ -849,15 +430,13 @@ public class WorkBusinessProcessor
 				result.append("<count>" + list.get(list.size()-1)  + "</count>\n");
 				result.append("</data>\n");
 			}
+
 			return result.toString();
-		}
-		
-		
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 	}
+
 	/**
 	 * 검색어를 받아 검색된 목록을 리턴한다. 
 	 * @param String xml형식으로 된 String을 받아 분석하여 검색을 실행
@@ -871,7 +450,8 @@ public class WorkBusinessProcessor
 			node  = nodeList.item(i);
 
 			if(! node.getNodeName().startsWith("#")) { 
-				logger.debug(node.getNodeName() + ": " + node.getFirstChild());
+				if(logger.isDebugEnabled())
+					logger.debug(node.getNodeName() + ": " + node.getFirstChild());
 
 				try {
 					name   = node.getNodeName();
@@ -879,7 +459,7 @@ public class WorkBusinessProcessor
 							new Class[] { String.class } ).invoke(searchDO, new Object[] { node.getFirstChild().toString().substring(8, node.getFirstChild().toString().length()-1) });
 
 				} catch (Exception e) {
-					//					e.printStackTrace();
+					logger.error("printNodeName error", e);
 				}
 			}
 			if(node.hasChildNodes()) {
@@ -931,19 +511,7 @@ public class WorkBusinessProcessor
 	 */
 	public String getAnnot_App_Cont(String ct_id, String s_frame, String duration, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getAnnot_App_Cont][Input ct_id, s_frame, duration]" + ct_id + " , " + s_frame + " , " + duration);
-		}
-
-		try 
-		{
-			return workDAO.getAnnot_App_Cont(ct_id, s_frame, duration, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return workDAO.getAnnot_App_Cont(ct_id, s_frame, duration, commonDO);
 	}
 
 
@@ -967,56 +535,25 @@ public class WorkBusinessProcessor
 	 */
 	public List getDownloadRequestList(CartItemDO cartItemDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-			logger.debug("[getDownloadRequestList][Input CartItemDO]" + cartItemDO);
 
-		try  
-		{
-			// 해당 사용자ID가 데정팀인지 확인한다.
-			if(workDAO.isHeUser(cartItemDO.getUserid())){
-				return workDAO.selectDownloadRequestList(cartItemDO);
-			}else{
-				/** 데정팀이 아니라면 cp인지 pd인지 판단한다.*/
-				/*
-				List _result = workDAO.isCPyn(cartItemDO.getUserid());
-				String pgmId_grp = "0"; // 프로그램 그룹코드(ex: 1123213,1231231,123123,.....) 
-				if(_result!=null&&_result.size()!=0){
-					Iterator _iter = _result.iterator();
-					while(_iter.hasNext()){
-						logger.debug("##"+_result.size());
-						PdaInfoDO item = new PdaInfoDO();
-						item = (PdaInfoDO)_iter.next();
-						logger.debug("item.getCp_yn()"+item.getCp_yn()+"|"+"item.getBrd_end_yn()"+item.getBrd_end_yn());
-						if(item.getCp_yn().equals("Y")&&item.getBrd_end_yn().equals("Y")){
-							pgmId_grp += ","+item.getDas_pgm_id();
-							logger.debug("------------------------------[cp][pgmId_grp]  "+pgmId_grp);
-						}else if(item.getCp_yn().equals("N")&&item.getBrd_end_yn().equals("N")){
+		// 해당 사용자ID가 데정팀인지 확인한다.
+		if(workDAO.isHeUser(cartItemDO.getUserid())){
+			return workDAO.selectDownloadRequestList(cartItemDO);
+		}else{
+			/** 데정팀이 아니라면 cp인지 pd인지 판단한다.*/
+			//데정팀이 아니라면 사번기준으로 승인프로그램을 조회한다.
+			List _result = workDAO.isRightUser(cartItemDO.getUserid());
+			String pgmId_grp = "'0'";
+			if(_result!=null&&_result.size()!=0){
+				Iterator _iter = _result.iterator();
+				while(_iter.hasNext()){
+					PdaInfoDO item = new PdaInfoDO();
+					item = (PdaInfoDO)_iter.next();
+					pgmId_grp += ","+"'"+item.getProgramid()+"'";
 
-							pgmId_grp += ","+item.getDas_pgm_id();
-							logger.debug("------------------------------[pd][pgmId_grp]  "+pgmId_grp);
-						}
-					}
 				}
-				 */
-				//데정팀이 아니라면 사번기준으로 승인프로그램을 조회한다.
-				List _result = workDAO.isRightUser(cartItemDO.getUserid());
-				String pgmId_grp = "'0'";
-				if(_result!=null&&_result.size()!=0){
-					Iterator _iter = _result.iterator();
-					while(_iter.hasNext()){
-						PdaInfoDO item = new PdaInfoDO();
-						item = (PdaInfoDO)_iter.next();
-						pgmId_grp += ","+"'"+item.getProgramid()+"'";
-
-					}
-				}
-				return workDAO.selectDownloadRequestForUser(pgmId_grp,cartItemDO);
 			}
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
+			return workDAO.selectDownloadRequestForUser(pgmId_grp,cartItemDO);
 		}
 
 	}
@@ -1030,51 +567,23 @@ public class WorkBusinessProcessor
 	 */
 	public List getDownloadRequestDetailsList(String cartNo, String user_id) throws Exception
 	{
-		try 
-		{
+		// 해당 사용자ID가 데정팀인지 확인한다.
+		if(workDAO.isHeUser(user_id)){
+			return workDAO.selectDownloadRequestDetailsList(cartNo);
+		}else {
+			List _result = workDAO.isRightUser(user_id);
+			String pgmId_grp = "'0'";
+			if(_result!=null&&_result.size()!=0){
+				Iterator _iter = _result.iterator();
+				while(_iter.hasNext()){
+					PdaInfoDO item = new PdaInfoDO();
+					item = (PdaInfoDO)_iter.next();
+					pgmId_grp += ","+"'"+item.getProgramid()+"'";
 
-			// 해당 사용자ID가 데정팀인지 확인한다.
-			if(workDAO.isHeUser(user_id)){
-				return workDAO.selectDownloadRequestDetailsList(cartNo);
-			}else {
-				/** 데정팀이 아니라면 cp인지 pd인지 판단한다.*/
-				/*	List _result = workDAO.isCPyn(user_id);
-				String pgmId_grp = "0"; // 프로그램 그룹코드(ex: 1123213,1231231,123123,.....) 
-				if(_result!=null&&_result.size()!=0){
-					Iterator _iter = _result.iterator();
-					while(_iter.hasNext()){
-						logger.debug("##"+_result.size());
-						PdaInfoDO item = new PdaInfoDO();
-						item = (PdaInfoDO)_iter.next();
-						logger.debug("item.getCp_yn()"+item.getCp_yn()+"|"+"item.getBrd_end_yn()"+item.getBrd_end_yn());
-						if(item.getCp_yn().equals("Y")&&item.getBrd_end_yn().equals("Y")){
-
-							pgmId_grp += ","+item.getDas_pgm_id();
-							logger.debug("------------------------------[cp][pgmId_grp]  "+pgmId_grp);
-						}else if(item.getCp_yn().equals("N")&&item.getBrd_end_yn().equals("N")){
-
-							pgmId_grp += ","+item.getDas_pgm_id();
-							logger.debug("------------------------------[pd][pgmId_grp]  "+pgmId_grp);
-						}
-					}*/
-				List _result = workDAO.isRightUser(user_id);
-				String pgmId_grp = "'0'";
-				if(_result!=null&&_result.size()!=0){
-					Iterator _iter = _result.iterator();
-					while(_iter.hasNext()){
-						PdaInfoDO item = new PdaInfoDO();
-						item = (PdaInfoDO)_iter.next();
-						pgmId_grp += ","+"'"+item.getProgramid()+"'";
-
-					}
 				}
-				return workDAO.selectDownloadRequestDetailsForUserId(cartNo,pgmId_grp);
-			} 
-		}
-		catch (Exception e)
-		{
-			throw e;
-		}
+			}
+			return workDAO.selectDownloadRequestDetailsForUserId(cartNo,pgmId_grp);
+		} 
 	}
 
 	/**
@@ -1085,19 +594,7 @@ public class WorkBusinessProcessor
 	 */
 	public void downloadRequestList(List cartItemDOList, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[approveCartList][Input cartItemDOList]" + cartItemDOList);
-		}
-
-		try 
-		{
-			workDAO.updateCartApproveList(cartItemDOList, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		workDAO.updateCartApproveList(cartItemDOList, commonDO);
 	}  
 
 	/**
@@ -1109,20 +606,8 @@ public class WorkBusinessProcessor
 	public boolean downloadRequestCheckList(List cartItemDOList, DASCommonDO commonDO) throws Exception
 	{
 		boolean sResult = true;
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[checkCartList][Input cartItemDOList]" + cartItemDOList);
-		}
-
-		try 
-		{
-			sResult = workDAO.checkCartApproveList(cartItemDOList, commonDO);
-			return sResult;
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		sResult = workDAO.checkCartApproveList(cartItemDOList, commonDO);
+		return sResult;
 	}
 
 	/**
@@ -1132,41 +617,28 @@ public class WorkBusinessProcessor
 	 */
 	public int updateDownloadRequestDetail(CartContDO 	_do) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateDownloadRequestDetail][Input CartContDO ]" + _do.getCartNo() +"|"+ _do.getCartSeq());
+		CartContDO cart2 = workDAO.selectOutSourcingInfo(_do.getCartNo(),_do.getCartSeq());
+		String approve_yn =workDAO.isApproveYn(_do.getCartNo(),_do.getCartSeq());
+		if(approve_yn.equals("002")||approve_yn.equals("006")||approve_yn.equals("007")){
+			return -1;
+		}
+		if(externalDAO.isDownloadOutsourcing2(_do.getRegrId())&&(cart2.getOutsourcing_yn().equals("Y")&&cart2.getOutsourcing_approve().trim().equals(""))||(cart2.getOutsourcing_yn().equals("Y")&&cart2.getOutsourcing_approve().trim().equals("")))
+		{		
+			return workDAO.updateDownloadRequestOutsourcingDetailList2(_do);
+
+
+		}else{
+			CartContDO cart = workDAO.selectOutSourcingInfo(_do.getCartNo(),_do.getCartSeq());
+			if(workDAO.isHeUser(_do.getRegrId())){
+				return  workDAO.updateDownloadRequestDetailList(_do);
+
+			}else 	if(cart.getOutsourcing_yn().equals("N")||cart.getDown_stat().equals("005")){
+				return workDAO.updateDownloadRequestDetailList(_do);
+
+			}
+			return 0;
 		}
 
-		try 
-		{
-			CartContDO cart2 = workDAO.selectOutSourcingInfo(_do.getCartNo(),_do.getCartSeq());
-			String approve_yn =workDAO.isApproveYn(_do.getCartNo(),_do.getCartSeq());
-			if(approve_yn.equals("002")||approve_yn.equals("006")||approve_yn.equals("007")){
-				return -1;
-			}
-			if(externalDAO.isDownloadOutsourcing2(_do.getRegrId())&&(cart2.getOutsourcing_yn().equals("Y")&&cart2.getOutsourcing_approve().trim().equals(""))||(cart2.getOutsourcing_yn().equals("Y")&&cart2.getOutsourcing_approve().trim().equals("")))
-			{		
-				return workDAO.updateDownloadRequestOutsourcingDetailList2(_do);
-
-
-			}else{
-				CartContDO cart = workDAO.selectOutSourcingInfo(_do.getCartNo(),_do.getCartSeq());
-				if(workDAO.isHeUser(_do.getRegrId())){
-					return  workDAO.updateDownloadRequestDetailList(_do);
-
-				}else 	if(cart.getOutsourcing_yn().equals("N")||cart.getDown_stat().equals("005")){
-					return workDAO.updateDownloadRequestDetailList(_do);
-
-				}
-				return 0;
-			}
-
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
 	}
 
 	/**
@@ -1179,20 +651,7 @@ public class WorkBusinessProcessor
 	 */
 	public int updateDownloadRequestOutSourcingDetail(CartContDO 	_do) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateDownloadRequestOutSourcingDetail][Input CartContDO ]" + _do.getCartNo() + _do.getCartSeq());
-		}
-
-		try 
-		{
-			return workDAO.updateDownloadRequestOutsourcingDetailList(_do);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return workDAO.updateDownloadRequestOutsourcingDetailList(_do);
 	}
 
 	/**
@@ -1203,21 +662,8 @@ public class WorkBusinessProcessor
 	 */
 	public List getMyDownloadRequestList(CartItemDO cartItemDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-			logger.debug("[getMyDownloadRequestList][Input CartItemDO]" + cartItemDO);
 
-
-		try 
-		{
-
-			return workDAO.selectMyDownloadRequest(cartItemDO);
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
-
+		return workDAO.selectMyDownloadRequest(cartItemDO);
 
 	}
 
@@ -1232,17 +678,9 @@ public class WorkBusinessProcessor
 	 */
 	public List getMyDownloadRequestDetailsList(String cartNo, String user_id) throws Exception
 	{
-		try 
-		{
 
+		return workDAO.selectMyDownloadRequestDetailsList(cartNo,  user_id);
 
-			return workDAO.selectMyDownloadRequestDetailsList(cartNo,  user_id);
-
-		}
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 
@@ -1258,46 +696,41 @@ public class WorkBusinessProcessor
 	 */
 	public List getMyDownloadAprroveList(CartItemDO cartItemDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-			logger.debug("[getMyDownloadAprroveList][Input CartItemDO]" + cartItemDO);
 
-
-		try 
-		{
-			// 외주제작 소속인지 확인
-			String outsorcing_yn = externalDAO.getOutSourcing_ynEmployee(cartItemDO.getUserid());
+		// 외주제작 소속인지 확인
+		String outsorcing_yn = externalDAO.getOutSourcing_ynEmployee(cartItemDO.getUserid());
+		if(logger.isDebugEnabled()) {
 			logger.debug("outsorcing_yn : "+outsorcing_yn);
-			
-			// ifcms 승인자 여부 확인
-			String ifcms_yn = externalDAO.getIfCmsApproveYn(cartItemDO.getUserid());
+		}
+
+		// ifcms 승인자 여부 확인
+		String ifcms_yn = externalDAO.getIfCmsApproveYn(cartItemDO.getUserid());
+		if(logger.isDebugEnabled()) {
 			logger.debug("ifcms_yn : "+ifcms_yn);
-			
 			logger.debug("system : "+cartItemDO.getSystem());
-			
-			if(outsorcing_yn.equals("Y")){
-				if(cartItemDO.getSystem().equals("")){
-					return workDAO.selectMyDownloadAprroveForOutSourcingList(cartItemDO);	
-				}else{
-					return workDAO.selectMyDownloadAprroveForOutSourcingListForIfCms(cartItemDO);		
-				}
+		}
+		if(outsorcing_yn.equals("Y")){
+			if(cartItemDO.getSystem().equals("")){
+				return workDAO.selectMyDownloadAprroveForOutSourcingList(cartItemDO);	
+			}else{
+				return workDAO.selectMyDownloadAprroveForOutSourcingListForIfCms(cartItemDO);		
+			}
+		} else {
+
+			if(ifcms_yn.equals("Y") || cartItemDO.getUserid().equals("admin")){
+				return workDAO.selectMyDownloadAprroveListForIfCms(cartItemDO);
 			} else {
-				
-				if(ifcms_yn.equals("Y") || cartItemDO.getUserid().equals("admin")){
-					return workDAO.selectMyDownloadAprroveListForIfCms(cartItemDO);
-				} else {
-					String dep_cd = userRoleDAO.selectDepinfoForUser(cartItemDO.getUserid());
+				String dep_cd = userRoleDAO.selectDepinfoForUser(cartItemDO.getUserid());
+				if(logger.isDebugEnabled()) {
 					logger.debug("dep_cd : "+dep_cd);
-					
-					if(cartItemDO.getSystem().equals("")){
-						return workDAO.selectMyDownloadAprroveList2(cartItemDO, dep_cd); // '' <= sbs
-					}else{
-						return workDAO.selectMyDownloadAprroveListForIfCms(cartItemDO, dep_cd);	  // ifcms
-					}
+				}
+
+				if(cartItemDO.getSystem().equals("")){
+					return workDAO.selectMyDownloadAprroveList2(cartItemDO, dep_cd); // '' <= sbs
+				}else{
+					return workDAO.selectMyDownloadAprroveListForIfCms(cartItemDO, dep_cd);	  // ifcms
 				}
 			}
-			
-		} catch (Exception e) {
-			throw e;
 		}
 
 	}
@@ -1312,27 +745,21 @@ public class WorkBusinessProcessor
 	 */
 	public List getMyDownloadAprroveDetailList(String cartNo, String user_id) throws Exception
 	{
-		try 
-		{
 
-			String dep_cd= userRoleDAO.selectDepinfoForUser(user_id);
-			String ifcms_yn = externalDAO.getIfCmsApproveYn(user_id);
-			if(dep_cd.equals("D3JA01")){
-				return workDAO.selectMyDownloadAprroveDetailListForOutsosing(cartNo,  user_id);
-			}else if(dep_cd.equals("D3OB01")){
-				return workDAO.selectMyDownloadAprroveDetailListForArchive(cartNo,  user_id);
-			}
-			else if(ifcms_yn.equals("Y")){
-				return workDAO.selectMyDownloadAprroveDetailListForArchive(cartNo,  user_id);
-			}
-			else {
-				return workDAO.selectMyDownloadAprroveDetailList(cartNo,  user_id);
-			}
+		String dep_cd= userRoleDAO.selectDepinfoForUser(user_id);
+		String ifcms_yn = externalDAO.getIfCmsApproveYn(user_id);
+		if(dep_cd.equals("D3JA01")){
+			return workDAO.selectMyDownloadAprroveDetailListForOutsosing(cartNo,  user_id);
+		}else if(dep_cd.equals("D3OB01")){
+			return workDAO.selectMyDownloadAprroveDetailListForArchive(cartNo,  user_id);
 		}
-		catch (Exception e)
-		{
-			throw e;
+		else if(ifcms_yn.equals("Y")){
+			return workDAO.selectMyDownloadAprroveDetailListForArchive(cartNo,  user_id);
 		}
+		else {
+			return workDAO.selectMyDownloadAprroveDetailList(cartNo,  user_id);
+		}
+
 	}
 
 }

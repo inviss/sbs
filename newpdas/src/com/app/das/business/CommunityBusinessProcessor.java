@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.app.das.log.ErrorPropHandler;
 import com.app.das.business.constants.DASBusinessConstants;
 import com.app.das.business.constants.ErrorConstants;
 import com.app.das.business.dao.CommunityDAO;
@@ -26,11 +25,7 @@ import com.app.das.business.transfer.BoardConditionDO;
 import com.app.das.business.transfer.BoardDO;
 import com.app.das.business.transfer.DASCommonDO;
 import com.app.das.business.transfer.FileInfoDO;
-import com.app.das.business.transfer.PageDO;
-import com.app.das.business.transfer.PreviewAttachDO;
-import com.app.das.business.transfer.PreviewDO;
 import com.app.das.util.StringUtils;
-import com.app.das.business.CommunityBusinessProcessor;
 
 /**
  * 이용자 마당의 게시판(공지사항, QA, 이용안내, 제안/오류신고 에 대한 등록, 수정, 조회, 삭제가 구현되어 있다.
@@ -40,9 +35,9 @@ import com.app.das.business.CommunityBusinessProcessor;
 public class CommunityBusinessProcessor 
 {
 	private static CommunityDAO communityDAO = CommunityDAO.getInstance();
-	
+
 	private Logger logger = Logger.getLogger(CommunityBusinessProcessor.class);
-	
+
 	/**
 	 * 게시판 목록 조회를 한다.
 	 * @param conditionDO 조회조건을 포함하고 있는 DataObject
@@ -52,17 +47,11 @@ public class CommunityBusinessProcessor
 	 */
 	public List getBoardList(BoardConditionDO conditionDO) throws Exception
 	{
-		try 
-		{			
-			
-			return communityDAO.selectBoardList(conditionDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return communityDAO.selectBoardList(conditionDO);
+
 	}
-	
+
 	/**
 	 * 게시판 단일건 조회를 한다.
 	 * @param boardId 게시판 ID
@@ -72,9 +61,8 @@ public class CommunityBusinessProcessor
 	 */
 	public List getBoardInfo(BoardDO board) throws Exception
 	{
-		try 
-		{
-			if(board.getMainId()!= 0){
+
+		if(board.getMainId()!= 0){
 			//해당 게시판 정보를 조회한다.
 			BoardDO boardDO =  new BoardDO();
 			//첨부파일이 존재하면 파일정보를 조회한다.
@@ -83,22 +71,16 @@ public class CommunityBusinessProcessor
 				List fileInfoDOList = communityDAO.selectFileInfo(board.getBoardId());
 				boardDO.setFileInfoDOList(fileInfoDOList);
 			}
-			
+
 			//사용자의 읽은 횟수를 증가 시킨다.
 			communityDAO.updateReadCount(board.getMainId());
-			
+
 			return communityDAO.selectBoardInfo(board.getMainId());
-			}
-			
-			
-			return communityDAO.selectBoardInfoList(board);
-		} 
-		catch (Exception e)
-		{		
-			throw e;
 		}
+
+		return communityDAO.selectBoardInfoList(board);
 	}
-	
+
 	/**
 	 * 게시판 정보를 저장한다.
 	 * @param boardDO 저장할 게시판 정보
@@ -107,26 +89,15 @@ public class CommunityBusinessProcessor
 	 */
 	public int insertBoardInfo(BoardDO boardDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
+
+		if(StringUtils.isEmpty(boardDO.getBoardTypeCd()))
 		{
-			logger.debug("[insertBoardInfo][Input BoardDO]" + boardDO);
+			DASException exception = new DASException(ErrorConstants.NOT_VALID_BOARD_TYPE, "게시판 종류코드 오류입니다.");
+			throw exception;
 		}
 
-		try 
-		{
-			if(StringUtils.isEmpty(boardDO.getBoardTypeCd()))
-			{
-				DASException exception = new DASException(ErrorConstants.NOT_VALID_BOARD_TYPE, "게시판 종류코드 오류입니다.");
-				throw exception;
-			}
-			
-			return communityDAO.insertBoard(boardDO);
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		return communityDAO.insertBoard(boardDO);
+
 	}
 
 	/**
@@ -137,25 +108,15 @@ public class CommunityBusinessProcessor
 	 */
 	public void insertReplyBoardInfo(BoardDO boardDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
+
+		if(StringUtils.isEmpty(boardDO.getBoardTypeCd()))
 		{
-			logger.debug("[insertReplyBoardInfo][Input BoardDO]" + boardDO);
+			DASException exception = new DASException(ErrorConstants.NOT_VALID_BOARD_TYPE, "게시판 종류코드 오류입니다.");
+			throw exception;
 		}
 
-		try 
-		{
-			if(StringUtils.isEmpty(boardDO.getBoardTypeCd()))
-			{
-				DASException exception = new DASException(ErrorConstants.NOT_VALID_BOARD_TYPE, "게시판 종류코드 오류입니다.");
-				throw exception;
-			}
+		communityDAO.insertBoardInfo(boardDO, DASBusinessConstants.YesNo.YES);
 
-			communityDAO.insertBoardInfo(boardDO, DASBusinessConstants.YesNo.YES);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 	/**
@@ -166,21 +127,9 @@ public class CommunityBusinessProcessor
 	 */
 	public int updateBoardInfo(BoardDO boardDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateBoardInfo][Input BoardDO]" + boardDO);
-		}
 
-		try 
-		{
-			return communityDAO.updateBoard(boardDO);
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
-	
+		return communityDAO.updateBoard(boardDO);
+
 	}
 
 	/**
@@ -191,16 +140,11 @@ public class CommunityBusinessProcessor
 	 */
 	public int  deleteBoardInfo(int boardId) throws Exception
 	{
-		try 
-		{
-			return communityDAO.deleteBoardInfo(boardId);
-		} 
-		catch (Exception e)
-		{	
-			throw e;
-		}
+
+		return communityDAO.deleteBoardInfo(boardId);
+
 	}
-	
+
 	/**
 	 * 게시판의 읽은 수가 많은 것을 조회한다.
 	 * @param conditionDO 조회조건을 포함하고 있는 DO
@@ -210,23 +154,11 @@ public class CommunityBusinessProcessor
 	 */
 	public List getBoardReadCountList(BoardConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getBoardReadCountList][Input BoardConditionDO]" + conditionDO);
-		}
 
-		
-		try 
-		{
-			return communityDAO.selectBoardListForReadCount(conditionDO, commonDO);
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		return communityDAO.selectBoardListForReadCount(conditionDO, commonDO);
+
 	}
-	
+
 	/**
 	 * 첨부파일 정보를 삭제한다.
 	 * 
@@ -237,20 +169,9 @@ public class CommunityBusinessProcessor
 	 */
 	public void deleteFileInfo(int boardId, int seq, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[deleteBoardInfo][Input boardId]" + boardId);
-		}
 
-		try 
-		{
-			communityDAO.deleteFileInfo(boardId, seq, commonDO);
-		} 
-		catch (Exception e)
-		{
-		
-			throw e;
-		}
+		communityDAO.deleteFileInfo(boardId, seq, commonDO);
+
 	}
 
 	/**
@@ -262,24 +183,12 @@ public class CommunityBusinessProcessor
 	 */
 	public List getBoardReplyList(String mainId, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getBoardReplyList][Input mainId]" + mainId);
-		}
 
-		try 
-		{
-			return communityDAO.selectBoardReplyList(mainId, commonDO);
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+		return communityDAO.selectBoardReplyList(mainId, commonDO);
+
 	}
-	
-	
+
+
 	/**
 	 * 프리뷰노트 단일건 조회를 한다.
 	 * @param previewId 프리뷰 ID
@@ -289,19 +198,13 @@ public class CommunityBusinessProcessor
 	 */
 	public List getPreviewInfo(int master_id) throws Exception
 	{
-		try 
-		{
-			
-			return communityDAO.selectPreviewInfo(master_id);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return communityDAO.selectPreviewInfo(master_id);
+
 	}
 
-	
-	
+
+
 	/**
 	 * 프리뷰노트 다운로드를 한다.
 	 * @param previewAttchId 프리뷰첨부 ID
@@ -311,17 +214,11 @@ public class CommunityBusinessProcessor
 	 */
 	public List getPreviewAttachInfo(int master_id) throws Exception
 	{
-		try 
-		{
-			
-			return communityDAO.selectPreviewAttachInfo(master_id);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return communityDAO.selectPreviewAttachInfo(master_id);
+
 	}
-	
+
 	/**
 	 * 게시판 목록 조회를 한다.(메인화면용)
 	 * @param conditionDO 조회조건을 포함하고 있는 DataObject
@@ -331,24 +228,12 @@ public class CommunityBusinessProcessor
 	 */
 	public List getMainBoardList() throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getBoardList]");
-		}
 
-		try 
-		{			
-			
-			return communityDAO.selectMainBoardList();
-		} 
-		catch (Exception e)
-		{
+		return communityDAO.selectMainBoardList();
 
-			throw e;
-		}
 	}
-	
-	
+
+
 	/**
 	 * 게시판 목록 조회를 한다.(팝업용)
 	 * @param conditionDO 조회조건을 포함하고 있는 DataObject
@@ -358,19 +243,12 @@ public class CommunityBusinessProcessor
 	 */
 	public List selectMainBoardList2(String today) throws Exception
 	{
-		try 
-		{			
-			
-			return communityDAO.selectMainBoardList2(today);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return communityDAO.selectMainBoardList2(today);
+
 	}
-	
-	
+
+
 	/**
 	 * 게시판 첨부파일정보 조회를 한다.
 	 * @param boardId 게시판 ID
@@ -380,45 +258,10 @@ public class CommunityBusinessProcessor
 	 */
 	public List getBoardAtaachInfo(int boardId) throws Exception
 	{
-		try 
-		{
-				
-			return communityDAO.selectFileInfo(boardId);
 
-		} 
-		catch (Exception e)
-		{
+		return communityDAO.selectFileInfo(boardId);
 
-			throw e;
-		}
 	}
-
-	
-	/*public int insertBoardAtaachInfo(List fileDO) throws DASException
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertBoardAtaachInfo][Input FileInfoDO]" + fileDO);
-		}
-
-		try 
-		{
-			communityDAO.insertAttachFile(fileDO);
-			return 1;
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			String errorMsg = errorHandler.getProperty(e.getExceptionCode());
-			if(!StringUtils.isEmpty(errorMsg))
-			{
-				e.setExceptionMsg(errorMsg + e.getMessage());
-			}
-			logger.error(e.getExceptionMsg(), e);
-			
-			throw e;
-		}
-	}*/
 
 	/**
 	 * 게시판 정보를 저장한다.
@@ -428,24 +271,13 @@ public class CommunityBusinessProcessor
 	 */
 	public int insertBoardAtaachInfo(FileInfoDO fileDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertBoardAtaachInfo][Input FileInfoDO]" + fileDO);
-		}
 
-		try 
-		{
-			communityDAO.insertAttachFile(fileDO);
-			return 1;
-		} 
-		catch (Exception e)
-		{
+		communityDAO.insertAttachFile(fileDO);
+		return 1;
 
-			throw e;
-		}
 	}
-	
-	
+
+
 	/**
 	 * 게시판 대답 정보를 저장한다.
 	 * @param boardDO 저장할 게시판 정보
@@ -454,21 +286,8 @@ public class CommunityBusinessProcessor
 	 */
 	public int updateBoardAtaachInfo(FileInfoDO FileInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateBoardAtaachInfo][Input FileInfoDO]" + FileInfoDO);
-		}
 
-		try 
-		{
-			return communityDAO.updateBoardAtaachInfo(FileInfoDO);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
-	
+		return communityDAO.updateBoardAtaachInfo(FileInfoDO);
 	}
-	
+
 }

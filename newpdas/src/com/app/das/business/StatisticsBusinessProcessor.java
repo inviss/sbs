@@ -25,9 +25,9 @@ public class StatisticsBusinessProcessor
 	private Logger logger = Logger.getLogger(StatisticsBusinessProcessor.class);
 
 	private static final StatisticsInfoDAO statisticsInfoDAO = StatisticsInfoDAO.getInstance();
-	
-	
-	
+
+
+
 	/**
 	 * 수집의 장르 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -37,26 +37,14 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getCollectionJarnreList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getCollectionJarnreList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectCollectionJarnreList(conditionDO, commonDO);
-			
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));		
-					
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectCollectionJarnreList(conditionDO, commonDO);
+
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));		
+
+		return statisticsDO;
 	}
-	
+
 	/**
 	 * 수집의 수집처 통계 조회를 한다. ( 내부)
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -66,24 +54,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getCollectionGathByRegularList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getCollectionGathByRegularList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectCollectionGathRegularList(conditionDO, commonDO);
-			
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectCollectionGathRegularList(conditionDO, commonDO);
+
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));
+
+		return statisticsDO;
+
 	}
 
 	/**
@@ -95,27 +72,15 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getCollectionGathByOutList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getCollectionGathByOutList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectCollectionGathOutList(conditionDO, commonDO);
-			
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-		
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectCollectionGathOutList(conditionDO, commonDO);
+
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 수집의 수집구분 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -125,27 +90,15 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getCollectionGathKindList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getCollectionGathKindList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectCollectionGathKindList(conditionDO, commonDO);
-			
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));				
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectCollectionGathKindList(conditionDO, commonDO);
 
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-		
-			
-			throw e;
-		}
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));				
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 정리의 인코딩 매체 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -155,22 +108,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getEncMediaList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getEncMediaList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectEncMediaList(conditionDO, commonDO);
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectEncMediaList(conditionDO, commonDO);
+
+		return statisticsDO;
+
 	}
 
 	/**
@@ -182,25 +124,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getEncJanreList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getEncJanreList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectEncJanreList(conditionDO, commonDO);
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-		
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectEncJanreList(conditionDO, commonDO);
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 이용의 다운로드 장르 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -210,25 +140,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getUseJanreList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getUseJanreList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectUseJanreList(conditionDO, commonDO);
-			
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectUseJanreList(conditionDO, commonDO);
+
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));
+
+		return statisticsDO;
+
 	}
 
 	/**
@@ -240,27 +158,15 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getUseCompanyList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getUseCompanyList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectUseCompanyList(conditionDO, commonDO);
-			
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-		
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectUseCompanyList(conditionDO, commonDO);
+
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 이용의 다운로드 제한영상 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -270,25 +176,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getUseLimitList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getUseLimitList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectUseLimitList(conditionDO, commonDO);
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectUseLimitList(conditionDO, commonDO);
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 폐기 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -298,27 +192,15 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getDisuseList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getDisuseList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectDisuseList(conditionDO, commonDO);
-			
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-		
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectDisuseList(conditionDO, commonDO);
+
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 보유량 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -328,24 +210,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getHoldingList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getHoldingList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectHoldingList(conditionDO, commonDO);
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-		
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectHoldingList(conditionDO, commonDO);
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 종합 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -355,24 +226,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getTotalStatisticsList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getTotalStatisticsList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectTotalStatisticsList(conditionDO, commonDO);
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-		
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectTotalStatisticsList(conditionDO, commonDO);
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 분류별 정리 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -382,25 +242,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getAdjustmentList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getAdjustmentList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectAdjustmentList(conditionDO, commonDO);
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
-		
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectAdjustmentList(conditionDO, commonDO);
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 작업자별 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -410,25 +258,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getWorkUserStatisticsList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getAdjustmentList][Input getWorkUserStatisticsList]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectWorkUserStatisticsList(conditionDO, commonDO);
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
-		
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectWorkUserStatisticsList(conditionDO, commonDO);
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 조회 기간의 날짜를 조회날짜 구분에 맞게 Serial 하게 만들어서 Return 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -448,7 +284,7 @@ public class StatisticsBusinessProcessor
 		try 
 		{
 			String startDate = conditionDO.getFromDate().substring(0, 6) + "01";
-						
+
 			if (DASBusinessConstants.StatisticsDateKind.YEAR.equals(dateKind)) 
 			{
 				dateList.add(startDate.substring(0, 4));
@@ -458,7 +294,7 @@ public class StatisticsBusinessProcessor
 				dateList.add(startDate.substring(0, 6));
 			}
 
-			
+
 			while (true) 
 			{
 				String afterDate = null;
@@ -466,7 +302,7 @@ public class StatisticsBusinessProcessor
 				if (DASBusinessConstants.StatisticsDateKind.YEAR.equals(dateKind)) 
 				{
 					afterDate = CalendarUtil.afterSpecDay(startDate, 1, 0, 0);
-					
+
 					//list the year when between year is less than one year. Set to Jan, 01.
 					afterDate = afterDate.substring(0, 4)+ "0101";  
 				}
@@ -474,7 +310,7 @@ public class StatisticsBusinessProcessor
 				{
 					afterDate = CalendarUtil.afterSpecDay(startDate, 0, 1, 0);
 				}
-				
+
 				if(CalendarUtil.compareBetweenDates(afterDate, conditionDO.getToDate()) == 1)
 				{
 					break;
@@ -489,44 +325,18 @@ public class StatisticsBusinessProcessor
 					{
 						dateList.add(afterDate.substring(0, 6));
 					}
-					
+
 					startDate = afterDate;
 				}
-			
+
 			}
-		} 
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			throw e;
 		}		
-		
+
 		return dateList;
 	}
-	
-	
-/*	private void logStatistics(StatisticsDO statisticsDO)
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("statisticsDO");
-		}
-	}*/
-	
-	/*public static void main(String[] arg)
-	{
-		StatisticsConditionDO conditionDO = new StatisticsConditionDO();
-		conditionDO.setFromDate("20071101");
-		conditionDO.setToDate("20071101");
-		conditionDO.setDateKind("2");
-		
-//		List dateList = getDateByTerm(conditionDO);
-//		
-//		for(Iterator i = dateList.iterator(); i.hasNext();)
-//		{
-//			logger.debug("[DATE]" + i.next());
-//		}
-	}
-	*/
+
 	/**
 	 * 로그인 월간 연간 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -536,25 +346,15 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getLoginList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getLoginList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectLoginList(conditionDO, commonDO);
-			
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectLoginList(conditionDO, commonDO);
+
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 일반검색 상세검색 로그를 남긴다.
 	 * @param commonDO 공통정보
@@ -563,19 +363,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public boolean setSearchDate(String flag, DASCommonDO commonDO) throws Exception
 	{
-		try 
-		{
-			boolean result = statisticsInfoDAO.insertSearchDate(flag, commonDO);
-			
-			return result;
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+
+		boolean result = statisticsInfoDAO.insertSearchDate(flag, commonDO);
+
+		return result;
+
 	}
-	
+
 	/**
 	 * 검색 월간 연간 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -585,27 +379,15 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getSearchList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getLoginList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectSearchList(conditionDO, commonDO);
-			
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectSearchList(conditionDO, commonDO);
+
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 사진 다운로드/삭제 통계 조회를 한다.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -615,24 +397,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getPicDownDeleteList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getTotalStatisticsList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.selectPicDownDeleteList(conditionDO, commonDO);
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.selectPicDownDeleteList(conditionDO, commonDO);
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 사진 등록현황 조회.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -642,25 +413,14 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getPicRegisterList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getTotalStatisticsList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.getPicRegisterList(conditionDO, commonDO);
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));	
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.getPicRegisterList(conditionDO, commonDO);
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));	
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 사진 이용현황 조회.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -670,26 +430,14 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getPicUsingList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getTotalStatisticsList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.getPicUsingList(conditionDO, commonDO);
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));	
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.getPicUsingList(conditionDO, commonDO);
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));	
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 사진 폐기현황 조회.
 	 * @param conditionDO 조회 조건을 포함하고 있는 DataObject
@@ -699,26 +447,14 @@ public class StatisticsBusinessProcessor
 	 */
 	public StatisticsDO getPicDeleteList(StatisticsConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getTotalStatisticsList][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			StatisticsDO statisticsDO = statisticsInfoDAO.getPicDeleteList(conditionDO, commonDO);
-			statisticsDO.setHeaderList(getDateByTerm(conditionDO));	
-			
-			return statisticsDO;
-		} 
-		catch (Exception e)
-		{
-		
-			
-			throw e;
-		}
+		StatisticsDO statisticsDO = statisticsInfoDAO.getPicDeleteList(conditionDO, commonDO);
+		statisticsDO.setHeaderList(getDateByTerm(conditionDO));	
+
+		return statisticsDO;
+
 	}
-	
+
 	/**
 	 * 영상종합통계 조회
 	 * @param conditionDO
@@ -727,21 +463,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_TOTAL_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_TOTAL_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_TOTAL_TBL_QUERY(conditionDO);
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+
+		return statisticsInfoDAO.selectSTAT_TOTAL_TBL_QUERY(conditionDO);
+
 	}
-	
+
 	/**
 	 * 수집통계 조회
 	 * @param conditionDO
@@ -750,22 +476,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_COL_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_COL_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_COL_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_COL_TBL_QUERY(conditionDO);
+
 	}
-	
+
 	/**
 	 * 폐기통계 조회
 	 * @param conditionDO
@@ -774,21 +489,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_DISUSE_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_DISUSE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_DISUSE_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_DISUSE_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 정리통계 조회
 	 * @param conditionDO
@@ -797,21 +502,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_ARRA_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_ARRA_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_ARRA_TBL_QUERY(conditionDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_ARRA_TBL_QUERY(conditionDO);
+
 	}
-	
+
 	/**
 	 * 장르별 이용통계
 	 * @param conditionDO
@@ -820,22 +515,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_GNR_USE_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_GNR_USE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_GNR_USE_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_GNR_USE_TBL_QUERY(conditionDO);
+
 	}
-	
+
 	/**
 	 * 장르이용통계2 ( 프로그램별 이용통계)
 	 * @param conditionDO
@@ -844,22 +528,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_GNR_USE2_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_GNR_USE2_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_GNR_USE2_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_GNR_USE2_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 부서별 이용통계
 	 * @param statisticsConditionDO
@@ -869,23 +542,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_DEPT_USE_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_DEPT_USE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_DEPT_USE_TBL_QUERY(conditionDO);
-			    
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_DEPT_USE_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 부서별 아카이브 통계 PART1(미등록)
 	 * @param statisticsConditionDO
@@ -895,22 +556,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_DEPT_ARCH_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_DEPT_ARCH_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_DEPT_ARCH_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_DEPT_ARCH_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 부서별 아카이브 통계 PART2(DTL 이관)
 	 * @param statisticsConditionDO
@@ -920,23 +570,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_DEPT_ARCH_DTL_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_DEPT_ARCH_DTL_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_DEPT_ARCH_DTL_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_DEPT_ARCH_DTL_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 부서별 아카이브 통계 PART3(아카이브 요청)
 	 * @param statisticsConditionDO
@@ -946,25 +584,12 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_DEPT_ARCH_REQ_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_DEPT_ARCH_REQ_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_DEPT_ARCH_REQ_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_DEPT_ARCH_REQ_TBL_QUERY(conditionDO);
+
 	}
-	
-	
+
+
 	/**
 	 * 프로그램별 아카이브 통계 PART2(DTL 이관)
 	 * @param statisticsConditionDO
@@ -974,23 +599,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_PGM_ARCH_DTL_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PGM_ARCH_DTL_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.getSTAT_PGM_ARCH_DTL_TBL_List(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-		
-			
-			throw e;
-		}
+		return statisticsInfoDAO.getSTAT_PGM_ARCH_DTL_TBL_List(conditionDO);
+
 	}
+
 	/**
 	 * 프로그램별 아카이브 통계 PART3(아카이브 요청)
 	 * @param statisticsConditionDO
@@ -1000,22 +613,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_PGM_ARCH_REQ_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PGM_ARCH_REQ_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.getSTAT_PGM_ARCH_REQ_TBL_List(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
+		return statisticsInfoDAO.getSTAT_PGM_ARCH_REQ_TBL_List(conditionDO);
 
-			throw e;
-		}
 	}
+
 	/**
 	 * 프로그램별 이용통계 조회
 	 * @param statisticsConditionDO
@@ -1025,22 +627,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_PGM_USE_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PGM_USE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_PGM_USE_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_PGM_USE_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 사진 보유량 통계 조회( getSTAT_PHOT_PGM_TOTAL_List IF 로 전환함  by DEKIM 2010.10.07)
 	 * @param statisticsConditionDO
@@ -1050,22 +641,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_PHOT_COL_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PHOT_COL_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_PHOT_COL_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_PHOT_COL_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 사진 등록 통계 조회
 	 * @param statisticsConditionDO
@@ -1075,21 +655,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_PHOT_REG_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PGM_USE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_PHOT_REG_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_PHOT_REG_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 사진 폐기 통계 조회
 	 * @param statisticsConditionDO
@@ -1099,22 +669,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_PHOT_DISUSE_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PGM_USE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_PHOT_DISUSE_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
+		return statisticsInfoDAO.selectSTAT_PHOT_DISUSE_TBL_QUERY(conditionDO);
 
-			throw e;
-		}
 	}
+
 	/**
 	 * 사진 누적량 조회
 	 * @param statisticsConditionDO
@@ -1123,23 +682,11 @@ public class StatisticsBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public String getSTAT_PHOT_TOTAL_List(StatisticsConditionDO conditionDO) throws Exception{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PGM_USE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_PHOT_TOTAL_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
-		
+		return statisticsInfoDAO.selectSTAT_PHOT_TOTAL_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 프로그램별 사진 보유량 통계
 	 * @param statisticsConditionDO
@@ -1148,23 +695,11 @@ public class StatisticsBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public List getSTAT_PHOT_PGM_TOTAL_List(StatisticsConditionDO conditionDO) throws Exception{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PGM_USE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_PHOT_PGM_TOTAL_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
-		
+		return statisticsInfoDAO.selectSTAT_PHOT_PGM_TOTAL_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 사진 이용 통계 조회
 	 * @param statisticsConditionDO
@@ -1174,22 +709,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_PHOT_USE_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PGM_USE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_PHOT_USE_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_PHOT_USE_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 장르별 아카이브 통계 조회
 	 * @param statisticsConditionDO
@@ -1199,22 +723,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_GNR_ARCH_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_GNR_ARCH_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_GNR_ARCH_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_GNR_ARCH_TBL_QUERY(conditionDO);
+
 	}
+
 	/**
 	 * 프로그램별 아카이브 조회
 	 * @param statisticsConditionDO
@@ -1224,22 +737,11 @@ public class StatisticsBusinessProcessor
 	 */
 	public List getSTAT_PGM_ARCH_TBL_List(StatisticsConditionDO conditionDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSTAT_PGM_USE_TBL_List][Input StatisticsConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return statisticsInfoDAO.selectSTAT_PGM_ARCH_TBL_QUERY(conditionDO);
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return statisticsInfoDAO.selectSTAT_PGM_ARCH_TBL_QUERY(conditionDO);
+
 	}
-	
+
 	/**
 	 * 컨텐츠 소유권자별 다운로드 이용통계
 	 * @param statisticsConditionDO
@@ -1248,22 +750,13 @@ public class StatisticsBusinessProcessor
 	 */
 	public String getSTAT_DOWN_COCD_USE_TBL_List(Das das) throws Exception
 	{
-		
-		try 
-		{
-			String xml="";
-			for(StatisticsInfo info : das.getItems()){
-				xml = statisticsInfoDAO.getSTAT_DOWN_COCD_USE_TBL_List(info);
-			}
-			
-			return xml;
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
+
+		String xml="";
+		for(StatisticsInfo info : das.getItems()){
+			xml = statisticsInfoDAO.getSTAT_DOWN_COCD_USE_TBL_List(info);
 		}
+
+		return xml;
 	}
-	
+
 }

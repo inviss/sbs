@@ -62,20 +62,8 @@ public class SystemManageBusinessProcessor
 	public List getEquipmentMonitoringListForMaxDate(DASCommonDO commonDO) throws Exception
 	{
 
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getEquipmentMonitoringListForMaxDate][Input DASCommonDO]" + commonDO);
-		}
+		return systemManageDAO.selectEquipmentMonitoringListForMax(commonDO);
 
-		try 
-		{
-			return systemManageDAO.selectEquipmentMonitoringListForMax(commonDO);
-		} 
-		catch (Exception e) 
-		{
-
-			throw e;
-		}
 	}
 
 	/**
@@ -87,20 +75,8 @@ public class SystemManageBusinessProcessor
 	public List getEquipmentMonitoringListForMaxDate(String workStateCode, DASCommonDO commonDO) throws Exception
 	{
 
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getEquipmentMonitoringListForMaxDate][Input workStateCode]" + workStateCode);
-		}
+		return systemManageDAO.selectEquipmentMonitoringListForMax(workStateCode, commonDO);
 
-		try 
-		{
-			return systemManageDAO.selectEquipmentMonitoringListForMax(workStateCode, commonDO);
-		} 
-		catch (Exception e) 
-		{
-
-			throw e;
-		}
 	}
 
 	/**
@@ -111,20 +87,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getEquipmentMonitoringListForToDate(String eqClfCd, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getEquipmentMonitoringListForToDate][Input eqClfCd]" + eqClfCd);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectEquipmentMonitoringListForToDate(eqClfCd, commonDO);
-		} 
-		catch (Exception e) 
-		{
+		return systemManageDAO.selectEquipmentMonitoringListForToDate(eqClfCd, commonDO);
 
-			throw e;
-		}
 	}
 
 	/**
@@ -137,22 +102,11 @@ public class SystemManageBusinessProcessor
 	 */
 	public PageDO getEquipmentMonitoringListForWork(SystemManageConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getEquipmentMonitoringListForWork][Input SystemManageConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			PageDO pageDO = systemManageDAO.selectEquipmentMonitoringListForWork(conditionDO, commonDO);
+		PageDO pageDO = systemManageDAO.selectEquipmentMonitoringListForWork(conditionDO, commonDO);
 
-			return pageDO;
-		} 
-		catch (Exception e) 
-		{
+		return pageDO;
 
-			throw e;
-		}
 	}
 
 	/**
@@ -164,23 +118,11 @@ public class SystemManageBusinessProcessor
 	 */
 	public PageDO getEquipmentLogList(SystemManageConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getEquipmentLogList][Input SystemManageConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			PageDO pageDO = systemManageDAO.selectEquipmentLogList(conditionDO, commonDO);
+		PageDO pageDO = systemManageDAO.selectEquipmentLogList(conditionDO, commonDO);
 
-			return pageDO;
-		} 
-		catch (Exception e) 
-		{
+		return pageDO;
 
-
-			throw e;
-		}
 	}
 
 	/**
@@ -192,21 +134,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public PageDO getContentsUseInfoList(SystemManageConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getContentsUseInfoList][Input SystemManageConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectContentsUseInfoList(conditionDO, commonDO);
-		} 
-		catch (Exception e) 
-		{
+		return systemManageDAO.selectContentsUseInfoList(conditionDO, commonDO);
 
-
-			throw e;
-		}
 	}
 
 	/**
@@ -218,22 +148,11 @@ public class SystemManageBusinessProcessor
 	 */
 	public PageDO getNonLoginUserList(SystemManageConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getNonLoginUserList][Input SystemManageConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			PageDO pageDO = systemManageDAO.selectNonLoginUserList(conditionDO, commonDO);
+		PageDO pageDO = systemManageDAO.selectNonLoginUserList(conditionDO, commonDO);
 
-			return pageDO;
-		} 
-		catch (Exception e) 
-		{
+		return pageDO;
 
-			throw e;
-		}
 	}
 
 	/**
@@ -245,22 +164,7 @@ public class SystemManageBusinessProcessor
 	public void restoreNonLoginUserList(List userInfoDOList, DASCommonDO commonDO) throws Exception
 	{
 
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[restoreNonLoginUserList][Inputt userInfoDOList]" +userInfoDOList);
-		}
-
-
-		try 
-		{
-			systemManageDAO.updateNonLoginUserRestoreList(userInfoDOList, commonDO);
-		} 
-		catch (Exception e) 
-		{
-
-
-			throw e;
-		}
+		systemManageDAO.updateNonLoginUserRestoreList(userInfoDOList, commonDO);
 
 	}
 
@@ -273,19 +177,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public PageDO getContentsOutUseInfoList(SystemManageConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getContentsOutUseInfoList][Input SystemManageConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectContentsOutUseInfoList(conditionDO, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return systemManageDAO.selectContentsOutUseInfoList(conditionDO, commonDO);
+
 	}
 
 	/**
@@ -296,14 +190,8 @@ public class SystemManageBusinessProcessor
 	 */
 	public void stopOutUserList(List userInfoDOList, DASCommonDO commonDO) throws Exception
 	{
-		try 
-		{
-			systemManageDAO.updateOutUserStopList(userInfoDOList, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+
+		systemManageDAO.updateOutUserStopList(userInfoDOList, commonDO);
 
 	}
 
@@ -316,20 +204,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public PageDO getDownloadStatusList(SystemManageConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getDownloadStatusList][Input SystemManageConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectDownloadStatusList(conditionDO, commonDO);
-		} 
-		catch (Exception e) 
-		{
+		return systemManageDAO.selectDownloadStatusList(conditionDO, commonDO);
 
-			throw e;
-		}
 	}
 
 	/**
@@ -340,15 +217,8 @@ public class SystemManageBusinessProcessor
 	 */
 	public void recoveryDownloadStatusList(List downStatusInfoDOList, DASCommonDO commonDO) throws Exception
 	{
-		try 
-		{
-			systemManageDAO.updateRecoveryDownloadStatusList(downStatusInfoDOList, commonDO);
-		} 
-		catch (Exception e) 
-		{
 
-			throw e;
-		}
+		systemManageDAO.updateRecoveryDownloadStatusList(downStatusInfoDOList, commonDO);
 
 	}
 
@@ -360,21 +230,11 @@ public class SystemManageBusinessProcessor
 	 */
 	public PageDO getProgramList(SystemManageConditionDO condition, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getProgramList][SystemManageConditionDO]" + condition);
-		}
 
-		try 
-		{
-			PageDO pageDO = systemManageDAO.selectProgramList(condition, commonDO);
+		PageDO pageDO = systemManageDAO.selectProgramList(condition, commonDO);
 
-			return pageDO;
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return pageDO;
+
 	}
 
 
@@ -387,14 +247,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getParentsInfo(String pgm_nm) throws Exception
 	{
-		try 
-		{
-			return  systemManageDAO.selectParentsInfo(pgm_nm);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return  systemManageDAO.selectParentsInfo(pgm_nm);
+
 	}
 
 
@@ -407,21 +262,10 @@ public class SystemManageBusinessProcessor
 	 */	
 	public void deleteProgramInfo(String prgId, DASCommonDO commonDO)  throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[deletedeleteProgramInfo][Input prgId]" + prgId);
-		}
 
-		try 
-		{
-			//프로그램 정보를 삭제한다.
-			systemManageDAO.deleteProgramInfo(prgId, commonDO);
-		} 
-		catch (Exception e) 
-		{
+		//프로그램 정보를 삭제한다.
+		systemManageDAO.deleteProgramInfo(prgId, commonDO);
 
-			throw e;
-		}
 	}
 
 	/**
@@ -432,20 +276,15 @@ public class SystemManageBusinessProcessor
 	 */	
 	public int deleteScreenAuthentication(CodeDO codeDO)  throws Exception
 	{
-		try 
-		{
-			//코드테이블에서 권한 코드를 삭제한다.
-			int ctmp = codeInfoDAO.deleteCodeInfo(codeDO);
 
-			//권한 테이블에서 권한 정보를 삭제한다
-			int stmp = systemManageDAO.deleteScreenAuthentication(codeDO);
+		//코드테이블에서 권한 코드를 삭제한다.
+		int ctmp = codeInfoDAO.deleteCodeInfo(codeDO);
 
-			return ctmp;
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		//권한 테이블에서 권한 정보를 삭제한다
+		systemManageDAO.deleteScreenAuthentication(codeDO);
+
+		return ctmp;
+
 	}
 
 	/**
@@ -456,21 +295,10 @@ public class SystemManageBusinessProcessor
 	 */
 	public void updateProgramInfo(ProgramInfoDO pgmDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updatedProgramInfo][Input pgmDO]" + pgmDO);
-		}
 
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			systemManageDAO.updateProgramInfo(pgmDO, commonDO);
-		} 
-		catch (Exception e) 
-		{
+		//프로그램 정보를 갱신한다.
+		systemManageDAO.updateProgramInfo(pgmDO, commonDO);
 
-			throw e;
-		}
 	}
 
 
@@ -482,20 +310,10 @@ public class SystemManageBusinessProcessor
 	 */
 	public void insertProgramInfo(ProgramInfoDO pgmDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertProgramInfo][Input pgmDO]" + pgmDO);
-		}
 
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			systemManageDAO.insertProgramInfo(pgmDO, commonDO);
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		//프로그램 정보를 갱신한다.
+		systemManageDAO.insertProgramInfo(pgmDO, commonDO);
+
 	}
 
 	/**
@@ -506,23 +324,12 @@ public class SystemManageBusinessProcessor
 	 */
 	public ProgramInfoDO getSelectedProgamInfo(String pgmId) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSelectedProgamInfo][Input pgmId]" + pgmId);
-		}
 
-		try 
-		{
-			//선택된 프로그램 정보를 가져온다.
-			ProgramInfoDO pgmInfoDO = null;
-			pgmInfoDO = systemManageDAO.selectProgramInfoByID(pgmId);
-			return pgmInfoDO;
-		} 
-		catch (Exception e) 
-		{
+		//선택된 프로그램 정보를 가져온다.
+		ProgramInfoDO pgmInfoDO = null;
+		pgmInfoDO = systemManageDAO.selectProgramInfoByID(pgmId);
+		return pgmInfoDO;
 
-			throw e;
-		}
 	}
 
 
@@ -534,23 +341,12 @@ public class SystemManageBusinessProcessor
 	 */
 	public ProgramInfoDO getSelectedERPProgamInfoByCode(String pgmCode) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSelectedProgamInfoByCode][Input pgmCode]" + pgmCode);
-		}
 
-		try 
-		{
-			//선택된 프로그램 정보를 가져온다.
-			ProgramInfoDO pgmInfoDO = null;
-			pgmInfoDO = systemManageDAO.selectERPProgramInfoByCode(pgmCode);
-			return pgmInfoDO;
-		} 
-		catch (Exception e) 
-		{
+		//선택된 프로그램 정보를 가져온다.
+		ProgramInfoDO pgmInfoDO = null;
+		pgmInfoDO = systemManageDAO.selectERPProgramInfoByCode(pgmCode);
+		return pgmInfoDO;
 
-			throw e;
-		}
 	}
 
 	/**
@@ -561,21 +357,11 @@ public class SystemManageBusinessProcessor
 	 */
 	public PageDO getErrorList(SystemManageConditionDO condition, DASCommonDO commonDO, String excel) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getProgramList][SystemManageConditionDO]" + condition);
-		}
 
-		try 
-		{
-			PageDO pageDO = systemManageDAO.selectErrorList(condition, commonDO, excel);
+		PageDO pageDO = systemManageDAO.selectErrorList(condition, commonDO, excel);
 
-			return pageDO;
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
+		return pageDO;
+
 	}
 
 
@@ -588,20 +374,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public PageDO getPhotoDownList(SystemManageConditionDO conditionDO, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getContentsUseInfoList][Input SystemManageConditionDO]" + conditionDO);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectPhotoDownList(conditionDO, commonDO);
-		} 
-		catch (Exception e) 
-		{
+		return systemManageDAO.selectPhotoDownList(conditionDO, commonDO);
 
-			throw e;
-		}
 	}
 
 
@@ -615,23 +390,11 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getPgmList(ProgramInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getPgmList][programInfoDO]" + condition);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectNewPgmList(condition);
+		return systemManageDAO.selectNewPgmList(condition);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
+
 	/**
 	 * 프로그램 정보 목록을 조회한다.
 	 * @param condition 조회조건을 포함하고 있는 DataObject
@@ -640,21 +403,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public String getPgmList2(ProgramInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getPgmList][programInfoDO]" + condition);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectPgmList2(condition);
+		return systemManageDAO.selectPgmList2(condition);
 
-
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
 	}
 
 	/**
@@ -666,15 +417,8 @@ public class SystemManageBusinessProcessor
 
 	public List getPgmInfo(String pgm_cd) throws Exception
 	{
-		try 
-		{		
-			return systemManageDAO.selectPgm(pgm_cd);
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return systemManageDAO.selectPgm(pgm_cd);
 
 	}
 
@@ -687,15 +431,8 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getPgmInfo2(String pgm_cd) throws Exception
 	{
-		try 
-		{
-			return systemManageDAO.selectPgm2(pgm_cd);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return systemManageDAO.selectPgm2(pgm_cd);
 
 	}
 
@@ -708,14 +445,8 @@ public class SystemManageBusinessProcessor
 
 	public List getParentsCD(String pgm_cd) throws Exception
 	{
-		try 
-		{
-			return systemManageDAO.selectParents(pgm_cd);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return systemManageDAO.selectParents(pgm_cd);
 
 	}
 
@@ -727,21 +458,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public int insertPgmcd(ProgramInfoDO pgmDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertPgmcd][Input pgmDO]" + pgmDO);
-		}
 
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			return	systemManageDAO.insertPgmInfo(pgmDO);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		//프로그램 정보를 갱신한다.
+		return	systemManageDAO.insertPgmInfo(pgmDO);
 
 	}
 
@@ -763,12 +482,9 @@ public class SystemManageBusinessProcessor
 	 * @throws DASException
 	 */
 	public String getAvailableDisk() throws DASException{
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[getAvailableDisk] ");
-		}
 		return systemManageDAO.getAvailableDisk();
 	}
+
 	/**
 	 * 프로그램코드 수정한다
 	 * @param  pgmDO 프로그램 정보가 포함되어 있는 DataObject
@@ -777,23 +493,11 @@ public class SystemManageBusinessProcessor
 	public int updatePgmcd(ProgramInfoDO programInfoDO) throws Exception
 	{
 
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updatePgmcd][Input programInfoDO]" + programInfoDO);
-		}
-		try 
-		{	
-			if(systemManageDAO.isTherePgmCd(programInfoDO.getPgmCd())){
-				return systemManageDAO.insertPgmInfo(programInfoDO);
-			}else{
+		if(systemManageDAO.isTherePgmCd(programInfoDO.getPgmCd())){
+			return systemManageDAO.insertPgmInfo(programInfoDO);
+		}else{
 
-				return systemManageDAO.updatePgmcd(programInfoDO);
-			}
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
+			return systemManageDAO.updatePgmcd(programInfoDO);
 		}
 
 	}
@@ -808,22 +512,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getSubsiServerList(SubsiInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getSubsiServerList][SubsiInfoDO]" + condition);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectSubsiServerList(condition);
+		return systemManageDAO.selectSubsiServerList(condition);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 
@@ -836,21 +527,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public int insertSubsiServer(SubsiInfoDO pgmDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertSubsiServer][Input pgmDO]" + pgmDO);
-		}
 
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			return	systemManageDAO.insertSubsiServer(pgmDO);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		//프로그램 정보를 갱신한다.
+		return	systemManageDAO.insertSubsiServer(pgmDO);
 
 	}
 
@@ -865,20 +544,7 @@ public class SystemManageBusinessProcessor
 	public int updateSubsiServer(SubsiInfoDO subsiInfoDO) throws Exception
 	{
 
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updatePgmcd][Input subsiInfoDO]" + subsiInfoDO);
-		}
-		try 
-		{
-			return systemManageDAO.updateSubsiServer(subsiInfoDO);
-		} 
-		catch (Exception e)
-		{
-
-
-			throw e;
-		}
+		return systemManageDAO.updateSubsiServer(subsiInfoDO);
 
 	}
 
@@ -891,22 +557,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getCopyList(CopyInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getCopyList][CopyInfoDO]" + condition);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectCopyList(condition);
+		return systemManageDAO.selectCopyList(condition);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 
@@ -919,26 +572,12 @@ public class SystemManageBusinessProcessor
 	 */
 	public int insertCopy(CopyInfoDO copyDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertCopy][Input CopyInfoDO]" + copyDO);
+
+		//프로그램 정보를 갱신한다.
+		if(systemManageDAO.isTherePgmid(copyDO.getCms_pgm_id())){
+			return	0;
 		}
-
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			if(systemManageDAO.isTherePgmid(copyDO.getCms_pgm_id())){
-				return	0;
-			}
-			return systemManageDAO.insertCopy2(copyDO);
-		}
-
-		catch (Exception e)
-		{
-
-
-			throw e;
-		}
+		return systemManageDAO.insertCopy2(copyDO);
 
 	}
 
@@ -951,19 +590,7 @@ public class SystemManageBusinessProcessor
 	public int updateCopy(CopyInfoDO copyDO) throws Exception
 	{
 
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateCopy][Input copyDO]" + copyDO);
-		}
-		try 
-		{
-			return systemManageDAO.updateCopy2(copyDO);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return systemManageDAO.updateCopy2(copyDO);
 
 	}
 
@@ -976,47 +603,21 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getNewUseInfoList(UseInfoDO condition, String flag) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getUseInfoList][UseInfoDO]" + condition.toString());
-		}
 
-		try 
-		{
-			return systemManageDAO.selectNewUseInfoList(condition, flag);
+		return systemManageDAO.selectNewUseInfoList(condition, flag);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
-	
+
 	@Deprecated
 	public List getUseInfoList(UseInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getUseInfoList][UseInfoDO]" + condition.toString());
-		}
 
-		try 
-		{
-			return systemManageDAO.selectUseInfoList(condition);
+		return systemManageDAO.selectUseInfoList(condition);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
-	
+
 	public UseInfoDO getUseInfoCount(UseInfoDO condition, String flag) throws Exception {
-		
+
 		return systemManageDAO.selectUseInfoCount(condition, flag);
 	}
 
@@ -1028,22 +629,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getUseInfoList2(UseInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getUseInfoList2][UseInfoDO]" + condition.toString());
-		}
 
-		try 
-		{
-			return systemManageDAO.selectUseInfoList2(condition);
+		return systemManageDAO.selectUseInfoList2(condition);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 	/**
@@ -1055,46 +643,35 @@ public class SystemManageBusinessProcessor
 	 */
 	public String updateCopyRequest(UseInfoDO useInfoDO) throws NumberFormatException, Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateCopyRequest][Input UseInfoDO]" + useInfoDO);
+
+		if(useInfoDO.getGubun().equals("001")){
+			//복본신청표기
+			externalDAO.updateCopyYN(Long.parseLong(useInfoDO.getMaster_id()),useInfoDO.getUser_id());
+			externalDAO.updateCopyReqId(Long.parseLong(useInfoDO.getMaster_id()),useInfoDO.getUser_id());
+			// DTL 정보를 위하여 본영상의 회사코드를 구한다.
+			String dtl_type = externalDAO.selectCOCDForMaster_id(Long.parseLong(useInfoDO.getMaster_id()));
+			useInfoDO.setDtl_type(dtl_type);
+			//프로그램 정보를 신청한다한다.
+			return	systemManageDAO.updateCopyRequest(useInfoDO);
+		}else if(useInfoDO.getGubun().equals("002")){
+			//소산신청표기
+			externalDAO.updateBackUpYN(Long.parseLong(useInfoDO.getMaster_id()),useInfoDO.getUser_id());
+			externalDAO.updateBackUpYN(useInfoDO);
+			// DTL 정보를 위하여 본영상의 회사코드를 구한다.
+			String dtl_type = externalDAO.selectCOCDForMaster_id(Long.parseLong(useInfoDO.getMaster_id()));
+			useInfoDO.setDtl_type(dtl_type);
+			//소산을 workflow에  신청한다
+			return	systemManageDAO.updateBackupRequest(useInfoDO);
+		}else if(useInfoDO.getGubun().equals("003")){
+			//복원신청표기
+			// DTL 정보를 위하여 본영상의 회사코드를 구한다.
+			String dtl_type = externalDAO.selectCOCDForMaster_id(Long.parseLong(useInfoDO.getMaster_id()));
+			externalDAO.updateReCorverReqId(Long.parseLong(useInfoDO.getMaster_id()),useInfoDO.getUser_id());
+			useInfoDO.setDtl_type(dtl_type);
+			//복원을 workflow에  신청한다
+			return	systemManageDAO.updateRecorveryRequest(useInfoDO);
 		}
 
-		try 
-		{
-
-			if(useInfoDO.getGubun().equals("001")){
-				//복본신청표기
-				externalDAO.updateCopyYN(Long.parseLong(useInfoDO.getMaster_id()),useInfoDO.getUser_id());
-				externalDAO.updateCopyReqId(Long.parseLong(useInfoDO.getMaster_id()),useInfoDO.getUser_id());
-				// DTL 정보를 위하여 본영상의 회사코드를 구한다.
-				String dtl_type = externalDAO.selectCOCDForMaster_id(Long.parseLong(useInfoDO.getMaster_id()));
-				useInfoDO.setDtl_type(dtl_type);
-				//프로그램 정보를 신청한다한다.
-				return	systemManageDAO.updateCopyRequest(useInfoDO);
-			}else if(useInfoDO.getGubun().equals("002")){
-				//소산신청표기
-				externalDAO.updateBackUpYN(Long.parseLong(useInfoDO.getMaster_id()),useInfoDO.getUser_id());
-				externalDAO.updateBackUpYN(useInfoDO);
-				// DTL 정보를 위하여 본영상의 회사코드를 구한다.
-				String dtl_type = externalDAO.selectCOCDForMaster_id(Long.parseLong(useInfoDO.getMaster_id()));
-				useInfoDO.setDtl_type(dtl_type);
-				//소산을 workflow에  신청한다
-				return	systemManageDAO.updateBackupRequest(useInfoDO);
-			}else if(useInfoDO.getGubun().equals("003")){
-				//복원신청표기
-				// DTL 정보를 위하여 본영상의 회사코드를 구한다.
-				String dtl_type = externalDAO.selectCOCDForMaster_id(Long.parseLong(useInfoDO.getMaster_id()));
-				externalDAO.updateReCorverReqId(Long.parseLong(useInfoDO.getMaster_id()),useInfoDO.getUser_id());
-				useInfoDO.setDtl_type(dtl_type);
-				//복원을 workflow에  신청한다
-				return	systemManageDAO.updateRecorveryRequest(useInfoDO);
-			}
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 		return "";
 
 	}
@@ -1107,21 +684,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getArchiveStatusList(ArchiveInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getArchiveStatusList][ArchiveInfoDO]" + condition);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectArchiveStatusList(condition);
+		return systemManageDAO.selectArchiveStatusList(condition);
 
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 
@@ -1133,21 +698,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public String getArchiveStatusList2(ArchiveInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getArchiveStatusList][ArchiveInfoDO]" + condition);
-		}
 
-		try 
-		{
-			return systemManageDAO.selectArchiveStatusList2(condition);
+		return systemManageDAO.selectArchiveStatusList2(condition);
 
-
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
 	}
 
 	/**
@@ -1160,16 +713,9 @@ public class SystemManageBusinessProcessor
 
 	public List getTodayList() throws Exception
 	{
-		try 
-		{
-			return systemManageDAO.selectTodayList();
 
+		return systemManageDAO.selectTodayList();
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 	/**
@@ -1181,18 +727,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getGoodMediaList() throws Exception
 	{
-		try 
-		{
 
+		return systemManageDAO.selectGoodMediaList();
 
-			return systemManageDAO.selectGoodMediaList();
-
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 	/**
@@ -1203,28 +740,19 @@ public class SystemManageBusinessProcessor
 	 */
 	public String getDiskAva() throws Exception{
 		String targetName[] ={"MP2","MP2_BK","MP4","MP4_BK","ARC","ARC_BK"};
-
 		String targetValue[] = {"/mp2","","/mp4","","/arcreq",""};
-		if(logger.isDebugEnabled())
-		{
-		}
-		// /app/db2
-		try 
-		{
-			String _xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><das>";
-			for(int i =0;i<targetName.length;i++){
-				_xml = _xml + "<" + targetName[i] + ">" + systemManageDAO.getDiskAva(targetValue[i]) + "</"  + targetName[i] + ">";
-			}
-			_xml = _xml+"</das>";
-			logger.debug("_xml" + _xml);
-			return _xml;
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
-	}
 
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
+		for(int i =0;i<targetName.length;i++){
+			_xml.append("<" + targetName[i] + ">" + systemManageDAO.getDiskAva(targetValue[i]) + "</"  + targetName[i] + ">");
+		}
+		_xml.append("</das>");
+
+		if(logger.isDebugEnabled())
+			logger.debug("_xml" + _xml.toString());
+		return _xml.toString();
+	}
 
 
 	/**
@@ -1235,21 +763,8 @@ public class SystemManageBusinessProcessor
 	 */
 	public int insertPdsPgmUserInfo(PgmUserInfoDO pdsInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertPdsPgmUserInfo][Input PgmUserInfoDO]" + pdsInfoDO);
-		}
-
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			return	systemManageDAO.insertPdsPgmUserInfo(pdsInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
-
+		//프로그램 정보를 갱신한다.
+		return	systemManageDAO.insertPdsPgmUserInfo(pdsInfoDO);
 	}
 
 	/**
@@ -1260,20 +775,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public int[] insertPdsPgmUserInfoAll(List pdsInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertPdsPgmUserInfoAll][Input PgmUserInfoDO]" + pdsInfoDO);
-		}
 
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			return	systemManageDAO.insertPdsPgmUserInfoAll(pdsInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		//프로그램 정보를 갱신한다.
+		return	systemManageDAO.insertPdsPgmUserInfoAll(pdsInfoDO);
 
 	}
 
@@ -1289,20 +793,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public int insertPdsPgmInfo(PgmInfoDO pdsInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertCopy][Input pdsInfoDO]" + pdsInfoDO);
-		}
 
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			return	systemManageDAO.insertPdsPgmInfo(pdsInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		//프로그램 정보를 갱신한다.
+		return	systemManageDAO.insertPdsPgmInfo(pdsInfoDO);
 
 	}
 
@@ -1317,21 +810,11 @@ public class SystemManageBusinessProcessor
 	 */
 	public int insertPdsPgmInfoAll(List pdsInfoDOs) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertPdsPgmInfoAll][Input pdsInfoDO]" + pdsInfoDOs);
-		}
 
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			systemManageDAO.insertPdsPgmInfoAll(pdsInfoDOs);
-			return	1;
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		//프로그램 정보를 갱신한다.
+		systemManageDAO.insertPdsPgmInfoAll(pdsInfoDOs);
+		return	1;
+
 	}
 
 
@@ -1345,20 +828,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public int insertPdsMappInfo(PdsMappDO pdsInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertCopy][Input PdsMappDO]" + pdsInfoDO);
-		}
 
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			return	systemManageDAO.insertPdsMappInfo(pdsInfoDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		//프로그램 정보를 갱신한다.
+		return	systemManageDAO.insertPdsMappInfo(pdsInfoDO);
 
 	}
 
@@ -1515,14 +987,8 @@ public class SystemManageBusinessProcessor
 	 *  */
 	public int updateIfCmsArchiveStatus(IfCmsArchiveDO pgmDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[IfCmsArchiveDO][Input pgmDO]" + pgmDO);
-		}
 
-		try 
-		{
-
+		try {
 			long masterid  = systemManageDAO.selectMasterIdForIfCms(pgmDO.getGroup_id());
 			pgmDO.setMaster_id(masterid);
 			//ct_id, cti_id(low) 값을 얻어온다
@@ -1535,14 +1001,8 @@ public class SystemManageBusinessProcessor
 			//tc job 등록한다.
 			systemManageDAO.insertIfCms(pgmDO);
 
-
 			return 1;
-
-
-		} 
-		catch (Exception e)
-		{
-
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -1555,43 +1015,31 @@ public class SystemManageBusinessProcessor
 	 **/
 	public int insertManualArchive(PdsArchiveDO pgmDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[PdsArchiveDO][Input pgmDO]" + pgmDO);
+		//프로그램 정보를 갱신한다.
+		int one =systemManageDAO.insertMetadatTbl(pgmDO);
+		int two =systemManageDAO.insertContentsInfo(pgmDO);
+		int three =systemManageDAO.insertConInstInfoForHigh(pgmDO);
+		int nine =systemManageDAO.insertConInstInfoForLow(pgmDO);
+		int four =systemManageDAO.insertCornerInfo(pgmDO);
+		int five =systemManageDAO.insertContentsMappInfo(pgmDO);
+		if(!pgmDO.getPreview_file_nm().equals("")){
+			int six =systemManageDAO.insertPreveiw_Info(pgmDO);
 		}
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			int one =systemManageDAO.insertMetadatTbl(pgmDO);
-			int two =systemManageDAO.insertContentsInfo(pgmDO);
-			int three =systemManageDAO.insertConInstInfoForHigh(pgmDO);
-			int nine =systemManageDAO.insertConInstInfoForLow(pgmDO);
-			int four =systemManageDAO.insertCornerInfo(pgmDO);
-			int five =systemManageDAO.insertContentsMappInfo(pgmDO);
-			if(!pgmDO.getPreview_file_nm().equals("")){
-				int six =systemManageDAO.insertPreveiw_Info(pgmDO);
-			}
-			int seven =systemManageDAO.insertPdasArchive(pgmDO);
+		int seven =systemManageDAO.insertPdasArchive(pgmDO);
 
-			int ten =systemManageDAO.insertAnnotInfo(pgmDO);
-			//tc job 등록한다.
-			systemManageDAO.insertPDS(pgmDO);
-			int result = one+two+three+four+five+seven+nine;
-			logger.debug("result   ="+result);
-			if(result >= 6){
-				return 1;
-			}else{
-				return 0;	
-			}
-		} 
-		catch (Exception e) 
-		{
-			throw e;
+		int ten =systemManageDAO.insertAnnotInfo(pgmDO);
+		//tc job 등록한다.
+		systemManageDAO.insertPDS(pgmDO);
+		int result = one+two+three+four+five+seven+nine;
+		logger.debug("result   ="+result);
+		if(result >= 6){
+			return 1;
+		}else{
+			return 0;	
 		}
+
 
 	}
-
-
 
 
 	/**  
@@ -1602,15 +1050,8 @@ public class SystemManageBusinessProcessor
 	 */
 	public String updateAccept(long master_id) throws Exception
 	{
-		try 
-		{
-			return systemManageDAO.updateAccept(master_id);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return systemManageDAO.updateAccept(master_id);
 
 	}
 
@@ -1623,15 +1064,8 @@ public class SystemManageBusinessProcessor
 	 */
 	public String updateArrange(long master_id, String user_id) throws Exception
 	{
-		try 
-		{
-			return systemManageDAO.updateArrange(master_id,user_id);
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return systemManageDAO.updateArrange(master_id,user_id);
 
 	}
 
@@ -1643,16 +1077,7 @@ public class SystemManageBusinessProcessor
 	 */
 	public String updateRsv_Prd_DD(String rsv_prd_cd,long master_id) throws Exception
 	{
-		try 
-		{
-			return systemManageDAO.updateRsv_Prd_DD(rsv_prd_cd,master_id);
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
-
+		return systemManageDAO.updateRsv_Prd_DD(rsv_prd_cd,master_id);
 	}
 
 
@@ -1665,38 +1090,24 @@ public class SystemManageBusinessProcessor
 	 **/
 	public int insertNleArchive(NleDO nleDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertNleArchive][Input NleDO]" + nleDO);
-		}
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			int one =systemManageDAO.insertMetadatTbl(nleDO);
-			int two =systemManageDAO.insertContentsInfo(nleDO);
-			int three =systemManageDAO.insertConInstInfoForHigh(nleDO);
-			int nine =systemManageDAO.insertConInstInfoForLow(nleDO);
-			int four =systemManageDAO.insertCornerInfo(nleDO);
-			int five =systemManageDAO.insertContentsMappInfo(nleDO);
-			int eight =systemManageDAO.insertNleTc(nleDO);
 
-			int result = one+two+three+four+five;
-			if(result == 5){
-				return 1;
-			}else{
-				return 0;	
-			}
-		} 
-		catch (Exception e)
-		{
+		//프로그램 정보를 갱신한다.
+		int one =systemManageDAO.insertMetadatTbl(nleDO);
+		int two =systemManageDAO.insertContentsInfo(nleDO);
+		int three =systemManageDAO.insertConInstInfoForHigh(nleDO);
+		int nine =systemManageDAO.insertConInstInfoForLow(nleDO);
+		int four =systemManageDAO.insertCornerInfo(nleDO);
+		int five =systemManageDAO.insertContentsMappInfo(nleDO);
+		int eight =systemManageDAO.insertNleTc(nleDO);
 
-			throw e;
+		int result = one+two+three+four+five;
+		if(result == 5){
+			return 1;
+		} else {
+			return 0;	
 		}
 
 	}
-
-
-
 
 	/**
 	 * 수동 아카이브  
@@ -1706,45 +1117,39 @@ public class SystemManageBusinessProcessor
 	 **/
 	public int insertManualArchive(String media_id) throws Exception
 	{
-		try 
-		{
-			if(systemManageDAO.isThereMediaId(media_id)){
-				//프로그램 정보를 갱신한다.
-				ManualArchiveDO manualArchiveDO = externalDAO.getManualInfo(media_id);
 
-				int one =systemManageDAO.insertMetadatTbl(manualArchiveDO);
-				int two =systemManageDAO.insertContentsInfo(manualArchiveDO);
-				int three =systemManageDAO.insertConInstInfoForHigh(manualArchiveDO);
-				int nine =systemManageDAO.insertConInstInfoForLow(manualArchiveDO);
-				int four =systemManageDAO.insertCornerInfo(manualArchiveDO);
-				int five =systemManageDAO.insertContentsMappInfo(manualArchiveDO);
+		if(systemManageDAO.isThereMediaId(media_id)){
+			//프로그램 정보를 갱신한다.
+			ManualArchiveDO manualArchiveDO = externalDAO.getManualInfo(media_id);
 
-				int ten =systemManageDAO.insertAnnotInfo(manualArchiveDO);
-				int six = systemManageDAO.insertManual(manualArchiveDO);
-				String tmp = String.valueOf(manualArchiveDO.getMaster_id());
-				int master_id = Integer.parseInt(tmp);
-				systemManageDAO.insertCornerInfoForProceduer(master_id);
-				/**
-				 * 수동아카이브 건에 대한 건에 대하여 편집완료 상태로 변경 , 기존 원본영상 사용하지 않도록 컬럼변경 
-				 */
-				if(!systemManageDAO.isThereMediaId(manualArchiveDO.getOrg_media_id())){
-					systemManageDAO.updateEdtrIdbyMediaId("002", manualArchiveDO.getOrg_media_id());
-					//검색영상에서 폐기시에도 계속 검색되는 현상이 있어 이 로직에서 폐기 조치하지 않도록 함. 2014.11.7 by asura
-					//systemManageDAO.updateMetaYn(manualArchiveDO.getOrg_media_id());
-				}
-				int result = one+two+three+four+five+nine;
-				if(result >= 1){
-					return 1;
-				}else{
-					return 0;	
-				}
+			int one =systemManageDAO.insertMetadatTbl(manualArchiveDO);
+			int two =systemManageDAO.insertContentsInfo(manualArchiveDO);
+			int three =systemManageDAO.insertConInstInfoForHigh(manualArchiveDO);
+			int nine =systemManageDAO.insertConInstInfoForLow(manualArchiveDO);
+			int four =systemManageDAO.insertCornerInfo(manualArchiveDO);
+			int five =systemManageDAO.insertContentsMappInfo(manualArchiveDO);
+
+			int ten =systemManageDAO.insertAnnotInfo(manualArchiveDO);
+			int six = systemManageDAO.insertManual(manualArchiveDO);
+			String tmp = String.valueOf(manualArchiveDO.getMaster_id());
+			int master_id = Integer.parseInt(tmp);
+			systemManageDAO.insertCornerInfoForProceduer(master_id);
+			/**
+			 * 수동아카이브 건에 대한 건에 대하여 편집완료 상태로 변경 , 기존 원본영상 사용하지 않도록 컬럼변경 
+			 */
+			if(!systemManageDAO.isThereMediaId(manualArchiveDO.getOrg_media_id())){
+				systemManageDAO.updateEdtrIdbyMediaId("002", manualArchiveDO.getOrg_media_id());
+				//검색영상에서 폐기시에도 계속 검색되는 현상이 있어 이 로직에서 폐기 조치하지 않도록 함. 2014.11.7 by asura
+				//systemManageDAO.updateMetaYn(manualArchiveDO.getOrg_media_id());
 			}
-			return 1;
-		} 
-		catch (Exception e)
-		{
-			throw e;
+			int result = one+two+three+four+five+nine;
+			if(result >= 1){
+				return 1;
+			}else{
+				return 0;	
+			}
 		}
+		return 1;
 
 	}
 
@@ -1759,27 +1164,17 @@ public class SystemManageBusinessProcessor
 	 **/
 	public int insertManual(ManualArchiveDO manualArchiveDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[insertManual][Input manualArchiveDO]" + manualArchiveDO);
+		//프로그램 정보를 갱신한다.
+		int six =0;
+		if(systemManageDAO.isThereMediaIdForManual(manualArchiveDO.getNew_media_id())){
+			six = externalDAO.insertManualArchiveInfo(manualArchiveDO);
+		}else{
+			six = externalDAO.updateManualArchive(manualArchiveDO);
 		}
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-			int six =0;
-			if(systemManageDAO.isThereMediaIdForManual(manualArchiveDO.getNew_media_id())){
-				six = externalDAO.insertManualArchiveInfo(manualArchiveDO);
-			}else{
-				six = externalDAO.updateManualArchive(manualArchiveDO);
-			}
-			return six;
+		return six;
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
+
 	/**
 	 * 수동아카이브 건에 편집시 편집상태 변경('001' 편집중, '002' 편집완료)
 	 * @param ct_ids
@@ -1789,14 +1184,8 @@ public class SystemManageBusinessProcessor
 	 */
 	public int updateEdtrId(String code,String ct_ids) throws Exception
 	{
-		try 
-		{
-			return systemManageDAO.updateEdtrId(code,ct_ids);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return systemManageDAO.updateEdtrId(code,ct_ids);
 
 	}
 
@@ -1809,16 +1198,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getStorage(StorageDO storageDO) throws Exception
 	{
-		try 
-		{
-			return systemManageDAO.selectStorageList(storageDO);
 
+		return systemManageDAO.selectStorageList(storageDO);
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 
@@ -1830,22 +1212,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getStorageInfo() throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getStorageInfo]");
-		}
 
-		try 
-		{
+		return systemManageDAO.selectStorageInfo();
 
-			return systemManageDAO.selectStorageInfo();
-
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 
@@ -1857,25 +1226,17 @@ public class SystemManageBusinessProcessor
 	 *  */
 	public String deletePDSArchive(DeleteDO pgmDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[DeleteDO][Input pgmDO]" + pgmDO);
-		}
 
-		try {
-			String result ="";
-			
-			//미디어id의 중복여부를 확인한후 만약 존재한다면 폐기처리  
-			//존재하지 않는다면 0으로 리턴값을 보낸다
-			if(!systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
-				result = systemManageDAO.deletePdsINfo(pgmDO);
-			}else {
-				result ="0";
-			}
-			return result;
-		} catch (Exception e) {
-			throw e;
+		String result ="";
+
+		//미디어id의 중복여부를 확인한후 만약 존재한다면 폐기처리  
+		//존재하지 않는다면 0으로 리턴값을 보낸다
+		if(!systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
+			result = systemManageDAO.deletePdsINfo(pgmDO);
+		}else {
+			result ="0";
 		}
+		return result;
 
 	}
 
@@ -1891,44 +1252,32 @@ public class SystemManageBusinessProcessor
 	 **/
 	public PdsArchiveDO insertIfCmsArchive(PdsArchiveDO pgmDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[PdsArchiveDO][Input pgmDO]" + pgmDO);
+
+		//프로그램 정보를 갱신한다.
+
+		PdsArchiveDO item = new PdsArchiveDO();
+
+		if(systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
+			int one =systemManageDAO.insertMetadatTbl(pgmDO);
+			int two =systemManageDAO.insertContentsInfo(pgmDO);
+			int three =systemManageDAO.insertConInstInfoForHigh(pgmDO);
+			int nine =systemManageDAO.insertConInstInfoForLow(pgmDO);
+			int four =systemManageDAO.insertCornerInfo(pgmDO);
+			int five =systemManageDAO.insertContentsMappInfo(pgmDO);
+
+			int seven =systemManageDAO.insertPdasArchive(pgmDO);
+
+			int ten =systemManageDAO.insertAnnotInfo(pgmDO);
+			long ma = pgmDO.getMaster_id();
+			String tmp_ma = String.valueOf(ma);
+			int master_id = Integer.parseInt(tmp_ma);
+			systemManageDAO.insertCornerInfoForProceduer(master_id);
+			externalDAO.updatemetatbl(pgmDO);
+			int result = one+two+three+four+five+seven+nine;
+
+			item.setCti_id(pgmDO.getCti_id());
 		}
-		try 
-		{
-			//프로그램 정보를 갱신한다.
-
-			PdsArchiveDO item = new PdsArchiveDO();
-
-			if(systemManageDAO.isThereMediaId(pgmDO.getMedia_id())){
-				int one =systemManageDAO.insertMetadatTbl(pgmDO);
-				int two =systemManageDAO.insertContentsInfo(pgmDO);
-				int three =systemManageDAO.insertConInstInfoForHigh(pgmDO);
-				int nine =systemManageDAO.insertConInstInfoForLow(pgmDO);
-				int four =systemManageDAO.insertCornerInfo(pgmDO);
-				int five =systemManageDAO.insertContentsMappInfo(pgmDO);
-
-				int seven =systemManageDAO.insertPdasArchive(pgmDO);
-
-				int ten =systemManageDAO.insertAnnotInfo(pgmDO);
-				long ma = pgmDO.getMaster_id();
-				String tmp_ma = String.valueOf(ma);
-				int master_id = Integer.parseInt(tmp_ma);
-				systemManageDAO.insertCornerInfoForProceduer(master_id);
-				externalDAO.updatemetatbl(pgmDO);
-				int result = one+two+three+four+five+seven+nine;
-				
-				item.setCti_id(pgmDO.getCti_id());
-			}
-			return item;
-
-		} 
-		catch (Exception e) 
-		{
-
-			throw e;
-		}
+		return item;
 
 	}
 
@@ -2014,7 +1363,7 @@ public class SystemManageBusinessProcessor
 
 		return 1;
 	}
-	
+
 	/**
 	 * IFCMS 아카이브  ver 2.0
 	 * @param pdasArchiveDO                                                                                                                                                                                              
@@ -2024,10 +1373,6 @@ public class SystemManageBusinessProcessor
 	@Deprecated
 	public int insertIfCmsArchive(IfCmsArchiveDO pgmDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[IfCmsArchiveDO][Input pgmDO]" + pgmDO);
-		}
 		try 
 		{
 			// group_id 존재여부 체크
@@ -2124,9 +1469,6 @@ public class SystemManageBusinessProcessor
 	 * @throws Exception 
 	 *  */
 	public int updatePDSArchiveStatus(PdsArchiveDO pgmDO) throws Exception {
-		if(logger.isDebugEnabled()) {
-			logger.debug("[PdsArchiveDO][Input pgmDO]" + pgmDO);
-		}
 
 		long masterid  = systemManageDAO.selectMasterId(pgmDO.getMedia_id());
 		if(masterid > 0) {
@@ -2146,7 +1488,7 @@ public class SystemManageBusinessProcessor
 				} catch (Exception e) {
 					logger.error("insert preview_note error", e);
 				}
-				
+
 				//ct_id, cti_id(low) 값을 얻어온다
 				PdsArchiveDO pgm = systemManageDAO.selectTcInfo(pgmDO.getMedia_id());
 				pgmDO.setCt_id(pgm.getCt_id());
@@ -2176,7 +1518,7 @@ public class SystemManageBusinessProcessor
 								if(logger.isDebugEnabled()) {
 									logger.debug("org_attach_filepath: "+path);
 								}
-								
+
 								File f = new File(path, pgmDO.getOrgFileName());
 								if(f.exists()) {
 									// /mp4/년월/일/CT_ID 아래에 CG 폴더를 생성하고 하위에 복사하면 됨.
@@ -2233,7 +1575,7 @@ public class SystemManageBusinessProcessor
 
 				//tc job 등록한다.
 				systemManageDAO.insertPDS(pgmDO);
-				
+
 				return 1;
 			} else return 0;
 		} else {
@@ -2250,10 +1592,6 @@ public class SystemManageBusinessProcessor
 	 **/
 	public String insertPdasArchiveIFcms(PdsArchiveDO pgmDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[PdsArchiveDO][Input pgmDO]" + pgmDO);
-		}
 		try 
 		{
 			//프로그램 정보를 갱신한다.
@@ -2277,7 +1615,7 @@ public class SystemManageBusinessProcessor
 					systemManageDAO.insertCornerInfoForProceduer(master_id);
 					externalDAO.updatemetatbl(pgmDO);
 					int result = one+two+three+four+five+seven+nine;
-					
+
 					if(result >= 4){
 						return String.valueOf(pgmDO.getMaster_id());
 					}else{
@@ -2309,9 +1647,7 @@ public class SystemManageBusinessProcessor
 
 			}
 			return "-1";
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -2329,22 +1665,9 @@ public class SystemManageBusinessProcessor
 	 */
 	public List getStorageCheck(StorageDO storageDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getStorageCheck]  " +storageDO);
-		}
 
-		try 
-		{
-			return systemManageDAO.getStorageCheck(storageDO);
+		return systemManageDAO.getStorageCheck(storageDO);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 
@@ -2361,49 +1684,36 @@ public class SystemManageBusinessProcessor
 	 */
 	public String updateCopyRequestForCt_id(UseInfoDO useInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateCopyRequestForCt_id][Input UseInfoDO]" + useInfoDO);
+
+		if(useInfoDO.getGubun().equals("001")){
+			//복본신청표기
+			externalDAO.updateCopyYNForCtId(useInfoDO.getCt_id(),useInfoDO.getUser_id());
+			externalDAO.updateCopyReqIdForCtId(useInfoDO.getCt_id(),useInfoDO.getUser_id());
+			// DTL 정보를 위하여 본영상의 회사코드를 구한다.
+			String dtl_type = externalDAO.selectCOCDForCt_id(useInfoDO.getCt_id());
+			useInfoDO.setDtl_type(dtl_type);
+			//프로그램 정보를 신청한다한다.
+			return	systemManageDAO.updateCopyRequestForCtId(useInfoDO);
+		}else if(useInfoDO.getGubun().equals("002")){
+			//소산신청표기
+			externalDAO.updateBackUpYNForCtId(useInfoDO.getCt_id(),useInfoDO.getUser_id());
+			externalDAO.updateBackUpYNForCtId(useInfoDO);
+			// DTL 정보를 위하여 본영상의 회사코드를 구한다.
+			String dtl_type = externalDAO.selectCOCDForCt_id(useInfoDO.getCt_id());
+			useInfoDO.setDtl_type(dtl_type);
+			//소산을 workflow에  신청한다
+			return	systemManageDAO.updateBackupRequestForCtId(useInfoDO);
+		}else if(useInfoDO.getGubun().equals("003")){
+			//복원신청표기
+			// DTL 정보를 위하여 본영상의 회사코드를 구한다.
+			String dtl_type = externalDAO.selectCOCDForCt_id(useInfoDO.getCt_id());
+			externalDAO.updateReCorverReqIdForCtId(useInfoDO.getCt_id(),useInfoDO.getUser_id());
+			useInfoDO.setDtl_type(dtl_type);
+			//복원을 workflow에  신청한다
+			return	systemManageDAO.updateRecorveryRequestForCtId(useInfoDO);
 		}
 
-		try 
-		{
-
-			if(useInfoDO.getGubun().equals("001")){
-				//복본신청표기
-				externalDAO.updateCopyYNForCtId(useInfoDO.getCt_id(),useInfoDO.getUser_id());
-				externalDAO.updateCopyReqIdForCtId(useInfoDO.getCt_id(),useInfoDO.getUser_id());
-				// DTL 정보를 위하여 본영상의 회사코드를 구한다.
-				String dtl_type = externalDAO.selectCOCDForCt_id(useInfoDO.getCt_id());
-				useInfoDO.setDtl_type(dtl_type);
-				//프로그램 정보를 신청한다한다.
-				return	systemManageDAO.updateCopyRequestForCtId(useInfoDO);
-			}else if(useInfoDO.getGubun().equals("002")){
-				//소산신청표기
-				externalDAO.updateBackUpYNForCtId(useInfoDO.getCt_id(),useInfoDO.getUser_id());
-				externalDAO.updateBackUpYNForCtId(useInfoDO);
-				// DTL 정보를 위하여 본영상의 회사코드를 구한다.
-				String dtl_type = externalDAO.selectCOCDForCt_id(useInfoDO.getCt_id());
-				useInfoDO.setDtl_type(dtl_type);
-				//소산을 workflow에  신청한다
-				return	systemManageDAO.updateBackupRequestForCtId(useInfoDO);
-			}else if(useInfoDO.getGubun().equals("003")){
-				//복원신청표기
-				// DTL 정보를 위하여 본영상의 회사코드를 구한다.
-				String dtl_type = externalDAO.selectCOCDForCt_id(useInfoDO.getCt_id());
-				externalDAO.updateReCorverReqIdForCtId(useInfoDO.getCt_id(),useInfoDO.getUser_id());
-				useInfoDO.setDtl_type(dtl_type);
-				//복원을 workflow에  신청한다
-				return	systemManageDAO.updateRecorveryRequestForCtId(useInfoDO);
-			}
-		} 
-		catch (Exception e) 
-		{
-
-			throw e;
-		}
 		return "";
-
 	}
 
 
@@ -2415,15 +1725,6 @@ public class SystemManageBusinessProcessor
 	 */
 	public String updateRunScheduleDt() throws Exception
 	{
-		try 
-		{
-			return systemManageDAO.updateRunScheduleDt();
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
-
+		return systemManageDAO.updateRunScheduleDt();
 	}
 }

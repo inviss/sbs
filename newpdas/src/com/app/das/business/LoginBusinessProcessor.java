@@ -2,7 +2,6 @@ package com.app.das.business;
 
 import java.rmi.RemoteException;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 
@@ -233,10 +232,11 @@ public class LoginBusinessProcessor {
 				// NDS 비직원 개별 아이디에 대해서 타시스템 인터페이스로 들어온다.
 				|| token.getAcct_code().equals("SC")) // 비직원공용ID
 		{
-			logger.debug("_do.getUser_id()() [" + _do.getUser_id() + "]");
-			logger.debug("_do.getPassword() [" + _do.getPassword() + "]");
-			logger.debug("dasHandler.getProperty(\"AD_DOMAIN\") ["+ dasHandler.getProperty("AD_DOMAIN") + "]");
-			
+			if(logger.isDebugEnabled()) {
+				logger.debug("_do.getUser_id()() [" + _do.getUser_id() + "]");
+				logger.debug("_do.getPassword() [" + _do.getPassword() + "]");
+				logger.debug("dasHandler.getProperty(\"AD_DOMAIN\") ["+ dasHandler.getProperty("AD_DOMAIN") + "]");
+			}
 			/**
 			 * AD API 활용하여 진행할 것.
 			 */
@@ -252,19 +252,20 @@ public class LoginBusinessProcessor {
 				JNI_Des hj =new JNI_Des();
 				sResult = hj.getAuthentication(_do.getUser_id(), _do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
 			}
-			 //JNI_Des hj =new JNI_Des();
-			 //sResult = hj.getAuthentication(_do.getUser_id(), _do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
-			 
-			
+			//JNI_Des hj =new JNI_Des();
+			//sResult = hj.getAuthentication(_do.getUser_id(), _do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
+
+
 			/*
 			 * 무조건 성공 메세지를 반환 (회사 개발서버)
 			 * 운영에 적용할 때는 주석처리 해야 함.
 			 */
-		    //sResult="0:365";  
+			//sResult="0:365";  
 
 			_do.setResult(sResult);
-
-			logger.debug("JNI_Des getAuthentication Result [" + _do.getResult() + "] ");
+			if(logger.isDebugEnabled()) {
+				logger.debug("JNI_Des getAuthentication Result [" + _do.getResult() + "] ");
+			}
 
 			if (_do.getResult().startsWith("0")) { // _do 의 result 값이 '0'으로 시작하면
 				// 성공 임당. ex) 0:365
@@ -369,156 +370,6 @@ public class LoginBusinessProcessor {
 
 	}
 
-
-
-	//내부 시연용 로그인모듈 ad 인증을 걷어내고 무조건 로그인되도록 설정
-	/*public TokenDO isValidUser(TokenDO _do) throws DASException {
-
-		// key는 정직원:사번, 비직원개별ID:주민번호, 비직원공용ID: UserID Local DB에서 사용자 계정유형 확인;
-
-		// if ( Local DB에 해당 사용자가 없을 경우)
-		logger.debug("###_do.getUser_id() =" + _do.getUser_id());
-		TokenDO token = userRoleDAO.selecTokenInfo(_do.getUser_id().trim());
-
-		logger.debug("token passwod" +  token.getPassword() + "]");
-		logger.debug("token passwod" +  _do.getPassword() + "]");
-		logger.debug(" Password() [" + userRoleDAO.getPasswd(_do.getPassword().trim()) + "]");
-		String dateTime = CalendarUtil.getDateTime("yyyyMMddHHmm");
-
-	 *//**
-	 * 신과장님 추가 사항 : 리턴값에 사용자 명, role 코드 추가 요청
-	 *//*
-		if (token != null) {
-			// logger.debug("token!=null");
-			_do.setRole_cd(token.getRole_cd());
-			_do.setUser_nm(token.getUser_nm());
-		}
-
-
-		if (token.getUser_num().equals("")||(token.getUser_num().equals("0")&&token.getPer_reg_no().equals("0"))) {
-
-			// authResult = ‘존재하지 않는 사용자’;
-			_do.setAuth_result(errorHandler
-					.getProperty(ErrorConstants.NOT_EXIST_USER));
-		} // *DAS의 경우 ‘비직원AD관리’Type이라도 비직원AD비관리 대상으로 로직처리함
-		// else if ( 계정유형 ==‘정직원 AD관리’ or ‘비직원AD관리’ or ‘비직원공용ID’)
-		else if (token.getAcct_code().equals("RA") // 정직원 AD관리
-
-				// ||_do.getAcct_code().equals("SA") //비직원AD관리 오경진 대리 20101129
-				// NDS 비직원 개별 아이디에 대해서 타시스템 인터페이스로 들어온다.
-				|| token.getAcct_code().equals("SC")) // 비직원공용ID
-		{
-
-	  *//**
-	  * AD API 활용하여 진행할 것.
-	  *//*
-			String sResult="";
-			if(System.getProperty("os.arch").equals("x86")){
-				sResult="0:365";
-			}else if(System.getProperty("os.arch").equals("amd64")){
-				sResult="0:365";
-			}else{
-				//JNI_Des hj =new JNI_Des();
-				//sResult = hj.getAuthentication(_do.getUser_id(),
-					//	_do.getPassword(), dasHandler.getProperty("AD_DOMAIN"));
-			}
-
-			//개발소스에만 적용 운영에는 삭제
-
-				sResult="0:365";  
-
-
-			_do.setResult(sResult);
-
-			logger.debug("JNI_Des getAuthentication Result [" + _do.getResult() + "] ");
-
-			if (_do.getResult().startsWith("0")) { // _do 의 result 값이 '0'으로 시작하면
-				// 성공 임당. ex) 0:365
-				_do.setAuth_result(errorHandler
-						.getProperty(ErrorConstants.VALID_USER));
-			}
-		} else // 정직원AD비관리, 비직원 AD비관리: AD 비관리 대상 (Local DB로 인증확인)
-		{
-
-
-			if(token.getAcct_code().equals("RB")){
-				token.setEnd_token_dd("99991231");
-			}
-
-
-			if (token != null
-					&& !token.getPassword().equals(
-							userRoleDAO.getPasswd(_do.getPassword()))) {
-				_do.setAuth_result(errorHandler
-						.getProperty(ErrorConstants.INVALID_PASSWORD));
-				//_do.setAuth_result("D0029");
-				logger.debug("#### 0 ####"  +  _do.getAuth_result());
-			} 
-
-
-			else	if (Long.parseLong(token.getEnd_token_dd().substring(0, 8)) < Long
-					.parseLong(CommonUtl.getDate(dateTime).substring(0, 8))) { // 유효하지
-				// 않은
-				// 토큰
-				logger.debug("#### 1 ####");
-
-				_do.setAuth_result(errorHandler
-						.getProperty(ErrorConstants.EXCESS_VALID_END_DATE));
-				//.getProperty(ErrorConstants.INVALID_TOKEN));
-
-				logger.debug("#### 2 #### : "  + _do.getAuth_result());
-				// authResult == 유효하지 않은 토큰;
-			}else if (token == null) // if(Local DB에 존재하지 않음)
-			{
-				_do.setAuth_result(errorHandler
-						.getProperty(ErrorConstants.NOT_EXIST_USER)); // authResult
-				logger.debug("#### 3 #### : "  + _do.getAuth_result());														// =‘존재하지
-				// 않는
-				// 사용자’;
-			} else if (token != null
-					&& token.getPassword().trim().equals(
-							userRoleDAO.getPasswd(_do.getPassword().trim()))) // else
-				// if
-				// (Local
-				// DB에
-				// 존재&&
-				// Password일치)
-			{
-				_do.setAuth_result(errorHandler
-						.getProperty(ErrorConstants.VALID_USER));
-				// authResult= ‘존재하는 사용자 & Password일치’;
-			}else if (token != null
-					&& !token.getPassword().equals(
-							userRoleDAO.getPasswd(_do.getPassword()))) {
-				_do.setAuth_result(errorHandler
-						.getProperty(ErrorConstants.INVALID_PASSWORD));
-				_do.setAuth_result("D0029");
-				logger.debug("#### 4 #### : "  +  _do.getAuth_result());
-			} else if(token != null && token.getPassword().trim().equals(
-					token.getPassword().trim())&&token.getAcct_code().equals("RB")) {
-				_do.setAuth_result(errorHandler
-						.getProperty(ErrorConstants.VALID_USER));
-			}
-			// _do.setAuth_result(errorHandler.getProperty(ErrorConstants.VALID_USER));
-		}
-
-		if (_do.getAuth_result().equals(
-				errorHandler.getProperty(ErrorConstants.VALID_USER))) // AD인증성공
-		{
-			_do.setResult("0:365");
-			createToken(_do);
-		//	encryptionDO(_do);
-			logger.debug("Success create Token!");
-		}
-
-	   *//**
-	   * 암호화 부분 추가해서 전달할 것.
-	   *//*
-
-		return _do;
-
-	}*/
-
 	/**
 	 * 토큰을 생성한다
 	 * @param TokenDO
@@ -538,10 +389,10 @@ public class LoginBusinessProcessor {
 		 ****************************************************/
 		TokenDO item = userRoleDAO.selecTokenInfo(_do.getUser_id());
 		strToken = item.getUser_num() + DELIM + item.getPer_reg_no() + DELIM
-		+ item.getUser_id() + DELIM + item.getCocd() + DELIM
-		+ item.getSourceSYS() + DELIM
-		+ CommonUtl.getSomeDateTime(null,0,0,0,36) + DELIM  // mailFrom : SSO 토큰 생성 방식 수정 요청
-		+ item.getAcct_code();
+				+ item.getUser_id() + DELIM + item.getCocd() + DELIM
+				+ item.getSourceSYS() + DELIM
+				+ CommonUtl.getSomeDateTime(null,0,0,0,36) + DELIM  // mailFrom : SSO 토큰 생성 방식 수정 요청
+				+ item.getAcct_code();
 		_do.setToken(strToken);
 		logger.debug("create token [" + strToken + "] ");
 		/**
@@ -598,48 +449,6 @@ public class LoginBusinessProcessor {
 		_do.setEnd_token_dd(tokens[5]);		// token 만료일
 		_do.setEmpType(tokens[6]);			// 직원유형
 
-		/*
-		StringTokenizer st = new StringTokenizer(strToken, DELIM);
-
-		int iCnt = 0;
-
-		while (st.hasMoreElements()) {
-
-			switch (iCnt) {
-			case 0:
-				_do.setUser_num(st.nextElement() + ""); // 사번
-				iCnt++;
-				break;
-			case 1:
-				_do.setPer_reg_no(st.nextElement() + ""); // 주민번호
-				iCnt++;
-				break;
-			case 2:
-				_do.setUser_id(st.nextElement() + "");// 유저 ID
-				iCnt++;
-				break;
-			case 3:
-				_do.setCocd(st.nextElement() + ""); // 회사코드
-				iCnt++;
-				break;
-			case 4:
-				_do.setSourceSYS(st.nextElement() + ""); // 소스시스템
-				iCnt++;
-				break;
-			case 5:
-				_do.setEnd_token_dd(st.nextElement() + ""); // token 만료일
-				iCnt++;
-				break;
-			case 6:
-				_do.setEmpType(st.nextElement() + ""); // 직원유형
-				iCnt++;
-				break;
-
-			default:
-				break;
-			}
-		}
-		 */
 	}
 
 

@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.app.das.business.dao.SearchDAO;
-import com.app.das.business.exception.DASException;
 import com.app.das.business.transfer.DASCommonDO;
 import com.app.das.business.transfer.MyCatalogDO;
 import com.app.das.business.transfer.PageDO;
@@ -14,10 +13,7 @@ import com.app.das.business.transfer.SearchConditionDO;
 import com.app.das.business.transfer.TapeInfoDO;
 import com.app.das.business.transfer.TapeItemInfoDO;
 import com.app.das.business.transfer.TapeLendingDO;
-import com.app.das.log.ErrorPropHandler;
-import com.app.das.util.StringUtils;
 import com.konantech.search.data.ParameterVO;
-import com.konantech.search.data.ResultVO;
 
 /**
  * 통합 검색에서 내목록 등록, 삭제, 조회 및 테이프대출의 등록, 삭제,  요청 영상 목록 조회의 조회, 제목수정의 로직이 구현되어 있다.

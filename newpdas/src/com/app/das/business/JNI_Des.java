@@ -15,8 +15,6 @@ package com.app.das.business;
 
 import org.apache.log4j.Logger;
 
-import com.app.das.log.DasPropHandler;
-
 /**
  *  AD 의 JNI 통한 인증 프로그램 
  * @author ysk523

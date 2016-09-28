@@ -30,11 +30,11 @@ import com.app.das.business.transfer.CodeDO;
 public class CodeBusinessProcessor 
 {
 	private static CodeInfoDAO codeInfoDAO = CodeInfoDAO.getInstance();
-	
+
 	private Logger logger = Logger.getLogger(CodeBusinessProcessor.class);
-	
-	  
-	
+
+
+
 	/**
 	 * 코드 테이블에서 구분코드에 해당하는 코드 List를 조회한다.<p>
 	 * 코드테이블의 구분코드에 의해 해당하는 코드값을 조회하여 리턴한다.
@@ -45,29 +45,16 @@ public class CodeBusinessProcessor
 	 */
 	public List getCodeList(CodeDO codeDO) throws Exception
 	{
-		try 
-		{
-			
-			
-			//clf_cd값이 없다면 주제영상, 사용등급 코드를 조회하고 그렇지 않으면 입력받은 clf_cd에 소속된 코드 정보를 조회한다.
-			if(codeDO.getClfCd().equals("")){
+
+		//clf_cd값이 없다면 주제영상, 사용등급 코드를 조회하고 그렇지 않으면 입력받은 clf_cd에 소속된 코드 정보를 조회한다.
+		if(codeDO.getClfCd().equals("")){
 			return codeInfoDAO.selectCodeList(codeDO);
-			}else{
+		}else{
 			return codeInfoDAO.selectCodeInfo2(codeDO);
-			}
-			
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
 		}
+
 	}
-	
-	
-	
-	
-	
+
 	/**
 	 * 코드 테이블에서 구분코드에 해당하는 코드 List를 조회한다.<p>
 	 * 코드테이블의 구분코드에 의해 해당하는 코드값을 조회하여 리턴한다.
@@ -78,21 +65,14 @@ public class CodeBusinessProcessor
 	 */
 	public List getCode(String codeDO) throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.selectCode(codeDO);
-			
-		} 
-		catch (Exception e) 
-		{
 
-			throw e;
-		}
+		return codeInfoDAO.selectCode(codeDO);
+
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * 특정 코드에 대한 정보를 조회한다.
 	 * @param mainKey 코드테이블의 구분코드
@@ -103,18 +83,11 @@ public class CodeBusinessProcessor
 	 */
 	public CodeDO getCodeInfo(CodeDO codeDO) throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.selectCodeInfo(codeDO);
-		
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+
+		return codeInfoDAO.selectCodeInfo(codeDO);
+
 	}
-	
+
 	/**
 	 * 코드 테이블에 코드 정보를 등록한다.
 	 * @param codeDO 코드 정보를 포함하고 있는 DataObject
@@ -123,24 +96,17 @@ public class CodeBusinessProcessor
 	 */
 	public int insertCodeInfo(CodeDO codeDO) throws Exception
 	{
-		try 
-		{
-			if(codeDO.getGubun().equals("")){
-				return codeInfoDAO.insertCodeInfo(codeDO);  
-			}else if(codeDO.getClfCd().equals("P065")){
-				return codeInfoDAO.insertCodeInfo(codeDO);  
-			} else{
-				return codeInfoDAO.insertCodeInfoGubun(codeDO);  // 주제영상 & 사용제한 등급 코드
-			}
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
+
+		if(codeDO.getGubun().equals("")){
+			return codeInfoDAO.insertCodeInfo(codeDO);  
+		}else if(codeDO.getClfCd().equals("P065")){
+			return codeInfoDAO.insertCodeInfo(codeDO);  
+		} else{
+			return codeInfoDAO.insertCodeInfoGubun(codeDO);  // 주제영상 & 사용제한 등급 코드
 		}
-		
+
 	}
-	
+
 	/**
 	 * 코드 테이블에 코드 정보를 수정한다.
 	 * @param codeDO 코드 정보를 포함하고 있는 DataObject
@@ -149,14 +115,9 @@ public class CodeBusinessProcessor
 	 */
 	public int updateCodeInfo(CodeDO codeDO) throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.updateCodeInfo(codeDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return codeInfoDAO.updateCodeInfo(codeDO);
+
 	}
 
 	/**
@@ -167,16 +128,11 @@ public class CodeBusinessProcessor
 	 */
 	public int deleteCodeInfo(CodeDO codeDO) throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.deleteCodeInfo(codeDO);
-		} 
-		catch (Exception e)
-		{	
-			throw e;
-		}
+
+		return codeInfoDAO.deleteCodeInfo(codeDO);
+
 	}
-	
+
 	/**
 	 * 장르 정보를 목록조회 한다.
 	 * @param commonDO 공통정보
@@ -185,19 +141,14 @@ public class CodeBusinessProcessor
 	 */
 	public List getjanreList(String mainKey) throws Exception
 	{
-		try 
-		{
-			List janreInfoDOList = codeInfoDAO.selectjanreList(mainKey);
-			
-			return janreInfoDOList;
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		List janreInfoDOList = codeInfoDAO.selectjanreList(mainKey);
+
+		return janreInfoDOList;
+
 	}
 
-	
+
 
 	/**
 	 * 장르 정보를 목록조회 한다.
@@ -207,26 +158,12 @@ public class CodeBusinessProcessor
 	 */
 	public List getJanrCodeList11(CodeDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getJanrCodeList][Input CodeDO]" + condition);
-		}
 
-		try 
-		{
-			return codeInfoDAO.getJanrCodeList(condition);
-			
-			
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+		return codeInfoDAO.getJanrCodeList(condition);
+
 	}
-	
-	
+
+
 	/**
 	 * 장르코드 관리를 조회한다.(다중조회)
 	 * @param discardDO                                                                                                                                                                                              
@@ -235,25 +172,13 @@ public class CodeBusinessProcessor
 	 */
 	public List getJanrCodeList(CodeDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getJanrCodeList][Input CodeDO]" + condition);
-		}
 
-		try 
-		{
-			return codeInfoDAO.getJanrCodeList(condition);
-			
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return codeInfoDAO.getJanrCodeList(condition);
+
 	}
-	
-	
-	
+
+
+
 	/**
 	 *  장르코드 정보를 등록 한다.
 	 * @param roleDO 권한 정보가 포함되어 있는 DataObject
@@ -262,27 +187,14 @@ public class CodeBusinessProcessor
 	 */
 	public int insertJanrCode(CodeDO roleDO)  throws Exception
 	{
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[insertJanrCode][Input CodeDO]" + roleDO);
-		}
 
-		try 
-		{
-			return codeInfoDAO.insertJanrCode(roleDO);
-		
-		} 
-		catch (Exception e)
-		{
-		
-			
-			throw e;
-		}
+		return codeInfoDAO.insertJanrCode(roleDO);
+
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 *  대분류코드를 생성 한다.
 	 * @param roleDO 권한 정보가 포함되어 있는 DataObject
@@ -291,25 +203,14 @@ public class CodeBusinessProcessor
 	 */
 	public int creatBcode(CodeDO codeDO)  throws Exception
 	{
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[creatBcode][Input CodeDO]");
-		}
 
-		try 
-		{
-			return codeInfoDAO.insertBcode(codeDO);
-		
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return codeInfoDAO.insertBcode(codeDO);
+
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 *  중분류코드를 생성 한다.
 	 * @param roleDO 권한 정보가 포함되어 있는 DataObject
@@ -318,26 +219,14 @@ public class CodeBusinessProcessor
 	 */
 	public int creatMcode(CodeDO roleDO)  throws Exception
 	{
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[creatMcode][Input CodeDO]" + roleDO);
-		}
 
-		try 
-		{
-			return codeInfoDAO.insertMcode(roleDO);
-		
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		return codeInfoDAO.insertMcode(roleDO);
+
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 *  소분류코드를 생성 한다.
 	 * @param roleDO 권한 정보가 포함되어 있는 DataObject
@@ -346,21 +235,13 @@ public class CodeBusinessProcessor
 	 */
 	public int creatScode(CodeDO roleDO)  throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.insertScode(roleDO);
-		
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
-	}
-	
 
-	
+		return codeInfoDAO.insertScode(roleDO);
+
+	}
+
+
+
 	/**
 	 * 대분류 코드 정보를 수정한다.
 	 * @param codeDO 코드 정보를 포함하고 있는 DataObject
@@ -369,17 +250,11 @@ public class CodeBusinessProcessor
 	 */
 	public int updateBcode(CodeDO codeDO) throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.updateBcode(codeDO);
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+
+		return codeInfoDAO.updateBcode(codeDO);
+
 	}
-	
+
 	/**
 	 * 중분류 코드 정보를 수정한다.
 	 * @param codeDO 코드 정보를 포함하고 있는 DataObject
@@ -388,16 +263,11 @@ public class CodeBusinessProcessor
 	 */
 	public int updateMcode(CodeDO codeDO) throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.updateMcode(codeDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return codeInfoDAO.updateMcode(codeDO);
+
 	}
-	
+
 	/**
 	 * 소분류 코드 정보를 수정한다.
 	 * @param codeDO 코드 정보를 포함하고 있는 DataObject
@@ -406,17 +276,12 @@ public class CodeBusinessProcessor
 	 */
 	public int updateSode(CodeDO codeDO) throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.updateScode(codeDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return codeInfoDAO.updateScode(codeDO);
+
 	}
-	
-	
+
+
 	/**
 	 * 자동 아카이브관리를 조회한다.(다중조회)
 	 * @param  autoDO                                                                                                                                                                                              
@@ -425,26 +290,14 @@ public class CodeBusinessProcessor
 	 */
 	public List getAutoArchvieList(AutoArchiveDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getAutoArchvieList][Input AutoArchiveDO]" + condition);
-		}
 
-		try 
-		{
-			//codeInfoDAO.insertAutoArchvie(); 제거 중복되는 값을 보장할 방법이 없음.
-			return codeInfoDAO.getAutoArchvieList(condition);
-			
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		//codeInfoDAO.insertAutoArchvie(); 제거 중복되는 값을 보장할 방법이 없음.
+		return codeInfoDAO.getAutoArchvieList(condition);
+
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 자동 아카이브관리를 수정한다
 	 * @param  autoDO                                                                                                                                                                                              
@@ -453,27 +306,13 @@ public class CodeBusinessProcessor
 	 */
 	public int updateAutoArchvie(AutoArchiveDO autoDO) throws Exception
 	{
-		
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateAutoArchvie][Input autoDO]" + autoDO);
-		}
-		try 
-		{	
-			
-			
-			 return codeInfoDAO.updateAutoArchvie(autoDO);
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
-		
+
+		return codeInfoDAO.updateAutoArchvie(autoDO);
+
 	}
-	
-	
-	
+
+
+
 
 	/**
 	 * 메인화면 ㄱㄴㄷㄹㄷ...
@@ -485,21 +324,13 @@ public class CodeBusinessProcessor
 	 */
 	public List getMainKeyList() throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.selectMainKeyList();
-			
-			
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return codeInfoDAO.selectMainKeyList();
+
 	}
-// 2012.4.18 das 확장 추가 개발 함수
-	
-	
+	// 2012.4.18 das 확장 추가 개발 함수
+
+
 	/**
 	 * 코드 테이블에서 구분코드에 해당하는 코드 List를 조회한다.<p>
 	 * 코드테이블의 구분코드에 의해 해당하는 코드값을 조회하여 리턴한다.
@@ -510,19 +341,12 @@ public class CodeBusinessProcessor
 	 */
 	public List getArchiveRoute(String xml) throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.getArchiveRoute(xml);
-			
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return codeInfoDAO.getArchiveRoute(xml);
+
 	}
-	
-	
+
+
 	// 2012.4.20 다스 확장 조회
 	/**
 	 * 채널정보를 조회한다
@@ -534,19 +358,12 @@ public class CodeBusinessProcessor
 	 */
 	public List getChennelInfo(CodeDO codeDO) throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.getChennelInfo(codeDO);
-			
-			
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+
+		return codeInfoDAO.getChennelInfo(codeDO);
+
 	}
-	
-	
+
+
 	/**
 	 * 채널 구성을 위한 회사 정보를 조회한다
 	 * 코드테이블의 구분코드에 의해 해당하는 코드값을 조회하여 리턴한다.
@@ -557,15 +374,7 @@ public class CodeBusinessProcessor
 	 */
 	public List getCocdForChennel() throws Exception
 	{
-		try 
-		{
-			return codeInfoDAO.getCocdForChennel();
-			
-		} 
-		catch (Exception e)
-		{
 
-			throw e;
-		}
+		return codeInfoDAO.getCocdForChennel();
 	}
 }

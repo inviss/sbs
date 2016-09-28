@@ -17,13 +17,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.app.das.log.ErrorPropHandler;
 import com.app.das.business.dao.UserInfoDAO;
-import com.app.das.business.exception.DASException;
 import com.app.das.business.transfer.DASCommonDO;
 import com.app.das.business.transfer.PageDO;
-import com.app.das.util.StringUtils;
-import com.app.das.business.CommonBusinessProcessor;
 
 /**
  * 공통으로 사용하는 사용자 조회 팝업에 대한 구현이 되어있는 Class
@@ -33,9 +29,9 @@ import com.app.das.business.CommonBusinessProcessor;
 public class CommonBusinessProcessor 
 {
 	private static final UserInfoDAO userInfoDAO = UserInfoDAO.getInstance();
-	
+
 	private Logger logger = Logger.getLogger(CommonBusinessProcessor.class);
-	
+
 	/**
 	 * 사용자 조회를 한다.(정직원, 외부직원)
 	 * @param searchValue 사용자 ID 또는 사용자명
@@ -45,23 +41,11 @@ public class CommonBusinessProcessor
 	 */
 	public List getAllUserList(String searchValue, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getAllUserList][Input searchValue]" + searchValue);
-		}
-		
-		try 
-		{
-			PageDO pageDO = userInfoDAO.selectAllUserList(searchValue, 1, commonDO);
-			
-			return pageDO.getPageItems();
-		} 
-		catch (Exception e)
-		{
-			
-			
-			throw e;
-		}
+
+		PageDO pageDO = userInfoDAO.selectAllUserList(searchValue, 1, commonDO);
+
+		return pageDO.getPageItems();
+
 	}
 
 	/**
@@ -73,23 +57,12 @@ public class CommonBusinessProcessor
 	 */
 	public  PageDO getRegularUserList(String searchValue, int page, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getRegularUserList][Input searchValue]" + searchValue);
-		}
 
-		try 
-		{
-			PageDO pageDO = userInfoDAO.selectRegularUserList(searchValue, page, commonDO);
-			return pageDO;
-		} 
-		catch (Exception e)
-		{
-			
-			throw e;
-		}
+		PageDO pageDO = userInfoDAO.selectRegularUserList(searchValue, page, commonDO);
+		return pageDO;
+
 	}
-	
+
 	/**
 	 * 정직원 정보를 조회한다.
 	 * @param userNo 사원번호
@@ -99,18 +72,8 @@ public class CommonBusinessProcessor
 	 */
 	public DASCommonDO getEmployeeInfoByUserNo(String userNo, DASCommonDO commonDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getEmployeeInfoByUserNo][Input userNo]" + userNo);
-		}
 
-		try 
-		{
-			return userInfoDAO.selectEmployeeInfoByUserNo(userNo);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return userInfoDAO.selectEmployeeInfoByUserNo(userNo);
+
 	}
 }

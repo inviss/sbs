@@ -30,7 +30,6 @@ import org.apache.log4j.Logger;
 
 import com.app.das.business.constants.CodeConstants;
 import com.app.das.business.constants.DASBusinessConstants;
-import com.app.das.business.constants.ErrorConstants;
 import com.app.das.business.dao.CodeInfoDAO;
 import com.app.das.business.dao.DisuseDAO;
 import com.app.das.business.dao.ExternalDAO;
@@ -135,15 +134,9 @@ public class ExternalBusinessProcessor
 	 */
 	public DownCartDO getCartInfo(long cartNo, String reqUserId) throws Exception
 	{
-		try 
-		{
-			return externalDAO.selectDownCartInfo(reqUserId);
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return externalDAO.selectDownCartInfo(reqUserId);
+
 	}
 
 	/**
@@ -154,19 +147,12 @@ public class ExternalBusinessProcessor
 	 */
 	public PathInfoDO getFilePathInfo(long contentId) throws Exception
 	{
-		try 
-		{
 
-			// 파일 path 정보를 조회한다.
-			PathInfoDO pathInfoDO = externalDAO.selectFilePathInfo(contentId);
+		// 파일 path 정보를 조회한다.
+		PathInfoDO pathInfoDO = externalDAO.selectFilePathInfo(contentId);
 
+		return pathInfoDO;
 
-			return pathInfoDO;
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 	/**
@@ -209,15 +195,9 @@ public class ExternalBusinessProcessor
 	public DownCartDO insertStDownCartInfo(DownCartDO downCartDO) throws Exception
 	{
 
-		DownCartDO resultDownCartDO = null;
-		try {
-			//새로 카트 정보를 입력한다.
-			resultDownCartDO = externalDAO.insertCartInfo(downCartDO);
+		DownCartDO resultDownCartDO = externalDAO.insertCartInfo(downCartDO);
 
-			return resultDownCartDO;
-		} catch (Exception e) {
-			throw e;
-		}		
+		return resultDownCartDO;
 
 	}
 
@@ -229,17 +209,9 @@ public class ExternalBusinessProcessor
 	 */
 	public DownCartDO insertDownCartInfoTotal(long master_id) throws Exception
 	{
-		DownCartDO resultDownCartDO = null;
-		try {
-			//이미 카트가 존재하는지를 검증한다.
+		DownCartDO resultDownCartDO = externalDAO.selectMetadatList(master_id);
 
-			resultDownCartDO = externalDAO.selectMetadatList(master_id);
-
-			return resultDownCartDO;
-		} catch (Exception e) {
-			throw e;
-		}		
-
+		return resultDownCartDO;
 	}
 
 	/**
@@ -250,11 +222,9 @@ public class ExternalBusinessProcessor
 	 */
 	public ErrorRegisterDO insertErrorInfo(ErrorRegisterDO errorRegisterDO) throws Exception
 	{
-		try {						
-			return externalDAO.insertErrorInfo(errorRegisterDO);
-		} catch (Exception e) {
-			throw e;
-		}	
+
+		return externalDAO.insertErrorInfo(errorRegisterDO);
+
 	}
 
 	/**
@@ -266,13 +236,11 @@ public class ExternalBusinessProcessor
 	 */
 	public String getRelationMaster(long masterId) throws Exception
 	{
-		try {
-			return externalDAO.selectRelationMaster(masterId);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.selectRelationMaster(masterId);
 
 	}
+
 	/**
 	 * 관련영상 마스터 데이타 조회한다.
 	 * 관련영상이 등록된 영상의 master_id
@@ -283,13 +251,11 @@ public class ExternalBusinessProcessor
 	 */
 	public String getRelationTotaly(long masterId) throws Exception
 	{
-		try {
-			return externalDAO.selectRelationMaster(masterId);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.selectRelationMaster(masterId);
 
 	}
+
 	/**
 	 *  프로그램이름, 방송일, 등등을 포함하는 프로그램 정보을 모두 가져온다
 	 * @param programDO 조회조건 정보
@@ -299,11 +265,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getLastPgmInfolist(ProgramInfoDO	programInfoDO) throws Exception
 	{
-		try {
-			return externalDAO.selectLastPgmInfolist(programInfoDO);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.selectLastPgmInfolist(programInfoDO);
 
 	}
 
@@ -316,15 +279,8 @@ public class ExternalBusinessProcessor
 	 */
 	public List getSearchRelationInfoList(ProgramInfoDO programInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled()) {
-			logger.debug("[getLastPgmInfolist][Input ProgramInfoDO]" + programInfoDO);		
-		}
 
-		try {
-			return externalDAO.selectSearchRelationInfolist(programInfoDO);
-		} catch (Exception e) {
-			throw e;
-		}
+		return externalDAO.selectSearchRelationInfolist(programInfoDO);
 
 	}
 
@@ -338,11 +294,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertRelationMaster(long parent_master_id,long child_master_id) throws Exception
 	{
-		try {
-			return externalDAO.insertRelationMaster(parent_master_id,child_master_id);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.insertRelationMaster(parent_master_id,child_master_id);
+
 	}
 
 	/**
@@ -355,11 +309,9 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteRelationMaster(long parent_master_id,long child_master_id) throws Exception
 	{
-		try {
-			return externalDAO.deleteRelationMaster(parent_master_id,child_master_id);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.deleteRelationMaster(parent_master_id,child_master_id);
+
 	}
 
 	/**
@@ -370,11 +322,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List insertAnnotinfo(long masterId, List annotInfoList) throws Exception
 	{
-		try {						
-			return externalDAO.insertAnnotinfo(masterId, annotInfoList);
-		} catch (Exception e) {
-			throw e;
-		}	
+
+		return externalDAO.insertAnnotinfo(masterId, annotInfoList);
+
 	}
 
 	/**
@@ -385,11 +335,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List insertAttachFile(List attachFileInfo) throws Exception
 	{
-		try {						
-			return externalDAO.insertAttachFile(attachFileInfo);
-		} catch (Exception e) {
-			throw e;
-		}	
+
+		return externalDAO.insertAttachFile(attachFileInfo);
+
 	}
 
 	/**
@@ -401,11 +349,9 @@ public class ExternalBusinessProcessor
 	 */
 	public List insertCornerinfo(long masterId, List cornerInfoDOList) throws Exception
 	{
-		try {						
-			return externalDAO.insertCornerinfoByBatch(masterId, cornerInfoDOList);
-		} catch (Exception e) {
-			throw e;
-		}	
+
+		return externalDAO.insertCornerinfoByBatch(masterId, cornerInfoDOList);
+
 	}
 
 
@@ -420,8 +366,8 @@ public class ExternalBusinessProcessor
 	 */
 	public String insertTapeinfo(long masterId, String IDhead, String userId, String year) throws Exception
 	{
-						
-			return externalDAO.insertTapeinfo(masterId, IDhead, userId, year);
+
+		return externalDAO.insertTapeinfo(masterId, IDhead, userId, year);
 
 	}
 
@@ -436,17 +382,14 @@ public class ExternalBusinessProcessor
 	public int insertContentsMappinfo(long masterId, List contentMappInfoDOList ) throws Exception
 	{
 
-		try {			
-			int result = externalDAO.insertContentsMappinfo(masterId, contentMappInfoDOList);
+		int result = externalDAO.insertContentsMappinfo(masterId, contentMappInfoDOList);
 
-			//프로시져 호출 함수
-			String master = String.valueOf(masterId);
-			int masteri = Integer.parseInt(master);
-			systemManageDAO.insertCornerInfoForProceduer(masteri);
-			return result;
-		} catch (Exception e) {
-			throw e;
-		}	
+		//프로시져 호출 함수
+		String master = String.valueOf(masterId);
+		int masteri = Integer.parseInt(master);
+		systemManageDAO.insertCornerInfoForProceduer(masteri);
+		return result;
+
 	}
 
 	/**
@@ -457,11 +400,8 @@ public class ExternalBusinessProcessor
 	 */
 	public CartContDO insertCartContInfo(CartContDO cartContDO) throws Exception
 	{
-		try {
-			return externalDAO.insertCartContInfo(cartContDO);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.insertCartContInfo(cartContDO);
 
 	}
 
@@ -474,11 +414,7 @@ public class ExternalBusinessProcessor
 	public CartContDO insertStCartContInfo(CartContDO cartContDO) throws Exception
 	{
 
-		try {
-			return externalDAO.insertStCartContInfo(cartContDO);
-		} catch (Exception e) {
-			throw e;
-		}
+		return externalDAO.insertStCartContInfo(cartContDO);
 
 	}
 
@@ -493,11 +429,7 @@ public class ExternalBusinessProcessor
 	public CartContDO insertStCartContInfo(DownCartDO downCartDO,CartContDO cartContDO) throws Exception
 	{
 
-		try {
-			return externalDAO.insertStCartContInfo(downCartDO,cartContDO);
-		} catch (Exception e) {
-			throw e;
-		}
+		return externalDAO.insertStCartContInfo(downCartDO,cartContDO);
 
 	}
 
@@ -509,11 +441,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertScenario(ScenarioDO scenarioDO) throws Exception
 	{
-		try {
-			return externalDAO.insertScenario(scenarioDO);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.insertScenario(scenarioDO);
 
 	}
 
@@ -525,11 +454,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int deleteScenario(long master_id) throws Exception
 	{
-		try {
-			return externalDAO.deleteScenario(master_id);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.deleteScenario(master_id);
 
 	}
 
@@ -546,11 +472,7 @@ public class ExternalBusinessProcessor
 	public int updateDownCartState(long cartNo, String cartState, String title) throws Exception
 	{
 
-		try {   
-			return externalDAO.updateDownCartState(cartNo, cartState, title);
-		} catch (Exception e) {
-			throw e;
-		}
+		return externalDAO.updateDownCartState(cartNo, cartState, title);
 
 	}
 
@@ -562,11 +484,8 @@ public class ExternalBusinessProcessor
 	 */
 	public int updateDownCart(DownCartDO downCartDO) throws Exception
 	{
-		try {   
-			return externalDAO.updateDownCart(downCartDO);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return externalDAO.updateDownCart(downCartDO);
 
 	}
 
@@ -799,21 +718,18 @@ public class ExternalBusinessProcessor
 	 */
 	public String deletePhoto(PhotoInfoDO photoInfoDO) throws Throwable
 	{
-		try 
-		{
-			String result= externalDAO.deletePhoto(photoInfoDO);
 
-			String[] delList= photoInfoDO.getPhotRegIdS().split(",");
-			//해당 사진id에 대해서 마지막 삭제 건이라면. 최종 삭제처리를 한다.
-			for(int i=0; i<delList.length;i++){
-				if(externalDAO.selectDelPhotCount(Long.parseLong(delList[i]))){
-					externalDAO.deletePhotoInfo(Long.parseLong(delList[i]));
-				}
+		String result= externalDAO.deletePhoto(photoInfoDO);
+
+		String[] delList= photoInfoDO.getPhotRegIdS().split(",");
+		//해당 사진id에 대해서 마지막 삭제 건이라면. 최종 삭제처리를 한다.
+		for(int i=0; i<delList.length;i++){
+			if(externalDAO.selectDelPhotCount(Long.parseLong(delList[i]))){
+				externalDAO.deletePhotoInfo(Long.parseLong(delList[i]));
 			}
-			return result;
-		} catch (Exception e) {
-			throw e;
 		}
+		return result;
+
 	}
 
 
@@ -1499,25 +1415,23 @@ public class ExternalBusinessProcessor
 	public String loginService(String userId, String passwd) throws Exception
 	{
 		String str = null;
-		try {
-			//정직원의 경우 SSO 로그인 처리를 하고 정직원이 아닌 경우 자체 DAS DB의 로그인처리를 한다.
-			if(userId.toUpperCase().startsWith("S"))
-			{
-				Object locator;
-			} else {
-				str = userInfoDAO.selectNonEmployeeInfoService(userId, passwd);
 
-				//비밀번호 실패횟수를 0으로 클리어 시킨다.
-				userInfoDAO.updateLoginSucess(userId);
-			}
+		//정직원의 경우 SSO 로그인 처리를 하고 정직원이 아닌 경우 자체 DAS DB의 로그인처리를 한다.
+		if(userId.toUpperCase().startsWith("S"))
+		{
+			Object locator;
+		} else {
+			str = userInfoDAO.selectNonEmployeeInfoService(userId, passwd);
 
-			//사용자 로그를 남기남긴다.
-			userInfoDAO.insertIdLog(userId);
-
-			return str;
-		} catch (Exception e) {
-			throw e;
+			//비밀번호 실패횟수를 0으로 클리어 시킨다.
+			userInfoDAO.updateLoginSucess(userId);
 		}
+
+		//사용자 로그를 남기남긴다.
+		userInfoDAO.insertIdLog(userId);
+
+		return str;
+
 	}
 
 
@@ -1628,14 +1542,11 @@ public class ExternalBusinessProcessor
 	public int InsertPhotoDownloadInfo(long Phot_ID, String REQ_ID, long PGM_ID) throws Exception
 	{
 
-		try {
-			if(PGM_ID == 0){
-				PGM_ID = externalDAO.selectPhotIdForPgmId(Phot_ID);
-			}
-			return externalDAO.InsertPhotoDownloadInfo(Phot_ID, REQ_ID, PGM_ID);
-		} catch (Exception e) {
-			throw e;
+		if(PGM_ID == 0){
+			PGM_ID = externalDAO.selectPhotIdForPgmId(Phot_ID);
 		}
+		return externalDAO.InsertPhotoDownloadInfo(Phot_ID, REQ_ID, PGM_ID);
+
 	}
 
 	/**
@@ -1648,6 +1559,7 @@ public class ExternalBusinessProcessor
 		return externalDAO.InsertPhotoDownInfo(PhotoInfoDO);
 
 	}
+
 	/**
 	 * 오디오 관련 정보를 업데이트한다.
 	 * @param Master_ID 	마스터 아이디
@@ -1711,6 +1623,7 @@ public class ExternalBusinessProcessor
 	 * @throws Exception 
 	 * @throws RemoteException
 	 */
+	@Deprecated
 	public String ArchiveReq(String date) throws Exception {
 		Date currentdate = new java.util.Date(); 
 		java.text.SimpleDateFormat timestring = new java.text.SimpleDateFormat("yyyyMMdd"); 
@@ -1755,6 +1668,7 @@ public class ExternalBusinessProcessor
 
 			// log
 			Cti_IdWriter.write(today + "  " + list.size() + "\n");
+
 
 			for (int i=0; i<list.size(); i++) {
 				String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"+
@@ -2035,7 +1949,8 @@ public class ExternalBusinessProcessor
 			Das das = new Das();
 
 			MetaDataInfo metaDataInfo = externalDAO.getBaseResult(nMasterID);
-			logger.debug("#########metaDataInfo.getTitle("+metaDataInfo.getMasterId()+")########" + metaDataInfo.getTitle() );
+			if(logger.isDebugEnabled())
+				logger.debug("#########metaDataInfo.getTitle("+metaDataInfo.getMasterId()+")########" + metaDataInfo.getTitle() );
 			das.setMetaDataInfo(metaDataInfo);
 
 			Ingest ingest = externalDAO.getIngestMetaResult(nMasterID);
@@ -2208,18 +2123,15 @@ public class ExternalBusinessProcessor
 	public String getAddTask(String xml)throws Exception{
 
 		String rtnValue="";
-		try {
-			if(logger.isDebugEnabled())
-				logger.debug("[getAddTask][input xml]"+CommonUtl.transXmlText(xml));
 
-			TansferPortTypeProxy port = new TansferPortTypeProxy();
-			rtnValue = port.addTask(CommonUtl.transXmlText(xml));
-			rtnValue="";
-			return rtnValue;
+		if(logger.isDebugEnabled())
+			logger.debug("[getAddTask][input xml]"+CommonUtl.transXmlText(xml));
 
-		} catch (Exception e) {
-			throw e;
-		}
+		TansferPortTypeProxy port = new TansferPortTypeProxy();
+		rtnValue = port.addTask(CommonUtl.transXmlText(xml));
+		rtnValue="";
+		return rtnValue;
+
 	}
 
 	/**
@@ -2232,13 +2144,11 @@ public class ExternalBusinessProcessor
 	public String getTmStatus(String xml)throws Exception{
 
 		String rtnValue="";
-		try {
-			TansferPortTypeProxy port = new TansferPortTypeProxy();
-			rtnValue = port.getTaskStatus(xml);
-			return rtnValue;
-		} catch (Exception e) {
-			throw e;
-		}
+
+		TansferPortTypeProxy port = new TansferPortTypeProxy();
+		rtnValue = port.getTaskStatus(xml);
+		return rtnValue;
+
 	}
 
 	/**
@@ -2266,14 +2176,11 @@ public class ExternalBusinessProcessor
 	public int insertAddTask(TransferDO transfer) throws Exception
 	{
 
-		try {		//이미 존재하는 사용자인지를 검증한다.
-			if(externalDAO.isThereTaskid(transfer.getTaskID())) {
-				return externalDAO.updateTaskid(transfer.getTaskID(), transfer.getStatus());
-			}
-			return externalDAO.insertAddTaskinfo(transfer);
-		} catch (Exception e) {
-			throw e;
+		//이미 존재하는 사용자인지를 검증한다.
+		if(externalDAO.isThereTaskid(transfer.getTaskID())) {
+			return externalDAO.updateTaskid(transfer.getTaskID(), transfer.getStatus());
 		}
+		return externalDAO.insertAddTaskinfo(transfer);
 
 	}
 
@@ -2355,15 +2262,12 @@ public class ExternalBusinessProcessor
 	public int insertTmStatus(TransferDO transfer, int TaskID) throws Exception
 	{
 
-		try {		//이미 존재하는 사용자인지를 검증한다.
-			if(externalDAO.isThereTaskid(TaskID)) {
-				return externalDAO.updateTaskid(TaskID,transfer.getProgress());
-			}
-			return externalDAO.insertTMstatusinfo(transfer, TaskID);
-
-		} catch (Exception e) {
-			throw e;
+		//이미 존재하는 사용자인지를 검증한다.
+		if(externalDAO.isThereTaskid(TaskID)) {
+			return externalDAO.updateTaskid(TaskID,transfer.getProgress());
 		}
+		return externalDAO.insertTMstatusinfo(transfer, TaskID);
+
 	}
 
 
@@ -2377,38 +2281,33 @@ public class ExternalBusinessProcessor
 	public int insertNLEandDTL(ManualArchiveDO manualArchiveDO) throws Exception
 	{
 
-		try 
-		{
-			PdsArchiveDO pdsarchive = new PdsArchiveDO();
-			String sResult ="";
-			long ct_id = manualArchiveDO.getCt_id();
-			pdsarchive = externalDAO.selectArchiveInfo(manualArchiveDO.getCt_id());
-			pdsarchive.setCt_id(manualArchiveDO.getCt_id());
-			pdsarchive.setDtl_gubun(manualArchiveDO.getDtl_gubun());
+		PdsArchiveDO pdsarchive = new PdsArchiveDO();
+		String sResult ="";
+		long ct_id = manualArchiveDO.getCt_id();
+		pdsarchive = externalDAO.selectArchiveInfo(manualArchiveDO.getCt_id());
+		pdsarchive.setCt_id(manualArchiveDO.getCt_id());
+		pdsarchive.setDtl_gubun(manualArchiveDO.getDtl_gubun());
 
-			if(pdsarchive.getArch_route().equals("DP")){
-				externalDAO.updateManual_yn(ct_id);
-				PdsArchiveDO pADO = externalDAO.selectCtiFromCtIdForNonERP(pdsarchive.getCt_id());
-				logger.debug("[pdsarchive][pdsarchive pADO]" + pADO);
-				String pgm_cms_id = "";
-				sResult =externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
-			} else if (ct_id > 0){			
-				externalDAO.updateManual_yn(ct_id);
-				//  1051141    arcreq/SBS/manual/201604/22/  P20160422V00253_20160422162457_HR.MXF  P20160422V00253  20160422163649  001         001        100   
-				PdsArchiveDO pADO = externalDAO.selectCtiFromCtIdForPDS(pdsarchive.getCt_id());
-				//  P00692
-				String pgm_cms_id = systemManageDAO.selectPdsPgmId(pdsarchive.getCt_id());
-				pADO.setPds_cms_id(pgm_cms_id);
-				logger.debug("[pADO][Input pADO]" + pADO);
-				sResult =externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
-			}
-			if(!sResult.equals("0")){
-				return 1;
-			}else{
-				return 0;
-			}
-		} catch (Exception e) {
-			throw e;
+		if(pdsarchive.getArch_route().equals("DP")){
+			externalDAO.updateManual_yn(ct_id);
+			PdsArchiveDO pADO = externalDAO.selectCtiFromCtIdForNonERP(pdsarchive.getCt_id());
+			logger.debug("[pdsarchive][pdsarchive pADO]" + pADO);
+			String pgm_cms_id = "";
+			sResult =externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
+		} else if (ct_id > 0){			
+			externalDAO.updateManual_yn(ct_id);
+			//  1051141    arcreq/SBS/manual/201604/22/  P20160422V00253_20160422162457_HR.MXF  P20160422V00253  20160422163649  001         001        100   
+			PdsArchiveDO pADO = externalDAO.selectCtiFromCtIdForPDS(pdsarchive.getCt_id());
+			//  P00692
+			String pgm_cms_id = systemManageDAO.selectPdsPgmId(pdsarchive.getCt_id());
+			pADO.setPds_cms_id(pgm_cms_id);
+			logger.debug("[pADO][Input pADO]" + pADO);
+			sResult =externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
+		}
+		if(!sResult.equals("0")){
+			return 1;
+		}else{
+			return 0;
 		}
 
 	}
@@ -2422,33 +2321,29 @@ public class ExternalBusinessProcessor
 	 */
 	public int insertNLEandDTL(long ct_id) throws Exception
 	{
-		try 
-		{
-			PdsArchiveDO pdsarchive = new PdsArchiveDO();
-			String sResult ="";
-			pdsarchive = externalDAO.selectArchiveInfo(ct_id);
-			pdsarchive.setCt_id(ct_id);
-			if(pdsarchive.getArch_route().equals("DP")){
-				externalDAO.updateManual_yn(ct_id);
-				PdsArchiveDO pADO = externalDAO.selectCtiFromCtIdForNonERP(pdsarchive.getCt_id());
-				logger.debug("[pdsarchive][pdsarchive pADO]" + pADO);
-				String pgm_cms_id = "";
-				sResult =externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
-			}else if(ct_id>0){			
-				externalDAO.updateManual_yn(ct_id);
-				PdsArchiveDO pADO = externalDAO.selectCtiFromCtIdForPDS(pdsarchive.getCt_id());
-				String pgm_cms_id = systemManageDAO.selectPdsPgmId(pdsarchive.getCt_id());
-				pADO.setPds_cms_id(pgm_cms_id);
-				logger.debug("[pADO][Input pADO]" + pADO);
-				sResult =externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
-			}
-			if(Boolean.valueOf(sResult)){
-				return 1;
-			}else{
-				return 0;
-			}
-		} catch (Exception e) {
-			throw e;
+
+		PdsArchiveDO pdsarchive = new PdsArchiveDO();
+		String sResult ="";
+		pdsarchive = externalDAO.selectArchiveInfo(ct_id);
+		pdsarchive.setCt_id(ct_id);
+		if(pdsarchive.getArch_route().equals("DP")){
+			externalDAO.updateManual_yn(ct_id);
+			PdsArchiveDO pADO = externalDAO.selectCtiFromCtIdForNonERP(pdsarchive.getCt_id());
+
+			String pgm_cms_id = "";
+			sResult =externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
+		}else if(ct_id>0){			
+			externalDAO.updateManual_yn(ct_id);
+			PdsArchiveDO pADO = externalDAO.selectCtiFromCtIdForPDS(pdsarchive.getCt_id());
+			String pgm_cms_id = systemManageDAO.selectPdsPgmId(pdsarchive.getCt_id());
+			pADO.setPds_cms_id(pgm_cms_id);
+
+			sResult =externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
+		}
+		if(Boolean.valueOf(sResult)){
+			return 1;
+		}else{
+			return 0;
 		}
 
 	}
@@ -2571,89 +2466,85 @@ public class ExternalBusinessProcessor
 	 */
 	public TcBeanDO insertReqJobTC(TcBeanDO tcBeanDO) throws Exception{
 
-		try {
-			String Tc_type = systemManageDAO.isPDSorRecreate(tcBeanDO.getJob_id());
-			String req_cd = systemManageDAO.isReq_cd(tcBeanDO.getJob_id());
+		String Tc_type = systemManageDAO.isPDSorRecreate(tcBeanDO.getJob_id());
+		String req_cd = systemManageDAO.isReq_cd(tcBeanDO.getJob_id());
 
-			//데이터가 없다면 그냥 null 리턴
-			if(Tc_type.equals("") || req_cd.equals("")){
-				return null;
-			}
+		//데이터가 없다면 그냥 null 리턴
+		if(Tc_type.equals("") || req_cd.equals("")){
+			return null;
+		}
 
-			tcBeanDO.setReq_cd(req_cd);
-			if(logger.isDebugEnabled()) {
-				logger.debug("ct_id: "+tcBeanDO.getCt_id()+", tc_type: "+Tc_type);
-			}
+		tcBeanDO.setReq_cd(req_cd);
+		if(logger.isDebugEnabled()) {
+			logger.debug("ct_id: "+tcBeanDO.getCt_id()+", tc_type: "+Tc_type);
+		}
 
-			if(Tc_type.equals(CodeConstants.TcGubun.PDS)){  //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
-				TcBeanDO resultTC =	externalDAO.selectTcJob2(tcBeanDO);
-				//tcBeanDO.setCt_id(574856);
+		if(Tc_type.equals(CodeConstants.TcGubun.PDS)){  //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
+			TcBeanDO resultTC =	externalDAO.selectTcJob2(tcBeanDO);
+			//tcBeanDO.setCt_id(574856);
 
-				PdsArchiveDO pdsarchive = new PdsArchiveDO();
-				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
-				PdsArchiveDO info = externalDAO.selectAutoArchiveInfobyCt_id(tcBeanDO.getCt_id());
-				pdsarchive.setCt_cla(ctcla);
-				pdsarchive.setCt_id(tcBeanDO.getCt_id());
-				pdsarchive.setMedia_id(tcBeanDO.getMedia_id());
+			PdsArchiveDO pdsarchive = new PdsArchiveDO();
+			String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
+			PdsArchiveDO info = externalDAO.selectAutoArchiveInfobyCt_id(tcBeanDO.getCt_id());
+			pdsarchive.setCt_cla(ctcla);
+			pdsarchive.setCt_id(tcBeanDO.getCt_id());
+			pdsarchive.setMedia_id(tcBeanDO.getMedia_id());
 
-				boolean result = systemManageDAO.getAutoArchvieList(pdsarchive.getCt_cla(),tcBeanDO.getCocd(),info.getChennel(),info.getArch_route());
-				if(result){
-					// IfCMS 삭제 콘텐츠가 아니라면 아카이브 요청
-					PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForPDS(pdsarchive);
-					if(pADO != null && (pADO.getMedia_id() != null && !pADO.getMedia_id().equals("delete"))) {
-						String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
-						logger.debug("[PDS][Input pADO]" + pADO);
-						externalDAO.ArchivePDSReq(pADO, pgm_cms_id);
-					}
-
-				}
-
-				return resultTC;
-			} else if(Tc_type.equals(CodeConstants.TcGubun.MANUAL)) {   //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
-				logger.debug("before  "+Tc_type);
-				logger.debug("before  "+req_cd);
-				TcBeanDO resultTC =	externalDAO.selectTcJob3(tcBeanDO);
-
-				//tcBeanDO.setCt_id(574870);
-
-				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
-
-				PdsArchiveDO pdsarchive = new PdsArchiveDO();
-				pdsarchive.setCt_id(tcBeanDO.getCt_id());
-				pdsarchive.setCt_cla(ctcla);
-				pdsarchive.setMedia_id(tcBeanDO.getMedia_id());
-
+			boolean result = systemManageDAO.getAutoArchvieList(pdsarchive.getCt_cla(),tcBeanDO.getCocd(),info.getChennel(),info.getArch_route());
+			if(result){
+				// IfCMS 삭제 콘텐츠가 아니라면 아카이브 요청
 				PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForPDS(pdsarchive);
-				if(pADO != null) {
-					logger.debug("[MANUAL][Input pADO]" + pADO);
+				if(pADO != null && (pADO.getMedia_id() != null && !pADO.getMedia_id().equals("delete"))) {
 					String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
+					logger.debug("[PDS][Input pADO]" + pADO);
 					externalDAO.ArchivePDSReq(pADO, pgm_cms_id);
 				}
 
-				return resultTC;
-			} else if(Tc_type.equals(CodeConstants.TcGubun.IFCMS)) {   //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
-				TcBeanDO resultTC =	externalDAO.selectTcJob4(tcBeanDO);
-
-				PdsArchiveDO pdsarchive = new PdsArchiveDO();
-				String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
-
-				pdsarchive.setCt_cla(ctcla);
-				pdsarchive.setCt_id(tcBeanDO.getCt_id());
-				PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForIFCMS(pdsarchive);
-				if(pADO != null && (pADO.getMedia_id() != null && !pADO.getMedia_id().equals("delete"))) {
-					String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
-					logger.debug("[IFCMS][Input pADO]" + pADO);
-					externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
-				}
-
-				return resultTC;
-			} else {
-				return externalDAO.selectTcJob2(tcBeanDO);
 			}
 
-		} catch (Exception e) {
-			throw e;
+			return resultTC;
+		} else if(Tc_type.equals(CodeConstants.TcGubun.MANUAL)) {   //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
+			logger.debug("before  "+Tc_type);
+			logger.debug("before  "+req_cd);
+			TcBeanDO resultTC =	externalDAO.selectTcJob3(tcBeanDO);
+
+			//tcBeanDO.setCt_id(574870);
+
+			String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
+
+			PdsArchiveDO pdsarchive = new PdsArchiveDO();
+			pdsarchive.setCt_id(tcBeanDO.getCt_id());
+			pdsarchive.setCt_cla(ctcla);
+			pdsarchive.setMedia_id(tcBeanDO.getMedia_id());
+
+			PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForPDS(pdsarchive);
+			if(pADO != null) {
+				logger.debug("[MANUAL][Input pADO]" + pADO);
+				String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
+				externalDAO.ArchivePDSReq(pADO, pgm_cms_id);
+			}
+
+			return resultTC;
+		} else if(Tc_type.equals(CodeConstants.TcGubun.IFCMS)) {   //001 재생성 002 pds 요청 003 수동아카이브 004 IFCMS
+			TcBeanDO resultTC =	externalDAO.selectTcJob4(tcBeanDO);
+
+			PdsArchiveDO pdsarchive = new PdsArchiveDO();
+			String ctcla = systemManageDAO.selectCtcla(tcBeanDO.getCt_id());
+
+			pdsarchive.setCt_cla(ctcla);
+			pdsarchive.setCt_id(tcBeanDO.getCt_id());
+			PdsArchiveDO pADO = externalDAO.selectCtiFromMediaidForIFCMS(pdsarchive);
+			if(pADO != null && (pADO.getMedia_id() != null && !pADO.getMedia_id().equals("delete"))) {
+				String pgm_cms_id = systemManageDAO.selectPdsPgmId(tcBeanDO.getCt_id());
+				logger.debug("[IFCMS][Input pADO]" + pADO);
+				externalDAO.ArchivePDSReq(pADO,pgm_cms_id);
+			}
+
+			return resultTC;
+		} else {
+			return externalDAO.selectTcJob2(tcBeanDO);
 		}
+
 	}
 
 
@@ -2665,144 +2556,141 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public boolean updateTCState(TcBeanDO newTcBeanDO) throws Exception{
-		try 
-		{	
-			long cti_id = externalDAO.selectMxfID(newTcBeanDO);
-			newTcBeanDO.setCti_id(cti_id);
+
+		long cti_id = externalDAO.selectMxfID(newTcBeanDO);
+		newTcBeanDO.setCti_id(cti_id);
 
 
-			if(newTcBeanDO.getCocd().equals("S")||newTcBeanDO.getCocd().equals("")){
-				externalDAO.updateTcState(newTcBeanDO);
+		if(newTcBeanDO.getCocd().equals("S")||newTcBeanDO.getCocd().equals("")){
+			externalDAO.updateTcState(newTcBeanDO);
 
-				if(newTcBeanDO.getReq_cd().equals("H264")){
-					externalDAO.updateTcProgressForH264(newTcBeanDO);
-				}else {
-					externalDAO.updateTcProgress(newTcBeanDO);	
-				}
-
-				//das 장비테이블에 상태값 저장하는 로직
-				externalDAO.updateDasEquipMent(newTcBeanDO);
-
-				TcBeanDO oldTcBeanDO =externalDAO.selectTcState(newTcBeanDO);
-
-				// work_stat의 상태가 F일때는 실패로 등록한다
-				if(newTcBeanDO.getWork_stat().equals("F")){
-
-					externalDAO.updateErrTcjob(newTcBeanDO);
-
-					long eq_id = externalDAO.selectTcEqId(newTcBeanDO);
-					String error_cont = "";
-					String error_code="";
-					String job_id ="014";
-					String process_id ="";
-					if(newTcBeanDO.getJob_status().equals("1")){
-						error_cont="파일존재하지 않음";
-						error_code="001";				
-						process_id="MT";
-					}else if(newTcBeanDO.getJob_status().equals("2")){
-						error_cont="네트워크 오류";
-						error_code="002";
-						process_id="MT";
-					}else if(newTcBeanDO.getJob_status().equals("3")){
-						error_cont="파일 생성 실패";
-						error_code="003";
-						process_id="MT";
-					}else if(newTcBeanDO.getJob_status().equals("4")){
-						error_cont="파일자체 오류";
-						error_code="004";
-						process_id="MT";
-					}else if(newTcBeanDO.getJob_status().equals("5")){
-						error_cont="Catalog 생성 오류";
-						error_code="007";
-						process_id="MT";
-					}else if(newTcBeanDO.getJob_status().equals("6")){
-						error_cont="H264 생성 오류";
-						error_code="005";
-						process_id="MT";
-					}else if(newTcBeanDO.getJob_status().equals("7")){
-						error_cont="메타데이터 업데이트 실패";
-						error_code="006";
-						process_id="MT";
-					}
-
-					externalDAO.InsertErrjob(eq_id,error_code ,error_cont ,job_id,process_id,newTcBeanDO.getCt_id());
-
-				}
-
-				/**
-				 * 기존 저장된 TC의 상태값이 'I'가 아닐때, 새로 들어온 값이 'I' 일때 JOB 이 있다면 작업을 할당한다.
-				 */
-				if(oldTcBeanDO.getWork_stat().equals("B") && newTcBeanDO.getWork_stat().equals("I")  
-						||oldTcBeanDO.getWork_stat().equals("I") && newTcBeanDO.getWork_stat().equals("I")
-						||oldTcBeanDO.getWork_stat().equals("F") && newTcBeanDO.getWork_stat().equals("I")
-						){
-
-					TcBeanDO jobTcBeanDO = externalDAO.selectTcJob();   // 작업이 있는지 확인하는 곳.
-
-					TcBeanDO stateTcBeanDO = externalDAO.selectTcAllocationState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
-
-
-					if(jobTcBeanDO != null && stateTcBeanDO != null){
-
-						externalDAO.getTCJob(jobTcBeanDO, stateTcBeanDO,dasHandler.getProperty("TC_DIR_INTERFACE"));
-
-						externalDAO.updateTcJobState(jobTcBeanDO.getSeq(),stateTcBeanDO.getTc_id());
-
-						externalDAO.updateTcState(stateTcBeanDO.getSeq()+"");
-
-						sleep(3000);
-
-						return true;
-					}
-				}
-				return false;
-			} else {
-
-				//미디어넷 TC 전용
-				externalDAO.updateTcState(newTcBeanDO);
-				externalDAO.updateTcProgress(newTcBeanDO);
-
-
-				//das 장비테이블에 상태값 저장하는 로직
-				externalDAO.updateDasEquipMent(newTcBeanDO);
-
-				TcBeanDO oldTcBeanDO =externalDAO.selectTcState(newTcBeanDO);
-
-				// work_stat의 상태가 F일때는 실패로 등록한다
-				if(newTcBeanDO.getWork_stat().equals("F")){
-					externalDAO.updateErrTcjob(newTcBeanDO);
-				}
-
-				/**
-				 * 기존 저장된 TC의 상태값이 'I'가 아닐때, 새로 들어온 값이 'I' 일때 JOB 이 있다면 작업을 할당한다.
-				 */
-				//logger.debug("old workstat: "+oldTcBeanDO.getWork_stat()+", new workstat: "+newTcBeanDO.getWork_stat());
-				if(oldTcBeanDO.getWork_stat().equals("B")&&newTcBeanDO.getWork_stat().equals("I")  
-						||oldTcBeanDO.getWork_stat().equals("I")&&newTcBeanDO.getWork_stat().equals("I")
-						||oldTcBeanDO.getWork_stat().equals("F")&&newTcBeanDO.getWork_stat().equals("I")
-						){
-
-					TcBeanDO jobTcBeanDO = externalDAO.selectMediaTcJob();   // 작업이 있는지 확인하는 곳.
-
-					TcBeanDO stateTcBeanDO = externalDAO.selectTcAllocationState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
-
-
-					if(jobTcBeanDO != null && stateTcBeanDO != null) {
-
-						externalDAO.getTCJob(jobTcBeanDO, stateTcBeanDO,dasHandler.getProperty("MEDIATC_DIR_INTERFACE"));
-
-						externalDAO.updateTcJobState(jobTcBeanDO.getSeq(),stateTcBeanDO.getTc_id());
-
-						externalDAO.updateTcState(stateTcBeanDO.getSeq()+"");
-						sleep(3000);
-						return true;
-					}
-				}
-				return false;
+			if(newTcBeanDO.getReq_cd().equals("H264")){
+				externalDAO.updateTcProgressForH264(newTcBeanDO);
+			}else {
+				externalDAO.updateTcProgress(newTcBeanDO);	
 			}
-		} catch (Exception e) {
-			throw e;
+
+			//das 장비테이블에 상태값 저장하는 로직
+			externalDAO.updateDasEquipMent(newTcBeanDO);
+
+			TcBeanDO oldTcBeanDO =externalDAO.selectTcState(newTcBeanDO);
+
+			// work_stat의 상태가 F일때는 실패로 등록한다
+			if(newTcBeanDO.getWork_stat().equals("F")){
+
+				externalDAO.updateErrTcjob(newTcBeanDO);
+
+				long eq_id = externalDAO.selectTcEqId(newTcBeanDO);
+				String error_cont = "";
+				String error_code="";
+				String job_id ="014";
+				String process_id ="";
+				if(newTcBeanDO.getJob_status().equals("1")){
+					error_cont="파일존재하지 않음";
+					error_code="001";				
+					process_id="MT";
+				}else if(newTcBeanDO.getJob_status().equals("2")){
+					error_cont="네트워크 오류";
+					error_code="002";
+					process_id="MT";
+				}else if(newTcBeanDO.getJob_status().equals("3")){
+					error_cont="파일 생성 실패";
+					error_code="003";
+					process_id="MT";
+				}else if(newTcBeanDO.getJob_status().equals("4")){
+					error_cont="파일자체 오류";
+					error_code="004";
+					process_id="MT";
+				}else if(newTcBeanDO.getJob_status().equals("5")){
+					error_cont="Catalog 생성 오류";
+					error_code="007";
+					process_id="MT";
+				}else if(newTcBeanDO.getJob_status().equals("6")){
+					error_cont="H264 생성 오류";
+					error_code="005";
+					process_id="MT";
+				}else if(newTcBeanDO.getJob_status().equals("7")){
+					error_cont="메타데이터 업데이트 실패";
+					error_code="006";
+					process_id="MT";
+				}
+
+				externalDAO.InsertErrjob(eq_id,error_code ,error_cont ,job_id,process_id,newTcBeanDO.getCt_id());
+
+			}
+
+			/**
+			 * 기존 저장된 TC의 상태값이 'I'가 아닐때, 새로 들어온 값이 'I' 일때 JOB 이 있다면 작업을 할당한다.
+			 */
+			if(oldTcBeanDO.getWork_stat().equals("B") && newTcBeanDO.getWork_stat().equals("I")  
+					||oldTcBeanDO.getWork_stat().equals("I") && newTcBeanDO.getWork_stat().equals("I")
+					||oldTcBeanDO.getWork_stat().equals("F") && newTcBeanDO.getWork_stat().equals("I")
+					){
+
+				TcBeanDO jobTcBeanDO = externalDAO.selectTcJob();   // 작업이 있는지 확인하는 곳.
+
+				TcBeanDO stateTcBeanDO = externalDAO.selectTcAllocationState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
+
+
+				if(jobTcBeanDO != null && stateTcBeanDO != null){
+
+					externalDAO.getTCJob(jobTcBeanDO, stateTcBeanDO,dasHandler.getProperty("TC_DIR_INTERFACE"));
+
+					externalDAO.updateTcJobState(jobTcBeanDO.getSeq(),stateTcBeanDO.getTc_id());
+
+					externalDAO.updateTcState(stateTcBeanDO.getSeq()+"");
+
+					sleep(3000);
+
+					return true;
+				}
+			}
+			return false;
+		} else {
+
+			//미디어넷 TC 전용
+			externalDAO.updateTcState(newTcBeanDO);
+			externalDAO.updateTcProgress(newTcBeanDO);
+
+
+			//das 장비테이블에 상태값 저장하는 로직
+			externalDAO.updateDasEquipMent(newTcBeanDO);
+
+			TcBeanDO oldTcBeanDO =externalDAO.selectTcState(newTcBeanDO);
+
+			// work_stat의 상태가 F일때는 실패로 등록한다
+			if(newTcBeanDO.getWork_stat().equals("F")){
+				externalDAO.updateErrTcjob(newTcBeanDO);
+			}
+
+			/**
+			 * 기존 저장된 TC의 상태값이 'I'가 아닐때, 새로 들어온 값이 'I' 일때 JOB 이 있다면 작업을 할당한다.
+			 */
+			//logger.debug("old workstat: "+oldTcBeanDO.getWork_stat()+", new workstat: "+newTcBeanDO.getWork_stat());
+			if(oldTcBeanDO.getWork_stat().equals("B")&&newTcBeanDO.getWork_stat().equals("I")  
+					||oldTcBeanDO.getWork_stat().equals("I")&&newTcBeanDO.getWork_stat().equals("I")
+					||oldTcBeanDO.getWork_stat().equals("F")&&newTcBeanDO.getWork_stat().equals("I")
+					){
+
+				TcBeanDO jobTcBeanDO = externalDAO.selectMediaTcJob();   // 작업이 있는지 확인하는 곳.
+
+				TcBeanDO stateTcBeanDO = externalDAO.selectTcAllocationState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
+
+
+				if(jobTcBeanDO != null && stateTcBeanDO != null) {
+
+					externalDAO.getTCJob(jobTcBeanDO, stateTcBeanDO,dasHandler.getProperty("MEDIATC_DIR_INTERFACE"));
+
+					externalDAO.updateTcJobState(jobTcBeanDO.getSeq(),stateTcBeanDO.getTc_id());
+
+					externalDAO.updateTcState(stateTcBeanDO.getSeq()+"");
+					sleep(3000);
+					return true;
+				}
+			}
+			return false;
 		}
+
 	}
 
 	/**
@@ -2877,9 +2765,6 @@ public class ExternalBusinessProcessor
 	}
 
 
-
-
-
 	/**
 	 * 승인정보를 삭제한다
 	 * @param user_no
@@ -2935,17 +2820,14 @@ public class ExternalBusinessProcessor
 	 */
 	public String recreateWMVforMainSean(long master_id,String user_id) throws Exception
 	{
-		try 
-		{
-			String ct_ids = externalDAO.getIdFormasterId(master_id);
-			String[] ct = ct_ids.split(",");
-			for(int i = 0; i<ct.length;i++){
-				externalDAO.recreateWMV_KFRMForClient(Long.parseLong(ct[i]),user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"LR");
-			}
-			return "1";
-		} catch (Exception e) {
-			throw e;
-		}	
+
+		String ct_ids = externalDAO.getIdFormasterId(master_id);
+		String[] ct = ct_ids.split(",");
+		for(int i = 0; i<ct.length;i++){
+			externalDAO.recreateWMV_KFRMForClient(Long.parseLong(ct[i]),user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"LR");
+		}
+		return "1";
+
 	}
 
 	/**
@@ -2972,18 +2854,15 @@ public class ExternalBusinessProcessor
 	public String recreateWMV_KFRMforMainSean(long master_id,String user_nm) throws Exception
 	{
 
-		try {
-			String ct_ids = externalDAO.getIdFormasterId(master_id);
-			String[] ct = ct_ids.split(",");
+		String ct_ids = externalDAO.getIdFormasterId(master_id);
+		String[] ct = ct_ids.split(",");
 
-			for(int i = 0; i<ct.length;i++){
-				externalDAO.recreateWMV_KFRMForClient(Long.parseLong(ct[i]), user_nm, dasHandler.getProperty("TC_DIR_INTERFACE"),"LRCT");
-			} 
+		for(int i = 0; i<ct.length;i++){
+			externalDAO.recreateWMV_KFRMForClient(Long.parseLong(ct[i]), user_nm, dasHandler.getProperty("TC_DIR_INTERFACE"),"LRCT");
+		} 
 
-			return "1";
-		} catch (Exception e) {
-			throw e;
-		}	
+		return "1";
+
 	}
 
 	/**
@@ -3010,17 +2889,14 @@ public class ExternalBusinessProcessor
 	 */
 	public String recreateKFRMforMainSean(long master_id,String user_id) throws Exception
 	{
-		try {
 
-			String ct_ids = externalDAO.getIdFormasterId(master_id);
-			String[] ct = ct_ids.split(",");
-			for(int i = 0; i<ct.length;i++){
-				externalDAO.recreateWMV_KFRMForClient(Long.parseLong(ct[i]),user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"CT");
-			} 
-			return "1";
-		} catch (Exception e) {
-			throw e;
-		}	
+		String ct_ids = externalDAO.getIdFormasterId(master_id);
+		String[] ct = ct_ids.split(",");
+		for(int i = 0; i<ct.length;i++){
+			externalDAO.recreateWMV_KFRMForClient(Long.parseLong(ct[i]),user_id,dasHandler.getProperty("TC_DIR_INTERFACE"),"CT");
+		} 
+		return "1";
+
 	}
 
 
@@ -3135,46 +3011,43 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public boolean updateArchiveReq(ArchiveReqDO newTcBeanDO) throws Exception{
-		try {
 
-			//tc를 상태를 변화시킨다.
-			externalDAO.updateArchive(newTcBeanDO);
-			externalDAO.updateOnAirIngestStatus(String.valueOf(newTcBeanDO.getSEQ()));
+		//tc를 상태를 변화시킨다.
+		externalDAO.updateArchive(newTcBeanDO);
+		externalDAO.updateOnAirIngestStatus(String.valueOf(newTcBeanDO.getSEQ()));
 
-			ArchiveReqDO oldBeanDO = externalDAO.selectArchiveState(newTcBeanDO);
+		ArchiveReqDO oldBeanDO = externalDAO.selectArchiveState(newTcBeanDO);
 
-			// work_stat의 상태가 F일때는 실패로 등록한다
-			if(newTcBeanDO.getWork_stat().equals("F")){
-				externalDAO.updateErrArchivejob(newTcBeanDO);
-			}
-
-			/**
-			 * 기존 저장된 TC의 상태값이 'I'가 아닐때, 새로 들어온 값이 'I' 일때 JOB 이 있다면 작업을 할당한다.
-			 */
-			if(oldBeanDO.getWork_stat().equals("B") && newTcBeanDO.getWork_stat().equals("I")  
-					||oldBeanDO.getWork_stat().equals("I") && newTcBeanDO.getWork_stat().equals("I")  ){
-
-				ArchiveReqDO jobArchiveBeanDO = externalDAO.selectArchiveJob();   // 작업이 있는지 확인하는 곳.
-
-				//20111228 받은   장비에 바로 리턴.
-				ArchiveReqDO stateArchiveBeanDO = externalDAO.selectArchiveState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
-
-				//logger.debug("[jobArchiveBeanDO]"+jobArchiveBeanDO);
-				if(jobArchiveBeanDO != null && newTcBeanDO != null){
-					externalDAO.getArchveJob(jobArchiveBeanDO, stateArchiveBeanDO,dasHandler.getProperty("ON_AIR_DIR_INTERFACE"));
-
-					externalDAO.updateArchiveState(newTcBeanDO.getSEQ()+"");
-
-					jobArchiveBeanDO.setArchive_id(String.valueOf(stateArchiveBeanDO.getSEQ()));
-					externalDAO.updateArchiveInfo(jobArchiveBeanDO);
-
-					return true;
-				}
-			}
-			return false;
-		} catch (Exception e) {
-			throw e;
+		// work_stat의 상태가 F일때는 실패로 등록한다
+		if(newTcBeanDO.getWork_stat().equals("F")){
+			externalDAO.updateErrArchivejob(newTcBeanDO);
 		}
+
+		/**
+		 * 기존 저장된 TC의 상태값이 'I'가 아닐때, 새로 들어온 값이 'I' 일때 JOB 이 있다면 작업을 할당한다.
+		 */
+		if(oldBeanDO.getWork_stat().equals("B") && newTcBeanDO.getWork_stat().equals("I")  
+				||oldBeanDO.getWork_stat().equals("I") && newTcBeanDO.getWork_stat().equals("I")  ){
+
+			ArchiveReqDO jobArchiveBeanDO = externalDAO.selectArchiveJob();   // 작업이 있는지 확인하는 곳.
+
+			//20111228 받은   장비에 바로 리턴.
+			ArchiveReqDO stateArchiveBeanDO = externalDAO.selectArchiveState(newTcBeanDO); // IDLE 인 backend_TC 확인하는곳.
+
+			//logger.debug("[jobArchiveBeanDO]"+jobArchiveBeanDO);
+			if(jobArchiveBeanDO != null && newTcBeanDO != null){
+				externalDAO.getArchveJob(jobArchiveBeanDO, stateArchiveBeanDO,dasHandler.getProperty("ON_AIR_DIR_INTERFACE"));
+
+				externalDAO.updateArchiveState(newTcBeanDO.getSEQ()+"");
+
+				jobArchiveBeanDO.setArchive_id(String.valueOf(stateArchiveBeanDO.getSEQ()));
+				externalDAO.updateArchiveInfo(jobArchiveBeanDO);
+
+				return true;
+			}
+		}
+		return false;
+
 	}
 
 
@@ -3228,7 +3101,6 @@ public class ExternalBusinessProcessor
 	}
 
 
-
 	/**
 	 * 우클릭 삭제(영상선정, 클립검색).
 	 * @param metadataMstInfoDO
@@ -3238,18 +3110,15 @@ public class ExternalBusinessProcessor
 	 */
 	public String deleteMasterScean(long master_id) throws Exception
 	{	
-		try  
-		{						
-			externalDAO.deleteMasterSceanForMapp(master_id);	
-			externalDAO.deleteMasterSceanForMst(master_id);	
-			DiscardDO dis =  externalDAO.getDiscardInfo(master_id);
-			dis.setMasterId(master_id);
-			disuseDAO.insertDisuseForMeta(dis);
 
-			return "1";		
-		} catch (Exception e) {
-			throw e;
-		}	
+		externalDAO.deleteMasterSceanForMapp(master_id);	
+		externalDAO.deleteMasterSceanForMst(master_id);	
+		DiscardDO dis =  externalDAO.getDiscardInfo(master_id);
+		dis.setMasterId(master_id);
+		disuseDAO.insertDisuseForMeta(dis);
+
+		return "1";		
+
 	}
 
 	/**
@@ -3260,21 +3129,19 @@ public class ExternalBusinessProcessor
 	 * @throws RemoteException
 	 */
 	public String deleteMasterScean2(DeleteDO deleteDO) throws Exception {	
-		try  {						
-			externalDAO.deleteMasterSceanForMapp(deleteDO.getMaster_id());	
-			externalDAO.deleteMasterSceanForMst(deleteDO.getMaster_id());	
-			DiscardDO dis =  externalDAO.getDiscardInfo(deleteDO.getMaster_id()); // metadat_mst_tbl에서 메타정보 수집
 
-			dis.setMasterId(deleteDO.getMaster_id());
-			dis.setDisuse_cont(deleteDO.getDel_cont()); // 폐기 요청 사유
-			dis.setReg_id(deleteDO.getReg_id());
+		externalDAO.deleteMasterSceanForMapp(deleteDO.getMaster_id());	
+		externalDAO.deleteMasterSceanForMst(deleteDO.getMaster_id());	
+		DiscardDO dis =  externalDAO.getDiscardInfo(deleteDO.getMaster_id()); // metadat_mst_tbl에서 메타정보 수집
 
-			disuseDAO.insertDisuseForMeta(dis);
+		dis.setMasterId(deleteDO.getMaster_id());
+		dis.setDisuse_cont(deleteDO.getDel_cont()); // 폐기 요청 사유
+		dis.setReg_id(deleteDO.getReg_id());
 
-			return "1";		
-		} catch (Exception e) {
-			throw e;
-		}	
+		disuseDAO.insertDisuseForMeta(dis);
+
+		return "1";		
+
 	}
 
 
@@ -3288,41 +3155,34 @@ public class ExternalBusinessProcessor
 	public List getManualArchiveInfo(ManualArchiveDO manualArchiveDO) throws Exception
 	{
 
-		try 
-		{
-			String[] media_ids = manualArchiveDO.getOrg_media_id().split(",");
+		String[] media_ids = manualArchiveDO.getOrg_media_id().split(",");
 
-			String mediaid = "";
-			List resultList = new ArrayList();
-			for(int i=0; i< media_ids.length;i++){
-				ManualArchiveDO item = new ManualArchiveDO();
-				ManualArchiveDO manualArchiveDO2 = externalDAO.getManualArchiveInfo(media_ids[i]);
-				if(!manualArchiveDO2.getOrg_media_id().equals("")){
-					manualArchiveDO2.setOrg_media_id(media_ids[i]);
-					manualArchiveDO2.setNew_media_id(codeInfoDAO.getMediaId());
-					manualArchiveDO2.setFl_path(manualArchiveDO.getFl_path());
-					manualArchiveDO2.setDtl_gubun(externalDAO.getDtl_route(0));
-					item.setOrg_media_id(manualArchiveDO2.getOrg_media_id());
-					item.setNew_media_id(manualArchiveDO2.getNew_media_id());
-					item.setIsmedia_yn("Y");
+		String mediaid = "";
+		List resultList = new ArrayList();
+		for(int i=0; i< media_ids.length;i++){
+			ManualArchiveDO item = new ManualArchiveDO();
+			ManualArchiveDO manualArchiveDO2 = externalDAO.getManualArchiveInfo(media_ids[i]);
+			if(!manualArchiveDO2.getOrg_media_id().equals("")){
+				manualArchiveDO2.setOrg_media_id(media_ids[i]);
+				manualArchiveDO2.setNew_media_id(codeInfoDAO.getMediaId());
+				manualArchiveDO2.setFl_path(manualArchiveDO.getFl_path());
+				manualArchiveDO2.setDtl_gubun(externalDAO.getDtl_route(0));
+				item.setOrg_media_id(manualArchiveDO2.getOrg_media_id());
+				item.setNew_media_id(manualArchiveDO2.getNew_media_id());
+				item.setIsmedia_yn("Y");
 
-					externalDAO.insertManualArchiveInfo(manualArchiveDO2);
-				}else{
-					item.setOrg_media_id(media_ids[i]);
-					item.setNew_media_id(codeInfoDAO.getMediaId());
-					item.setIsmedia_yn("N");	
-				}
-
-				resultList.add(item);
+				externalDAO.insertManualArchiveInfo(manualArchiveDO2);
+			}else{
+				item.setOrg_media_id(media_ids[i]);
+				item.setNew_media_id(codeInfoDAO.getMediaId());
+				item.setIsmedia_yn("N");	
 			}
-			return resultList;
-		} catch (Exception e) {
-			throw e;
+
+			resultList.add(item);
 		}
+		return resultList;
+
 	}
-
-
-
 
 	/**
 	 * 수동 아카이브 상세정보를 조회한다
@@ -3338,8 +3198,6 @@ public class ExternalBusinessProcessor
 	}
 
 
-
-
 	/**
 	 * 아카이브 전송재요청한다. DAS2.0
 	 * @param seq contents_loc_tbl의 순번을 기준으로 재 아카이브 요청을 한다(유지보수용)
@@ -3348,13 +3206,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String updateRetryArchive(long seq) throws Exception
 	{
-		try {  
 
-			PdsArchiveDO pdsarchive = externalDAO.updateRetryArchive(seq);
-			return	externalDAO.ArchivePDSReq(pdsarchive,pdsarchive.getPds_cms_id());
-		} catch (Exception e) {
-			throw e;
-		}
+		PdsArchiveDO pdsarchive = externalDAO.updateRetryArchive(seq);
+		return	externalDAO.ArchivePDSReq(pdsarchive,pdsarchive.getPds_cms_id());
 
 	}
 
@@ -3368,13 +3222,10 @@ public class ExternalBusinessProcessor
 	 */
 	public String updateRetryArchiveByCtId(long ct_id) throws Exception
 	{
-		try {  
-			PdsArchiveDO pdsarchive = externalDAO.updateRetryArchiveByCtId(ct_id);
 
-			return	externalDAO.ArchivePDSReq(pdsarchive,pdsarchive.getPds_cms_id());
-		} catch (Exception e) {
-			throw e;
-		}
+		PdsArchiveDO pdsarchive = externalDAO.updateRetryArchiveByCtId(ct_id);
+
+		return	externalDAO.ArchivePDSReq(pdsarchive,pdsarchive.getPds_cms_id());
 
 	}
 
@@ -3459,8 +3310,6 @@ public class ExternalBusinessProcessor
 
 	}	
 
-
-
 	/**
 	 * 외부 매체변환 건에대해서 tc에 등록하는 함수
 	 * @param tcBeanDO
@@ -3470,36 +3319,30 @@ public class ExternalBusinessProcessor
 	 */
 	public TcBeanDO insertComMedia(TcBeanDO tcBeanDO) throws Exception{
 
-		try 
-		{
-			//미디어 ID를 검색한다.
-			TcBeanDO tcDO = new TcBeanDO();
-			String cocd = externalDAO.selectCOCDForCt_id(tcBeanDO.getCt_id());
-			String manual_yn =externalDAO.selectManualYnForCt_id(tcBeanDO.getCt_id());
-			String fl_path = externalDAO.selectFlPathorCt_id(tcBeanDO.getCt_id());
-			tcBeanDO.setCocd(cocd);
-			tcBeanDO.setInput_hr(fl_path);
-			tcBeanDO.setManual_yn(manual_yn);
-			// low 정보 생성한다.
-			long cti_id =systemManageDAO.insertConInstInfoForLowForMedia(tcBeanDO);
-			tcBeanDO.setCti_idForLow(cti_id);
+		//미디어 ID를 검색한다.
+		TcBeanDO tcDO = new TcBeanDO();
+		String cocd = externalDAO.selectCOCDForCt_id(tcBeanDO.getCt_id());
+		String manual_yn =externalDAO.selectManualYnForCt_id(tcBeanDO.getCt_id());
+		String fl_path = externalDAO.selectFlPathorCt_id(tcBeanDO.getCt_id());
+		tcBeanDO.setCocd(cocd);
+		tcBeanDO.setInput_hr(fl_path);
+		tcBeanDO.setManual_yn(manual_yn);
+		// low 정보 생성한다.
+		long cti_id =systemManageDAO.insertConInstInfoForLowForMedia(tcBeanDO);
+		tcBeanDO.setCti_idForLow(cti_id);
 
-			int result=0;
+		int result=0;
 
-			result  = systemManageDAO.insertTCinfo(tcBeanDO);
+		result  = systemManageDAO.insertTCinfo(tcBeanDO);
 
-			if(result == 0){
-				tcDO.setResult("FALSE");
-			}else {
-				tcDO.setResult("TRUE");
-			}
-			return tcDO;
-		} catch (Exception e) {
-			throw e;
+		if(result == 0){
+			tcDO.setResult("FALSE");
+		}else {
+			tcDO.setResult("TRUE");
 		}
+		return tcDO;
+
 	}
-
-
 
 	//2012.4.24
 	/**
@@ -3516,8 +3359,6 @@ public class ExternalBusinessProcessor
 	}
 
 
-
-
 	/**
 	 * 채널별  승인자 대상  조회한다.(등록시)
 	 * @param ApprveDO                                                                                                                                                                                              
@@ -3532,7 +3373,6 @@ public class ExternalBusinessProcessor
 	}
 
 
-
 	public int insertApproveInfoForChennel(List roleDO)  throws Exception
 	{
 
@@ -3540,7 +3380,6 @@ public class ExternalBusinessProcessor
 		return 1;
 
 	}
-
 
 	/**
 	 * 승인정보를 삭제한다
@@ -3556,9 +3395,6 @@ public class ExternalBusinessProcessor
 
 	}
 
-
-
-
 	/**
 	 * 미디어 메타데이터 조회를 한다.
 	 * @param XML                                                                                                                                                                                              카트내용정보
@@ -3571,9 +3407,6 @@ public class ExternalBusinessProcessor
 		return	externalDAO.getClipInfoList(manualArchiveDO);
 
 	}
-
-
-
 
 	/**
 	 * DTL 경로 추가.
@@ -3589,9 +3422,6 @@ public class ExternalBusinessProcessor
 	}
 
 
-
-
-
 	/**
 	 * dtl 목록을 조회한다
 	 * @param  xml                                                                                                                                                                                              
@@ -3604,8 +3434,6 @@ public class ExternalBusinessProcessor
 		return externalDAO.getDtlInfo();
 
 	}
-
-
 
 
 	/**
@@ -3635,8 +3463,6 @@ public class ExternalBusinessProcessor
 
 	}
 
-
-
 	/**
 	 * tc 현황을 조회한다(모니터링)
 	 * @param  XML                                                                                                                                                                                              
@@ -3649,8 +3475,6 @@ public class ExternalBusinessProcessor
 		return externalDAO.getTCinfo(monitoringDO);
 
 	}
-
-
 
 
 	/**
@@ -3667,11 +3491,6 @@ public class ExternalBusinessProcessor
 	}
 
 
-
-
-
-
-
 	/**
 	 * 해당 건의 상세 정보를 조회한다
 	 * @param  XML                                                                                                                                                                                              
@@ -3681,28 +3500,20 @@ public class ExternalBusinessProcessor
 	public List getDetailInfo(MonitoringDO monitoringDO) throws Exception
 	{
 
-		try 
-		{
-			if(monitoringDO.getGubun().equals("001")){
-				//아카이브 상세 구분
-				return externalDAO.getDetailInfoForArchive(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("002")){
-				//tc 상세구분
-				return externalDAO.getDetailInfoForTC(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("003")){
-				//tm 상세구분
-				return externalDAO.getDetailInfoForTM(monitoringDO);
-			}
-		} catch (Exception e) {
-			throw e;
+		if(monitoringDO.getGubun().equals("001")){
+			//아카이브 상세 구분
+			return externalDAO.getDetailInfoForArchive(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("002")){
+			//tc 상세구분
+			return externalDAO.getDetailInfoForTC(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("003")){
+			//tm 상세구분
+			return externalDAO.getDetailInfoForTM(monitoringDO);
 		}
+
 		return null;
 
 	}
-
-
-
-
 
 
 	/**
@@ -3713,51 +3524,46 @@ public class ExternalBusinessProcessor
 	 */
 	public int changePriority(MonitoringDO monitoringDO) throws Exception
 	{
-		try 
-		{
-			if(monitoringDO.getGubun().equals("001")){
-				//아카이브 관리tab
 
-				//WF 에 우선순위변경 요청을 보낸다
-				systemManageDAO.changePriorityForArchive(monitoringDO);
+		if(monitoringDO.getGubun().equals("001")){
+			//아카이브 관리tab
 
-				return externalDAO.changePriorityForArchive(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("002")){
-				//재생성 관리 텝
-				return externalDAO.changePriorityForTC(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("003")){
-				//다운로드 관리 텝 -> 전송우선순위(구현예정)
-				//return externalDAO.changePriorityForTM(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("004")){
-				//수동복본 관리텝
-				//WF 에 우선순위변경 요청을 보낸다
-				systemManageDAO.changePriorityForArchive(monitoringDO);
+			//WF 에 우선순위변경 요청을 보낸다
+			systemManageDAO.changePriorityForArchive(monitoringDO);
 
-				return 1;
-			}else if(monitoringDO.getGubun().equals("005")){
-				//수동복원 관리텝
-				//WF 에 우선순위변경 요청을 보낸다
-				systemManageDAO.changePriorityForArchive(monitoringDO);
+			return externalDAO.changePriorityForArchive(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("002")){
+			//재생성 관리 텝
+			return externalDAO.changePriorityForTC(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("003")){
+			//다운로드 관리 텝 -> 전송우선순위(구현예정)
+			//return externalDAO.changePriorityForTM(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("004")){
+			//수동복본 관리텝
+			//WF 에 우선순위변경 요청을 보낸다
+			systemManageDAO.changePriorityForArchive(monitoringDO);
 
-				return 1;
-			}else if(monitoringDO.getGubun().equals("006")){
-				//수동 소산 관리텝
-				//WF 에 우선순위변경 요청을 보낸다
-				systemManageDAO.changePriorityForArchive(monitoringDO);
+			return 1;
+		}else if(monitoringDO.getGubun().equals("005")){
+			//수동복원 관리텝
+			//WF 에 우선순위변경 요청을 보낸다
+			systemManageDAO.changePriorityForArchive(monitoringDO);
 
-				return 1;
-			}else if(monitoringDO.getGubun().equals("007")){
-				//WF 에 우선순위변경 요청을 보낸다
-				systemManageDAO.changePriorityForDownload(monitoringDO);
-				return externalDAO.changePriorityForDown(monitoringDO);
-			}
-			return 0;
-		} catch (Exception e) {
-			throw e;
+			return 1;
+		}else if(monitoringDO.getGubun().equals("006")){
+			//수동 소산 관리텝
+			//WF 에 우선순위변경 요청을 보낸다
+			systemManageDAO.changePriorityForArchive(monitoringDO);
+
+			return 1;
+		}else if(monitoringDO.getGubun().equals("007")){
+			//WF 에 우선순위변경 요청을 보낸다
+			systemManageDAO.changePriorityForDownload(monitoringDO);
+			return externalDAO.changePriorityForDown(monitoringDO);
 		}
+		return 0;
 
 	}
-
 
 
 	/**
@@ -3769,53 +3575,47 @@ public class ExternalBusinessProcessor
 	public int cancelJob(MonitoringDO monitoringDO) throws Exception
 	{
 
-		try 
-		{
-			if(monitoringDO.getGubun().equals("001")){
-				//아카이브 상세 구분
+		if(monitoringDO.getGubun().equals("001")){
+			//아카이브 상세 구분
 
-				//WF 에 취소요청을 보낸다
-				monitoringDO.setGubun("005");
-				systemManageDAO.cancleJobRequest(monitoringDO);
-				return 1;
-			}else if(monitoringDO.getGubun().equals("002")){
-				//재생성
-				return externalDAO.cancelJobForTC(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("003")){
-				//다운로드tm 전송(구현예정)
-				//WF 에 취소요청을 보낸다
-				//systemManageDAO.cancleJobRequestForDown(monitoringDO);
-				//return externalDAO.cancelJobForTM(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("004")){
-				//수동복본
-				//WF 에 취소요청을 보낸다
-				systemManageDAO.cancleJobRequest(monitoringDO);
-				return externalDAO.cancelJobForArchive(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("005")){
-				//수동복원
-				//WF 에 취소요청을 보낸다
-				systemManageDAO.cancleJobRequest(monitoringDO);
-				return externalDAO.cancelJobForArchive(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("006")){
-				//수동소산
-				//WF 에 취소요청을 보낸다
-				systemManageDAO.cancleJobRequest(monitoringDO);
-				return externalDAO.cancelJobForArchive(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("007")){
-				//다운로드 (dtl)
-				//WF 에 취소요청을 보낸다
-				monitoringDO.setGubun("007");
-				systemManageDAO.cancleJobRequestForDown(monitoringDO);
-				return 1;
-			}
-
-			return 0;
-		} catch (Exception e) {
-			throw e;
+			//WF 에 취소요청을 보낸다
+			monitoringDO.setGubun("005");
+			systemManageDAO.cancleJobRequest(monitoringDO);
+			return 1;
+		}else if(monitoringDO.getGubun().equals("002")){
+			//재생성
+			return externalDAO.cancelJobForTC(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("003")){
+			//다운로드tm 전송(구현예정)
+			//WF 에 취소요청을 보낸다
+			//systemManageDAO.cancleJobRequestForDown(monitoringDO);
+			//return externalDAO.cancelJobForTM(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("004")){
+			//수동복본
+			//WF 에 취소요청을 보낸다
+			systemManageDAO.cancleJobRequest(monitoringDO);
+			return externalDAO.cancelJobForArchive(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("005")){
+			//수동복원
+			//WF 에 취소요청을 보낸다
+			systemManageDAO.cancleJobRequest(monitoringDO);
+			return externalDAO.cancelJobForArchive(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("006")){
+			//수동소산
+			//WF 에 취소요청을 보낸다
+			systemManageDAO.cancleJobRequest(monitoringDO);
+			return externalDAO.cancelJobForArchive(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("007")){
+			//다운로드 (dtl)
+			//WF 에 취소요청을 보낸다
+			monitoringDO.setGubun("007");
+			systemManageDAO.cancleJobRequestForDown(monitoringDO);
+			return 1;
 		}
 
-	}
+		return 0;
 
+	}
 
 
 	/**
@@ -3842,19 +3642,14 @@ public class ExternalBusinessProcessor
 	public int manualDelete(ManualDeleteDO manualDeleteDO) throws Exception
 	{
 
-		try {
+		if(manualDeleteDO.getGubun().equals("001")){
+			systemManageDAO.deleteRequest(manualDeleteDO);
+			return externalDAO.manualDeleteForArchive(manualDeleteDO);
+		}else if(manualDeleteDO.getGubun().equals("002")){
+			return externalDAO.manualDeleteForDown(manualDeleteDO);
 
-			if(manualDeleteDO.getGubun().equals("001")){
-				systemManageDAO.deleteRequest(manualDeleteDO);
-				return externalDAO.manualDeleteForArchive(manualDeleteDO);
-			}else if(manualDeleteDO.getGubun().equals("002")){
-				return externalDAO.manualDeleteForDown(manualDeleteDO);
-
-			}
-
-		} catch (Exception e) {
-			throw e;
 		}
+
 		return 0;
 
 	}
@@ -3991,122 +3786,117 @@ public class ExternalBusinessProcessor
 	public String tryAgain(MonitoringDO monitoringDO) throws Exception
 	{
 
-		try {  
+		if(monitoringDO.getGubun().equals("001")){
+			//아카이브 상세 구분
 
-			if(monitoringDO.getGubun().equals("001")){
-				//아카이브 상세 구분
+			ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+			_processor.updateRetryArchive(monitoringDO.getKey());
+			return "success";
+		}else if(monitoringDO.getGubun().equals("002")){
+			//재생성
 
-				ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
-				_processor.updateRetryArchive(monitoringDO.getKey());
-				return "success";
-			}else if(monitoringDO.getGubun().equals("002")){
-				//재생성
+			return externalDAO.tryAgainForReMake(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("003")){
+			//다운로드 전송(tm)
+			TransferDOXML _doXML = new TransferDOXML();
+			String getMessage =  TryAgingAddTask(Integer.parseInt(String.valueOf(monitoringDO.getKey())));
+			logger.debug("getMessage ["+getMessage+"]");
+			TransferDO _do2 = getCartInfo(Integer.parseInt(String.valueOf(monitoringDO.getKey())));
+			compledownprocess(_do2.getCart_no(),_do2.getCart_seq());
+			TransferDO _do = (TransferDO) _doXML.setDO(getMessage);
+			_do.setCart_no(_do2.getCart_no());
+			_do.setCart_seq(_do2.getCart_seq());
+			insertAddTask(_do);
 
-				return externalDAO.tryAgainForReMake(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("003")){
-				//다운로드 전송(tm)
-				TransferDOXML _doXML = new TransferDOXML();
-				String getMessage =  TryAgingAddTask(Integer.parseInt(String.valueOf(monitoringDO.getKey())));
-				logger.debug("getMessage ["+getMessage+"]");
-				TransferDO _do2 = getCartInfo(Integer.parseInt(String.valueOf(monitoringDO.getKey())));
-				compledownprocess(_do2.getCart_no(),_do2.getCart_seq());
-				TransferDO _do = (TransferDO) _doXML.setDO(getMessage);
-				_do.setCart_no(_do2.getCart_no());
-				_do.setCart_seq(_do2.getCart_seq());
-				insertAddTask(_do);
-
-				return "success";
+			return "success";
 
 
-			}else if(monitoringDO.getGubun().equals("004")){
-				//수동복본
-				SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
-				long CT_ID = externalDAO.selectCT_IDForArchive(monitoringDO.getKey());
-				String fileName = externalDAO.getContentsLocTbl(monitoringDO.getKey());
-				UseInfoDO useDO = new UseInfoDO();
-				useDO.setGubun("001");
-				useDO.setFileName(fileName);
-				useDO.setCt_id(CT_ID);
-				useDO.setReg_id(monitoringDO.getReq_id());
-				_processor.updateCopyRequestForCt_id(useDO);
-				return "success";
-			}else if(monitoringDO.getGubun().equals("005")){
-				//수동소산
-				SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
-				long CT_ID = externalDAO.selectCT_IDForArchive(monitoringDO.getKey());
-				UseInfoDO useDO = new UseInfoDO();
-				useDO.setGubun("002");
-				useDO.setCt_id(CT_ID);
-				useDO.setReg_id(monitoringDO.getReq_id());
-				_processor.updateCopyRequestForCt_id(useDO);
-				return "success";
-			}else if(monitoringDO.getGubun().equals("006")){
-				//수동복원
-				SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
-				long CT_ID = externalDAO.selectCT_IDForArchive(monitoringDO.getKey());
-				String tempFileName = externalDAO.getContentsLocTbl(monitoringDO.getKey());
-				String[] temp = tempFileName.split("mxf");
-				logger.debug("temp   " + temp.length);
-				String fileName = temp[0]+"mp4";
-				UseInfoDO useDO = new UseInfoDO();
-				useDO.setGubun("003");
-				useDO.setCt_id(CT_ID);
-				useDO.setFileName(fileName);
-				useDO.setReg_id(monitoringDO.getReq_id());
-				_processor.updateCopyRequestForCt_id(useDO);
-				return "success";
-			}else if(monitoringDO.getGubun().equals("007")){
-				//다운로드 요청
-				CartContDO _do = new CartContDO();
-				_do =externalDAO.selectCartInfo(monitoringDO.getKey());
-				_do.setDtl_type(workDAO.getCocdInfo(_do.getCartNo(),_do.getCartSeq()));
+		}else if(monitoringDO.getGubun().equals("004")){
+			//수동복본
+			SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
+			long CT_ID = externalDAO.selectCT_IDForArchive(monitoringDO.getKey());
+			String fileName = externalDAO.getContentsLocTbl(monitoringDO.getKey());
+			UseInfoDO useDO = new UseInfoDO();
+			useDO.setGubun("001");
+			useDO.setFileName(fileName);
+			useDO.setCt_id(CT_ID);
+			useDO.setReg_id(monitoringDO.getReq_id());
+			_processor.updateCopyRequestForCt_id(useDO);
+			return "success";
+		}else if(monitoringDO.getGubun().equals("005")){
+			//수동소산
+			SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
+			long CT_ID = externalDAO.selectCT_IDForArchive(monitoringDO.getKey());
+			UseInfoDO useDO = new UseInfoDO();
+			useDO.setGubun("002");
+			useDO.setCt_id(CT_ID);
+			useDO.setReg_id(monitoringDO.getReq_id());
+			_processor.updateCopyRequestForCt_id(useDO);
+			return "success";
+		}else if(monitoringDO.getGubun().equals("006")){
+			//수동복원
+			SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
+			long CT_ID = externalDAO.selectCT_IDForArchive(monitoringDO.getKey());
+			String tempFileName = externalDAO.getContentsLocTbl(monitoringDO.getKey());
+			String[] temp = tempFileName.split("mxf");
+			logger.debug("temp   " + temp.length);
+			String fileName = temp[0]+"mp4";
+			UseInfoDO useDO = new UseInfoDO();
+			useDO.setGubun("003");
+			useDO.setCt_id(CT_ID);
+			useDO.setFileName(fileName);
+			useDO.setReg_id(monitoringDO.getReq_id());
+			_processor.updateCopyRequestForCt_id(useDO);
+			return "success";
+		}else if(monitoringDO.getGubun().equals("007")){
+			//다운로드 요청
+			CartContDO _do = new CartContDO();
+			_do =externalDAO.selectCartInfo(monitoringDO.getKey());
+			_do.setDtl_type(workDAO.getCocdInfo(_do.getCartNo(),_do.getCartSeq()));
 
-				String xml = externalDAO.getNewDownloadXmlFormat(_do);//카트번호, 카트 순번을 받아 처리 한건씩.
+			String xml = externalDAO.getNewDownloadXmlFormat(_do);//카트번호, 카트 순번을 받아 처리 한건씩.
 
 
+			/**
+			 * DTL 이관 전 클립 & 스토리지에 존재 한다면 DAS-TM에 전송 요청  시작
+			 */
+			// DTL 이관 전 클립 & 스토리지에 존재 분기시작.
+			CartContDO tmpCartContDO  = externalDAO.getStLocClip(externalDAO.selectCartContInfo(_do.getCartNo(), _do.getCartSeq()).getMasterId());
+			if(!CommonUtl.isEmptyString(tmpCartContDO.getFl_path())){
 				/**
-				 * DTL 이관 전 클립 & 스토리지에 존재 한다면 DAS-TM에 전송 요청  시작
+				 * PDS,NDS,계열사 해당하는 다운로드 요청만 DAS-TM 전송요청을 하게 됨(20110512:dekim)
 				 */
-				// DTL 이관 전 클립 & 스토리지에 존재 분기시작.
-				CartContDO tmpCartContDO  = externalDAO.getStLocClip(externalDAO.selectCartContInfo(_do.getCartNo(), _do.getCartSeq()).getMasterId());
-				if(!CommonUtl.isEmptyString(tmpCartContDO.getFl_path())){
-					/**
-					 * PDS,NDS,계열사 해당하는 다운로드 요청만 DAS-TM 전송요청을 하게 됨(20110512:dekim)
-					 */
-					if(externalDAO.getUsedDasTmYnByCartNo(_do.getCartNo())){
+				if(externalDAO.getUsedDasTmYnByCartNo(_do.getCartNo())){
 
-						String getMessage =  externalDAO.addTaskByStorageClip(_do.getCartNo(),_do.getCartSeq());
+					String getMessage =  externalDAO.addTaskByStorageClip(_do.getCartNo(),_do.getCartSeq());
 
-						logger.debug("getMessage ["+getMessage+"]");
-						TransferDOXML _doXML = new TransferDOXML();
-						TransferDO _do1 = (TransferDO) _doXML.setDO(getMessage);
-						_do1.setCart_no(Integer.parseInt(_do.getCartNo()+""));
-						_do1.setCart_seq(Integer.parseInt(_do.getCartSeq()+""));
-						externalDAO.insertAddTaskRes(_do1);
-						_do.setNum(monitoringDO.getKey());
-						externalDAO.updateDownState(_do);
-					}
-				}else{
-					if(!"".equals(xml)){
-						NevigatorProxy port = new NevigatorProxy();
-						try {
-							String _result = port.downloadService(xml);
-							logger.debug("############_result   -  " + _result);
-						} catch (RemoteException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} 
-					}
+					logger.debug("getMessage ["+getMessage+"]");
+					TransferDOXML _doXML = new TransferDOXML();
+					TransferDO _do1 = (TransferDO) _doXML.setDO(getMessage);
+					_do1.setCart_no(Integer.parseInt(_do.getCartNo()+""));
+					_do1.setCart_seq(Integer.parseInt(_do.getCartSeq()+""));
+					externalDAO.insertAddTaskRes(_do1);
 					_do.setNum(monitoringDO.getKey());
 					externalDAO.updateDownState(_do);
 				}
-				return "success";
-
+			}else{
+				if(!"".equals(xml)){
+					NevigatorProxy port = new NevigatorProxy();
+					try {
+						String _result = port.downloadService(xml);
+						logger.debug("############_result   -  " + _result);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+				}
+				_do.setNum(monitoringDO.getKey());
+				externalDAO.updateDownState(_do);
 			}
-			return "fail";
-		} catch (Exception e) {
-			throw e;
+			return "success";
+
 		}
+		return "fail";
 
 	}
 
@@ -4182,6 +3972,24 @@ public class ExternalBusinessProcessor
 		String rtnValue="";
 		String xml="";
 		int errorcount =0;
+
+		TansferPortTypeProxy port = new TansferPortTypeProxy();
+		for(int i=0; i<3; i++) {
+			try {
+				rtnValue = port.addTask(String.valueOf(num));
+				break;
+			} catch (Exception e) {
+				if(i==2) {
+					throw e;
+				}
+				logger.error("Tansfer call error", e);
+				try {
+					Thread.sleep(3000L);
+				} catch (Exception e2) {}
+			}
+		}
+
+		/*
 		try {
 
 			logger.debug("###errorcount"+errorcount);
@@ -4193,7 +4001,7 @@ public class ExternalBusinessProcessor
 		} catch (RemoteException e) {
 			try {
 				errorcount=1;
-				logger.debug("###errorcount"+errorcount);
+
 				TansferPortTypeProxy port = new TansferPortTypeProxy();
 				rtnValue = port.addTask(CommonUtl.transXmlText(xml));
 				return 		CommonUtl.transXMLText(rtnValue);
@@ -4212,7 +4020,8 @@ public class ExternalBusinessProcessor
 		} catch (Exception e) {
 			logger.error("TryAgingAddTask error", e);
 		}
-		return "";
+		 */
+		return rtnValue;
 	}
 
 
@@ -4224,17 +4033,14 @@ public class ExternalBusinessProcessor
 	 */
 	public List getJobStatus(MonitoringDO monitoringDO) throws Exception
 	{
-		try 
-		{
-			//001 : 아카이브, 002:다운로드
-			if(monitoringDO.getGubun().equals("001")){
-				return externalDAO.getJobStatusForArchive(monitoringDO);
-			}else if(monitoringDO.getGubun().equals("002")){
-				return externalDAO.getJobStatusForDownload(monitoringDO);	
-			}
-		} catch (Exception e) {
-			logger.error("getJobStatus error", e);
+
+		//001 : 아카이브, 002:다운로드
+		if(monitoringDO.getGubun().equals("001")){
+			return externalDAO.getJobStatusForArchive(monitoringDO);
+		}else if(monitoringDO.getGubun().equals("002")){
+			return externalDAO.getJobStatusForDownload(monitoringDO);	
 		}
+
 		return null;
 
 	}
@@ -4283,9 +4089,9 @@ public class ExternalBusinessProcessor
 	 */
 	public String updateRistClfCd() throws Exception
 	{
-		for(int i =0; i<3;i++){
-			externalDAO.updateRistClfCd();
-		}
+		//for(int i =0; i<3;i++){
+		externalDAO.updateRistClfCd();
+		//}
 		return "1";
 	}
 
@@ -4301,56 +4107,50 @@ public class ExternalBusinessProcessor
 	 */
 	public String getBaseInfoForIfCms(long master_id) throws NumberFormatException, Exception
 	{
-		try 
-		{
+
+		long nMasterID = master_id;
+		long rMasterID = 0;
+		// XML에서 masterID를 찾아낸다.
+		XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
+
+		Das das = new Das();
+
+		MetaDataInfo metaDataInfo = externalDAO.getBaseResult(nMasterID);
+		das.setMetaDataInfo(metaDataInfo);
 
 
-			long nMasterID = master_id;
-			long rMasterID = 0;
-			// XML에서 masterID를 찾아낸다.
-			XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
-
-			Das das = new Das();
-
-			MetaDataInfo metaDataInfo = externalDAO.getBaseResult(nMasterID);
-			das.setMetaDataInfo(metaDataInfo);
+		Ingest ingest = externalDAO.getIngestMetaResult(nMasterID);
+		das.getMetaDataInfo().setIngest(ingest);
 
 
-			Ingest ingest = externalDAO.getIngestMetaResult(nMasterID);
-			das.getMetaDataInfo().setIngest(ingest);
-
-
-			rMasterID = Long.parseLong(externalDAO.selectRelationMaster(nMasterID));
-			// 관련 영상 Meta 관련 정보를 가져온다.
-			if(nMasterID != rMasterID){
-				Relation relation = externalDAO.getRelationMetaResult(rMasterID);
-				if(relation != null)
-					das.getMetaDataInfo().setRelation(relation);
-			}
-
-
-			Attach attach = externalDAO.getAttachResult(nMasterID);
-			if(attach != null)
-				das.getMetaDataInfo().setAttach(attach);
-
-
-			Annot annot = externalDAO.getAnnotInfo(nMasterID);
-			if(annot != null)
-				das.getMetaDataInfo().setAnnot(annot);
-
-			String xml = "";
-			try {
-				xml = convertorService.createMarshaller(das);
-
-			} catch (JAXBException e) {
-				logger.error("getBaseInfo Xml Create Error", e);
-			}
-
-			return xml;
-
-		} catch (Exception e) {
-			throw e;
+		rMasterID = Long.parseLong(externalDAO.selectRelationMaster(nMasterID));
+		// 관련 영상 Meta 관련 정보를 가져온다.
+		if(nMasterID != rMasterID){
+			Relation relation = externalDAO.getRelationMetaResult(rMasterID);
+			if(relation != null)
+				das.getMetaDataInfo().setRelation(relation);
 		}
+
+
+		Attach attach = externalDAO.getAttachResult(nMasterID);
+		if(attach != null)
+			das.getMetaDataInfo().setAttach(attach);
+
+
+		Annot annot = externalDAO.getAnnotInfo(nMasterID);
+		if(annot != null)
+			das.getMetaDataInfo().setAnnot(annot);
+
+		String xml = "";
+		try {
+			xml = convertorService.createMarshaller(das);
+
+		} catch (JAXBException e) {
+			logger.error("getBaseInfo Xml Create Error", e);
+		}
+
+		return xml;
+
 	}
 
 
@@ -4405,36 +4205,33 @@ public class ExternalBusinessProcessor
 	 */
 	public String insertRistClfInfoListForTime(Das das) throws Exception
 	{
-		try 
-		{	
-			String xml = "";
-			for(TimeRistInfo info : das.getTimeRist().getItems()){
 
-				List<TimeRistInfo> result = externalDAO.checkDuplication(info);
+		String xml = "";
+		for(TimeRistInfo info : das.getTimeRist().getItems()){
 
-				if(result.size() == 0){
-					xml = externalDAO.insertRistClfInfoListForTime(info);
-				}else{
-					XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
-					Das xmlResult = new Das();
-					for(TimeRistInfo resultInfo : result){
-						TimeRist timeRist = new TimeRist();
-						timeRist.setResult("fail");
-						List<TimeRistInfo> resultList = new ArrayList<TimeRistInfo>();
-						resultList.add(resultInfo);
-						logger.debug("result" +resultInfo.getRistClfCd());
-						timeRist.setItems(resultList);
-						xmlResult.setTimeRist(timeRist);
-					}
-					xml = convertorService.createMarshaller(xmlResult);
+			List<TimeRistInfo> result = externalDAO.checkDuplication(info);
+
+			if(result.size() == 0){
+				xml = externalDAO.insertRistClfInfoListForTime(info);
+			}else{
+				XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
+				Das xmlResult = new Das();
+				for(TimeRistInfo resultInfo : result){
+					TimeRist timeRist = new TimeRist();
+					timeRist.setResult("fail");
+					List<TimeRistInfo> resultList = new ArrayList<TimeRistInfo>();
+					resultList.add(resultInfo);
+					logger.debug("result" +resultInfo.getRistClfCd());
+					timeRist.setItems(resultList);
+					xmlResult.setTimeRist(timeRist);
 				}
-
+				xml = convertorService.createMarshaller(xmlResult);
 			}
 
-			return xml;
-		} catch (Exception e) {
-			throw e;
-		}	
+		}
+
+		return xml;
+
 	}
 
 	/**
@@ -4446,69 +4243,64 @@ public class ExternalBusinessProcessor
 	public String updateRistClfInfoListForTime(Das das) throws Exception
 	{
 
-		try   
-		{	
-			String xml = "";
-			List<TimeRistInfo> dupleList = new ArrayList<TimeRistInfo>();
-			for(TimeRistInfo info : das.getTimeRist().getItems()){
+		String xml = "";
+		List<TimeRistInfo> dupleList = new ArrayList<TimeRistInfo>();
+		for(TimeRistInfo info : das.getTimeRist().getItems()){
 
-				//시간대를 수정하려한다면 중복체크를 한다.
-				if(!StringUtils.isEmpty(info.getsTime()) || !StringUtils.isEmpty(info.geteTime())){
+			//시간대를 수정하려한다면 중복체크를 한다.
+			if(!StringUtils.isEmpty(info.getsTime()) || !StringUtils.isEmpty(info.geteTime())){
 
-					List<TimeRistInfo> results = externalDAO.checkDuplication(info);
+				List<TimeRistInfo> results = externalDAO.checkDuplication(info);
 
 
-					if(results.size() ==0){
-						xml = externalDAO.updateRistClfInfoListForTime(info);
-					}else if(results.size() <= 1) {
-						for(TimeRistInfo result : results){
-							if(result.getSeq() == info.getSeq()){
-								xml = externalDAO.updateRistClfInfoListForTime(info);
-							}else{
-
-								XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
-								Das xmlResult = new Das();
-
-								TimeRist timeRist = new TimeRist();
-								timeRist.setResult("fail");
-
-								for(TimeRistInfo duple : results){
-									dupleList.add(duple);
-
-									timeRist.setItems(dupleList);
-									xmlResult.setTimeRist(timeRist);
-								}
-								xml = convertorService.createMarshaller(xmlResult);
-
-
-							}
-						}
-					}else{
-						XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
-						Das xmlResult = new Das();
-
-						TimeRist timeRist = new TimeRist();
-						timeRist.setResult("fail");
-						List<TimeRistInfo> resultList = new ArrayList<TimeRistInfo>();
-						for(TimeRistInfo result : results){
-							resultList.add(result);
-
-							timeRist.setItems(resultList);
-							xmlResult.setTimeRist(timeRist);
-						}
-						xml = convertorService.createMarshaller(xmlResult);
-					}
-
-				}else{
+				if(results.size() ==0){
 					xml = externalDAO.updateRistClfInfoListForTime(info);
+				}else if(results.size() <= 1) {
+					for(TimeRistInfo result : results){
+						if(result.getSeq() == info.getSeq()){
+							xml = externalDAO.updateRistClfInfoListForTime(info);
+						}else{
+
+							XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
+							Das xmlResult = new Das();
+
+							TimeRist timeRist = new TimeRist();
+							timeRist.setResult("fail");
+
+							for(TimeRistInfo duple : results){
+								dupleList.add(duple);
+
+								timeRist.setItems(dupleList);
+								xmlResult.setTimeRist(timeRist);
+							}
+							xml = convertorService.createMarshaller(xmlResult);
+
+
+						}
+					}
+				}else{
+					XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
+					Das xmlResult = new Das();
+
+					TimeRist timeRist = new TimeRist();
+					timeRist.setResult("fail");
+					List<TimeRistInfo> resultList = new ArrayList<TimeRistInfo>();
+					for(TimeRistInfo result : results){
+						resultList.add(result);
+
+						timeRist.setItems(resultList);
+						xmlResult.setTimeRist(timeRist);
+					}
+					xml = convertorService.createMarshaller(xmlResult);
 				}
 
+			}else{
+				xml = externalDAO.updateRistClfInfoListForTime(info);
 			}
 
-			return xml;
-		} catch (Exception e) {
-			throw e;
 		}
+
+		return xml;
 
 	}
 
@@ -4541,33 +4333,28 @@ public class ExternalBusinessProcessor
 	public String updateReqCd(Das das) throws Exception
 	{
 
-		try 
-		{
-			String result="";
-			int erpDuple = externalDAO.countErpReqCd(das.getMetaDataInfo().getReqCd());
-			int dasDuple = externalDAO.countDasReqCd(das.getMetaDataInfo().getReqCd());
+		String result="";
+		int erpDuple = externalDAO.countErpReqCd(das.getMetaDataInfo().getReqCd());
+		int dasDuple = externalDAO.countDasReqCd(das.getMetaDataInfo().getReqCd());
 
-			if(logger.isDebugEnabled()) {
-				logger.debug("###########################erpDuple "+erpDuple);
-				logger.debug("###########################dasDuple "+dasDuple);
-			}
-
-			if(erpDuple == 1 && dasDuple ==0){
-				result =externalDAO.updateReqCd(das);				
-			}else{
-				XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
-				Das rexml= new Das(); 
-				MetaDataInfo metaDataInfo = new MetaDataInfo();
-				metaDataInfo.setResult("fail");
-				metaDataInfo.setReason("DAS DB에 중복된 청구번호가 존재합니다");
-				rexml.setMetaDataInfo(metaDataInfo);
-				result = convertorService.createMarshaller(rexml);
-			}
-
-			return result;
-		} catch (Exception e) {  
-			throw e;
+		if(logger.isDebugEnabled()) {
+			logger.debug("###########################erpDuple "+erpDuple);
+			logger.debug("###########################dasDuple "+dasDuple);
 		}
+
+		if(erpDuple == 1 && dasDuple ==0){
+			result =externalDAO.updateReqCd(das);				
+		}else{
+			XmlConvertorService<Das> convertorService = new XmlConvertorServiceImpl<Das>();
+			Das rexml= new Das(); 
+			MetaDataInfo metaDataInfo = new MetaDataInfo();
+			metaDataInfo.setResult("fail");
+			metaDataInfo.setReason("DAS DB에 중복된 청구번호가 존재합니다");
+			rexml.setMetaDataInfo(metaDataInfo);
+			result = convertorService.createMarshaller(rexml);
+		}
+
+		return result;
 
 	}
 

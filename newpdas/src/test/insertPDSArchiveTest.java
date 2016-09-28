@@ -20,30 +20,19 @@ public class insertPDSArchiveTest {
 	public static void main(String[] args) {
 
 
-
 		PdsArchiveDOXML _doXML = new PdsArchiveDOXML();
 		try {
-			String xml = FileUtils.readFileToString(new File("D:/ifcms.xml"), "utf-8");
-
-			PdsArchiveDO _do = (PdsArchiveDO) _doXML.setDO(xml);	
-
+			String xml = FileUtils.readFileToString(new File("D:/pdas.xml"), "utf-8");
 
 			IfCmsArchiveDOXML _doXML2 = new IfCmsArchiveDOXML();
-			IfCmsArchiveDO _do2 = (IfCmsArchiveDO) _doXML2.setDO(xml);
-
 			SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 
-			if(_do2.getVersion().startsWith("1.")){
-				/*System.out.println("attach: "+_do.getAttatches());
-				if(_do.getAttatches() != null) {
-					for(int i=0; i<_do.getAttatches().size(); i++) {
-						AttachItem item = (AttachItem)_do.getAttatches().get(i);
-						System.out.println("filename: "+item.getOrgFileNm());
-					}
-				}*/
+			if(xml.indexOf("<generator_version>1.0</generator_version>") > -1) {
+				PdsArchiveDO _do = (PdsArchiveDO) _doXML.setDO(xml);	
 				int result = _processor.insertNewPdasArchive(_do);
 				System.out.println("result 1.0 : "+result);
-			}else{ 
+			} else { 
+				IfCmsArchiveDO _do2 = (IfCmsArchiveDO) _doXML2.setDO(xml);
 				int result = _processor.insertNewIfCmsArchive(_do2);
 				System.out.println("result 2.0 : "+result);
 			}

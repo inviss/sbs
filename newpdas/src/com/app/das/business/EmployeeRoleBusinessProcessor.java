@@ -1064,16 +1064,16 @@ public class EmployeeRoleBusinessProcessor
 	public List getNonEmployeeRoleList(EmployeeInfoDO condition) throws Exception
 	{
 
-			String dep_cd= userRoleDAO.selectDepinfoForUser(condition.getSbs_user_ID());
-			String pgm_id = userRoleDAO.selectPgminfoForUser2(condition.getSbs_user_ID(),dep_cd);
-			if(pgm_id.equals("")){
-				condition.setPds_pgm_id("1111111111111");
-			}else{
-				condition.setPds_pgm_id(pgm_id);	
-			}
-			condition.setDept_cd(dep_cd);
+		String dep_cd= userRoleDAO.selectDepinfoForUser(condition.getSbs_user_ID());
+		String pgm_id = userRoleDAO.selectPgminfoForUser2(condition.getSbs_user_ID(),dep_cd);
+		if(pgm_id.equals("")){
+			condition.setPds_pgm_id("1111111111111");
+		}else{
+			condition.setPds_pgm_id(pgm_id);	
+		}
+		condition.setDept_cd(dep_cd);
 
-			return userRoleDAO.selectNonEmployeeRoleList(condition);
+		return userRoleDAO.selectNonEmployeeRoleList(condition);
 
 	}
 
@@ -1086,8 +1086,8 @@ public class EmployeeRoleBusinessProcessor
 	public int updateNonEmployeeRole(NonEmployeeInfoDO roleDO)  throws Exception
 	{
 
-			//사용자 정보를 수정한다.
-			return  userRoleDAO.updateNonEmployeeRole(roleDO);
+		//사용자 정보를 수정한다.
+		return  userRoleDAO.updateNonEmployeeRole(roleDO);
 
 	}
 
@@ -1113,13 +1113,13 @@ public class EmployeeRoleBusinessProcessor
 				}
 
 			}
-			
+
 			//사용자 정보를 등록한다.
 			int count = userRoleDAO.insertOutEmployeeRole(roleDO);
 
 			//pds연동부분
 			String result =userRoleDAO.insertEmployeeRole(roleDO);
-			
+
 			//무조건 PDS, NDS동기화 함에 따라 추가 2011.3.29 BY ASURA
 			roleDO.setPds("Y");
 			roleDO.setNds("Y");
@@ -1184,7 +1184,7 @@ public class EmployeeRoleBusinessProcessor
 				roleDO.setDelete_yn("N");
 				roleDO.setApprove_status("1");
 				roleDO.setUpdate_yn("N");
-				
+
 				String _xml = "";
 				/*
 				resultList.add(roleDO);
@@ -1201,8 +1201,8 @@ public class EmployeeRoleBusinessProcessor
 						logger.debug("_xml" + _xml);
 
 				}
-				*/
-				
+				 */
+
 				AllOtherDBUserInfoDOXML _do2 = new AllOtherDBUserInfoDOXML();
 				_do2.setDO(roleDO);
 				_xml = _do2.getSubXML2();
@@ -1243,7 +1243,7 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getERPAppointList(ErpAppointDO condition) throws Exception
 	{
-			return userRoleDAO.selectERPAppointList(condition);
+		return userRoleDAO.selectERPAppointList(condition);
 
 	}
 
@@ -1259,7 +1259,7 @@ public class EmployeeRoleBusinessProcessor
 	public int[] insertERPAppoint(List roleDO)  throws Exception
 	{
 
-			return userRoleDAO.insertERPAppoint(roleDO);
+		return userRoleDAO.insertERPAppoint(roleDO);
 
 	}
 
@@ -1272,7 +1272,7 @@ public class EmployeeRoleBusinessProcessor
 	public boolean insertERPUserInfo(List roleDO)  throws Exception
 	{
 
-			return userRoleDAO.insertERPUserInfo(roleDO);
+		return userRoleDAO.insertERPUserInfo(roleDO);
 
 	}
 
@@ -1287,7 +1287,7 @@ public class EmployeeRoleBusinessProcessor
 	public String updateInitPassword(String user_id)  throws Exception
 	{
 
-			return  userRoleDAO.updateInitPassword(user_id);
+		return  userRoleDAO.updateInitPassword(user_id);
 
 	}
 
@@ -1302,9 +1302,9 @@ public class EmployeeRoleBusinessProcessor
 	public List getToken(String user_num) throws Exception
 	{
 
-			TokenDO token = userRoleDAO.selecTokenInfo(user_num); 		
-			List list = (List)token;
-			return	list;			
+		TokenDO token = userRoleDAO.selecTokenInfo(user_num); 		
+		List list = (List)token;
+		return	list;			
 
 	}
 
@@ -1324,7 +1324,7 @@ public class EmployeeRoleBusinessProcessor
 				index = 0;
 				ErpAppointDO pgminfoDO = (ErpAppointDO)roleDO.get(i);
 				boolean resutl =userRoleDAO.isThereERPEmployeeRole(String.valueOf(pgminfoDO.getUser_no()), pgminfoDO.getCo_cd());
-				
+
 				if(resutl){
 					//로컬db에서 부서정보를 가져와서 비교한다. 
 					//플레그가 U 이면 업데이트
@@ -1332,7 +1332,7 @@ public class EmployeeRoleBusinessProcessor
 						userRoleDAO.updateErpUserInfo(pgminfoDO);
 					} else if(pgminfoDO.getOder_flag().equals("D")){
 						userRoleDAO.updateErpUserDelYN(String.valueOf(pgminfoDO.getUser_no()));
-						
+
 						//pa 삭제
 						EmployeeInfoDO info = (EmployeeInfoDO)userRoleDAO.selecEmployeeInfo(pgminfoDO.getUser_no());
 						//List resultList = new ArrayList();
@@ -1358,8 +1358,8 @@ public class EmployeeRoleBusinessProcessor
 								logger.debug("_xml" + _xml2);
 
 						}
-						*/
-						
+						 */
+
 						EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
 						_do2.setDO(info);
 						_xml2 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><das>";
@@ -1400,11 +1400,6 @@ public class EmployeeRoleBusinessProcessor
 	 *  */
 	public int insertOtherUserInfo(List roleDO)  throws Exception
 	{
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[insertOtherUserInfo][Input roleDO]" + roleDO);
-		}
-
 		try 
 		{
 			int index = 0;
@@ -1424,7 +1419,9 @@ public class EmployeeRoleBusinessProcessor
 								String password="";
 								if(!"".equals( infoDO.getPassword())){
 									password = hj.getDecryption( dasHandler.getProperty("AD_CRYPTO_KEY"),  dasHandler.getProperty("AD_DEFAULT_HEX"), infoDO.getPassword());
-									logger.debug("[password] ======  " + password);
+									if(logger.isDebugEnabled()) {
+										logger.debug("[password] ======  " + password);
+									}
 									passwd=userRoleDAO.getPasswd(password);
 									infoDO.setPassword(passwd);        
 								}
@@ -1447,7 +1444,9 @@ public class EmployeeRoleBusinessProcessor
 						String password="";
 						if(!"".equals( infoDO.getPassword())){
 							password = hj.getDecryption( dasHandler.getProperty("AD_CRYPTO_KEY"),  dasHandler.getProperty("AD_DEFAULT_HEX"), infoDO.getPassword());
-							logger.debug("[sb  password] ======  " + password);
+							if(logger.isDebugEnabled()) {
+								logger.debug("[sb  password] ======  " + password);
+							}
 							passwd=userRoleDAO.getPasswd(password);
 							infoDO.setPassword(passwd);        
 						}
@@ -1460,9 +1459,7 @@ public class EmployeeRoleBusinessProcessor
 
 			}
 			return 1;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -1481,14 +1478,12 @@ public class EmployeeRoleBusinessProcessor
 		try 
 		{
 			int index = 0;
-			logger.debug("###########roleDO.size() "+roleDO.size());
 			for(int i=0;i<roleDO.size();i++){
 				index = 0;
 				DepInfoDO infoDO = (DepInfoDO)roleDO.get(i);
 
 
-				if(infoDO.getStatus().equalsIgnoreCase("c"))
-				{
+				if(infoDO.getStatus().equalsIgnoreCase("c")) {
 					if(userRoleDAO.isThereDepInfo(infoDO.getDept_cd())){
 						userRoleDAO.updateOtherUserInfo(infoDO);
 					}else{
@@ -1518,9 +1513,7 @@ public class EmployeeRoleBusinessProcessor
 				}
 			}
 			return 1;
-		} 
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -1536,17 +1529,8 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getOtherEmployeeList(String sbs_user_id) throws Exception
 	{
-		try 
-		{
-			return userRoleDAO.selectOtherEmployeeList(sbs_user_id);
+		return userRoleDAO.selectOtherEmployeeList(sbs_user_id);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 
@@ -1559,17 +1543,9 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getOhterDepInfoList(String cocd, String dept_cd) throws Exception
 	{
-		try 
-		{
-			return userRoleDAO.selectOhterDepInfoList(cocd,dept_cd);
 
+		return userRoleDAO.selectOhterDepInfoList(cocd,dept_cd);
 
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 
@@ -1582,27 +1558,13 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public int insertRealEmployeeRole(EmployeeInfoDO roleDO)  throws Exception
 	{
-
-
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[insertRealEmployeeRole][Input EmployeeDASRoleDO]" + roleDO);
-		}
-
-
 		int result=0;
-
 		if(roleDO.getSuccess_yn().equals("200")||roleDO.getSuccess_yn().equals("300"))	{
-
 			result = 1;
-
 		}else{				
-
 			result =  0;
 		}
 		return result;
-
-
 	}
 
 	/**
@@ -1613,15 +1575,7 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public int updateRealEmployeeRole(EmployeeInfoDO roleDO)  throws Exception
 	{
-
-
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[insertRealEmployeeRole][Input EmployeeDASRoleDO]" + roleDO);
-		}
-
-		try 
-		{
+		try  {
 			int result=0;
 			String sResult="";
 			if(roleDO.getSuccess_yn().equals("200")||roleDO.getSuccess_yn().equals("300")||roleDO.getSuccess_yn().equals("400"))	{
@@ -1633,11 +1587,12 @@ public class EmployeeRoleBusinessProcessor
 
 				EmployeeInfoDO trans = (EmployeeInfoDO)userRoleDAO.selecEmployeeInfo(roleDO.getSbs_user_ID());
 
-				List resultList2 = new ArrayList();
-
-				resultList2.add(trans);
+				//				List resultList2 = new ArrayList();
+				//
+				//				resultList2.add(trans);
 				String _xml2 = "";
 				if(!roleDO.getNewPassword().equals("")){
+					/*
 					if (resultList2 != null && resultList2.size() > 0) {
 
 						Iterator _iter = resultList2.iterator();
@@ -1651,58 +1606,12 @@ public class EmployeeRoleBusinessProcessor
 							logger.debug("_xml2" + _xml2);
 
 					}
+					 */
+					AllOtherDBUserInfoDOXML _do2 = new AllOtherDBUserInfoDOXML();
+					_do2.setDO(trans);
+					_xml2 = _do2.getSubXML3();
 
-
-
-					/*	20120809 이후 if cms로 만 동기화 한다.
-					 * //PDS에 사용자 정보를 수정한다.
-				StringHolder sessionid = new StringHolder();
-				StringHolder opcode = new StringHolder("runusertransaction");
-				com.sbs.pds.service.ServicePortTypeProxy port = new com.sbs.pds.service.ServicePortTypeProxy();
-				try {
-					System.out.println("###PDS CALL Service [getUserInfo:ex_sync_change_passwd] Start###");
-					sResult = port.SOAPInterface(
-							"" 							//java.lang.String systemversion
-							,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
-							,opcode 					//javax.xml.rpc.holders.StringHolder opcode
-							,_xml2// java.lang.String ksccRequest
-							,"" 						// java.lang.String exvalue1
-							,""  						// java.lang.String exvalue2
-							,""  						// java.lang.String exvalue3
-							,""  							// java.lang.String exvalue4
-							);
-					logger.debug("sResult"+sResult);
-					logger.debug("###PDS CALL Service [getUserInfo:ex_sync_change_passwd] end###");
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				//NDS에 사용자 정보를 등록한다.
-				StringHolder sessionid2 = new StringHolder();
-				StringHolder opcode2 = new StringHolder("runusertransaction");
-				ServicePortTypeProxy port2 = new ServicePortTypeProxy();
-				try {
-					logger.debug("###NDS CALL Service [getUserInfo:ex_sync_change_passwd] Start###");
-					sResult = port2.SOAPInterface(
-							"" 							//java.lang.String systemversion
-							,sessionid2  				//javax.xml.rpc.holders.StringHolder sessionid
-							,opcode2					//javax.xml.rpc.holders.StringHolder opcode
-							,_xml2// java.lang.String ksccRequest
-							,"" 						// java.lang.String exvalue1
-							,""  						// java.lang.String exvalue2
-							,""  						// java.lang.String exvalue3
-							,""  							// java.lang.String exvalue4
-							);
-					logger.debug("sResult"+sResult);
-					logger.debug("###NDS CALL Service [getUserInfo:ex_sync_change_passwd] end###");
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-
-
-					result=1;
+					result = 1;
 				}
 			}else{				
 
@@ -1711,8 +1620,7 @@ public class EmployeeRoleBusinessProcessor
 			return result;
 
 		}catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("updateRealEmployeeRole error", e);
 		}
 		return 0;
 
@@ -1728,118 +1636,13 @@ public class EmployeeRoleBusinessProcessor
 	public int updateRealEmployeeRoleYN(EmployeeInfoDO roleDO)  throws Exception
 	{
 
-
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[insertRealEmployeeRole][Input EmployeeDASRoleDO]" + roleDO);
-		}
-
-		try 
-		{
+		try {
 			int result=0;
 
-			String sResult="";
-
-			/*	
-			if(roleDO.getOut_sys().equals("001")||roleDO.getOut_sys().equals("003")){
-				String id=userRoleDAO.selectUserId(roleDO.getPer_reg_no());
-				List resultList2 = new ArrayList();
-
-			 	resultList2.add(info);
-			 	String _xml2 = "";
-			if (resultList2 != null && resultList2.size() > 0) {
-
-					Iterator _iter = resultList2.iterator();
-					while (_iter.hasNext()) {
-						AllOtherDBUserInfoDOXML _do2 = new AllOtherDBUserInfoDOXML();
-						_do2.setDO(_iter.next());
-						_xml2 = _xml2 + _do2.getSubXML();
-					}
-
-					if (logger.isDebugEnabled())
-						logger.debug("_xml2" + _xml2);
-
-				}
-
-
-
-			//PDS占쏙옙 占쏙옙占쏙옙占?d占쏙옙占쏙옙 占쏙옙占쏙옙磯占?
-				StringHolder sessionid = new StringHolder();
-				StringHolder opcode = new StringHolder("runusertransaction");
-				com.sbs.pds.service.ServicePortTypeProxy port = new com.sbs.pds.service.ServicePortTypeProxy();
-				try {
-					logger.debug("###PDS CALL Service [getUserInfo:ex_sync_userinfo] Start###");
-					sResult = port.SOAPInterface(
-							"" 							//java.lang.String systemversion
-							,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
-							,opcode 					//javax.xml.rpc.holders.StringHolder opcode
-							,_xml2// java.lang.String ksccRequest
-							,"" 						// java.lang.String exvalue1
-							,""  						// java.lang.String exvalue2
-							,""  						// java.lang.String exvalue3
-							,""  							// java.lang.String exvalue4
-							);
-					logger.debug("sResult"+sResult);
-					logger.debug("###PDS CALL Service [getUserInfo:ex_sync_userinfo] end###");
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-
-			}else if(roleDO.getOut_sys().equals("002")||roleDO.getOut_sys().equals("003")){
-				String id=userRoleDAO.selectUserId(roleDO.getPer_reg_no());
-				List resultList3 = new ArrayList();
-
-			 	resultList3.add(info);
-			 	String _xml3 = "";
-				if (resultList3 != null && resultList3.size() > 0) {
-
-					Iterator _iter = resultList3.iterator();
-					while (_iter.hasNext()) {
-						AllOtherDBUserInfoDOXML _do2 = new AllOtherDBUserInfoDOXML();
-						_do2.setDO(_iter.next());
-						_xml3 = _xml3 + _do2.getSubXML();
-					}
-
-					if (logger.isDebugEnabled())
-						logger.debug("_xml3" + _xml3);
-
-				}
-
-
-
-				//NDS占쏙옙 占쏙옙占쏙옙占?d占쏙옙占쏙옙 占쏙옙占쏙옙磯占?
-				StringHolder sessionid = new StringHolder();
-				StringHolder opcode = new StringHolder("runusertransaction");
-				ServicePortTypeProxy port = new ServicePortTypeProxy();
-				try {
-					logger.debug("###NDS CALL Service [getUserInfo:ex_sync_userinfo] Start###");
-					sResult = port.SOAPInterface(
-							"" 							//java.lang.String systemversion
-							,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
-							,opcode 					//javax.xml.rpc.holders.StringHolder opcode
-							,_xml3// java.lang.String ksccRequest
-							,"" 						// java.lang.String exvalue1
-							,""  						// java.lang.String exvalue2
-							,""  						// java.lang.String exvalue3
-							,""  							// java.lang.String exvalue4
-							);
-					logger.debug("sResult"+sResult);
-					logger.debug("###NDS CALL Service [getUserInfo:ex_sync_userinfo] end###");
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-			 */
 			if(roleDO.getSuccess_yn().equals("200")||roleDO.getSuccess_yn().equals("300")||roleDO.getSuccess_yn().equals("400"))	{
 				roleDO.setApprove_status("2");
 				roleDO.setApprove_yn("Y");
 				result = userRoleDAO.approveEmployeeRole(roleDO);
-
 			}else  if(roleDO.getSuccess_yn().equals("500")){				
 				roleDO.setApprove_status("5");
 				roleDO.setApprove_yn("N");
@@ -1847,17 +1650,11 @@ public class EmployeeRoleBusinessProcessor
 			}
 			return result;
 
-		}catch (Exception e){
+		} catch (Exception e) {
 			throw e;
 		}
 
 	}
-
-
-
-
-
-
 
 	/**
 	 * PDS folderList 정보를 등록한다.(벌크)
@@ -1875,13 +1672,16 @@ public class EmployeeRoleBusinessProcessor
 
 		FolderListDOXML _do2 = new FolderListDOXML();
 		_xml =_do2.getSubXML(user_id);
-		logger.debug("_xml"+_xml);
+
+		if(logger.isDebugEnabled()) {
+			logger.debug("_xml"+_xml);
+		}
+
 		//folderList 정보를 등록
 		StringHolder sessionid = new StringHolder();
 		StringHolder opcode = new StringHolder("runusertransaction");
 		com.sbs.pds.service.ServicePortTypeProxy port = new com.sbs.pds.service.ServicePortTypeProxy();
 		try {
-			logger.debug("###PDS CALL Service [pds_ex_service_folderlist] Start###");
 			sResult = port.SOAPInterface(
 					"" 							//java.lang.String systemversion
 					,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
@@ -1892,21 +1692,16 @@ public class EmployeeRoleBusinessProcessor
 					,""  						// java.lang.String exvalue3
 					,""  							// java.lang.String exvalue4
 					);
-
-			logger.debug("sResult  "+sResult);
-			logger.debug("###PDS CALL Service [pds_ex_service_folderlist] end###");
-
-
+			if(logger.isDebugEnabled()) {
+				logger.debug("sResult  "+sResult);
+			}
 			String PdsInfo = CommonUtl.transXMLText(sResult);
 			return PdsInfo;
 		} catch (Exception e) {
 			throw e;
 		}
 
-
 	}
-
-
 
 
 	/**
@@ -1920,19 +1715,19 @@ public class EmployeeRoleBusinessProcessor
 	public String insertNdsFolderAll(String user_id)  throws Exception
 	{
 
-
 		String sResult="";
 		String _xml="";
 
 		FolderListDOXML _do2 = new FolderListDOXML();
 		_xml =_do2.getSubXML2(user_id);
-		logger.debug("_xml"+_xml);
+		if(logger.isDebugEnabled()) {
+			logger.debug("_xml"+_xml);
+		}
 		//folderList 정보를 등록
 		StringHolder sessionid = new StringHolder();
 		StringHolder opcode = new StringHolder("runusertransaction");
 		ServicePortTypeProxy port = new ServicePortTypeProxy();
 		try {
-			logger.debug("###NDS CALL Service [nds_ex_service_folderlist] Start###");
 			sResult = port.SOAPInterface(
 					"" 							//java.lang.String systemversion
 					,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
@@ -1945,8 +1740,6 @@ public class EmployeeRoleBusinessProcessor
 					);
 
 			logger.debug("sResult  "+sResult);
-			logger.debug("###NDS CALL Service [nds_ex_service_folderlist] end###");
-
 
 			String PdsInfo = CommonUtl.transXMLText(sResult);
 			return PdsInfo;
@@ -1954,10 +1747,7 @@ public class EmployeeRoleBusinessProcessor
 			throw e;
 		}
 
-
 	}
-
-
 
 	/**
 	 * 본부코드와 본부명를 조회한다.
@@ -1967,20 +1757,9 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getSupHeadList(String cocd) throws Exception
 	{
-		try 
-		{
-			return userRoleDAO.getSupHeadList(cocd);
+		return userRoleDAO.getSupHeadList(cocd);
 
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
-
-
-
 
 	/**
 	 * 부서코드와 부서명를 조회한다.
@@ -1990,17 +1769,9 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getDepinfoList(String deptcd) throws Exception
 	{
-		try 
-		{
-			return userRoleDAO.getDepinfoList(deptcd);
 
+		return userRoleDAO.getDepinfoList(deptcd);
 
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 	/**
@@ -2011,21 +1782,10 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getSupHeadList2(String deptcd) throws Exception
 	{
-		try 
-		{
 
-			return userRoleDAO.getSupHeadList2(deptcd);
+		return userRoleDAO.getSupHeadList2(deptcd);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
-
-
 
 	/**
 	 * 역활 정보관련된 정보 목록 조회한다.
@@ -2034,25 +1794,10 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getAuthroRoleList(RoleInfoDO condition) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getAuthroRoleList][Input RoleInfoDO]" + condition);
-		}
 
-		try 
-		{
-			return userRoleDAO.selectAuthorList(condition);
+		return userRoleDAO.selectAuthorList(condition);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
-
-
 
 
 	/**
@@ -2063,20 +1808,10 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getSupHtpoList(String cocd) throws Exception
 	{
-		try 
-		{
-			return userRoleDAO.getSupHtpoList(cocd);
 
+		return userRoleDAO.getSupHtpoList(cocd);
 
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
-
-
 
 	/**
 	 * 부서정보기준 사용자 정보를 가져온다
@@ -2086,17 +1821,9 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getDepinfoForuserList(String deptcd) throws Exception
 	{
-		try 
-		{
-			return userRoleDAO.getDepinfoForuserList(deptcd);
 
+		return userRoleDAO.getDepinfoForuserList(deptcd);
 
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
 
 	/**
@@ -2108,23 +1835,9 @@ public class EmployeeRoleBusinessProcessor
 	public List getEmployeeListForApp(String dep_cd, String user_nm) throws Exception
 	{
 
-		try 
-		{
-
-			return userRoleDAO.selecEmployeeListForApp(dep_cd,user_nm);
-
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return userRoleDAO.selecEmployeeListForApp(dep_cd,user_nm);
 
 	}
-
-
-
 
 
 	/**
@@ -2134,327 +1847,31 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getRoleForLogin(String userid) throws Exception
 	{
-		try 
-		{
-			String role_cd = userRoleDAO.selectRoleForLogin(userid);
-			userRoleDAO.updateUnlock(userid);
-			return userRoleDAO.selectRoleGroupForLogin(role_cd);
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
-	}
-
-
-
-
-
-
-
-
-	/**
-	 * 자신의  암호 정보를 수정한다
-	 * @param roleDO 패스워드 정보를 가지고있는 beans                                                                                                                                                                                             
-	 * @return      성공1 실패 0                                                                                                                                                                                        
-	 * @throws Exception 
-	 */
-	/*public int updatePasswd(EmployeeInfoDO roleDO)  throws Exception
-	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updatePasswd][Input EmployeeInfoDO]" + roleDO);
-
-		}
-		String passwd="";
-		try 
-		{
-			String sResult="";
-
-			int result =0;
-
-
-			String acct = userRoleDAO.typeOfUser(roleDO.getReg_id());
-
-			if(acct.equals(CodeConstants.Pacode.RA)){
-
-
-				EmployeeInfoDO info = (EmployeeInfoDO)userRoleDAO.selecEmployeeInfo(roleDO.getReg_id());
-
-
-
-
-				List resultList = new ArrayList();
-				info.setUpdate_yn("Y");			
-				info.setType(CodeConstants.Pacode.UPDATE);
-				info.setNewPassword(roleDO.getNewPassword());
-				info.setPassword(roleDO.getPassword());
-				resultList.add(info);
-
-				String _xml2 = "";
-				if (resultList != null && resultList.size() > 0) {
-
-					Iterator _iter = resultList.iterator();
-					while (_iter.hasNext()) {
-						EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
-						_do2.setDO(_iter.next());
-						_xml2 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><das>";
-						_xml2 = _xml2 + _do2.getSubXML();
-						_xml2 = _xml2 +"</das>";
-					}
-
-					if (logger.isDebugEnabled())
-						logger.debug("_xml" + _xml2);
-
-				}
-				result=	userRoleDAO.updateNonEmployeePasswd(roleDO);
-				//int paReseult =0;
-				com.sbs.pa.service.Service1SoapProxy port2 = new com.sbs.pa.service.Service1SoapProxy();
-				try {
-					logger.debug("###pa CALL Service [PA] Start###");
-					result =  port2.wsPAUserInfoManager(_xml2);
-					logger.debug("Result"+result);
-					logger.debug("pa CALL Service [PA]  end###");
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-
-				// AES 알고리즘으로 암호화 후 보낸다
-
-				JNI_Des hj = new JNI_Des();
-				String password = "";
-				password = hj.setEncryption(
-						dasHandler.getProperty("AD_CRYPTO_KEY"), "AESPWPND",
-						roleDO.getNewPassword());
-				logger.debug("password    " + password);
-				info.setNewPassword(password);
-
-				List resultList2 = new ArrayList();
-				//roleDO.setSbs_user_ID(trans.getSbs_user_ID());
-				//roleDO.setPassword(trans.getPassword());
-				//roleDO.setDelete_yn("N");
-				//roleDO.setApprove_status("1");
-				//roleDO.setUpdate_yn("N");
-				resultList2.add(info);
-				String _xml3 = "";
-				if (resultList2 != null && resultList2.size() > 0) {
-
-					Iterator _iter = resultList2.iterator();
-					while (_iter.hasNext()) {
-						AllOtherDBUserInfoDOXML _do2 = new AllOtherDBUserInfoDOXML();
-						_do2.setDO(_iter.next());
-						_xml3 = _xml3 + _do2.getSubXML3();
-					}
-
-					if (logger.isDebugEnabled())
-						logger.debug("_xml3" + _xml3);
-
-				}
-
-
-
-
-
-				//IFCMS에 비밀번호 변경 사항을 저장한다.
-				StringHolder sessionid = new StringHolder();
-				StringHolder opcode = new StringHolder("runusertransaction");
-				com.sbs.ifcms.service.ServicePortTypeProxy port = new com.sbs.ifcms.service.ServicePortTypeProxy();
-				try {
-					logger.debug("###IF CMS CALL Service [getUserInfo:gua_sync_password] Start###");
-					sResult = port.SOAPInterface(
-							"" 							//java.lang.String systemversion
-							,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
-							,opcode 					//javax.xml.rpc.holders.StringHolder opcode
-							,_xml3// java.lang.String ksccRequest
-							,"" 						// java.lang.String exvalue1
-							,""  						// java.lang.String exvalue2
-							,""  						// java.lang.String exvalue3
-							,""  							// java.lang.String exvalue4
-							);
-					logger.debug("sResult"+sResult);
-					logger.debug("###IF CMS CALL Service [getUserInfo:gua_sync_password] end###");
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-
-
-
-			} else {//비직원이라면 SHA알고리즘으로 암호화
-				logger.debug("change SA,SB,SC PASSWORD" + roleDO.getNewPassword());
-				//  passwd = userRoleDAO.getPasswd(roleDO.getNewPassword().trim());
-				//String password = roleDO.getNewPassword();
-				//passwd=userRoleDAO.getPasswd(password);
-
-				//roleDO.setNewPassword(passwd);
-
-
-
-
-				result=	userRoleDAO.updateNonEmployeePasswd(roleDO);
-
-
-
-				//비직원인 경우 이곳에서 바로 동기화를 한다.
-
-				EmployeeInfoDO trans = (EmployeeInfoDO)userRoleDAO.selecEmployeeInfo(roleDO.getReg_id());
-
-				//roleDO.setSbs_user_ID(trans.getSbs_user_ID());
-				// AES 알고리즘으로 암호화 후 보낸다
-				if(trans.getAcct_code().equals("SA")||trans.getAcct_code().equals("SB")||trans.getAcct_code().equals("SC")){
-					JNI_Des hj = new JNI_Des();
-					String password = "";
-					password = hj.setEncryption(
-							dasHandler.getProperty("AD_CRYPTO_KEY"), "AESPWPND",
-							roleDO.getNewPassword());
-					logger.debug("password    " + password);
-					trans.setNewPassword(password);
-				}else{
-								roleDO.setPassword(trans.getPassword());	
-							}
-
-				List resultList2 = new ArrayList();
-				//roleDO.setSbs_user_ID(trans.getSbs_user_ID());
-				//roleDO.setPassword(trans.getPassword());
-				//roleDO.setDelete_yn("N");
-				//roleDO.setApprove_status("1");
-				//roleDO.setUpdate_yn("N");
-				resultList2.add(trans);
-				String _xml2 = "";
-				if (resultList2 != null && resultList2.size() > 0) {
-
-					Iterator _iter = resultList2.iterator();
-					while (_iter.hasNext()) {
-						AllOtherDBUserInfoDOXML _do2 = new AllOtherDBUserInfoDOXML();
-						_do2.setDO(_iter.next());
-						_xml2 = _xml2 + _do2.getSubXML3();
-					}
-
-					if (logger.isDebugEnabled())
-						logger.debug("_xml2" + _xml2);
-
-				}
-
-
-
-
-
-				//IFCMS에 비밀번호 변경 사항을 저장한다.
-				StringHolder sessionid = new StringHolder();
-				StringHolder opcode = new StringHolder("runusertransaction");
-				com.sbs.ifcms.service.ServicePortTypeProxy port = new com.sbs.ifcms.service.ServicePortTypeProxy();
-				try {
-					System.out.println("###IF CMS CALL Service [getUserInfo:gua_sync_password] Start###");
-					sResult = port.SOAPInterface(
-							"" 							//java.lang.String systemversion
-							,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
-							,opcode 					//javax.xml.rpc.holders.StringHolder opcode
-							,_xml2// java.lang.String ksccRequest
-							,"" 						// java.lang.String exvalue1
-							,""  						// java.lang.String exvalue2
-							,""  						// java.lang.String exvalue3
-							,""  							// java.lang.String exvalue4
-							);
-					logger.debug("sResult"+sResult);
-					logger.debug("###IF CMS CALL Service [getUserInfo:gua_sync_password] end###");
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-
-
-				 20120808 이후 계정 동기화는ifcms로만한다.
-
-						//PDS에 사용자 정보를 수정한다.
-							StringHolder sessionid = new StringHolder();
-							StringHolder opcode = new StringHolder("runusertransaction");
-							com.sbs.pds.service.ServicePortTypeProxy port = new com.sbs.pds.service.ServicePortTypeProxy();
-							try {
-								System.out.println("###PDS CALL Service [getUserInfo:ex_sync_change_passwd] Start###");
-								sResult = port.SOAPInterface(
-										"" 							//java.lang.String systemversion
-										,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
-										,opcode 					//javax.xml.rpc.holders.StringHolder opcode
-										,_xml2// java.lang.String ksccRequest
-										,"" 						// java.lang.String exvalue1
-										,""  						// java.lang.String exvalue2
-										,""  						// java.lang.String exvalue3
-										,""  							// java.lang.String exvalue4
-										);
-								logger.debug("sResult"+sResult);
-								logger.debug("###PDS CALL Service [getUserInfo:ex_sync_change_passwd] end###");
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-							//NDS에 사용자 정보를 등록한다.
-							StringHolder sessionid2 = new StringHolder();
-							StringHolder opcode2 = new StringHolder("runusertransaction");
-							ServicePortTypeProxy port2 = new ServicePortTypeProxy();
-							try {
-								logger.debug("###NDS CALL Service [getUserInfo:ex_sync_change_passwd] Start###");
-								sResult = port2.SOAPInterface(
-										"" 							//java.lang.String systemversion
-										,sessionid2  				//javax.xml.rpc.holders.StringHolder sessionid
-										,opcode2					//javax.xml.rpc.holders.StringHolder opcode
-										,_xml2// java.lang.String ksccRequest
-										,"" 						// java.lang.String exvalue1
-										,""  						// java.lang.String exvalue2
-										,""  						// java.lang.String exvalue3
-										,""  							// java.lang.String exvalue4
-										);
-								logger.debug("sResult"+sResult);
-								logger.debug("###NDS CALL Service [getUserInfo:ex_sync_change_passwd] end###");
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-			}
-
-			return	result;
-
-		} 
-		 catch (Exception e) {
-			throw e;
-		}
+		String role_cd = userRoleDAO.selectRoleForLogin(userid);
+		userRoleDAO.updateUnlock(userid);
+		return userRoleDAO.selectRoleGroupForLogin(role_cd);
 
 	}
-	 */
-
 
 	public int updatePasswd(EmployeeInfoDO roleDO)  throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updatePasswd][Input EmployeeInfoDO]" + roleDO);
 
-		}
 		String passwd="";
-		try 
-		{
+		try {
 			String sResult="";
 
 			int result =0;
-
 
 			String acct = userRoleDAO.typeOfUser(roleDO.getReg_id());
 
 			if(acct.equals(CodeConstants.Pacode.RA)){
 
-
 				EmployeeInfoDO info = (EmployeeInfoDO)userRoleDAO.selecEmployeeInfo(roleDO.getReg_id());
-
-				logger.debug("roleDO.getPassword() [" + roleDO.getPassword() + "] ");
-				logger.debug("info.getPassword() [" + info.getPassword() + "] ");
+				if(logger.isDebugEnabled()) {
+					logger.debug("roleDO.getPassword() [" + roleDO.getPassword() + "] ");
+					logger.debug("info.getPassword() [" + info.getPassword() + "] ");
+				}
 
 				// ad쪽에 인증 후  보낸다
 
@@ -2466,30 +1883,29 @@ public class EmployeeRoleBusinessProcessor
 				JNI_Des hj =new JNI_Des();
 				approve = hj.getDecryption(dasHandler.getProperty("AD_CRYPTO_KEY"), dasHandler.getProperty("AD_DEFAULT_HEX"), info.getPassword());
 
-				logger.debug("JNI_Des getAuthentication Result [" + approve + "] ");
-
-				logger.debug("info.getPassword() [" + info.getPassword() + "] ");
-
+				if(logger.isDebugEnabled()) {
+					logger.debug("JNI_Des getAuthentication Result [" + approve + "] ");
+					logger.debug("info.getPassword() [" + info.getPassword() + "] ");
+				}
 
 				if(approve.equals(roleDO.getPassword())){
 
 					// AES 알고리즘으로 암호화 후 보낸다
-
 					JNI_Des newhj = new JNI_Des();
-					String newpassword = "";
-					newpassword = newhj.setEncryption(
-							dasHandler.getProperty("AD_CRYPTO_KEY"), "AESPWPND",
-							roleDO.getNewPassword());
-					logger.debug("password    " + newpassword);
+					String newpassword = newhj.setEncryption( dasHandler.getProperty("AD_CRYPTO_KEY"), "AESPWPND", roleDO.getNewPassword());
+					if(logger.isDebugEnabled()) {
+						logger.debug("password    " + newpassword);
+					}
 
-
-					List resultList = new ArrayList();
+					//List resultList = new ArrayList();
 					info.setUpdate_yn("Y");			
 					info.setType(CodeConstants.Pacode.UPDATE);
 					info.setNewPassword(roleDO.getNewPassword());
 					info.setPassword(roleDO.getPassword());
-					resultList.add(info);
+					//resultList.add(info);
 
+					StringBuffer _xml2 = new StringBuffer();
+					/*
 					String _xml2 = "";
 					if (resultList != null && resultList.size() > 0) {
 
@@ -2506,22 +1922,27 @@ public class EmployeeRoleBusinessProcessor
 							logger.debug("_xml" + _xml2);
 
 					}
+					 */
+					EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
+					_do2.setDO(info);
+					_xml2.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
+					_xml2.append(_do2.getSubXML());
+					_xml2.append("</das>");
 
 					com.sbs.pa.service.Service1SoapProxy port2 = new com.sbs.pa.service.Service1SoapProxy();
 					try {
-						logger.debug("###pa CALL Service [PA] Start###");
-						result =  port2.wsPAUserInfoManager(_xml2);
-						logger.debug("Result"+result);
-						logger.debug("pa CALL Service [PA]  end###");
+						result =  port2.wsPAUserInfoManager(_xml2.toString());
+						if(logger.isDebugEnabled()) {
+							logger.debug("Result"+result);
+						}
 					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						logger.error("Service1SoapProxy call error", e);
 					}
-
-
 
 					info.setNewPassword(newpassword);
 					result=	userRoleDAO.updateEmployeePasswd(info);
+
+					/*
 					List resultList2 = new ArrayList();
 					resultList2.add(info);
 					String _xml3 = "";
@@ -2538,37 +1959,34 @@ public class EmployeeRoleBusinessProcessor
 							logger.debug("_xml3" + _xml3);
 
 					}
+					 */
 
-
-
-
+					_xml2.setLength(0);
+					_do2.setDO(info);
+					_xml2.append(_do2.getSubXML3());
 
 					//IFCMS에 비밀번호 변경 사항을 저장한다.
 					StringHolder sessionid = new StringHolder();
 					StringHolder opcode = new StringHolder("runusertransaction");
 					com.sbs.ifcms.service.ServicePortTypeProxy port = new com.sbs.ifcms.service.ServicePortTypeProxy();
 					try {
-						logger.debug("###IF CMS CALL Service [getUserInfo:gua_sync_password] Start###");
 						sResult = port.SOAPInterface(
 								"" 							//java.lang.String systemversion
 								,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
 								,opcode 					//javax.xml.rpc.holders.StringHolder opcode
-								,_xml3// java.lang.String ksccRequest
+								,_xml2.toString()			// java.lang.String ksccRequest
 								,"" 						// java.lang.String exvalue1
 								,""  						// java.lang.String exvalue2
 								,""  						// java.lang.String exvalue3
 								,""  							// java.lang.String exvalue4
 								);
 						logger.debug("sResult"+sResult);
-						logger.debug("###IF CMS CALL Service [getUserInfo:gua_sync_password] end###");
 					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						logger.error("ServicePortTypeProxy call error", e);
 					}
 				}else{
 					return 5;
 				}
-
 
 
 			} else {//비직원이라면 SHA알고리즘으로 암호화
@@ -2577,22 +1995,22 @@ public class EmployeeRoleBusinessProcessor
 				//비직원인 경우 이곳에서 바로 동기화를 한다.
 
 				EmployeeInfoDO trans = (EmployeeInfoDO)userRoleDAO.selecEmployeeInfo(roleDO.getReg_id());
-				logger.debug("roleDO.getPassword() [" + roleDO.getPassword() + "] ");
-				logger.debug("trans.getPassword() [" + trans.getPassword() + "] ");
+				if(logger.isDebugEnabled()) {
+					logger.debug("roleDO.getPassword() [" + roleDO.getPassword() + "] ");
+					logger.debug("trans.getPassword() [" + trans.getPassword() + "] ");
+				}
 				if(trans.getPassword().equals(userRoleDAO.getPasswd(roleDO.getPassword().trim()))){
 					result=	userRoleDAO.updateNonEmployeePasswd(roleDO);
 					// AES 알고리즘으로 암호화 후 보낸다
 					if(trans.getAcct_code().equals("SA")||trans.getAcct_code().equals("SB")||trans.getAcct_code().equals("SC")){
 						JNI_Des hj = new JNI_Des();
-						String password = "";
-						password = hj.setEncryption(
-								dasHandler.getProperty("AD_CRYPTO_KEY"), "AESPWPND",
-								roleDO.getNewPassword());
-						logger.debug("password    " + password);
+						String password = hj.setEncryption( dasHandler.getProperty("AD_CRYPTO_KEY"), "AESPWPND", roleDO.getNewPassword());
+						if(logger.isDebugEnabled()) {
+							logger.debug("password    " + password);
+						}
 						trans.setNewPassword(password);
 					}
-
-
+					/*
 					List resultList2 = new ArrayList();
 					resultList2.add(trans);
 					String _xml2 = "";
@@ -2609,10 +2027,14 @@ public class EmployeeRoleBusinessProcessor
 							logger.debug("_xml2" + _xml2);
 
 					}
+					 */
 
+					StringBuffer _xml2 = new StringBuffer();
 
+					AllOtherDBUserInfoDOXML _do2 = new AllOtherDBUserInfoDOXML();
+					_do2.setDO(trans);
 
-
+					_xml2.append(_do2.getSubXML3());
 
 					//IFCMS에 비밀번호 변경 사항을 저장한다.
 					StringHolder sessionid = new StringHolder();
@@ -2623,69 +2045,17 @@ public class EmployeeRoleBusinessProcessor
 								"" 							//java.lang.String systemversion
 								,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
 								,opcode 					//javax.xml.rpc.holders.StringHolder opcode
-								,_xml2// java.lang.String ksccRequest
+								,_xml2.toString()			// java.lang.String ksccRequest
 								,"" 						// java.lang.String exvalue1
 								,""  						// java.lang.String exvalue2
 								,""  						// java.lang.String exvalue3
 								,""  							// java.lang.String exvalue4
 								);
 						logger.debug("sResult"+sResult);
-						logger.debug("###IF CMS CALL Service [getUserInfo:gua_sync_password] end###");
 					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						logger.error("ServicePortTypeProxy call error", e);
 					}
 
-
-
-					/* 20120808 이후 계정 동기화는ifcms로만한다.
-
-						//PDS에 사용자 정보를 수정한다.
-							StringHolder sessionid = new StringHolder();
-							StringHolder opcode = new StringHolder("runusertransaction");
-							com.sbs.pds.service.ServicePortTypeProxy port = new com.sbs.pds.service.ServicePortTypeProxy();
-							try {
-								System.out.println("###PDS CALL Service [getUserInfo:ex_sync_change_passwd] Start###");
-								sResult = port.SOAPInterface(
-										"" 							//java.lang.String systemversion
-										,sessionid  				//javax.xml.rpc.holders.StringHolder sessionid
-										,opcode 					//javax.xml.rpc.holders.StringHolder opcode
-										,_xml2// java.lang.String ksccRequest
-										,"" 						// java.lang.String exvalue1
-										,""  						// java.lang.String exvalue2
-										,""  						// java.lang.String exvalue3
-										,""  							// java.lang.String exvalue4
-										);
-								logger.debug("sResult"+sResult);
-								logger.debug("###PDS CALL Service [getUserInfo:ex_sync_change_passwd] end###");
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-							//NDS에 사용자 정보를 등록한다.
-							StringHolder sessionid2 = new StringHolder();
-							StringHolder opcode2 = new StringHolder("runusertransaction");
-							ServicePortTypeProxy port2 = new ServicePortTypeProxy();
-							try {
-								logger.debug("###NDS CALL Service [getUserInfo:ex_sync_change_passwd] Start###");
-								sResult = port2.SOAPInterface(
-										"" 							//java.lang.String systemversion
-										,sessionid2  				//javax.xml.rpc.holders.StringHolder sessionid
-										,opcode2					//javax.xml.rpc.holders.StringHolder opcode
-										,_xml2// java.lang.String ksccRequest
-										,"" 						// java.lang.String exvalue1
-										,""  						// java.lang.String exvalue2
-										,""  						// java.lang.String exvalue3
-										,""  							// java.lang.String exvalue4
-										);
-								logger.debug("sResult"+sResult);
-								logger.debug("###NDS CALL Service [getUserInfo:ex_sync_change_passwd] end###");
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-					 */
 				}else{
 					return 5;
 				}
@@ -2693,14 +2063,11 @@ public class EmployeeRoleBusinessProcessor
 
 			return	result;
 
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw e;
 		}
 
 	}
-
-
 
 	/**
 	 * 역활 권한 그룹신규로 신청.
@@ -2711,28 +2078,15 @@ public class EmployeeRoleBusinessProcessor
 	public int insertRoleInfo(RoleInfoDO roleDO)  throws Exception
 	{
 
-
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[insertRoleInfo][Input RoleInfoDO]" + roleDO);
+		if(roleDO.getGubun().equals("")){
+			RoleInfoDO NewRole = userRoleDAO.insertRole(roleDO);
+			userRoleDAO.insertRoleGroup(NewRole);
+		}else{
+			RoleInfoDO NewRole = userRoleDAO.insertMoniToringRole(roleDO);
+			userRoleDAO.insertRoleGroupForMonitoring(NewRole);	
 		}
-
-		try 
-		{
-			if(roleDO.getGubun().equals("")){
-				RoleInfoDO NewRole = userRoleDAO.insertRole(roleDO);
-				userRoleDAO.insertRoleGroup(NewRole);
-			}else{
-				RoleInfoDO NewRole = userRoleDAO.insertMoniToringRole(roleDO);
-				userRoleDAO.insertRoleGroupForMonitoring(NewRole);	
-			}
-			return 1;
-
-		}catch (Exception e){
-			throw e;
-		} 
+		return 1;
 	}
-
 
 
 	/**
@@ -2742,21 +2096,8 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getRoleInfo() throws Exception
 	{
-		try 
-		{
-			return userRoleDAO.selecroleInfo();
-
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
+		return userRoleDAO.selecroleInfo();
 	}
-
-
-
 
 	/**
 	 * 주제영상 코드 조회
@@ -2766,22 +2107,9 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getAnnotCode() throws Exception
 	{
-		try 
-		{
-			return userRoleDAO.selecAnnotInfo();
+		return userRoleDAO.selecAnnotInfo();
 
-
-		} 
-		catch (Exception e)
-		{
-
-			throw e;
-		}
 	}
-
-
-
-
 
 
 	//2012.04.19 다스 확장 추가
@@ -2793,22 +2121,8 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getRoleInfoForChennel(RoleInfoDO roleInfoDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getRoleInfoForChennel][Input roleInfoDO]" + roleInfoDO);
-		}
+		return userRoleDAO.getRoleInfoForChennel(roleInfoDO);
 
-		try 
-		{
-
-			return userRoleDAO.getRoleInfoForChennel(roleInfoDO);
-
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 	/**
@@ -2820,33 +2134,16 @@ public class EmployeeRoleBusinessProcessor
 	public String LogHistory(LogInOutDO roleDO)  throws Exception
 	{
 
+		long sResult=0;
 
-		if(logger.isDebugEnabled()) 
-		{
-			logger.debug("[LogHistory][Input LogInOutDO]" + roleDO);
+		if(roleDO.getStatus().equals("ON")){
+			sResult = userRoleDAO.insertLogin(roleDO);
+		}else if(roleDO.getStatus().equals("OFF")){
+			sResult = userRoleDAO.updateLogout(roleDO);
 		}
 
-		try 
-		{
+		return String.valueOf(sResult);
 
-			long sResult=0;
-
-			if(roleDO.getStatus().equals("ON")){
-				sResult = userRoleDAO.insertLogin(roleDO);
-			}else if(roleDO.getStatus().equals("OFF")){
-				sResult = userRoleDAO.updateLogout(roleDO);
-			}
-
-
-
-
-
-			return String.valueOf(sResult);
-
-		}catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw e;
-		}
 	}
 
 
@@ -2858,25 +2155,10 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getLogInfo(LogInOutDO roleDO) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getLogInfo][Input LogInOutDO]" + roleDO);
-		}
 
-		try 
-		{
+		return userRoleDAO.getLogInfo(roleDO);
 
-			return userRoleDAO.getLogInfo(roleDO);
-
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
-
-
 
 	/**
 	 * 모니터링 로그인시 역활정보를 조회한다.
@@ -2886,28 +2168,10 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public String getRoleForLoginInMonitoring(String userid) throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[getRoleForLoginInMonitoring][Input userid]" + userid);
-		}
 
-		try 
-		{
+		return userRoleDAO.getRoleForLoginInMonitoring(userid);
 
-			return userRoleDAO.getRoleForLoginInMonitoring(userid);
-
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
-
-
-
-
-
 
 	/**
 	 * 역활 정보를 수정한다.
@@ -2916,25 +2180,10 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public int updateRoleInfoForMonitoring(RoleInfoDO roleDO)  throws Exception
 	{
-		if(logger.isDebugEnabled())
-		{
-			logger.debug("[updateRoleInfoForMonitoring][Input RoleInfoDO]" + roleDO);
 
-		}
-
-		try 
-		{
-			//사용자 정보를 수정한다.
-			return  userRoleDAO.updateRoleInfoForMonitoring(roleDO);
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
+		return  userRoleDAO.updateRoleInfoForMonitoring(roleDO);
 
 	}
-
-
 
 	/**
 	 * 부서정보기준 사용자 정보를 가져온다
@@ -2944,20 +2193,10 @@ public class EmployeeRoleBusinessProcessor
 	 */
 	public List getDepinfoForuserListFormonitoring(String deptcd) throws Exception
 	{
-		try 
-		{
-			return userRoleDAO.getDepinfoForuserListFormonitoring(deptcd);
 
+		return userRoleDAO.getDepinfoForuserListFormonitoring(deptcd);
 
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
-
-
-
 
 	/**
 	 * 역할 코드 값구한다
@@ -2967,23 +2206,9 @@ public class EmployeeRoleBusinessProcessor
 	public List getRoleCodeForMonitoring() throws Exception
 	{
 
+		return userRoleDAO.selecroleInfoForMonitoring();
 
-		try 
-		{
-			return userRoleDAO.selecroleInfoForMonitoring();
-
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
-
-
-
-
-
 
 	/**
 	 * 모니터링  역활정보를 조회한다.
@@ -2994,17 +2219,8 @@ public class EmployeeRoleBusinessProcessor
 	public String getAuthorForMonitoring(String role_cd) throws Exception
 	{
 
-		try 
-		{
+		return userRoleDAO.getAuthorForMonitoring(role_cd);
 
-			return userRoleDAO.getAuthorForMonitoring(role_cd);
-
-
-		} 
-		catch (Exception e)
-		{
-			throw e;
-		}
 	}
 
 
