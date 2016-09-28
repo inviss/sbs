@@ -132,7 +132,7 @@ public class CornerInfoDOXML extends DOXml {
 	
 	
 	public Object setDO(String _xml) {
-		setDO(new CornerInfoDO());
+		//setDO(new CornerInfoDO());
 		List resultList  = new ArrayList();
 		
 		Document _document = getDocument(_xml);
@@ -143,7 +143,7 @@ public class CornerInfoDOXML extends DOXml {
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
 			if(_nodeName.equals(XML_NODE_HEAD)) {
-				
+				setDO(new CornerInfoDO());
 				resultList.add(setData((Element)_node));
 			}
         }
@@ -152,7 +152,8 @@ public class CornerInfoDOXML extends DOXml {
 	}
 	
 	public Object setData(Element pElement) {
-		CornerInfoDO infoDO = new CornerInfoDO();
+		//CornerInfoDO infoDO = new CornerInfoDO();
+		CornerInfoDO infoDO = (CornerInfoDO)getDO();
 		
 	    NodeList _nodeList = pElement.getChildNodes();
 	    int _length = _nodeList.getLength();
@@ -286,6 +287,7 @@ public class CornerInfoDOXML extends DOXml {
 
 	public String getSubXML() {
 		CornerInfoDO infoDO = (CornerInfoDO)getDO();
+		System.out.println(infoDO);
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<" + XML_NODE_HEAD + ">");
 		_xml.append("<" + XML_NODE_CONTENTSID + ">" + infoDO.getCtId() + "</"  + XML_NODE_CONTENTSID + ">");

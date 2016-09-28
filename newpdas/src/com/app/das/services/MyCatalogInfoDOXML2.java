@@ -163,8 +163,6 @@ public class MyCatalogInfoDOXML2 extends DOXml {
 	
 	
 	public Object setDO(String _xml) {
-		setDO(new MyCatalogDO());
-		
 		Document _document = getDocument(_xml);
 		Element _rootElement = _document.getDocumentElement();
         NodeList _nodeList = _rootElement.getChildNodes();
@@ -173,6 +171,7 @@ public class MyCatalogInfoDOXML2 extends DOXml {
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
 			if(_nodeName.equals(XML_NODE_HEAD)) {
+				setDO(new MyCatalogDO());
 				setData((Element)_node);
 			}
         }

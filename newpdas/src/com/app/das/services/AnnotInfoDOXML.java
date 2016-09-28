@@ -88,8 +88,6 @@ public class AnnotInfoDOXML extends DOXml {
 	
 	
 	public Object setDO(String _xml) {
-		setDO(new AnnotInfoDO());
-		
 		List resultList  = new ArrayList();
 	
 		Document _document = getDocument(_xml);
@@ -101,6 +99,7 @@ public class AnnotInfoDOXML extends DOXml {
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
 			if(_nodeName.equals(XML_NODE_HEAD)) {
+				setDO(new AnnotInfoDO());
 				resultList.add(setData((Element)_node));
 			}
         }     
@@ -109,7 +108,9 @@ public class AnnotInfoDOXML extends DOXml {
 	}
 	
 	public Object setData(Element pElement) {
-		AnnotInfoDO infoDO = new AnnotInfoDO();
+		//AnnotInfoDO infoDO = new AnnotInfoDO();
+		AnnotInfoDO infoDO = (AnnotInfoDO)getDO();
+		
 	    NodeList _nodeList = pElement.getChildNodes();
 	    
 	    int _length = _nodeList.getLength();

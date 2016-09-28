@@ -82,7 +82,7 @@ private String XML_NODE_HEAD = "commonCodeInfo";
 	private String XML_NODE_COCD = "cocd";
 
 	public Object setDO(String _xml) {
-		setDO(new CodeDO());
+		//setDO(new CodeDO());
 		
 		Document _document = getDocument(_xml);
 		Element _rootElement = _document.getDocumentElement();
@@ -92,6 +92,7 @@ private String XML_NODE_HEAD = "commonCodeInfo";
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
 			if(_nodeName.equals(XML_NODE_HEAD)) {
+				setDO(new CodeDO());
 				setData((Element)_node);
 			}
         }
