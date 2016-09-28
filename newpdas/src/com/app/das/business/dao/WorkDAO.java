@@ -2888,7 +2888,6 @@ public class WorkDAO extends AbstractDAO
 				"CTGR_S_CD/CTGR_M_CD/MC_NM/CMR_DRT_NM/WRITER_NM/DRT_NM/" +
 				"ANNOT_CLF_CD/PILOT_YN/FINAL_BRD_YN/DAY";
 
-		logger.debug(searchDO.getIndexName());
 		if ("DAS_ANNOT".equals(searchDO.getIndexName())) {
 			returnfieldname += "ANNOT_CLF_CONT";
 		}
@@ -2898,27 +2897,7 @@ public class WorkDAO extends AbstractDAO
 		long count =0;									 																			//프로그램기준총검색문서수
 
 		ArrayList list = new ArrayList();
-		//		Searcher = new IN2StdSearcher();
-
-		//검색 초기화
-		//		if(Searcher.newQuery()){
-		//		}
-		//		logger.debug(IN2_SERVER_IP + " " + IN2_SERVER_PORT);
-		//		//검색 IP PORT
-		//		if(Searcher.setServer(IN2_SERVER_IP, IN2_SERVER_PORT)){
-		//		}
-		//		
-		//		//검색 인덱스
-		//		if(Searcher.addIndex(ICASE_INDEXNAME)){
-		//		}
-		//		
-		//		// 방송일 날짜 검색
-		//		if(!"".equals(searchDO.getStartdate())) {
-		//			Searcher.addRangeField("BRD_DD", searchDO.getStartdate(), searchDO.getEnddate());
-		//		}
-
-
-		//########################################################################
+		
 		// 결과 내 검색
 		String searchKey = searchDO.getSearchKeyList();
 
