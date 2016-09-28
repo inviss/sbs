@@ -761,7 +761,7 @@ public class ExternalDAO extends AbstractDAO
 	{
 		String query = ExternalStatement.selectCartContListQuery();
 		if(logger.isDebugEnabled()) {
-			logger.debug("selectCartContList query: "+query);
+			//logger.debug("selectCartContList query: "+query);
 		}
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -14737,7 +14737,7 @@ public class ExternalDAO extends AbstractDAO
 		try 
 		{
 			String query = ExternalStatement.selectNewTotalChangelistQuery(programInfoDO, flag);
-			logger.debug(query);
+			//logger.debug(query);
 
 			//Page에 따른 계산을 한다.
 			int page = programInfoDO.getPage();
@@ -16048,10 +16048,10 @@ public class ExternalDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectPreProcessingList######## con : " + con);
-			logger.debug("query : "+query);
+			if(logger.isDebugEnabled()) {
+				//logger.debug("query : "+query);
+			}
 			stmt = con.prepareStatement(query);
-			//			stmt.setLong(1, masterid);
 			rs = stmt.executeQuery();
 
 			List result = new ArrayList();

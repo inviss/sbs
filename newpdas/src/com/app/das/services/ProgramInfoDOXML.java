@@ -552,9 +552,7 @@ public class ProgramInfoDOXML extends DOXml {
 
 	public String getSubXML3() {
 		ProgramInfoDO infoDO = (ProgramInfoDO)getDO();
-		if(logger.isInfoEnabled()) {
-			logger.info("total count: "+infoDO.getTotalpage());
-		}
+		
 		StringBuffer _xml = new StringBuffer();	
 		_xml.append("<totalinfo> \n");
 		_xml.append("<" + XML_NODE_TOTALPAGE + ">" + infoDO.getTotalpage() + "</"  + XML_NODE_TOTALPAGE + "> \n");

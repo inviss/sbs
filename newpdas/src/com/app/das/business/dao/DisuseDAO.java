@@ -1696,8 +1696,9 @@ public class DisuseDAO extends AbstractDAO
 			//총 조회 갯수를 구한다.
 			int totalCount  = 
 					getTotalCount(con, DisuseStatement.selecDiscardList(condition, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT));
-
-			logger.debug("######getDisCardList######## query : " + buf.toString());
+			if(logger.isDebugEnabled()) {
+				//logger.debug("######getDisCardList######## query : " + buf.toString());
+			}
 			stmt = con.prepareStatement(buf.toString());
 			int rowPerPage = condition.getRowPerPage();
 			if(rowPerPage == 0)
@@ -1795,7 +1796,9 @@ public class DisuseDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			logger.debug("######getSumDiscard######## query : " + buf.toString());
+			if(logger.isDebugEnabled()) {
+				//logger.debug("######getSumDiscard######## query : " + buf.toString());
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 

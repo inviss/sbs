@@ -3686,7 +3686,9 @@ public class SystemManageDAO extends AbstractDAO
 		ResultSet rs = null;
 		try {
 			con = DBService.getInstance().getConnection();
-			logger.debug("query : " +buf.toString());
+			if(logger.isDebugEnabled()) {
+				//logger.debug("query : " +buf.toString());
+			}
 
 			stmt = con.prepareStatement(buf.toString());
 			if(DASBusinessConstants.PageQueryFlag.NORMAL.equals(flag)) {
@@ -3841,7 +3843,9 @@ public class SystemManageDAO extends AbstractDAO
 		buf.append(SystemManageStatement.selectUseInfoQuery(condition, flag));
 		buf.append("\nwith ur");
 
-		logger.debug("useInfo count : "+buf.toString());
+		if(logger.isDebugEnabled()) {
+			//logger.debug("useInfo count : "+buf.toString());
+		}
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -4026,8 +4030,9 @@ public class SystemManageDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectArchiveStatusList######## con : " + con);
-			logger.debug("query : " +buf.toString());
+			if(logger.isDebugEnabled()) {
+				//logger.debug("query : " +buf.toString());
+			}
 			stmt = con.prepareStatement(buf.toString());
 
 
