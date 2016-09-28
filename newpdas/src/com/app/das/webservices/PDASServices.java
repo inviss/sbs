@@ -671,31 +671,32 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		CornerInfoDOXML _doXML = new CornerInfoDOXML();
-		CornerInfoDOXML _do = new CornerInfoDOXML();
+		//CornerInfoDOXML _do = new CornerInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _list = (List) _doXML.setDO(cornerInfo);
 
 			List _infoList = _processor.insertCornerinfo(masterId, _list);
 
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do.setDO(_iter.next());
-					_xml.append(_do.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
 				
 				if(logger.isDebugEnabled())
 					logger.debug("[insertCornerinfo][ouput]"+_xml.toString());
 
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("insertCornerinfo error", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -741,8 +742,8 @@ public class PDASServices {
 			logger.info("##### insertMyCatalog start#####  myCatalogDO: "+myCatalogDO);
 		}
 		
-		MyCatalogInfoDOXML _doXML = new MyCatalogInfoDOXML();
 		SearchBusinessProcessor _processor = new SearchBusinessProcessor();
+		MyCatalogInfoDOXML _doXML = new MyCatalogInfoDOXML();
 		try {
 			List _result = (List)_doXML.setDO(myCatalogDO);	
 
@@ -765,8 +766,8 @@ public class PDASServices {
 			logger.info("##### deleteMyCatalog ##### myCatalogDO : " + myCatalogDO);
 		}
 		
-		MyCatalogInfoDOXML2 _doXML = new MyCatalogInfoDOXML2();
 		SearchBusinessProcessor _processor = new SearchBusinessProcessor();
+		MyCatalogInfoDOXML2 _doXML = new MyCatalogInfoDOXML2();
 		try {
 			MyCatalogDO _do = (MyCatalogDO) _doXML.setDO(myCatalogDO);
 
@@ -792,9 +793,9 @@ public class PDASServices {
 			logger.info("######insertAnnotinfo######## annotInfoDO : " + annotInfoDO + " masterId : " + masterId);
 		}
 		
-		AnnotInfoDOXML _doXML = new AnnotInfoDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
-		AnnotInfoDOXML _do = new AnnotInfoDOXML();
+		AnnotInfoDOXML _doXML = new AnnotInfoDOXML();
+		//AnnotInfoDOXML _do = new AnnotInfoDOXML();
 		
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
@@ -805,16 +806,16 @@ public class PDASServices {
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do.setDO(_iter.next());
-					_xml.append(_do.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("insertAnnotinfo error", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -833,28 +834,27 @@ public class PDASServices {
 		
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
 		CodeDOXML _doXML = new CodeDOXML();
-		CodeDOXML _do2 = new CodeDOXML();
+		//CodeDOXML _do2 = new CodeDOXML();
 		
 		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			CodeDO _do = (CodeDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getCodeList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getCodeList error", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -873,27 +873,23 @@ public class PDASServices {
 		
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
 		CodeDOXML _doXML = new CodeDOXML();
-		CodeDOXML _do2 = new CodeDOXML();
+		//CodeDOXML _do2 = new CodeDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
-
 			CodeDO _do = (CodeDO) _doXML.setDO(xml);
 
-			CodeDO _infoList = _processor.getCodeInfo(_do);
-
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
-			_do2.setDO(_infoList);
-			_xml.append(_do2.getSubXML());
-
-			_xml.append("</das>");
-
-			return _xml.toString();
-
+			CodeDO codeDO = _processor.getCodeInfo(_do);
+			_doXML.setDO(codeDO);
+			
+			_xml.append(_doXML.getSubXML());
 		} catch (Exception e) {
 			logger.error("getCodeInfo error", e);
 		}
-		return "";
+		_xml.append("</das>");
+		
+		return _xml.toString();
 	}
 
 	/**
