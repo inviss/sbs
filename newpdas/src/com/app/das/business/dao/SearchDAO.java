@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -42,7 +43,7 @@ public class SearchDAO extends AbstractDAO
 
 	private static SearchDAO instance;
 
-	//private static ResourceBundle bundle = ResourceBundle.getBundle("search");
+	private static ResourceBundle bundle = ResourceBundle.getBundle("search");
 
 	/**
 	 * A private constructor
@@ -1637,7 +1638,7 @@ public class SearchDAO extends AbstractDAO
 
 			rs = stmt.executeQuery();
 
-			//int indexCount = 0;
+			int indexCount = 0;
 
 			List resultList = new ArrayList();
 
@@ -1756,7 +1757,7 @@ public class SearchDAO extends AbstractDAO
 			stmt = con.prepareStatement(buf.toString());
 
 			//현재 시간을 받아온다.
-			//String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
+			String toDateTime = CalendarUtil.getDateTime("yyyyMMddHHmmss");
 
 			int index = 0;
 
@@ -2286,8 +2287,6 @@ public class SearchDAO extends AbstractDAO
 	 * @throws Exception 
 	 */
 	public String getSearchText(ParameterVO srchParam) throws Exception{
-		//ResultVO rVO = new ResultVO();
-		//SearchModule objDOCRUZER = new SearchModule();
 
 		/************************************/
 		/* 변수 초기화 및 카테고리별 설정                   */
@@ -2297,9 +2296,9 @@ public class SearchDAO extends AbstractDAO
 		String orderNm = srchParam.getSortColunm();				//정렬명 (ex : 날짜순)
 		int pageNum = srchParam.getPageNum();					// 페이지 번호
 		int pageSize = srchParam.getPageSize();					// 페이지 사이즈
-		//String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
-		//String logInfo = "";									// 검색로그
-
+		String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
+		String logInfo = "";									// 검색로그
+		StringBuffer query = new StringBuffer();				// 검색 쿼리
 		String srchFdNm = "text_idx"; 
 		String ctgr_l_cd = srchParam.getCtgrlcd();				//소재 구분
 		String browser = srchParam.getBrowser();				//브라우져
@@ -2307,8 +2306,6 @@ public class SearchDAO extends AbstractDAO
 		String[] program_yns = srchParam.getProgram_yn();				//프로그램 조회권한
 		String[] material_yns = srchParam.getMaterial_yn();				//소재 조회 권한
 		/***************************************************************************/
-
-		StringBuffer query = new StringBuffer();				// 검색 쿼리
 
 		if(scn.equalsIgnoreCase("program")){
 			query = DCUtil.makeQuery("DELETE_FLAG ", "N", "", query, "and");
@@ -2331,18 +2328,9 @@ public class SearchDAO extends AbstractDAO
 			query = DCUtil.makeQuery("ANNOT_CLF_CD", srchParam.getSceanGubun(), "", query, "and");
 		}
 
-		//정렬
-		/*	if ("d".equals(srchParam.getSort())) {
-				orderBy = "order by REG_DT desc";
-				orderNm = "최신날짜순";
-			} else {
-				orderNm = "정확도순";
-			}*/
-
-
 		if (!orderNm.equals("")) {
 			//20110518 mailFrom: [SBS]PGM_NM_TITLE 필드 관련 내용 [수정처리완료.]
-			if(orderNm.equals("PGMNM_TITLE") && srchParam.getScn().equals("annot")){
+			if(orderNm.equals("PGMNM_TITLE")&& srchParam.getScn().equals("annot")){
 				orderNm ="TITLE";
 			}else 	if(orderNm.equals("PGMNM_TITLE")){
 				orderNm ="PGMNM_TITLE_STR";
@@ -2362,18 +2350,16 @@ public class SearchDAO extends AbstractDAO
 		} 
 
 		//로그포맷
-		//logInfo = DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
-		//		srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
-		//		srchParam.getRecKwd());
-
+		logInfo = DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
+				srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
+				srchParam.getRecKwd());
 
 		//20120813 ifcms용 조회 쿼리 추가 권한.
 		if(!channel_cds.equals("")){
 			int length = channel_cds.length;
-			StringBuffer newQuery = new StringBuffer();
-			//String newQuery ="";
-			//String nextjob="";
-			//boolean all = false;
+			String newQuery ="";
+			String nextjob="";
+			boolean all = false;
 			for(int j =0 ; j<length;j++){
 				boolean pgm = false;
 				boolean material = false;
@@ -2389,57 +2375,36 @@ public class SearchDAO extends AbstractDAO
 				if(!pgm && !material){
 
 				} else if(!pgm || !material) {
-					String ctgrLCd = (pgm) ? "200" : material ? "100" : "200";
-					if(newQuery.length() == 0) {
-						newQuery.append("(CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='"+ctgrLCd+"')");
-					} else {
-						newQuery.append(" OR (CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='"+ctgrLCd+"')");
-					}
-					/*
 					if(pgm) {
-
 						if(newQuery.equals("")){
 							newQuery= "(CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='200')";
 						}else{
 							newQuery= newQuery + " OR (CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='200')";
 						}
-
 					} else if(material){
-
 						if(newQuery.equals("")){
 							newQuery= "(CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='100')";
 						}else{
 							newQuery= newQuery + " OR (CHENNEL_CD ='"+channelCd+"'" +" and CTGR_L_CD='100')";
 						}
-
 					}
-					 */
 				} else {
-					if(newQuery.length() == 0) {
-						newQuery.append("(CHENNEL_CD ='"+channelCd+"'" +" )");
-					} else {
-						newQuery.append(" OR (CHENNEL_CD ='"+channelCd+"'" +" )");
-					}
-					/*
 					if(newQuery.equals("")){
 						newQuery= "(CHENNEL_CD ='"+channelCd+"'" +" )";
 					}else{
 						newQuery= newQuery + " OR (CHENNEL_CD ='"+channelCd+"'" +" )";
 					}
-					 */
 				}
 
-				/*
 				if(j<=length){
 					nextjob="Y";
 				}else{
 					nextjob="N";
 				}
-				 */
+
 			}
 			if(!newQuery.equals("")){
-				//query =  DCUtil.makeQueryForAuth(newQuery, query);
-				query =  DCUtil.makeQueryForAuth(newQuery.toString(), query);
+				query =  DCUtil.makeQueryForAuth(newQuery, query);
 			}
 		}
 
@@ -2447,10 +2412,9 @@ public class SearchDAO extends AbstractDAO
 		if (srchParam.getReSrchFlag() && srchParam.getPreKwds() != null) {
 			for (int cnt = 0; cnt < srchParam.getPreKwds().length; cnt++) {
 				query = DCUtil.makePreQuery(srchFdNm, srchParam.getKwd(), srchParam.getPreKwds(), 
-						srchParam.getPreKwds().length, query, "allwordthruindex synonym");
+						srchParam.getPreKwds().length,query, "allwordthruindex synonym");
 			}
 		}
-
 
 		//기본 키워드 검색 
 		if(srchParam.getGrpSrchFd() == null){
@@ -2467,14 +2431,14 @@ public class SearchDAO extends AbstractDAO
 			 * grpStartDD & grpEndDD 값이 현재 상세검색 조건값으로 들어올수 있는 값들에 대해서 정의해 Object 인데
 			 * 방송일/촬영일에 대해서 정의해 놓고 가는 것이당. 
 			 */
-			String[] grpStartDD   = srchParam.getGrpStartDD();  // 시작일
+			String[] grpStartDD   = srchParam.getGrpStartDD();  // 시작일(
 			String[] grpEndDD   = srchParam.getGrpEndDD();      // 종료일
 			String kwd = "";
 			String srch_fd = "";
 			String use_start_dd = "";
 			String use_end_Dd = "";
 			int count=0;
-			//int DdCount=0;
+			int DdCount=0;
 
 			if (srchParam.getDetailSearch()) {	//상세검색일 경우 쿼리 생성
 
@@ -2497,7 +2461,6 @@ public class SearchDAO extends AbstractDAO
 								}
 							}
 						}
-
 						if (!srchParam.getGrpEndDD().equals("")&&(grSrchFd[cnt].equals("REG_DT")||grSrchFd[cnt].equals("FM_DT")||grSrchFd[cnt].equals("BRD_DD"))) {
 							if(browser.equals("")){
 								endVal = grpEndDD[0];
@@ -2537,21 +2500,17 @@ public class SearchDAO extends AbstractDAO
 
 				if(srchParam.getGrpKwd() != null){
 					for(int cnt = 0; cnt < grSrchFd.length; cnt++){
-
 						if(grSrchFd[cnt].equalsIgnoreCase("TITLE")){
 							grSrchFd[cnt] ="PGMNM_TITLE";
 						}
-
 						//무제한은 공백 값이므로 공백으로 조회하도록 수정 20121022
 						for(int kcnt =0; kcnt< grpKwd.length; kcnt++){
-
 							if(grSrchFd[cnt].equalsIgnoreCase("ANNOT_CLF_NM")){
 								if(grpKwd[kcnt].equals("무제한")){
 									//	grpKwd[kcnt]="";
 								}
 							}
-
-							if(!srch_fd.matches(".*"+grSrchFd[cnt]+".*") && !kwd.matches(".*"+grpKwd[kcnt]+".*") && !(grSrchFd[cnt].equals("REG_DT")||grSrchFd[cnt].equals("FM_DT")||grSrchFd[cnt].equals("BRD_DD"))){
+							if(!srch_fd.matches(".*"+grSrchFd[cnt]+".*")&&!kwd.matches(".*"+grpKwd[kcnt]+".*")&&!(grSrchFd[cnt].equals("REG_DT")||grSrchFd[cnt].equals("FM_DT")||grSrchFd[cnt].equals("BRD_DD"))){
 								query = DCUtil.makeQuery(grSrchFd[cnt], grpKwd[kcnt], "", query, grpAndOr[kcnt]);
 								kwd=kwd+grpKwd[kcnt]+",";
 								srch_fd=srch_fd+grSrchFd[cnt]+",";
@@ -2578,7 +2537,6 @@ public class SearchDAO extends AbstractDAO
 			}
 		}
 
-
 		try {
 			if(logger.isDebugEnabled()) {
 				logger.debug("Search Query ["+query.toString()+"]");
@@ -2587,33 +2545,28 @@ public class SearchDAO extends AbstractDAO
 				logger.debug("Search pageNum ["+pageNum+"]");
 				logger.debug("Search pageSize ["+pageSize+"]");
 			}
-			//long time1;
-			//long time2;
-			//time1 = System.currentTimeMillis();
+			
 			String xml = ExportXML.search(scn, query.toString(),orderBy, pageNum, pageSize, 1, 1 );
-			//time2 = System.currentTimeMillis();
-			//logger.debug("getSearchText end time : "+ ((time2 - time1)/1000.0f) +"초");
+			
 			return xml;
-
 		} catch (Exception ex) {
+			logger.error(query.toString());
 			throw ex;
 		}
 	}
 
 	public String getSearchTextTest(ParameterVO srchParam) throws Exception{
-		//ResultVO rVO = new ResultVO();
-		//SearchModule objDOCRUZER = new SearchModule();
 
 		/************************************/
 		/* 변수 초기화 및 카테고리별 설정                   */
 		/************************************/
 		String scn = srchParam.getScn();						//시나리오 
 		String orderBy = "";									//정렬문 (ex : order by regdate desc)
-		//String orderNm = "";									//정렬명 (ex : 날짜순)
+		String orderNm = "";									//정렬명 (ex : 날짜순)
 		int pageNum = srchParam.getPageNum();					// 페이지 번호
 		int pageSize = srchParam.getPageSize();					// 페이지 사이즈
-		//String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
-		//String logInfo = "";									// 검색로그
+		String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
+		String logInfo = "";									// 검색로그
 		StringBuffer query = new StringBuffer();				// 검색 쿼리
 		String srchFdNm = "text_idx"; 
 		/***************************************************************************/
@@ -2642,8 +2595,6 @@ public class SearchDAO extends AbstractDAO
 	 * @throws Exception 
 	 */
 	public String getSearchTextForDetail(ParameterVO srchParam) throws Exception{
-		//ResultVO rVO = new ResultVO();
-		//SearchModule objDOCRUZER = new SearchModule();
 
 		/************************************/
 		/* 변수 초기화 및 카테고리별 설정                   */
@@ -2653,18 +2604,18 @@ public class SearchDAO extends AbstractDAO
 		String orderNm = "";									//정렬명 (ex : 날짜순)
 		int pageNum = srchParam.getPageNum();					// 페이지 번호
 		int pageSize = srchParam.getPageSize();					// 페이지 사이즈
-		//String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
-		//String logInfo = "";									// 검색로그
+		String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
+		String logInfo = "";									// 검색로그
 		StringBuffer query = new StringBuffer();				// 검색 쿼리
 		String srchFdNm = "text_idx"; 
 		/***************************************************************************/
 
-		//int rc = 0;
+		int rc = 0;
 
 		//로그포맷
 		query = DCUtil.makeQuery("DELETE_FLAG ", "N", "", query, "and"); 
-		DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
-			srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
+		logInfo = DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
+				srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
 				srchParam.getRecKwd());
 
 		if (srchParam.getReSrchFlag() && srchParam.getPreKwds() != null) {
@@ -2687,15 +2638,12 @@ public class SearchDAO extends AbstractDAO
 				for(int cnt = 0; cnt < grpStartDD.length; cnt++){
 					if (srchParam.getStartDate().equals("")) {
 						startVal = grpStartDD[cnt]+"000000";
-
 					}
 					if (srchParam.getEndDate().equals("")) {
 						endVal = grpEndDD[cnt]+"999999";
-
 					}
 
 					query = DCUtil.makeRangeQuery(grSrchFd[cnt], startVal, endVal, query);
-
 				}
 			}
 		}else{
@@ -2726,16 +2674,18 @@ public class SearchDAO extends AbstractDAO
 				query = DCUtil.makeQuery(srchFdNm, srchParam.getExclusiveKwd(), "", query, "and not");
 			}
 		}
-
-		if(logger.isDebugEnabled()) {
+		try {
 			logger.debug("Search Query ["+query.toString()+"]");
 			logger.debug("Search scn ["+scn+"]");
 			logger.debug("Search orderBy ["+orderBy+"]");
 			logger.debug("Search pageNum ["+pageNum+"]");
 			logger.debug("Search pageSize ["+pageSize+"]");
+			return ExportXML.search(scn, query.toString(),orderBy, pageNum, pageSize, 1, 1 );
+
+		} catch (Exception ex) {
+			logger.error(query.toString());
+			throw ex;
 		}
-		
-		return ExportXML.search(scn, query.toString(),orderBy, pageNum, pageSize, 1, 1 );
 
 	}
 
@@ -2748,8 +2698,6 @@ public class SearchDAO extends AbstractDAO
 	 * @throws Exception 
 	 */
 	public String getSearchTextForMain(ParameterVO srchParam) throws Exception{
-		//ResultVO rVO = new ResultVO();
-		//SearchModule objDOCRUZER = new SearchModule();
 
 		/************************************/
 		/* 변수 초기화 및 카테고리별 설정                   */
@@ -2759,14 +2707,14 @@ public class SearchDAO extends AbstractDAO
 		String orderNm = "";									//정렬명 (ex : 날짜순)
 		int pageNum = srchParam.getPageNum();					// 페이지 번호
 		int pageSize = srchParam.getPageSize();					// 페이지 사이즈
-		//String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
-		//String logInfo = "";									// 검색로그
+		String hilightTxt = srchParam.getKwd();					// 하이라이팅 키워드
+		String logInfo = "";									// 검색로그
 		StringBuffer query = new StringBuffer();				// 검색 쿼리
 		String srchFdNm = "text_idx"; 
 		/***************************************************************************/
 		// kwd값이 있을 경우만 쿼리를 수행함.
 		if (srchParam.getKwd() != null && srchParam.getKwd().length() > 0) { 
-			//int rc = 0;
+			int rc = 0;
 
 			if("annot".equalsIgnoreCase(srchParam.getScn())){
 				// 주제영상 구분에 대한 전처리 
@@ -2782,7 +2730,7 @@ public class SearchDAO extends AbstractDAO
 			}
 
 			//로그포맷
-			 DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
+			logInfo = DCUtil.getLogInfo("site", srchParam.getCategory(), "", srchParam.getKwd(), 
 					srchParam.getPageNum(), srchParam.getReSrchFlag(), orderNm, 
 					srchParam.getRecKwd());
 

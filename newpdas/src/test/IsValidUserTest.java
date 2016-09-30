@@ -12,7 +12,7 @@ public class IsValidUserTest {
 	public static void main(String[] args) {
 		try {
 			TokenDOXML _doXML = new TokenDOXML();
-			TokenDO _do = (TokenDO)_doXML.setDO("<?xml version=\"1.0\" encoding=\"utf-8\"?><das><tokeninfo><hex>00:90:F5:D2:9B:B8</hex><user_id>S522522</user_id><password>522522</password></tokeninfo></das>");
+			TokenDO _do = (TokenDO)_doXML.setDO("<?xml version=\"1.0\" encoding=\"utf-8\"?><das><tokeninfo><hex>00:E0:4C:23:0E:DC</hex><user_id>U14U072</user_id><password>U14U072</password></tokeninfo></das>");
 
 			LoginBusinessProcessor _processor1 = new LoginBusinessProcessor();
 

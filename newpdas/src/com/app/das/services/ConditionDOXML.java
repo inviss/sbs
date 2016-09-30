@@ -193,21 +193,23 @@ public class ConditionDOXML extends DOXml {
 	
 	
 	public Object setDO(String _xml) {
-	
-		setDO(new WorkStatusConditionDO());
-		
 		Document _document = getDocument(_xml);
 		Element _rootElement = _document.getDocumentElement();
         NodeList _nodeList = _rootElement.getChildNodes();
+        
         int _length = _nodeList.getLength();
         for(int i = 0; i < _length; i++) {
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
+			
 			if(_nodeName.equals(XML_NODE_HEAD)) {
+				setDO(new WorkStatusConditionDO());
 				setData((Element)_node);
 			}else if(_nodeName.equals(XML_NODE_HEAD2)){
+				setDO(new WorkStatusConditionDO());
 				setData((Element)_node);
 			}
+			
         }
 		
 		return getDO();

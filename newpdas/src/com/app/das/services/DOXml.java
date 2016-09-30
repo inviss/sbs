@@ -2,6 +2,7 @@ package com.app.das.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -9,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 /**
  *   XML파서 정의
  * @author asura207
@@ -31,10 +33,8 @@ public abstract class DOXml {
 	protected Document getDocument(String pXMLContents) {
 		Document doc = null;
 		try {
-			DocumentBuilderFactory mDocBuilderFactory = DocumentBuilderFactory
-					.newInstance();
-			DocumentBuilder mDocBuilder = mDocBuilderFactory
-					.newDocumentBuilder();
+			DocumentBuilderFactory mDocBuilderFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder mDocBuilder = mDocBuilderFactory.newDocumentBuilder();
 			if (pXMLContents == null) {
 				doc = mDocBuilder.newDocument();
 			} else {
@@ -71,6 +71,23 @@ public abstract class DOXml {
 		strResult = strResult.replaceAll(">", "&gt;");
 		
 		return strResult;
+	}
+	
+	protected NodeList collectNodes(Document doc, Set<String> filteredNames) {
+		Node ret = doc.createElement("NodeList");
+		collectNodes(doc, filteredNames, ret);
+		return ret.getChildNodes();
+	}
+
+	protected void collectNodes(Node node, Set<String> filteredNames, Node ret) {
+		NodeList chn = node.getChildNodes();
+		for (int i = 0; i < chn.getLength(); i++) {
+			Node child = chn.item(i);
+			if (filteredNames.contains(child.getNodeName())) {
+				ret.appendChild(child);
+			}
+			collectNodes(child, filteredNames, ret);
+		}
 	}
 	
 	abstract public Object setDO(String _xml);

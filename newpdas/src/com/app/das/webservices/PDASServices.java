@@ -906,8 +906,8 @@ public class PDASServices {
 			logger.info("#####insertCodeInfo##### : " + xml );
 		}
 		
-		CodeDOXML _doXML = new CodeDOXML();
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
+		CodeDOXML _doXML = new CodeDOXML();
 		try {
 			CodeDO _do = (CodeDO)_doXML.setDO(xml);
 
@@ -932,8 +932,8 @@ public class PDASServices {
 			logger.info("#####updateCodeInfo##### : "+ xml );
 		}
 
-		CodeDOXML _doXML = new CodeDOXML();
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
+		CodeDOXML _doXML = new CodeDOXML();
 		try {
 			CodeDO _do = (CodeDO)_doXML.setDO(xml);
 
@@ -957,8 +957,8 @@ public class PDASServices {
 			logger.info("#####deleteCodeInfo##### : " + xml);
 		}
 
-		CodeDOXML _doXML = new CodeDOXML();
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
+		CodeDOXML _doXML = new CodeDOXML();
 		try {
 			CodeDO _do = (CodeDO)_doXML.setDO(xml);
 
@@ -984,8 +984,8 @@ public class PDASServices {
 			logger.info("#####insertScenario##### : "+ xml);
 		}
 
-		ScenarioDOXML _doXML = new ScenarioDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		ScenarioDOXML _doXML = new ScenarioDOXML();
 		try {
 			ScenarioDO _do = (ScenarioDO)_doXML.setDO(xml);
 
@@ -1160,24 +1160,26 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ScenarioDOXML _doXML = new ScenarioDOXML();
-		ScenarioDOXML _do2 = new ScenarioDOXML();
+		//ScenarioDOXML _do2 = new ScenarioDOXML();
 		
 		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ScenarioDO _do = (ScenarioDO) _doXML.setDO(xml);
+			
 			ScenarioDO _infoList = _processor.getScenario2(_do);
-
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-			_do2.setDO(_infoList);
-			_xml.append(_do2.getSubXML());
-			_xml.append("</das>");
+			_doXML.setDO(_infoList);
+			
+			_xml.append(_doXML.getSubXML());
 
 			return _xml.toString();
 
 		} catch (Exception e) {
 			logger.error("getScenario2 error", e);
 		}
-		return "";
+		_xml.append("</das>");
+		
+		return _xml.toString();
 	}
 
 	/**
@@ -1194,6 +1196,7 @@ public class PDASServices {
 		}
 
 		SearchBusinessProcessor _processor = new SearchBusinessProcessor();
+		
 		SearchConditionDOXML _doXML1 = new SearchConditionDOXML();
 		DASCommonDOXML _doXML2 = new DASCommonDOXML();
 		try {
@@ -1225,9 +1228,9 @@ public class PDASServices {
 			logger.info("getMyCatalog xml: "+xml);
 		}
 		
+		SearchBusinessProcessor _processor = new SearchBusinessProcessor();
 		SearchConditionDOXML _doXML1 = new SearchConditionDOXML();
 		DASCommonDOXML _doXML2 = new DASCommonDOXML();
-		SearchBusinessProcessor _processor = new SearchBusinessProcessor();
 
 		try {
 			DASCommonDO commonDO = (DASCommonDO) _doXML2.setDO(xml);
@@ -1260,8 +1263,8 @@ public class PDASServices {
 			logger.info("######deletePhotoFiles######## : " + xml);
 		}
 
-		PhotoDOXML _doXML = new PhotoDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		PhotoDOXML _doXML = new PhotoDOXML();
 		try {
 			PhotoInfoDO _do = (PhotoInfoDO) _doXML.setDO(xml);
 
@@ -1286,9 +1289,9 @@ public class PDASServices {
 			logger.info("######insertAttachFile######## : " + xml);
 		}
 
-		AttachFileInfoDOXML _doXML = new AttachFileInfoDOXML();
-		AttachFileInfoDOXML _do = new AttachFileInfoDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		AttachFileInfoDOXML _doXML = new AttachFileInfoDOXML();
+		//AttachFileInfoDOXML _do = new AttachFileInfoDOXML();
 		
 		StringBuffer _xml = new StringBuffer();
 		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
@@ -1299,8 +1302,8 @@ public class PDASServices {
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do.setDO(_iter.next());
-					_xml.append(_do.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
 			}
 		} catch (Exception e) {
@@ -1348,8 +1351,8 @@ public class PDASServices {
 			logger.info("#####updateDownCart start#####" + downCartDO);
 		}
 
-		DownCartDOXML _doXML = new DownCartDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		DownCartDOXML _doXML = new DownCartDOXML();
 		try {
 			DownCartDO _do = (DownCartDO) _doXML.setDO(downCartDO);
 
@@ -1373,8 +1376,8 @@ public class PDASServices {
 			logger.info("#####updateCartContInfo#####" + cartContDO);
 		}
 
-		CartContsDOXML _doXML = new CartContsDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		CartContsDOXML _doXML = new CartContsDOXML();
 		try {
 			List _result = (List)_doXML.setDO(cartContDO);
 			_processor.updateCartContInfo(_result); 
@@ -1698,25 +1701,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		AnnotInfoDOXML _do = new AnnotInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getAnnotInfoInfoList(masterId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getAnnotInfoInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+		
+		return _xml.toString();
 	}
 
 
@@ -1733,24 +1735,25 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		CartContDOXML _do = new CartContDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getCartContList(cartNo);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
 
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getCartContList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -1766,24 +1769,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		AttachFileInfoDOXML _do = new AttachFileInfoDOXML();
+
+		StringBuffer _xml =  new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			List _infoList = _processor.getAttachFileInfoList(mothrId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml =  new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getAttachFileInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -1799,24 +1802,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ContentsPreInfoDOXML _do = new ContentsPreInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getContentPreInfoList(masterId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getContentsPreInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -1905,24 +1908,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		CornerInfoDOXML _do = new CornerInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getCornerInfoList(masterId, keyWord);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getCornerInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+		
+		return _xml.toString();
 	}
 
 	/**
@@ -1938,24 +1941,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		IngestCodeInfoDOXML _do = new IngestCodeInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getFLIngestCommonCodeList();
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getFLIngestCommonCodeList", e);
 		}
-		return "";
+		_xml.append("</das>");
+		
+		return _xml.toString();
 	}
 
 	/**
@@ -2005,24 +2008,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		IngestEquInfoDOXML _do = new IngestEquInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getIngestServerList(clfCd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append( _do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getFlIngestLastCommandList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2038,24 +2041,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		IngestCodeInfoDOXML _do = new IngestCodeInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getSDIngestCommonCodeList();
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSDIngestCommonCodeList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2093,24 +2096,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		TapeContentInfoDOXML _do = new TapeContentInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			List _infoList = _processor.getSDIngestRefreshTapeInfo(tapeId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSDIngestRefreshTapeInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2127,24 +2130,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		IngestCartContDOXML _do = new IngestCartContDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getTapeOutIngestCartItemInfo(cartNo);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getTapeOutIngestCartItemInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2160,24 +2163,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		IngestCodeInfoDOXML _do = new IngestCodeInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getTapeOutIngestCommonCodeList();
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getTapeOutIngestCommonCodeList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2198,24 +2201,24 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		IngestDownCartDOXML _do = new IngestDownCartDOXML();
+
+		StringBuffer _xml =  new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getTapeOutIngestDownCartInfoList(reqUserId, resolution, reqDtChk, reqDt);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml =  new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append( _do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getTapeOutIngestDownCartInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2237,24 +2240,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		TapeItemInfoDOXML _do = new TapeItemInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getSDTapeInfoList(reqNum, pgmNm, IngestStatus, OnAirDateSearch, OnAirDateStart, OnAirDateEnd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSDTapeInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2273,24 +2276,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ProgramInfoDOXML _do = new ProgramInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getProgramInfoList(pgmNm);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getProgramInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2308,24 +2311,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		PgmContentsInfoDOXML _do = new PgmContentsInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getPgmContentsInfoList(masterId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getPgmContentsInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2457,23 +2460,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		PhotoInfoDOXML _do = new PhotoInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getPhotoInfoList(masterId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getPhotoInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2491,24 +2495,24 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ReflectionInfoDOXML _do = new ReflectionInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getReflectionInfoList(masterId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append( _do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getReflectionInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2521,24 +2525,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		StorageIPXML _do = new StorageIPXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getStorageIP();
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getVideoPageContentsInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2557,25 +2561,24 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		CodeInfoDOXML _do = new CodeInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getCommonInfoList(clfCd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getCommonInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2619,25 +2622,24 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MetadataMstInfoDOXML _do = new MetadataMstInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getMetadataInfo(masterId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml .append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				//	logger.debug("getMetadataInfo"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getMetadataInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2654,25 +2656,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ErrorRegisterDOXML _do = new ErrorRegisterDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getErrorInfoList(masterId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getErrorInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2690,25 +2691,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ModeUserInfoDOXML _do = new ModeUserInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getModeUserInfoList(masterId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				//	logger.debug("[getModeUserInfoList]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getModeUserInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2726,31 +2726,27 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ProgramInfoDOXML _doXML = new ProgramInfoDOXML();
-		ProgramInfoDOXML _do2 = new ProgramInfoDOXML();
+		//ProgramInfoDOXML _do2 = new ProgramInfoDOXML();
 
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {	
 			ProgramInfoDO _do = (ProgramInfoDO)_doXML.setDO(programInfoDO);
 
 			List _infoList = _processor.getPgmInfoFromName(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-
-				_xml.append("</das>");
-				if (logger.isDebugEnabled()) {
-				//	logger.debug("_xml" + _xml);
-				}
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getPgmInfoFromName", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -2772,30 +2768,26 @@ public class PDASServices {
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ProgramInfoDOXML _do = new ProgramInfoDOXML();
 
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			if(pgmNm == null){
 				pgmNm="";
 			}
 			List _infoList = _processor.getPgmInfoFromName2(pgmNm);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-				_xml.append("</das>");
-				
-				if (logger.isDebugEnabled()) {
-				//	logger.debug("_xml" + _xml);
-				}
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getPgmInfoFromName2", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -2811,33 +2803,30 @@ public class PDASServices {
 			logger.info("######getLastPgmInfolist######## programDO : " + programDO);
 		}
 
-		ProgramDOXML _doXML = new ProgramDOXML();
-		ProgramDOXML _do = new ProgramDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		ProgramDOXML _doXML = new ProgramDOXML();
+		//ProgramDOXML _do = new ProgramDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ProgramInfoDO _doing = (ProgramInfoDO)_doXML.setDO(programDO);
 
 			List _infoList = _processor.getLastPgmInfolist(_doing);
 			
-			StringBuffer _xml = new StringBuffer();
-			logger.debug("####"+_infoList.size()+_xml.toString());
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do.setDO(_iter.next());
-					_xml.append( _do.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				if(logger.isDebugEnabled()) {
-					//logger.debug("[getLastPgmInfolist][ouput]"+_xml);
-				}
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getLastPgmInfolist", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2854,25 +2843,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ProgramInfoDOXML _do = new ProgramInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getLastPgmInfolist(pgmNm);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getLastPgmInfolist", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2891,25 +2879,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ProgramInfoDOXML _do = new ProgramInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getLastPgmInfolistByPgmId(pgmId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getLastPgmInfolistByPgmId", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 	/**
 	 * 프로그램 ID에 대응하는 프로그램 정보를 가져온다
@@ -2928,24 +2915,24 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ProgramInfoDOXML _do = new ProgramInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getLastPgmInfolistByPgmId2(pgmId,brd_dd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getLastPgmInfolistByPgmId2", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -2963,25 +2950,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MetadataMstInfoDOXML _do = new MetadataMstInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getPgmInfoFromMasterid(episNo, pgmId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getPgmInfoFromMasterid", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -3292,7 +3278,9 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######recreateWMV######## cti_id : " + cti_id);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		
 		try {
 			return _processor.recreateWMV(cti_id);
 		} catch (Exception e) {
@@ -3367,6 +3355,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.debug("######unlockByUserID########");
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
 			return _processor.UnlockByUserID(strUserID);
@@ -3384,7 +3373,10 @@ public class PDASServices {
 	 * @throws RemoteException
 	 */
 	public String getMergedFilenames(long master_id) throws RemoteException {
-		logger.info("######getMergedFilenames######## master_id : " + master_id);
+		if(logger.isInfoEnabled()) {
+			logger.info("######getMergedFilenames######## master_id : " + master_id);
+		}
+
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
 			return _processor.getMergedFilenames(master_id);
@@ -3405,6 +3397,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getMasterDataTotaly######## xml : " + xml);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
 			return _processor.getMasterDataTotaly(xml);
@@ -3427,6 +3420,7 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getMasterDataAll######## xml : " + xml);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
 			return _processor.getMasterDataAll(xml);
@@ -3452,11 +3446,11 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######getRelationScean######## master_id : " + master_id);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		try {
 			return _processor.getRelationScean(master_id);
 		} catch (Exception e) {
-
 			logger.error("getRelationScean", e);
 		}
 		return "";
@@ -3473,12 +3467,13 @@ public class PDASServices {
 		if(logger.isInfoEnabled()) {
 			logger.info("######multiLockUnlock######## xml : " + xml);
 		}
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		
 		try{
 			return _processor.MultiLockUnlock(xml);
 		}catch (Exception e) {
 			logger.error("multiLockUnlock", e);
-			// TODO: handle exception
 		}
 		return 0;
 
@@ -3506,6 +3501,7 @@ public class PDASServices {
 		} catch (RemoteException e) {
 			logger.error("getStoryboardData", e);
 		}
+		
 		return "";
 	}
 
@@ -3524,28 +3520,27 @@ public class PDASServices {
 
 		CommunityBusinessProcessor _processor = new CommunityBusinessProcessor();
 		BoardInfoDOXML _doXML = new BoardInfoDOXML();
-		BoardInfoDOXML _do2 = new BoardInfoDOXML();
+		//BoardInfoDOXML _do2 = new BoardInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			BoardConditionDO _do = (BoardConditionDO) _doXML.setDO(boardInfoDO);
 
 			List _infoList = _processor.getBoardList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getBoardList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -3563,28 +3558,27 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		EmployeeInfoDOXML _doXML = new EmployeeInfoDOXML();
-		EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
+		//EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			EmployeeInfoDO _do = (EmployeeInfoDO) _doXML.setDO(employeeInfoDO);
 
 			List _infoList = _processor.getNonEmployeeRoleList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getOutsiderEmployeeRoleList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -3669,8 +3663,8 @@ public class PDASServices {
 			logger.info("######deleteScreenAuthentication######## codeDO : " + codeDO);
 		}
 
-		CodeDOXML _doXML = new CodeDOXML();
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
+		CodeDOXML _doXML = new CodeDOXML();
 		try {
 			CodeDO _do = (CodeDO) _doXML.setDO(codeDO);		
 
@@ -3697,38 +3691,35 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ProgramInfoDOXML _doXML = new ProgramInfoDOXML();
-		ProgramInfoDOXML _do = new ProgramInfoDOXML();
+		//ProgramInfoDOXML _do = new ProgramInfoDOXML();
+		
 		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ProgramInfoDO _doing = (ProgramInfoDO)_doXML.setDO(programDO);
 
 			int totalCount  = _processor.getTotalChangeCount(_doing);
 			_doing.setTotalpage(totalCount);
-			if(logger.isDebugEnabled()) {
-				logger.debug("totalCount : "+totalCount);
-			}
+			_doXML.setDO(_doing);
+			_xml.append(_doXML.getSubXML3());
 
 			List _infoList = null;
 			if(totalCount > 0) {
 				_infoList = _processor.getTotalChangelist(_doing);
 
 				if (_infoList != null && _infoList.size() > 0) {
-					_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 					Iterator _iter = _infoList.iterator();
-
-					_doXML.setDO(_doing);
-					_xml.append(_doXML.getSubXML3());
-
 					while (_iter.hasNext()) {
-						_do.setDO(_iter.next());
-						_xml.append(_do.getSubXML());
+						_doXML.setDO(_iter.next());
+						_xml.append(_doXML.getSubXML());
 					}
-					_xml.append("</das>");
 				}
 			}
 		} catch (Exception e) {
 			logger.error("getTotalChangelist", e);
 		}
+		_xml.append("</das>");
+
 		return _xml.toString();
 	}
 
@@ -3752,28 +3743,27 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		EmployeeInfoDOXML _doXML = new EmployeeInfoDOXML();
-		EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
+		//EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			EmployeeInfoDO _do = (EmployeeInfoDO) _doXML.setDO(employeeInfoDO);
 
 			List _infoList = _processor.getEmployeeRoleList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getEmployeeList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -3788,8 +3778,8 @@ public class PDASServices {
 			logger.info("######updateEmployeeRole########  + " + employeeInfoDO);
 		}
 		
-		EmployeeInfoDOXML _doXML = new EmployeeInfoDOXML();
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
+		EmployeeInfoDOXML _doXML = new EmployeeInfoDOXML();
 		try {
 			EmployeeInfoDO _do = (EmployeeInfoDO) _doXML.setDO(employeeInfoDO);		
 
@@ -3867,21 +3857,21 @@ public class PDASServices {
 		
 		DisuseBusinessProcessor _processor = new DisuseBusinessProcessor();
 		DiscardInfoDOXML _doXML = new DiscardInfoDOXML();
-		DiscardInfoDOXML _do2 = new DiscardInfoDOXML();
+		//DiscardInfoDOXML _do2 = new DiscardInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			DiscardDO _do = (DiscardDO)_doXML.setDO(discardDO);
 
 			List _infoList = _processor.getDisCardList(_do);
 			List _infoList2 = _processor.getSumDiscard(_do);
 
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
 			if (_infoList2 != null && _infoList2.size() > 0) {
 				Iterator _iter2 = _infoList2.iterator();
 				while (_iter2.hasNext()) {
-					_do2.setDO(_iter2.next());
-					_xml.append(_do2.getSubXML2());
+					_doXML.setDO(_iter2.next());
+					_xml.append(_doXML.getSubXML2());
 				}
 			}
 			_xml.append("<discard>");
@@ -3889,18 +3879,18 @@ public class PDASServices {
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
 			}
 			_xml.append("</discard>");
-			_xml.append("</das>");
 
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("getDisCardList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -4007,21 +3997,21 @@ public class PDASServices {
 		
 		DisuseBusinessProcessor _processor = new DisuseBusinessProcessor();
 		DiscardregiDOXML2 _doXML = new DiscardregiDOXML2();
-		DiscardregiDOXML2 _do2 = new DiscardregiDOXML2();
+		//DiscardregiDOXML2 _do2 = new DiscardregiDOXML2();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			DiscardDO _do = (DiscardDO)_doXML.setDO(discardDO);
 
 			List _infoList = _processor.getHyenDisCardList(_do);
 			List _infoList2 = _processor.getSumHyenDiscard(_do);
-			StringBuffer _xml = new StringBuffer();
-
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 
 			if (_infoList2 != null && _infoList2.size() > 0) {
 				Iterator _iter2 = _infoList2.iterator();
 				while (_iter2.hasNext()) {
-					_do2.setDO(_iter2.next());
-					_xml.append(_do2.getSubXML2());
+					_doXML.setDO(_iter2.next());
+					_xml.append(_doXML.getSubXML2());
 				}
 			}
 			_xml.append("<discard>");
@@ -4029,18 +4019,18 @@ public class PDASServices {
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
 			}
 			_xml.append("</discard>");
-			_xml.append("</das>");
 
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("getHyenDisCardList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -4057,21 +4047,21 @@ public class PDASServices {
 		
 		DisuseBusinessProcessor _processor = new DisuseBusinessProcessor();
 		DiscardUseDOXML2 _doXML = new DiscardUseDOXML2();
-		DiscardUseDOXML2 _do2 = new DiscardUseDOXML2();
+		//DiscardUseDOXML2 _do2 = new DiscardUseDOXML2();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			DiscardDO _do = (DiscardDO) _doXML.setDO(discardDO);
 
 			List _infoList = _processor.getHyenUseList(_do);
 			List _infoList2 = _processor.getSumHyenuse(_do);
 
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
 			if (_infoList2 != null && _infoList2.size() > 0) {
 				Iterator _iter2 = _infoList2.iterator();
 				while (_iter2.hasNext()) {
-					_do2.setDO(_iter2.next());
-					_xml.append(_do2.getSubXML2());
+					_doXML.setDO(_iter2.next());
+					_xml.append(_doXML.getSubXML2());
 				}
 			}
 			_xml.append("<discard>");
@@ -4079,18 +4069,18 @@ public class PDASServices {
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
 			}
 			_xml.append("</discard>");
-			_xml.append("</das>");
 
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("getHyenUseList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -4109,27 +4099,27 @@ public class PDASServices {
 		
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
 		JongrCodeDOXML _doXML = new JongrCodeDOXML();
-		JongrCodeDOXML _do2 = new JongrCodeDOXML();
+		//JongrCodeDOXML _do2 = new JongrCodeDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			CodeDO _do = (CodeDO) _doXML.setDO(codeDO);
 
 			List _infoList = _processor.getJanrCodeList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getJanrCodeList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -4290,28 +4280,27 @@ public class PDASServices {
 		
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		ProgramInfoDOXML _doXML = new ProgramInfoDOXML();
-		ProgramInfoDOXML _do2 = new ProgramInfoDOXML();
+		//ProgramInfoDOXML _do2 = new ProgramInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ProgramInfoDO _do = (ProgramInfoDO) _doXML.setDO(programInfoDO);
 
 			List _infoList = _processor.getPgmList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
-
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getPgmList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -4330,23 +4319,24 @@ public class PDASServices {
 		
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		ProgramInfoDOXML _do = new ProgramInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getPgmInfo(pgm_cd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getPgmInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -4365,24 +4355,24 @@ public class PDASServices {
 		
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		ProgramInfoDOXML _do = new ProgramInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getParentsCD(pgm_cd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getParentsCD", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -4431,26 +4421,27 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ProgramInfoDOXML _doXML = new ProgramInfoDOXML();
-		ProgramInfoDOXML _do = new ProgramInfoDOXML();
+		//ProgramInfoDOXML _do = new ProgramInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			ProgramInfoDO _doing = (ProgramInfoDO)_doXML.setDO(programDO);
 
 			List _infoList = _processor.getSearchRelationInfoList(_doing);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do.setDO(_iter.next());
-					_xml.append( _do.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSearchRelationInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -4592,26 +4583,27 @@ public class PDASServices {
 		
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		CopyInfoDOXML _doXML = new CopyInfoDOXML();
-		CopyInfoDOXML _do2 = new CopyInfoDOXML();
+		//CopyInfoDOXML _do2 = new CopyInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			CopyInfoDO _do = (CopyInfoDO) _doXML.setDO(copyDO);
 
 			List _infoList = _processor.getCopyList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getCopyList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -4681,27 +4673,27 @@ public class PDASServices {
 		
 		WorkBusinessProcessor _processor = new WorkBusinessProcessor();
 		CartItemDOXML _doXML = new CartItemDOXML();
-		CartItemDOXML _doing = new CartItemDOXML();
+		//CartItemDOXML _doing = new CartItemDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			CartItemDO _do = (CartItemDO)_doXML.setDO(commonDO);
 
 			List _infolist = _processor.getDownloadRequestList(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if(_infolist != null&&_infolist.size()!=0){
 				Iterator _iter = _infolist.iterator();
 				while(_iter.hasNext()){
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				return _xml.toString();
 			}
-
 		} catch (Exception e) {
 			logger.error("getDownloadRequestList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -4718,24 +4710,24 @@ public class PDASServices {
 		
 		WorkBusinessProcessor _processor = new WorkBusinessProcessor();
 		CartContDOXML _doing = new CartContDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			List _infolist = _processor.getDownloadRequestDetailsList(cartNo, user_id);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if(_infolist != null&&_infolist.size()!=0){
 				Iterator _iter = _infolist.iterator();
 				while(_iter.hasNext()){
 					_doing.setDO(_iter.next());
 					_xml.append( _doing.getSubXML());
 				}
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getDownloadRequestDetailList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -4801,27 +4793,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_TOTAL_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_TOTAL_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -4838,26 +4830,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_COL_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_COL_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -4874,26 +4867,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_DISUSE_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_DISUSE_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -4910,27 +4904,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_ARRA_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_ARRA_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_ARRA_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 	
 	/**
@@ -4947,27 +4941,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_GNR_USE_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_GNR_USE_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_GNR_USE_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -4983,27 +4977,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_GNR_USE2_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_GNR_USE2_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_GNR_USE2_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5019,27 +5013,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_PGM_USE_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_PGM_USE_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_PGM_USE_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -5056,27 +5050,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_PHOT_COL_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_PHOT_COL_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_PHOT_COL_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5092,27 +5086,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_PHOT_REG_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_PHOT_REG_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_PHOT_REG_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 	
 	/**
@@ -5150,27 +5144,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList = _processor.getSTAT_PHOT_PGM_TOTAL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_PHOT_PGM_TOTAL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_PHOT_PGM_TOTAL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 	
 	/**
@@ -5186,27 +5180,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_PHOT_DISUSE_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_PHOT_DISUSE_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_PHOT_DISUSE_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -5223,27 +5217,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_PHOT_USE_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_PHOT_USE_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_PHOT_USE_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5259,27 +5253,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_GNR_ARCH_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//	logger.debug("[getSTAT_GNR_ARCH_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_GNR_ARCH_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5295,27 +5289,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_PGM_ARCH_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_PGM_ARCH_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_PGM_ARCH_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 	
 	/**
@@ -5331,27 +5325,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_DEPT_USE_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//	logger.debug("[getSTAT_DEPT_USE_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_DEPT_USE_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5367,27 +5361,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_DEPT_ARCH_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//	logger.debug("[getSTAT_DEPT_ARCH_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_DEPT_ARCH_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5403,28 +5397,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
-
 			List _infoList =_processor.getSTAT_DEPT_ARCH_DTL_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//	logger.debug("[getSTAT_DEPT_ARCH_DTL_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_DEPT_ARCH_DTL_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5441,27 +5434,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_DEPT_ARCH_REQ_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//	logger.debug("[getSTAT_DEPT_ARCH_REQ_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_DEPT_ARCH_REQ_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5477,27 +5470,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_PGM_ARCH_DTL_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML2());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML2());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_PGM_ARCH_DTL_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_PGM_ARCH_DTL_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5514,27 +5507,27 @@ public class PDASServices {
 		
 		StatisticsBusinessProcessor _processor = new StatisticsBusinessProcessor();
 		StatisticsInfoDOXML _doXML = new StatisticsInfoDOXML();
-		StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		//StatisticsInfoDOXML _doing = new StatisticsInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			StatisticsConditionDO _do = (StatisticsConditionDO) _doXML.setDO(statisticsConditionDO);
 
 			List _infoList =_processor.getSTAT_PGM_ARCH_REQ_TBL_List(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML2());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML2());
 				}
-				_xml.append("</das>");
-				//logger.debug("[getSTAT_PGM_ARCH_REQ_TBL_List][ouput]"+_xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSTAT_PGM_ARCH_REQ_TBL_List", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 	
 	/**
@@ -5548,9 +5541,8 @@ public class PDASServices {
 			logger.info("insertAddTask:["+addTask+"]");
 		}
 		
-		TransferDOXML _doXML = new TransferDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
-
+		TransferDOXML _doXML = new TransferDOXML();
 		try{
 			String getMessage =  _processor.getAddTask(addTask);
 
@@ -5582,8 +5574,8 @@ public class PDASServices {
 			logger.info("[completeDown][int num]["+num+"]");
 		}
 		
-		TransferDOXML _doXML = new TransferDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		TransferDOXML _doXML = new TransferDOXML();
 		try{
 
 			/**
@@ -5615,9 +5607,7 @@ public class PDASServices {
 			} else {
 				tccd.setJob_path(nearline + "/" + tccd.getJob_path());
 			}
-			if (this.logger.isDebugEnabled()) {
-				this.logger.debug("TcBeanDO    : " + tccd);
-			}
+			
 			if (StringUtils.isNotBlank(tccd.getReq_cd())) {
 				if (tccd.getReq_cd().equals("CT")) {
 					_processor.recreateKFRM(tccd, "");
@@ -5677,8 +5667,8 @@ public class PDASServices {
 			logger.info("###################completeArchive##################### : job_status : " +  job_status + ", cti_id : " + cti_id);
 		}
 		
-		TransferDOXML _doXML = new TransferDOXML();
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		TransferDOXML _doXML = new TransferDOXML();
 		try{
 			String getMessage =  _processor.getArchveList(job_status,cti_id);
 
@@ -5704,8 +5694,8 @@ public class PDASServices {
 			logger.info("getTmStatus:["+TaskID+"]");
 		}
 		
-		TmStatusDOXML _doXML = new TmStatusDOXML();	
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		TmStatusDOXML _doXML = new TmStatusDOXML();	
 
 		String rvalue="";
 		try{
@@ -5738,7 +5728,6 @@ public class PDASServices {
 		AllTmStatusDOXML _doXML = new AllTmStatusDOXML();
 		try {
 			List _result = (List)_doXML.setDO(getTmStatusAll);
-			String xml ="";
 
 			if(_result.size()==0){
 				return 0;
@@ -5797,24 +5786,24 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		PhotoDOXML _do2 = new PhotoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getPhotoList(master_id);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getPhotoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5832,27 +5821,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		PhotoDOXML _doXML = new PhotoDOXML();
-		PhotoDOXML _do2 = new PhotoDOXML();
+		//PhotoDOXML _do2 = new PhotoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			PhotoInfoDO _do = (PhotoInfoDO) _doXML.setDO(photInfoDO);
 
 			List _infoList = _processor.getAttachPhotoList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getAttachPhotoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5920,27 +5909,27 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		DepInfoDOXML _doXML = new DepInfoDOXML();
-		DepInfoDOXML _do2 = new DepInfoDOXML();
+		//DepInfoDOXML _do2 = new DepInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			DepInfoDO _do = (DepInfoDO) _doXML.setDO(depInfoDO);
 
 			List _infoList = _processor.getDepInfoList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getDepInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -5954,25 +5943,25 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		DepInfoDOXML _do2 = new DepInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 
 			List _infoList = _processor.getDepInfo();
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getDepInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -5991,23 +5980,24 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		DepInfoDOXML _do2 = new DepInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getDepCocdInfo(cocd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-				_xml.append("</das>");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getDepCocdInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -6025,27 +6015,27 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		DepDOXML _doXML = new DepDOXML();
-		DepDOXML _do2 = new DepDOXML();
+		//DepDOXML _do2 = new DepDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			DepInfoDO _do = (DepInfoDO) _doXML.setDO(depInfoDO);
 
 			List _infoList = _processor.getDepList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getDepList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -6143,27 +6133,27 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		AuthorDOXML _doXML = new AuthorDOXML();
-		AuthorDOXML _do2 = new AuthorDOXML();
+		//AuthorDOXML _do2 = new AuthorDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			AuthorDO _do = (AuthorDO) _doXML.setDO(authorDO);
 
 			List _infoList = _processor.getAuthorInfoList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>"); 
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getAuthorInfoList", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -6180,10 +6170,10 @@ public class PDASServices {
 			logger.info("######updatAuthorInfo######## authorDO : " + authorDO);
 		}
 		
-		AuthorDOXML _doXML = new AuthorDOXML();
-		AuthorDO _do = (AuthorDO) _doXML.setDO(authorDO);		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
+		AuthorDOXML _doXML = new AuthorDOXML();
 		try {
+			AuthorDO _do = (AuthorDO) _doXML.setDO(authorDO);		
 			return	_processor.updatAuthorInfo(_do);
 		} catch (Exception e) {
 			logger.error("updatAuthorInfo", e);
@@ -6207,28 +6197,27 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		ErpAppointDOXML _doXML = new ErpAppointDOXML();
-		ErpAppointDOXML _do2 = new ErpAppointDOXML();
+		//ErpAppointDOXML _do2 = new ErpAppointDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ErpAppointDO _do = (ErpAppointDO) _doXML.setDO(erpappointDO);
 
 			List _infoList = _processor.getERPAppointList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>"); 
-				//	if (logger.isDebugEnabled())
-				//		logger.debug("_xml" + _xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getERPAppointList", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 	/**
@@ -6325,39 +6314,38 @@ public class PDASServices {
 		
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		UseInfoDOXML _DOXML = new UseInfoDOXML();
-		UseInfoDOXML infoXML = new UseInfoDOXML();
+		//UseInfoDOXML infoXML = new UseInfoDOXML();
 
 		/** 2015.11.19 생성 */
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			UseInfoDO _DO = (UseInfoDO) _DOXML.setDO(useInfoDO);
 
 			UseInfoDO useInfo = _processor.getUseInfoCount(_DO, DASBusinessConstants.PageQueryFlag.TOTAL_COUNT);
 
-			StringBuffer _xml = new StringBuffer();
 			// 조회 건수가 존재하면 리스트 조회
 			if(useInfo.getTotal() > 0) {
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 
 				// total 건수와 전체 duration 길이를 xml에 append 함.
-				infoXML.setDO(useInfo);
-				_xml.append(infoXML.getSubXML2());
+				_DOXML.setDO(useInfo);
+				_xml.append(_DOXML.getSubXML2());
 
 				// 리스트를 조회.
 				List _infoList = _processor.getNewUseInfoList(_DO, DASBusinessConstants.PageQueryFlag.NORMAL);
 				int size = _infoList.size();
 
 				for(int i=0; i<size; i++) {
-					infoXML.setDO(_infoList.get(i));
-					_xml.append(infoXML.getSubXML());
+					_DOXML.setDO(_infoList.get(i));
+					_xml.append(_DOXML.getSubXML());
 				}
-
-				_xml.append("</das>");
 			}
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("getUseInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -6376,25 +6364,24 @@ public class PDASServices {
 
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		ProgramInfoDOXML _do2 = new ProgramInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getPgmInfo(title);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getProgramInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -6439,31 +6426,27 @@ public class PDASServices {
 		
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		TodayDOXML _DOXML = new TodayDOXML();
-		TodayDOXML _do2 = new TodayDOXML();
+		//TodayDOXML _do2 = new TodayDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			TodayDO _DO = (TodayDO)_DOXML.setDO(todayDO);
 
-
 			List _infoList = _processor.getTodayList();
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_DOXML.setDO(_iter.next());
+					_xml.append(_DOXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//	if (logger.isDebugEnabled())
-				//	logger.debug("_xml" + _xml);
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getTodayList", e);
 		}
-		
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -6483,30 +6466,27 @@ public class PDASServices {
 		
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		GoodMediaDOXML _DOXML = new GoodMediaDOXML();
-		GoodMediaDOXML _do2 = new GoodMediaDOXML();
+		//GoodMediaDOXML _do2 = new GoodMediaDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			GoodMediaDO _DO = (GoodMediaDO)_DOXML.setDO(goodDO);
 
 			List _infoList = _processor.getGoodMediaList();
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_DOXML.setDO(_iter.next());
+					_xml.append(_DOXML.getSubXML());
 				}
-
-				_xml.append("</das>");
-				//if (logger.isDebugEnabled())
-				//	logger.debug("_xml" + _xml);
-				return _xml.toString();
-
 			}
 		} catch (Exception e) {
 			logger.error("getGoodList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -6527,30 +6507,24 @@ public class PDASServices {
 		
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		ParentsDOXML _do2 = new ParentsDOXML();
+
+		StringBuffer _xml =  new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getParentsInfo(pgm_nm);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml =  new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-
-				_xml.append("</das>");
-				//	if (logger.isDebugEnabled())
-				//	logger.debug("_xml" + _xml);
-
-
-				return _xml.toString();
-
 			}
 		} catch (Exception e) {
 			logger.error("getParentsInfo", e);
 		}
-		
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -6577,15 +6551,12 @@ public class PDASServices {
 					_xml.append(_do.getSubXML2());
 				}
 			}
-
-			_xml.append("</das>");
-
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("getScanDisk", e);
 		}
+		_xml.append("</das>");
 
-		return "";
+		return _xml.toString();
 	}
 
 
@@ -6604,30 +6575,29 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		PreProcessingDOXML _doXML = new PreProcessingDOXML();
-		PreProcessingDOXML _do2 = new PreProcessingDOXML();
+		//PreProcessingDOXML _do2 = new PreProcessingDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try{
 			PreProcessingDO _do = (PreProcessingDO)_doXML.setDO(preProcessingDO);
-			StringBuffer _xml = new StringBuffer();
 
 			List _infoList = _processor.getPreProcessingList(_do);
 
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			if (_infoList != null && _infoList.size() > 0) {
 
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
-
 		}catch(Exception e){
 			logger.error("getPreProcessing", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -6646,13 +6616,14 @@ public class PDASServices {
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ConditionDOXML _DOXML = new ConditionDOXML();
 		MetaInfoDOXML _do = new MetaInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			WorkStatusConditionDO _DO = (WorkStatusConditionDO) _DOXML.setDO(conditionDO);
 
 			List _infoList = _processor.getArchPreProcessing(_DO);
-			StringBuffer _xml = new StringBuffer();
 
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			if (_infoList != null && _infoList.size() > 0) {
 				StringBuffer buf = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
@@ -6660,14 +6631,13 @@ public class PDASServices {
 					_do.setDO(_iter.next());
 					buf.append(_do.getSubXML());
 				}
-				_xml.append("</das>");
-				//			logger.debug("#########2");
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getArchPreProcessing", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -6745,19 +6715,18 @@ public class PDASServices {
 			String PdsInfo = CommonUtl.transXMLText(pdsInfoDO);
 
 			List _result = (List)_doXML.setDO(PdsInfo);
-			String xml ="";
 
 			if(_result.size()==0){
 				return 0;
 			}
 			_processor.updateRunScheduleDt();
 			_processor.insertPdsPgmInfoAll(_result);
+			
 			return 1;
 		} catch (Exception e) {
 			logger.error("insertPdsPgmInfoAll", e);  
 			return 0; 
 		} 
-
 	}
 
 	/**
@@ -6927,28 +6896,27 @@ public class PDASServices {
 		
 		WorkBusinessProcessor _processor = new WorkBusinessProcessor();
 		CartItemDOXML _doXML = new CartItemDOXML();
-		CartItemDOXML _doing = new CartItemDOXML();
+		//CartItemDOXML _doing = new CartItemDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			CartItemDO _do = (CartItemDO)_doXML.setDO(commonDO);
 
 			List _infolist = _processor.getMyDownloadRequestList(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if(_infolist != null&&_infolist.size()!=0){
 				Iterator _iter = _infolist.iterator();
 				while(_iter.hasNext()){
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//		logger.debug("[getMyDownloadRequestList][ouput]"+_xml);
-				return _xml.toString();
 			}
-
 		} catch (Exception e) {
 			logger.error("getMyDownloadRequestList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -6966,25 +6934,24 @@ public class PDASServices {
 		
 		WorkBusinessProcessor _processor = new WorkBusinessProcessor();
 		CartItemDOXML _doing = new CartItemDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			List _infolist = _processor.getMyDownloadRequestDetailsList(cartNo, user_id);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if(_infolist != null&&_infolist.size()!=0){
 				Iterator _iter = _infolist.iterator();
 				while(_iter.hasNext()){
 					_doing.setDO(_iter.next());
 					_xml.append( _doing.getSubXML());
 				}
-				_xml.append("</das>");
-				///		logger.debug("[getMyDownloadRequestDetailList][ouput]"+_xml);
-				return _xml.toString();
 			}
-
 		} catch (Exception e) {
 			logger.error("getMyDownloadRequestDetailList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -7178,25 +7145,24 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _prosessor = new ExternalBusinessProcessor();
 		RelationDOXML _do2 = new RelationDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _prosessor.getRelationLink(masterId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getRelationLink", e);
 		}
-		
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -7297,28 +7263,27 @@ public class PDASServices {
 		
 		WorkBusinessProcessor _processor = new WorkBusinessProcessor();
 		CartItemDOXML _doXML = new CartItemDOXML();
-		CartItemDOXML _doing = new CartItemDOXML();
+		//CartItemDOXML _doing = new CartItemDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			CartItemDO _do = (CartItemDO)_doXML.setDO(commonDO);
 
 			List _infolist = _processor.getMyDownloadAprroveList(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if(_infolist != null&&_infolist.size()!=0){
 				Iterator _iter = _infolist.iterator();
 				while(_iter.hasNext()){
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//		logger.debug("[getMyDownloadAprroveList][ouput]"+_xml);
-				return _xml.toString();
 			}
-
 		} catch (Exception e) {
 			logger.error("getMyDownloadAprroveList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -7339,25 +7304,24 @@ public class PDASServices {
 		
 		WorkBusinessProcessor _processor = new WorkBusinessProcessor();
 		CartContDOXML _doing = new CartContDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			List _infolist = _processor.getMyDownloadAprroveDetailList(cartNo,user_id);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			if(_infolist != null&&_infolist.size()!=0){
 				Iterator _iter = _infolist.iterator();
 				while(_iter.hasNext()){
 					_doing.setDO(_iter.next());
 					_xml.append( _doing.getSubXML());
 				}
-				_xml.append("</das>");
-				//		logger.debug("[getMyDownloadAprroveDetailList][ouput]"+_xml);
-				return _xml.toString();
 			}
-
 		} catch (Exception e) {
 			logger.error("getMyDownloadAprroveDetailList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -7379,70 +7343,50 @@ public class PDASServices {
 		BoardInfoDOXML _doXML3 = new BoardInfoDOXML();
 		
 		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getGoodMediaList();
 			List _infoList2 = _processor.getTodayList();
 			List _infoList3 = _processor2.getMainBoardList();
 			
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			_xml.append("<goods>");
 			if (_infoList != null && _infoList.size() > 0) {
-
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					GoodMediaDOXML _do = new GoodMediaDOXML();
 					_do.setDO(_iter.next());
-
 					_xml.append(_do.getSubXML());
-
 				}
 			}
 			_xml.append("</goods>");
-			_xml.append("<todays>");
 			
+			_xml.append("<todays>");
 			if (_infoList2 != null && _infoList2.size() > 0) {
-
 				Iterator _iter2 = _infoList2.iterator();
 				while (_iter2.hasNext()) {
 					TodayDOXML _do2 = new TodayDOXML();
-
 					_do2.setDO(_iter2.next());
-
 					_xml.append(_do2.getSubXML());
-
 				}
-
 			}
 			_xml.append("</todays>");
+			
 			_xml.append("<boardinfos>");
 			if (_infoList3 != null && _infoList3.size() > 0) {
-
 				Iterator _iter3 = _infoList3.iterator();
 				while (_iter3.hasNext()) {
 					BoardInfoDOXML _do3 = new BoardInfoDOXML();
-
 					_do3.setDO(_iter3.next());
-
 					_xml.append(_do3.getSubXML());
-
 				}
-
 			}
 			_xml.append("</boardinfos>");
-
-
-			_xml.append("</das>");
-			//	if (logger.isDebugEnabled())
-			//	logger.debug("_xml" + _xml);
-
-
-			return _xml.toString();
-
-
 		} catch (Exception e) {
 			logger.error("getMainList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -7460,26 +7404,23 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		AllOtherDBUserInfoDOXML _doXML = new AllOtherDBUserInfoDOXML();
-		AllOtherDBUserInfoDOXML _do2 = new AllOtherDBUserInfoDOXML();
+		//AllOtherDBUserInfoDOXML _do2 = new AllOtherDBUserInfoDOXML();
 
+		StringBuffer _xml = new StringBuffer();
 		try {
-
 			List _infoList = _processor.getOtherEmployeeList(sbs_user_id);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			logger.error("getOtherEmployeeList", e);
 		}
-		return "";
+
+		return _xml.toString();
 	}
 
 
@@ -7497,25 +7438,23 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		AllOtherDBDeptInfoDOXML _doXML = new AllOtherDBDeptInfoDOXML();
-		AllOtherDBDeptInfoDOXML _do2 = new AllOtherDBDeptInfoDOXML();
-		try {
+		//AllOtherDBDeptInfoDOXML _do2 = new AllOtherDBDeptInfoDOXML();
 
+		StringBuffer _xml = new StringBuffer();
+		try {
 			List _infoList = _processor.getOhterDepInfoList(cocd,dept_cd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.toXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.toXML());
 				}
-				//	if (logger.isDebugEnabled())
-				//		logger.debug("_xml" + _xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getOhterDepInfoList", e);
 		}
-		return "";
+
+		return _xml.toString();
 	}
 
 
@@ -7763,26 +7702,27 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		PdsDownDOXML _doXML = new PdsDownDOXML();
-		PdsDownDOXML _doing = new PdsDownDOXML();
+		//PdsDownDOXML _doing = new PdsDownDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?> \n" );
 		try {
 			PdsDownDO _do = (PdsDownDO)_doXML.setDO(PdsDownDO);
 
 			List _infolist = _processor.getPDSList(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?> \n" );
 			if(_infolist != null&&_infolist.size()!=0){
 				Iterator _iter = _infolist.iterator();
 				while(_iter.hasNext()){
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				return _xml.toString();
 			}
 
 		} catch (Exception e) {
 			logger.error("getPDSList", e);
 		}
-		return "";
+
+		return _xml.toString();
 	}
 
 	/**
@@ -7798,27 +7738,26 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		NdsDownDOXML _doXML = new NdsDownDOXML();
-		NdsDownDOXML _doing = new NdsDownDOXML();
+		//NdsDownDOXML _doing = new NdsDownDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?> \n" );
 		try {
 			NdsDownDO _do = (NdsDownDO)_doXML.setDO(NdsDownDO);
 
 			List _infolist = _processor.getNDSList(_do);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?> \n" );
 			if(_infolist != null&&_infolist.size()!=0){
 				Iterator _iter = _infolist.iterator();
 				while(_iter.hasNext()){
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				//	logger.debug("[getNDSList][ouput]"+_xml);
-				return _xml.toString();
 			}
-
 		} catch (Exception e) {
 			logger.error("getNDSList", e);
 		}
-		return "";
+
+		return _xml.toString();
 	}
 
 	/**
@@ -7855,7 +7794,10 @@ public class PDASServices {
 		
 		LoginBusinessProcessor _processor = new LoginBusinessProcessor();
 		TokenDOXML _doXML = new TokenDOXML();
-		TokenDOXML _doing = new TokenDOXML();
+		//TokenDOXML _doing = new TokenDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?> <das>\n" );
 		try {
 			/**
 			 * 복호화 로직 추가 부분.. DEKIM 20101129
@@ -7864,18 +7806,16 @@ public class PDASServices {
 			TokenDO _do = (TokenDO)_doXML.setDO(TokenDO);
 			TokenDO _tdo =_processor.isValidUserWithToken(_do);
 			
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?> <das>\n" );
 			if(_tdo != null){
-				_doing.setDO(_tdo);
-				_xml.append( _doing.getSubXML());
-				_xml.append("</das> \n" );
-				return _xml.toString();
+				_doXML.setDO(_tdo);
+				_xml.append( _doXML.getSubXML());
 			}
 		} catch (Exception e) {
 			logger.error("isValidUserWithToken", e);
 		}
-		return "";
+		_xml.append("</das> \n" );
+
+		return _xml.toString();
 	}
 
 	/**
@@ -7891,7 +7831,10 @@ public class PDASServices {
 		
 		LoginBusinessProcessor _processor1 = new LoginBusinessProcessor();
 		TokenDOXML _doXML = new TokenDOXML();
-		TokenDOXML _doing = new TokenDOXML();
+		//TokenDOXML _doing = new TokenDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?> <das>\n" );
 		try {
 			/**
 			 * 복호화 로직 추가 부분.. DEKIM 20101129
@@ -7900,18 +7843,16 @@ public class PDASServices {
 			TokenDO _do = (TokenDO)_doXML.setDO(TokenDO);
 			TokenDO _tdo = _processor1.isValidUser(_do);
 			
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?> <das>\n" );
 			if(_tdo != null){
-				_doing.setDO(_tdo);
-				_xml.append( _doing.getSubXML());
-				_xml.append("</das> \n" );
-				return _xml.toString();
+				_doXML.setDO(_tdo);
+				_xml.append( _doXML.getSubXML());
 			}
 		} catch (Exception e) {
 			logger.error("isValidUser", e);
 		}
-		return "";
+		_xml.append("</das> \n" );
+
+		return _xml.toString();
 	}
 
 	/**
@@ -7960,31 +7901,30 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		TcBeanDOXML _doXML = new TcBeanDOXML();
-		TcBeanDOXML _doing = new TcBeanDOXML();
+		//TcBeanDOXML _doing = new TcBeanDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?> \n" );
+		_xml.append("<das> \n" );
 		try {
 			TcBeanDO _do = (TcBeanDO)_doXML.setDO(tcBeanDO);
 
-			StringBuffer _xml = new StringBuffer();
 			TcBeanDO do2 = _processor.insertReqJobTC(_do); //updateReqComTc(_do);
 
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?> \n" );
-			_xml.append("<das> \n" );
 			if(do2==null){
-				_doing.setDO(_do);
+				_doXML.setDO(_do);
 				_do.setResult("F");
 			}else{
-				_doing.setDO(do2);
+				_doXML.setDO(do2);
 				do2.setResult("S");
 			}
-
-			_xml.append( _doing.getSubXML2());
-			_xml.append("</das> \n" );
-			return _xml.toString();
+			_xml.append( _doXML.getSubXML2());
 		} catch (Exception e) {
 			logger.error("insertReqComTc", e);
 		}
+		_xml.append("</das> \n" );
 
-		return "";
+		return _xml.toString();
 	}
 
 
@@ -8048,27 +7988,25 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		EmployeeInfoDOXML _doXML = new EmployeeInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?> \n" );
+		_xml.append("<das> \n" );
 		try {
 			EmployeeInfoDO _do = (EmployeeInfoDO) _doXML.setDO(employeeInfoDO);		
-
-			StringBuffer _xml = new StringBuffer();
 			int result = _processor.updateRealEmployeeRoleYN(_do);//updateReqComTc(_do);
 
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?> \n" );
-			_xml.append("<das> \n" );
 			_xml.append("<response> \n" );
 			_xml.append("<result> \n" );
 			_xml.append(result );
 			_xml.append("</resutl> \n" );
 			_xml.append("</response> \n" );
-
-
-			_xml.append("</das> \n" );
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("updateRealEmployeeRoleCharYN", e);
 		}
-		return "0";
+		_xml.append("</das> \n" );
+
+		return _xml.toString();
 	}
 
 
@@ -8107,8 +8045,8 @@ public class PDASServices {
 			logger.info("######insertNdsFolderAll######## user_id : " + user_id);
 		}
 
-		AllDepInfoDOXML _doXML = new AllDepInfoDOXML();
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
+		AllDepInfoDOXML _doXML = new AllDepInfoDOXML();
 		try {
 			return _processor.insertNdsFolderAll(user_id);
 		} catch (Exception e) {
@@ -8141,26 +8079,25 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		DepDOXML _doXML = new DepDOXML();
-		DepDOXML _do2 = new DepDOXML();
+		//DepDOXML _do2 = new DepDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getSupHeadList(COCD);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				//		if (logger.isDebugEnabled())
-				//			logger.debug("_xml" + _xml);
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSupHeadList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -8250,26 +8187,25 @@ public class PDASServices {
 
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
 		CodeDOXML _doXML = new CodeDOXML();
-		CodeDOXML _do2 = new CodeDOXML();
-		try {
+		//CodeDOXML _do2 = new CodeDOXML();
 
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
+		try {
 			List _infoList = _processor.getCode(codeDO);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML2());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getCode", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8286,24 +8222,24 @@ public class PDASServices {
 
 		CommunityBusinessProcessor _processor = new CommunityBusinessProcessor();
 		FileInfoDOXML _do2 = new FileInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try { 
 			List _infoList = _processor.getBoardAtaachInfo(boardId);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getBoardAtaachInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8410,25 +8346,25 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		DepDOXML _doXML = new DepDOXML();
-		DepDOXML _do2 = new DepDOXML();
+		//DepDOXML _do2 = new DepDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getSupHtpoList(COCD);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSupHtpoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8446,25 +8382,25 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		DepDOXML _doXML = new DepDOXML();
-		DepDOXML _do2 = new DepDOXML();
+		//DepDOXML _do2 = new DepDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getSupHeadList2(deptcd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getSupHeadList2", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8481,25 +8417,25 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		DepDOXML _doXML = new DepDOXML();
-		DepDOXML _do2 = new DepDOXML();
+		//DepDOXML _do2 = new DepDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getDepinfoList(deptcd);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getDepinfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8517,23 +8453,23 @@ public class PDASServices {
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		DepDOXML _doXML = new DepDOXML();
 		EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getDepinfoForuserList(deptcd);
 
-			StringBuffer _xml = new StringBuffer();
 			Iterator _iter = _infoList.iterator();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			while (_iter.hasNext()) {
 				_do2.setDO(_iter.next());
 				_xml.append(_do2.getSubXML());
 			}
-			_xml.append("</das>");
-
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("getDepinfoForuserList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8551,27 +8487,27 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ApproveInfoDOXML _doXML = new ApproveInfoDOXML();
-		ApproveInfoDOXML _do2 = new ApproveInfoDOXML();
+		//ApproveInfoDOXML _do2 = new ApproveInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ApproveInfoDO _do = (ApproveInfoDO)_doXML.setDO(ApprveDO);
 
 			List _infoList = _processor.getApproveInfoList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getApproveInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8589,28 +8525,27 @@ public class PDASServices {
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ApproveInfoDOXML _doXML = new ApproveInfoDOXML();
-		ApproveInfoDOXML _do2 = new ApproveInfoDOXML();
-		try {
+		//ApproveInfoDOXML _do2 = new ApproveInfoDOXML();
 
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
+		try {
 			ApproveInfoDO _do = (ApproveInfoDO)_doXML.setDO(ApprveDO);
 
 			List _infoList = _processor.getApproveInfo(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getApproveInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8696,24 +8631,24 @@ public class PDASServices {
 		
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		ProgramInfoDOXML _do2 = new ProgramInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getPgmInfo2(title);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getProgramInfo2", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8860,24 +8795,24 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getEmployeeListForApp(dep_cd,user_nm);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getEmployeeListForApp", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8895,24 +8830,24 @@ public class PDASServices {
 		
 		CommunityBusinessProcessor _processor = new CommunityBusinessProcessor();
 		BoardInfoDOXML _do2 = new BoardInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try { 
 			List _infoList = _processor.selectMainBoardList2(today);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getBoardInfoForPopUp", e);
 		}
-		return "0";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -8953,31 +8888,31 @@ public class PDASServices {
 		
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		RoleForLoginDOXML _doXML = new RoleForLoginDOXML();
-		RoleForLoginDOXML _do2 = new RoleForLoginDOXML();
+		//RoleForLoginDOXML _do2 = new RoleForLoginDOXML();
+
+		StringBuffer _xml=new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getRoleForLogin(user_id);
-
-			StringBuffer _xml=new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			if (_infoList != null && _infoList.size() > 0) {
 
 				Iterator _iter = _infoList.iterator();
 
 				int i = 1;
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
+					_doXML.setDO(_iter.next());
 
-					_xml.append(_do2.getSubXML2());
+					_xml.append(_doXML.getSubXML2());
 					i++;
 				}
-				_xml.append("</das>"); 
 
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getRoleForLogin", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -9012,7 +8947,7 @@ public class PDASServices {
 	 */
 	public String updateArchiveReq(String archiveReqDO)throws RemoteException{
 		if(logger.isInfoEnabled()) {
-			logger.info("updateArchiveReq ##### : "+archiveReqDO);
+			//logger.info("updateArchiveReq ##### : "+archiveReqDO);
 		}
 		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
@@ -9350,27 +9285,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		CartItemDOXML _doXML = new CartItemDOXML();
-		CartItemDOXML _do2 = new CartItemDOXML();
+		//CartItemDOXML _do2 = new CartItemDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			CartItemDO _do = (CartItemDO)_doXML.setDO(cartItemDO);
 
 			List _infoList = _processor.getCartInfoForUser(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML2());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getCartInfoForUser", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -9388,27 +9323,25 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		RoleInfoDOXML _do2 = new RoleInfoDOXML();
-		try {
 
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
+		try {
 			List _infoList = _processor.getRoleInfo();
 
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getRoleInfoList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -9502,25 +9435,25 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		CodeDOXML _do2 = new CodeDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getAnnotCode();
 
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getAnnotCode", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -9588,28 +9521,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		CnDetailDOXML _doXML = new CnDetailDOXML();
-		CnDetailDOXML _do = new CnDetailDOXML();
+		//CnDetailDOXML _do = new CnDetailDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _list = (List) _doXML.setDO(cnInfoDO);
 
 			List _infoList = _processor.insertCornerContinfo(cn_id,_list);
-
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do.setDO(_iter.next());
-					_xml.append(_do.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("insertCornerContinfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+		
+		return _xml.toString();
 	}
 
 
@@ -9630,28 +9562,27 @@ public class PDASServices {
 
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		StorageDOXML _DOXML = new StorageDOXML();
-		StorageDOXML _do = new StorageDOXML();
+		//StorageDOXML _do = new StorageDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			StorageDO ConditionDO = (StorageDO) _DOXML.setDO(storageDO);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 
 			List _infoList = _processor.getStorage(ConditionDO);
-
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do.setDO(_iter.next());
-					_xml.append(_do.getSubXML());
+					_DOXML.setDO(_iter.next());
+					_xml.append(_DOXML.getSubXML());
 				}
 			}
-			_xml.append("</das>");
-
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("getStorageInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -9727,47 +9658,45 @@ public class PDASServices {
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 
 		RoleInfoDOXML _doXML = new RoleInfoDOXML();
-		RoleInfoDOXML _do2 = new RoleInfoDOXML();
+		//RoleInfoDOXML _do2 = new RoleInfoDOXML();
 		
 		AuthorRoleInfoDOXML _do2XML = new AuthorRoleInfoDOXML();
-		AuthorRoleInfoDOXML _do3 = new AuthorRoleInfoDOXML();
+		//AuthorRoleInfoDOXML _do3 = new AuthorRoleInfoDOXML();
+
+		StringBuffer _xml= new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			RoleInfoDO _do = (RoleInfoDO) _doXML.setDO(roleInfoDO);
 
 			List _infoList = _processor.getRoleInfoList(_do);
 			List _infoList2 = _processor.getAuthroRoleList(_do);
 
-			StringBuffer _xml= new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 			_xml.append("<authorinfo>");
 			if (_infoList2 != null && _infoList2.size() > 0) {
 				Iterator _iter2 = _infoList2.iterator();
 
 				while (_iter2.hasNext()) {
-					_do3.setDO(_iter2.next());
-					_xml.append(_do3.getSubXML());
+					_do2XML.setDO(_iter2.next());
+					_xml.append(_do2XML.getSubXML());
 				}
 			}
 			_xml.append("</authorinfo>");
-			_xml.append("<roleinfo>");
 			
+			_xml.append("<roleinfo>");
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
-
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
-
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
 				_xml.append("</roleinfo>");
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getRoleInfoList", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -9861,30 +9790,27 @@ public class PDASServices {
 
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		StorageDOXML _DOXML = new StorageDOXML();
-		StorageDOXML _do = new StorageDOXML();
+		//StorageDOXML _do = new StorageDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			StorageDO ConditionDO = (StorageDO) _DOXML.setDO(xml);
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 
 			List _infoList = _processor.getStorageCheck(ConditionDO);
-
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do.setDO(_iter.next());
-
-					_xml.append(_do.getStorageCheck());
+					_DOXML.setDO(_iter.next());
+					_xml.append(_DOXML.getStorageCheck());
 				}
 			}
-			_xml.append("</das>");
-
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("getStorageCheck", e);
 		}
+		_xml.append("</das>");
 
-		return "";
+		return _xml.toString();
 	}
 
 
@@ -9920,24 +9846,24 @@ public class PDASServices {
 
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
 		CodeDOXML _do2 = new CodeDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getCocdForChennel();
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getCocdForChennel", e);
 		}
-		return "1";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -9955,27 +9881,27 @@ public class PDASServices {
 
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
 		CodeDOXML _doXML = new CodeDOXML();
-		CodeDOXML _do2 = new CodeDOXML();
+		//CodeDOXML _do2 = new CodeDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			CodeDO _do = (CodeDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getChennelInfo(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML2());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getChennelInfo", e);
 		}
-		return " ";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -9994,24 +9920,24 @@ public class PDASServices {
 		
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
 		CodeDOXML _do2 = new CodeDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getArchiveRoute(xml);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		}catch (Exception e) {
 			logger.error("getArchiveRoute", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -10085,27 +10011,27 @@ public class PDASServices {
 
 		CodeBusinessProcessor _processor = new CodeBusinessProcessor();
 		AutoArchiveDOXML _doXML = new AutoArchiveDOXML();
-		AutoArchiveDOXML _do2 = new AutoArchiveDOXML();
+		//AutoArchiveDOXML _do2 = new AutoArchiveDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			AutoArchiveDO _do = (AutoArchiveDO) _doXML.setDO(autoDO);
 
 			List _infoList = _processor.getAutoArchvieList(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getAutoArchvieList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 	
 	
@@ -10175,27 +10101,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ManualArchiveDOXML _doXML = new ManualArchiveDOXML();
-		ManualArchiveDOXML _do2 = new ManualArchiveDOXML();
+		//ManualArchiveDOXML _do2 = new ManualArchiveDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ManualArchiveDO _do = (ManualArchiveDO)_doXML.setDO(manualArchiveDO);
 
 			List _infoList = _processor.getManualInfo(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append( _do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getManualInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -10249,27 +10175,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ConditionDOXML _DOXML = new ConditionDOXML();
+
+		StringBuffer buf = new StringBuffer();
+		buf.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			WorkStatusConditionDO _DO = (WorkStatusConditionDO) _DOXML.setDO(conditionDO);
 
 			List _infoList = _processor.getNewMetadatInfoList(_DO);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer buf = new StringBuffer();
-				buf.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					MetaInfoDOXML _do = new MetaInfoDOXML();
 					_do.setDO(_iter.next());
 					buf.append(_do.getSubXML());
 				}
-				buf.append("</das>");
-
-				return buf.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getMetadatInfoList", e);
 		}
-		return "";
+		buf.append("</das>");
+
+		return buf.toString();
 	}
 	
 	/**
@@ -10388,31 +10314,29 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		TcBeanDOXML _doXML = new TcBeanDOXML();
-		TcBeanDOXML _doing = new TcBeanDOXML();
+		//TcBeanDOXML _doing = new TcBeanDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das> \n" );
 		try {
 			TcBeanDO _do = (TcBeanDO)_doXML.setDO(tcBeanDO);
-
-			StringBuffer _xml = new StringBuffer();
 			TcBeanDO do2 = _processor.insertComMedia(_do);//updateReqComTc(_do);
 
-			//TcBeanDO do3 = new TcBeanDO();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?> \n" );
-			_xml.append("<das> \n" );
 			if(do2==null){
-				_doing.setDO(_do);
 				_do.setResult("F");
+				_doXML.setDO(_do);
 			}else{
-				_doing.setDO(do2);
 				do2.setResult("S");
+				_doXML.setDO(do2);
 			}
 
-			_xml.append( _doing.getSubXML2());
-			_xml.append("</das> \n" );
-			return _xml.toString();
+			_xml.append( _doXML.getSubXML2());
 		} catch (Exception e) {
 			logger.error("insertComMedia", e);
 		}
-		return "";
+		_xml.append("</das> \n" );
+
+		return _xml.toString();
 	}
 
 
@@ -10431,31 +10355,28 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		RoleForLoginDOXML _doXML = new RoleForLoginDOXML();	
-		RoleForLoginDOXML _do2 = new RoleForLoginDOXML();
+		//RoleForLoginDOXML _do2 = new RoleForLoginDOXML();
+
+		StringBuffer _xml= new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			RoleInfoDO _do = (RoleInfoDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getRoleInfoForChennel(_do);
 
-			StringBuffer _xml= new StringBuffer();
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
-
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-
-					_xml.append(_do2.getSubXML3());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML3());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getRoleInfoForChennel", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -10500,32 +10421,29 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		LogInOutDOXML _doXML = new LogInOutDOXML();
-		LogInOutDOXML _do2 = new LogInOutDOXML();
+		//LogInOutDOXML _do2 = new LogInOutDOXML();
+
+		StringBuffer _xml= new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
 		try {
 			LogInOutDO _do = (LogInOutDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getLogInfo(_do);
-
-			StringBuffer _xml= new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
-
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 
 				int i = 1;
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getLogInfo", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -10543,27 +10461,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ApproveInfoDOXML _doXML = new ApproveInfoDOXML();
-		ApproveInfoDOXML _do2 = new ApproveInfoDOXML();
+		//ApproveInfoDOXML _do2 = new ApproveInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ApproveInfoDO _do = (ApproveInfoDO)_doXML.setDO(ApprveDO);
 
 			List _infoList = _processor.getApproveInfoForChennel(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML2());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getApproveInfoForChennel", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -10606,27 +10524,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ApproveInfoDOXML _doXML = new ApproveInfoDOXML();
-		ApproveInfoDOXML _do2 = new ApproveInfoDOXML();
+		//ApproveInfoDOXML _do2 = new ApproveInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ApproveInfoDO _do = (ApproveInfoDO)_doXML.setDO(ApprveDO);
 
 			List _infoList = _processor.getApproveInfoListForChennel(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML3());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML3());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getApproveInfoListForChennel", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -10668,27 +10586,27 @@ public class PDASServices {
 
 		SystemManageBusinessProcessor _processor = new SystemManageBusinessProcessor();
 		ArchiveInfoDOXML _DOXML = new ArchiveInfoDOXML();
-		ArchiveInfoDOXML _do2 = new ArchiveInfoDOXML();
+		//ArchiveInfoDOXML _do2 = new ArchiveInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ArchiveInfoDO _DO = (ArchiveInfoDO)_DOXML.setDO(archiveInfoDO);
 
 			List _infoList = _processor.getArchiveStatusList(_DO);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_DOXML.setDO(_iter.next());
+					_xml.append(_DOXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getArchiveStatusList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -10710,28 +10628,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ManualArchiveDOXML _doXML = new ManualArchiveDOXML();
-		ManualArchiveDOXML _do2 = new ManualArchiveDOXML();
+		//ManualArchiveDOXML _do2 = new ManualArchiveDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ManualArchiveDO _do = (ManualArchiveDO)_doXML.setDO(manualArchiveDO);
 
 			List _infoList = _processor.getManualArchiveInfo(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML2());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getManualArchiveInfo", e);
 		}
+		_xml.append("</das>");
 
-		return "";
+		return _xml.toString();
 	}
 
 
@@ -10790,14 +10707,14 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		DownCartDOXML _doXML = new DownCartDOXML();
-		DownCartDOXML _returnDoXML = new DownCartDOXML();
+		//DownCartDOXML _returnDoXML = new DownCartDOXML();
 		try {
 			DownCartDO _do = (DownCartDO) _doXML.setDO(downCartDO);
 
 			DownCartDO _returnDO = _processor.insertDownCartInfo(_do);
 			if (_returnDO != null) {
-				_returnDoXML.setDO(_returnDO);
-				return _returnDoXML.toXML();
+				_doXML.setDO(_returnDO);
+				return _doXML.toXML();
 			}
 		} catch (Exception e) {
 			logger.error("insertDownCartInfo", e);
@@ -10823,14 +10740,14 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		CartContDOXML _doXML = new CartContDOXML();
-		CartContDOXML _returnDoXML = new CartContDOXML();
+		//CartContDOXML _returnDoXML = new CartContDOXML();
 		try {
 			CartContDO _do = (CartContDO) _doXML.setDO(cartContDO);
 
 			CartContDO _returnDO = _processor.insertCartContInfo(_do);
 			if (_returnDO != null) {
-				_returnDoXML.setDO(_returnDO);
-				return _returnDoXML.toXML();
+				_doXML.setDO(_returnDO);
+				return _doXML.toXML();
 			}
 		} catch (Exception e) {
 			logger.error("insertCartContInfo", e);
@@ -10854,8 +10771,11 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		CartContDOXML _doXML_cont = new CartContDOXML();
+		//CartContDOXML _do2 = new CartContDOXML();
 		DownCartDOXML _doXML_cart = new DownCartDOXML();
-		CartContDOXML _do2 = new CartContDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			DownCartDO _cart = (DownCartDO) _doXML_cart.setDO(downCartDO_cartContDO);
 			CartContDO _cont = (CartContDO) _doXML_cont.setDO(downCartDO_cartContDO);
@@ -10865,21 +10785,18 @@ public class PDASServices {
 
 			List _infoList = _processor.insertStCartContInfoForList(_cart,_cont);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML_cont.setDO(_iter.next());
+					_xml.append(_doXML_cont.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			} 
 		}catch (Exception e) {
 			logger.error("insertStDownCartInfo", e);
 		}
-		return null;
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -10897,14 +10814,14 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		CartContDOXML _doXML = new CartContDOXML();
-		CartContDOXML _returnDoXML = new CartContDOXML();
+		//CartContDOXML _returnDoXML = new CartContDOXML();
 		try {
 			CartContDO _do = (CartContDO) _doXML.setDO(cartContDO);
 
 			CartContDO _returnDO = _processor.insertStCartContInfo(_do);
 			if (_returnDO != null) {
-				_returnDoXML.setDO(_returnDO);
-				return _returnDoXML.toXML();
+				_doXML.setDO(_returnDO);
+				return _doXML.toXML();
 			}
 		} catch (Exception e) {
 			logger.error("insertStCartContInfo", e);
@@ -10927,27 +10844,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		LogInOutDOXML _doXML = new LogInOutDOXML();
-		LogInOutDOXML _do2 = new LogInOutDOXML();
+		//LogInOutDOXML _do2 = new LogInOutDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			LogInOutDO _do = (LogInOutDO) _doXML.setDO(xml);		
 
 			List _infoList = _processor.getLogInOutInfo(_do);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getLogInOutInfo", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -10995,30 +10912,29 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MonitoringDOXML _doXML = new MonitoringDOXML();
-		MonitoringDOXML _do2 = new MonitoringDOXML();
+		//MonitoringDOXML _do2 = new MonitoringDOXML();
+
+		StringBuffer _xml= new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			MonitoringDO _do = (MonitoringDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getArchiveInfo(_do);
-
-			StringBuffer _xml= new StringBuffer();
 			if (_infoList != null && _infoList.size() > 0) {
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 
 				int i = 1;
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getArchiveXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getArchiveXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getArchiveInfo", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 	/**
@@ -11036,30 +10952,28 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MonitoringDOXML _doXML = new MonitoringDOXML();
-		MonitoringDOXML _do2 = new MonitoringDOXML();
+		//MonitoringDOXML _do2 = new MonitoringDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			MonitoringDO _do = (MonitoringDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getTCinfo(_do);
-
-			StringBuffer _xml = new StringBuffer();
 			if (_infoList != null && _infoList.size() > 0) {
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 
-
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getTCXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getTCXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getTCinfo", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -11078,30 +10992,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MonitoringDOXML _doXML = new MonitoringDOXML();
-		MonitoringDOXML _do2 = new MonitoringDOXML();
+		//MonitoringDOXML _do2 = new MonitoringDOXML();
+
+		StringBuffer _xml= new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			MonitoringDO _do = (MonitoringDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getTminfo(_do);
-
-			StringBuffer _xml= new StringBuffer();
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
-
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getTminfo", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 	/**
@@ -11187,32 +11098,30 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MonitoringDOXML _doXML = new MonitoringDOXML();
-		MonitoringDOXML _do2 = new MonitoringDOXML();
+		//MonitoringDOXML _do2 = new MonitoringDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			MonitoringDO _do = (MonitoringDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getDetailInfo(_do);
-
-			StringBuffer _xml = new StringBuffer();
 			if (_infoList != null && _infoList.size() > 0) {
 
 				Iterator _iter = _infoList.iterator();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
 
 				int i = 1;
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML2());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML2());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getDetailInfo", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -11232,29 +11141,28 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ManualDeleteDOXML _doXML = new ManualDeleteDOXML();
-		ManualDeleteDOXML _do2 = new ManualDeleteDOXML();
+		//ManualDeleteDOXML _do2 = new ManualDeleteDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ManualDeleteDO _do = (ManualDeleteDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getManualDeleteList(_do);
-
-			StringBuffer _xml = new StringBuffer();
 			if (_infoList != null && _infoList.size() > 0) {
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getManualDeleteList", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -11302,30 +11210,29 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ErrorLogDOXML _doXML = new ErrorLogDOXML();
-		ErrorLogDOXML _do2 = new ErrorLogDOXML();
+		//ErrorLogDOXML _do2 = new ErrorLogDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			ErrorLogDO _do = (ErrorLogDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getErroeList(_do);
-
-			StringBuffer _xml = new StringBuffer();
 			if (_infoList != null && _infoList.size() > 0) {
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				Iterator _iter = _infoList.iterator();
 
 				int i = 1;
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getSubXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getSubXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getErroeList", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -11347,26 +11254,25 @@ public class PDASServices {
 		ServersDO _do = new ServersDO();
 		_do.setIp("11");
 		ServersDOXML _do2 = new ServersDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getServerList(_do);
 
-			StringBuffer _xml = new StringBuffer();
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
-
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getServerList", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -11689,25 +11595,25 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		WmvH264DOXML _do2 = new WmvH264DOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getGroupForMaster(master_id);
 			if (_infoList != null && _infoList.size() > 0) {
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 				
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getGroupXML());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getGroupForMaster", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -11782,29 +11688,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MonitoringDOXML _doXML = new MonitoringDOXML();
-		MonitoringDOXML _do2 = new MonitoringDOXML();
+		//MonitoringDOXML _do2 = new MonitoringDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			MonitoringDO _do = (MonitoringDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getDowninfo(_do);
-
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			if (_infoList != null && _infoList.size() > 0) {
-
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getDownXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getDownXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getDowninfo", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -11826,29 +11730,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MonitoringDOXML _doXML = new MonitoringDOXML();
-		MonitoringDOXML _do2 = new MonitoringDOXML();
+		//MonitoringDOXML _do2 = new MonitoringDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			MonitoringDO _do = (MonitoringDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getManualJobinfo(_do);
-
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			if (_infoList != null && _infoList.size() > 0) {
-
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getManualXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getManualXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getManualJobinfo", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -11892,23 +11794,23 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		EmployeeInfoDOXML _do2 = new EmployeeInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			List _infoList = _processor.getDepinfoForuserListFormonitoring(deptcd);
 
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			Iterator _iter = _infoList.iterator();
 			while (_iter.hasNext()) {
 				_do2.setDO(_iter.next());
 				_xml.append(_do2.getSubXML3());
 			}
-			_xml.append("</das>");
-
-			return _xml.toString();
 		} catch (Exception e) {
 			logger.error("getDepinfoForuserListFormonitoring", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -11926,34 +11828,33 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		ConditionDOXML _DOXML = new ConditionDOXML();
-		ConditionDOXML _do2 = new ConditionDOXML();
-		ConditionDOXML _doing = new ConditionDOXML();
+		//ConditionDOXML _do2 = new ConditionDOXML();
+		//ConditionDOXML _doing = new ConditionDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			WorkStatusConditionDO _DO = (WorkStatusConditionDO) _DOXML.setDO(commonDO);
 
 			List _infolist = _processor.getMyArchiveRequestList(_DO);
-			
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 			if(_infolist != null&&_infolist.size()!=0){
 				Iterator _iter = _infolist.iterator();
 				Iterator _iter2 = _infolist.iterator();
 
-				_do2.setDO(_iter2.next());
-				_xml.append(_do2.getSubXML3());
+				_DOXML.setDO(_iter2.next());
+				_xml.append(_DOXML.getSubXML3());
 
 				while(_iter.hasNext()){
-					_doing.setDO(_iter.next());
-					_xml.append( _doing.getReqListXML());
+					_DOXML.setDO(_iter.next());
+					_xml.append( _DOXML.getReqListXML());
 				}
-				_xml.append("</das>");
-				
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getMyArchiveRequestList", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 	/**
@@ -11971,32 +11872,29 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MonitoringDOXML _doXML = new MonitoringDOXML();
-		MonitoringDOXML _do2 = new MonitoringDOXML();
+		//MonitoringDOXML _do2 = new MonitoringDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			MonitoringDO _do = (MonitoringDO) _doXML.setDO(xml);
 
 			List _infoList = _processor.getDowninfoForIfCms(_do);
-
-			StringBuffer _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
 			if (_infoList != null && _infoList.size() > 0) {
 				Iterator _iter = _infoList.iterator();
 
-
 				int i = 1;
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getIfCmsXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getIfCmsXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getDowninfoForIfCms", e);
 		}
-		return "";
+		_xml.append("</das>"); 
+
+		return _xml.toString();
 	}
 
 
@@ -12017,33 +11915,27 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		MonitoringDOXML _doXML = new MonitoringDOXML();
-		MonitoringDOXML _do2 = new MonitoringDOXML();
+		//MonitoringDOXML _do2 = new MonitoringDOXML();
+
+		StringBuffer  _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
 			MonitoringDO _do = (MonitoringDO) _doXML.setDO(xml);
 
-
 			List _infoList = _processor.getJobStatus(_do);
-
-
-			StringBuffer  _xml = new StringBuffer();
-			_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
 			if (_infoList != null && _infoList.size() > 0) {
-
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
-					_do2.setDO(_iter.next());
-					_xml.append(_do2.getJobInfoXML());
+					_doXML.setDO(_iter.next());
+					_xml.append(_doXML.getJobInfoXML());
 				}
-				_xml.append("</das>"); 
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getJobStatus", e);
 		}
-
-		return "";
+		_xml.append("</das>"); 
+		
+		return _xml.toString();
 	}
 
 
@@ -12093,27 +11985,25 @@ public class PDASServices {
 
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		WmvH264DOXML _do2 = new WmvH264DOXML();
-		try {
 
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
+		try {
 			List _infoList = _processor.getGroupForMasterForClient(master_id);
 			if (_infoList != null && _infoList.size() > 0) {
 
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-				
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getGroupXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getGroupForMasterForClient", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 
@@ -12129,27 +12019,24 @@ public class PDASServices {
 
 		EmployeeRoleBusinessProcessor _processor = new EmployeeRoleBusinessProcessor();
 		RoleInfoDOXML _do2 = new RoleInfoDOXML();
-		try {
 
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
+		try {
 			List _infoList = _processor.getRoleCodeForMonitoring();
 			if (_infoList != null && _infoList.size() > 0) {
-				
-				StringBuffer _xml = new StringBuffer();
-				_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-				
 				Iterator _iter = _infoList.iterator();
 				while (_iter.hasNext()) {
 					_do2.setDO(_iter.next());
 					_xml.append(_do2.getSubXML2());
 				}
-				_xml.append("</das>");
-
-				return _xml.toString();
 			}
 		} catch (Exception e) {
 			logger.error("getRoleCodeForMonitoring", e);
 		}
-		return "";
+		_xml.append("</das>");
+
+		return _xml.toString();
 	}
 
 

@@ -22,7 +22,6 @@ public class SearchEngineTest {
 			
 			ParameterVO _do = (ParameterVO) _doXML.setDO(xml);
 			SearchBusinessProcessor _processor = new SearchBusinessProcessor();
-
 			String sResult = _processor.getSearchText(_do);
 		 
 			System.out.println(sResult);

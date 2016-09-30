@@ -16046,8 +16046,8 @@ public class SystemManageDAO extends AbstractDAO
 		Connection con = null;
 		PreparedStatement stmt = null;
 		PreparedStatement stmt2 = null;
-		try   
-		{
+		
+		try {
 			con = DBService.getInstance().getConnection();
 			//logger.debug("######updateArrange######## con : " + con);
 			con.setAutoCommit(false);
@@ -16066,29 +16066,22 @@ public class SystemManageDAO extends AbstractDAO
 
 			updateCount = stmt.executeUpdate();
 
-
-
-			if (logger.isDebugEnabled()) 
-			{
+			if (logger.isDebugEnabled()) {
 				logger.debug("[Update Count]" + updateCount);
 			}
 
-			if(updateCount == 0)
-			{
+			if(updateCount == 0) {
 				//여기서 에러를 던진다.
 				DASException exception = new DASException(ErrorConstants.NOT_EXIST_PROGRAM_INFO, "해당 프로그램 정보가 존재하지 않습니다.");
 				throw exception;
 			}
 
-
 			con.commit();
+			
 			return "success";
-		} 
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			logger.error(buf.toString());
-			if(con != null)
-			{
+			if(con != null) {
 				try {
 					con.rollback();
 				} catch (SQLException e1) {
@@ -16097,17 +16090,11 @@ public class SystemManageDAO extends AbstractDAO
 				}
 			}
 
-
 			throw e;
-		}
-		finally
-		{
+		} finally {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				if(con != null) con.setAutoCommit(true);
+			} catch (SQLException e) {}
 			release(null, stmt, null);
 			release(null, stmt2, con);
 		}

@@ -26,6 +26,7 @@ public class SearchBusinessProcessor
 
 	private static SearchDAO searchDAO = SearchDAO.getInstance();
 
+
 	/**
 	 * 내목록에 저장한다. (DAS2.0 수정)
 	 * @param myCatalogDO myCatalogDO 내목록에 저장할 내용을 포함하고 있는 DataObject
@@ -36,7 +37,6 @@ public class SearchBusinessProcessor
 	{			
 		searchDAO.insertMyCatalog(myCatalogDO);
 		return 1;
-
 	}
 
 	/**
@@ -48,9 +48,7 @@ public class SearchBusinessProcessor
 	 */
 	public List getMyCatalogList(SearchConditionDO searchConditionDO, DASCommonDO commonDO) throws Exception
 	{
-
 		return searchDAO.selectMyCatalog(searchConditionDO, commonDO);
-
 	}
 
 
@@ -63,9 +61,7 @@ public class SearchBusinessProcessor
 	 */
 	public List getMyCatalogLists(MyCatalogDO commonDO) throws Exception
 	{
-
 		return searchDAO.selectMyCatalogs(commonDO);
-
 	}
 
 	/**
@@ -77,9 +73,7 @@ public class SearchBusinessProcessor
 	 */
 	public void deleteMyCatalogInfo(String seq, DASCommonDO commonDO) throws Exception
 	{
-
 		searchDAO.deleteMyCatalogInfo(seq, commonDO);
-
 	}
 
 
@@ -97,7 +91,6 @@ public class SearchBusinessProcessor
 			searchDAO.deleteMyCatalogInfo( mycatalogDO);
 		}
 		return 1;
-
 	}
 
 	/**
@@ -108,17 +101,12 @@ public class SearchBusinessProcessor
 	 */
 	public void insertTapeLending(TapeLendingDO tapeLendingDO, DASCommonDO commonDO) throws Exception
 	{
-
 		//이미 해당 사용자로 테이프 대출 정보가 존재하면 테이프 대출정보는 수정하고 테이프 상세 정보만 등록한다.
-		if(searchDAO.isThereTapeLending(commonDO.getUserNo(), commonDO.getUserId()))
-		{
+		if(searchDAO.isThereTapeLending(commonDO.getUserNo(), commonDO.getUserId())) {
 			searchDAO.updateTapeLendingItems(tapeLendingDO, commonDO);
-		}
-		else
-		{
+		} else {
 			searchDAO.insertTapeLending(tapeLendingDO, commonDO);
 		}
-
 	}
 
 	/**
@@ -129,9 +117,7 @@ public class SearchBusinessProcessor
 	 */
 	public void deleteTapeLendingAll(String lendAplnNo, DASCommonDO commonDO) throws Exception
 	{
-
 		searchDAO.deleteTapeLendingAll(lendAplnNo, commonDO);
-
 	}
 
 	/**
@@ -142,9 +128,7 @@ public class SearchBusinessProcessor
 	 */
 	public void deleteTapeLendingItemList(List tapeLendingItemDOList, DASCommonDO commonDO) throws Exception
 	{
-
 		searchDAO.deleteTapeLendingItemList(tapeLendingItemDOList, commonDO);
-
 	}
 
 
@@ -157,7 +141,6 @@ public class SearchBusinessProcessor
 	 */
 	public TapeLendingDO getTapeLendingInfo(DASCommonDO commonDO) throws Exception
 	{
-
 		//테이프 대출 정보를 조회한다.
 		TapeLendingDO tapeLendingDO = searchDAO.selectTapeLendingInfo(commonDO.getUserNo(), commonDO.getUserId());
 
@@ -166,7 +149,6 @@ public class SearchBusinessProcessor
 		tapeLendingDO.setTapeLendingItemDOList(tapeLendingItemDOList);
 
 		return tapeLendingDO;
-
 	}
 
 	/**
@@ -183,7 +165,6 @@ public class SearchBusinessProcessor
 
 		//테이프 대출 상세 정보를 조회한다.
 		return searchDAO.selectTapeLendingItemReqNo(tapeLendingDO.getLendAplnNo());
-
 	}
 
 	/**
@@ -195,11 +176,9 @@ public class SearchBusinessProcessor
 	 */
 	public PageDO getRequestDownList(SearchConditionDO searchConditionDO, DASCommonDO commonDO) throws Exception
 	{
-
 		PageDO pageDO = searchDAO.selectRequestDownList(searchConditionDO, commonDO);
 
 		return pageDO;
-
 	}
 
 	/**
@@ -211,9 +190,7 @@ public class SearchBusinessProcessor
 	 */
 	public void updateRequestDownSubject(String downSubject, String reqUserNm, DASCommonDO commonDO) throws Exception
 	{
-
 		searchDAO.updateRequestDownSubject(downSubject, reqUserNm, commonDO);
-
 	}
 
 	/**
@@ -226,7 +203,6 @@ public class SearchBusinessProcessor
 	{
 
 		searchDAO.updateDataStatus(masterId, commonDO);
-
 	}
 
 	/**
@@ -238,11 +214,9 @@ public class SearchBusinessProcessor
 	 */
 	public TapeItemInfoDO getTapeItemInfo(String req_no, DASCommonDO commonDO) throws Exception
 	{
-
 		TapeItemInfoDO tapeItemInfo = searchDAO.viewTapeItemInfo(req_no);
 
 		return tapeItemInfo;
-
 	}
 
 	/**
@@ -254,11 +228,9 @@ public class SearchBusinessProcessor
 	 */
 	public TapeInfoDO getTapeInfo(String req_no, DASCommonDO commonDO) throws Exception
 	{
-
 		TapeInfoDO tapeInfo = searchDAO.viewTapeInfo(req_no);
 
 		return tapeInfo;
-
 	}
 
 	/**
@@ -270,5 +242,6 @@ public class SearchBusinessProcessor
 	public String getSearchText(ParameterVO parameterVO) throws Exception{
 		return searchDAO.getSearchText(parameterVO);
 	}
+
 
 }

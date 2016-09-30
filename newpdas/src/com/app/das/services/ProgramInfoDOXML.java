@@ -259,9 +259,6 @@ public class ProgramInfoDOXML extends DOXml {
 
 
 	public Object setDO(String _xml) {
-
-		setDO(new ProgramInfoDO());
-
 		Document _document = getDocument(_xml);
 		Element _rootElement = _document.getDocumentElement();
 		NodeList _nodeList = _rootElement.getChildNodes();
@@ -270,6 +267,7 @@ public class ProgramInfoDOXML extends DOXml {
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
 			if(_nodeName.equals(XML_NODE_HEAD)) {
+				setDO(new ProgramInfoDO());
 				setData((Element)_node);
 			}
 		}

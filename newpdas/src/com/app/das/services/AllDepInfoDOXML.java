@@ -20,7 +20,7 @@ public class AllDepInfoDOXML extends DOXml{
 	
 	//private Logger logger = Logger.getLogger(AllDepInfoDOXML.class);
 	
-	private DepInfoDO infoDO;
+	//private DepInfoDO infoDO;
 	
 	/**
 	 * xml헤더
@@ -126,118 +126,37 @@ public class AllDepInfoDOXML extends DOXml{
 
 
 	public Object setDO(String _xml) {
-		List result = new ArrayList();
-		setDO(result);
+		List result = null;
+
 		Document _document = getDocument(_xml);
 		Element _rootElement = _document.getDocumentElement();
 		NodeList _nodeList = _rootElement.getChildNodes();
+		
 		int _length = _nodeList.getLength();
 		for(int i = 0; i < _length; i++) {
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
+			
 			if(_nodeName.equals(XML_NODE_HEAD)) {
-				setData2((Element)_node);
+				result = (List)setData((Element)_node);
 			}else if(_nodeName.equals(gua_sync_departmentinfo)) {
-				setData2((Element)_node);
+				result = (List)setData((Element)_node);
 			}
 		}
-		return getDO();
+		return result;
 	}
 
-
-
-
-
 	public Object setData(Element pElement) {
-		List result = (List)getDO();
-		NodeList _nodeList = pElement.getChildNodes();
-
-		int _length = _nodeList.getLength();
-		for(int i = 0; i < _length; i++) {
-			
-			infoDO = new DepInfoDO();
-			
-			Node _node = _nodeList.item(i);
-			String _nodeName = _node.getNodeName() ;
-			String _nodeValue = CommonUtl.transXMLText(getNodeValue(_node));
-
-			if(_nodeName.equals( XML_NODE_COCD)) {
-				infoDO.setCocd(_nodeValue);
-			}else  if(_nodeName.equals(XML_NODE_DEPT_CD)) {
-				infoDO.setDept_cd(_nodeValue);
-			}
-			else if(_nodeName.equals(XML_NODE_POST_UNIT_CLF)) {
-				infoDO.setPost_unit_clf(_nodeValue);
-			}
-			else if(_nodeName.equals(XML_NODE_DEPT_NM)) {
-				infoDO.setDept_nm(_nodeValue);
-			}
-			else if(_nodeName.equals(XML_NODE_LVL)) {
-				infoDO.setLvl(_nodeValue);
-			}
-			else if(_nodeName.equals(XML_NODE_SEQ)) {
-				if(_nodeValue.equals("")){
-					infoDO.setSeq(0);}
-				else{				
-					infoDO.setSeq(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue, "0")));
-				}
-			}
-			else if(_nodeName.equals(XML_NODE_SUP_HEAD_CD)) {
-				infoDO.setSup_head_cd(_nodeValue);
-			}
-
-			else if(_nodeName.equals(XML_NODE_SUP_HEAD_NM)) {
-				infoDO.setSup_head_nm(_nodeValue);
-			}
-			else if(_nodeName.equals(XML_NODE_SUP_HEAD_SEQ)) {
-				if(_nodeValue.equals("")){
-					infoDO.setSeq(0);}
-				else{	
-					infoDO.setSup_head_seq(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue, "0")));
-				}
-			}
-			else if(_nodeName.equals(XML_NODE_SUP_HTPO_CD)) {
-				infoDO.setSup_htpo_cd(_nodeValue);
-			}
-			else if(_nodeName.equals(XML_NODE_SUP_HTPO_NM)) {
-				infoDO.setSup_htpo_nm(_nodeValue);
-			}
-
-			else if(_nodeName.equals(XML_NODE_SUP_HTPO_SEQ)) {
-				if(_nodeValue.equals("")){
-					infoDO.setSeq(0);}
-				else{	
-					infoDO.setSup_htpo_seq(Integer.parseInt(StringUtils.defaultIfEmpty(_nodeValue, "0")));
-				}
-			}
-			else if(_nodeName.equals(XML_NODE_DEPT_CHAP_EMP_NO)) {
-				infoDO.setDept_chap_emp_no(_nodeValue);
-			}
-			else if(_nodeName.equals(XML_NODE_SUP_DEPT_CD)) {
-				infoDO.setSup_dept_cd(_nodeValue);
-			}	else if(_nodeName.equals(XML_NODE_STATUS)) {
-				infoDO.setStatus(_nodeValue);
-			}
-
-		}
-
-		return result;
-	}	    
-
-
-
-
-
-	public Object setData2(Element pElement) {
-		List result = (List)getDO();
+		List infoList = new ArrayList();
 
 		NodeList _nodeList = pElement.getChildNodes();
+		
 		int _length = _nodeList.getLength();
 		
 		String status = "";
 		for(int i = 0; i < _length; i++) {
 			
-			infoDO = new DepInfoDO();
+			DepInfoDO infoDO = new DepInfoDO();
 			
 			Node _node = _nodeList.item(i);
 			String _nodeName = _node.getNodeName() ;
@@ -277,7 +196,7 @@ public class AllDepInfoDOXML extends DOXml{
 					
 					infoDO.setStatus(status);
 				}
-				result.add(infoDO);
+				infoList.add(infoDO);
 
 				if(StringUtils.isBlank(infoDO.getDept_cd())){
 					break;
@@ -286,7 +205,7 @@ public class AllDepInfoDOXML extends DOXml{
 			
 			
 		}
-		return result;
+		return infoList;
 	}	    
 
 
