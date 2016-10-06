@@ -3,6 +3,7 @@ package test;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +20,7 @@ import com.app.das.business.SystemManageBusinessProcessor;
 import com.app.das.business.transfer.DownCartDO;
 import com.app.das.services.AllPgmInfoDOXML;
 import com.app.das.services.DownCartDOXML;
+import com.app.das.services.PhotoInfoDOXML;
 import com.app.das.util.CommonUtl;
 
 public class UtilTest {
@@ -41,25 +43,27 @@ public class UtilTest {
 			e.printStackTrace();
 		} 
 		*/
-		/*
+		
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
-		DownCartDOXML _do = new DownCartDOXML();
+		PhotoInfoDOXML _do = new PhotoInfoDOXML();
+
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
 		try {
-			DownCartDO _infoList = _processor.getCartInfo(cartNo, reqUserId);
-
-			StringBuffer buff = new StringBuffer();
-			buff.append("<?xml version=\"1.0\" encoding=\"utf-8\"?><das>");
-
-			_do.setDO(_infoList);
-			buff.append(_do.getSubXML());
-
-			buff.append("</das>");
-
-			return buff.toString();
+			List _infoList = _processor.getPhotoInfoList(322706);
+			if (_infoList != null && _infoList.size() > 0) {
+				Iterator _iter = _infoList.iterator();
+				while (_iter.hasNext()) {
+					_do.setDO(_iter.next());
+					_xml.append(_do.getSubXML());
+				}
+			}
 		} catch (Exception e) {
-			logger.error("getCartInfo error", e);
+			e.printStackTrace();
 		}
-		*/
+		_xml.append("</das>");
+		
+		System.out.println(_xml.toString());
 	}
 
 }

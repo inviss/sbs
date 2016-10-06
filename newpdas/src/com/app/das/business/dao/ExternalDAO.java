@@ -4375,8 +4375,9 @@ public class ExternalDAO extends AbstractDAO
 		try 
 		{
 			con = DBService.getInstance().getConnection();
-			//logger.debug("######selectPhotoInfoList######## con : " + con);
+
 			stmt = con.prepareStatement(query);
+			//logger.debug("######selectPhotoInfoList######## query : " + query);
 
 			int index = 0;
 			stmt.setLong(++index, masterId);
@@ -9158,14 +9159,15 @@ public class ExternalDAO extends AbstractDAO
 							String getMessage =  addTaskByStorageClip(downCartDO.getCartNo(),downCartDO.getCartSeq());
 
 							if(logger.isDebugEnabled()){
-								logger.debug("return message : "+getMessage);
+								logger.debug("addTaskByStorageClip return message : "+getMessage);
 							}
-
-							TransferDOXML _doXML = new TransferDOXML();
-							TransferDO _do = (TransferDO) _doXML.setDO(getMessage);
-							_do.setCart_no(Integer.parseInt(downCartDO.getCartNo()+""));
-							_do.setCart_seq(Integer.parseInt(downCartDO.getCartSeq()+""));
-							insertAddTaskRes(_do);
+							if(org.apache.commons.lang.StringUtils.isNotBlank(getMessage)) {
+								TransferDOXML _doXML = new TransferDOXML();
+								TransferDO _do = (TransferDO) _doXML.setDO(getMessage);
+								_do.setCart_no(Integer.parseInt(downCartDO.getCartNo()+""));
+								_do.setCart_seq(Integer.parseInt(downCartDO.getCartSeq()+""));
+								insertAddTaskRes(_do);
+							}
 						}
 
 					}else{

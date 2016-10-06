@@ -837,8 +837,9 @@ public class EmployeeRoleBusinessProcessor
 						,""  						// java.lang.String exvalue3
 						,""  							// java.lang.String exvalue4
 						);
-				if(logger.isDebugEnabled())
-					logger.debug("sResult"+sResult);
+				if(logger.isDebugEnabled()) {
+					//logger.debug("sResult"+sResult);
+				}
 			} catch (RemoteException e) {
 				logger.error("ifcms call error", e);
 			}
@@ -955,7 +956,9 @@ public class EmployeeRoleBusinessProcessor
 						,""  						// java.lang.String exvalue3
 						,""  							// java.lang.String exvalue4
 						);
-				logger.debug("sResult"+sResult);
+				if(logger.isDebugEnabled()) {
+					//logger.debug("sResult"+sResult);
+				}
 			} catch (RemoteException e) {
 				logger.error("ServicePortTypeProxy error", e);
 				throw e;
@@ -1168,7 +1171,9 @@ public class EmployeeRoleBusinessProcessor
 							,""  						// java.lang.String exvalue3
 							,""  							// java.lang.String exvalue4
 							);
-					logger.debug("sResult"+sResult);
+					if(logger.isDebugEnabled()) {
+						//logger.debug("sResult"+sResult);
+					}
 				} catch (RemoteException e) {
 					logger.error("PDS user add proxy call error", e);
 					//throw e;
@@ -1222,7 +1227,9 @@ public class EmployeeRoleBusinessProcessor
 							,""  						// java.lang.String exvalue3
 							,""  							// java.lang.String exvalue4
 							);
-					logger.debug("sResult"+sResult);
+					if(logger.isDebugEnabled()) {
+						//logger.debug("sResult"+sResult);
+					}
 				} catch (RemoteException e) {
 					logger.error("NDS Proxy call error", e);
 				}
@@ -1674,7 +1681,7 @@ public class EmployeeRoleBusinessProcessor
 		_xml =_do2.getSubXML(user_id);
 
 		if(logger.isDebugEnabled()) {
-			logger.debug("_xml"+_xml);
+			logger.debug("request user: "+user_id+", make_xml: "+_xml);
 		}
 
 		//folderList 정보를 등록
@@ -1693,7 +1700,7 @@ public class EmployeeRoleBusinessProcessor
 					,""  							// java.lang.String exvalue4
 					);
 			if(logger.isDebugEnabled()) {
-				logger.debug("sResult  "+sResult);
+				//logger.debug("sResult  "+sResult);
 			}
 			String PdsInfo = CommonUtl.transXMLText(sResult);
 			return PdsInfo;
@@ -1738,8 +1745,9 @@ public class EmployeeRoleBusinessProcessor
 					,""  						// java.lang.String exvalue3
 					,""  							// java.lang.String exvalue4
 					);
-
-			logger.debug("sResult  "+sResult);
+			if(logger.isDebugEnabled()) {
+				//logger.debug("sResult  "+sResult);
+			}
 
 			String PdsInfo = CommonUtl.transXMLText(sResult);
 			return PdsInfo;
@@ -1980,7 +1988,9 @@ public class EmployeeRoleBusinessProcessor
 								,""  						// java.lang.String exvalue3
 								,""  							// java.lang.String exvalue4
 								);
-						logger.debug("sResult"+sResult);
+						if(logger.isDebugEnabled()) {
+							//logger.debug("sResult"+sResult);
+						}
 					} catch (RemoteException e) {
 						logger.error("ServicePortTypeProxy call error", e);
 					}
@@ -2051,7 +2061,9 @@ public class EmployeeRoleBusinessProcessor
 								,""  						// java.lang.String exvalue3
 								,""  							// java.lang.String exvalue4
 								);
-						logger.debug("sResult"+sResult);
+						if(logger.isDebugEnabled()) {
+							//logger.debug("sResult"+sResult);
+						}
 					} catch (RemoteException e) {
 						logger.error("ServicePortTypeProxy call error", e);
 					}
