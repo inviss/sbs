@@ -471,7 +471,7 @@ public class DisuseStatement
 				if(i!=0){
 					buf.append("\n 	 or  ");
 				}
-				buf.append("\n 	( MST.arch_route ='P' )");
+				buf.append("\n 	( substr(mst.arch_route, 1, 1) ='P' )");
 		
 			}
 		}
@@ -632,7 +632,7 @@ if(!DASBusinessConstants.PageQueryFlag.TOTAL_COUNT.equals(searchFlag ))
 				if(i!=0){
 					buf.append("\n 	 or  ");
 				}
-				buf.append("\n 	( mst.arch_route ='P' )");
+				buf.append("\n 	( substr(mst.arch_route, 1, 1) ='P' )");
 		
 			}
 		}
@@ -936,7 +936,7 @@ buf.append("\n  and MST.fm_dt <= '"+conditionDO.getEnd_brd_dd()+"' )) ");
 				if(i!=0){
 					buf.append("\n 	 or  ");
 				}
-				buf.append("\n 	( mst.arch_route ='P' )");
+				buf.append("\n 	( substr(mst.arch_route, 1, 1) ='P' )");
 		
 			}
 		}
@@ -1101,7 +1101,7 @@ buf.append("\n 	and  ( ");
 			if(i!=0){
 				buf.append("\n 	 or  ");
 			}
-			buf.append("\n 	( mst.arch_route ='P' )");
+			buf.append("\n 	( substr(mst.arch_route, 1, 1) ='P' )");
 	
 		}
 	}

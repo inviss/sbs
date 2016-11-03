@@ -18,9 +18,11 @@ import org.w3c.dom.NodeList;
 import com.app.das.business.ExternalBusinessProcessor;
 import com.app.das.business.SystemManageBusinessProcessor;
 import com.app.das.business.transfer.DownCartDO;
+import com.app.das.business.transfer.ProgramInfoDO;
 import com.app.das.services.AllPgmInfoDOXML;
 import com.app.das.services.DownCartDOXML;
 import com.app.das.services.PhotoInfoDOXML;
+import com.app.das.services.ProgramInfoDOXML;
 import com.app.das.util.CommonUtl;
 
 public class UtilTest {
@@ -43,7 +45,7 @@ public class UtilTest {
 			e.printStackTrace();
 		} 
 		*/
-		
+		/*
 		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
 		PhotoInfoDOXML _do = new PhotoInfoDOXML();
 
@@ -56,6 +58,29 @@ public class UtilTest {
 				while (_iter.hasNext()) {
 					_do.setDO(_iter.next());
 					_xml.append(_do.getSubXML());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		_xml.append("</das>");
+		*/
+		
+		ExternalBusinessProcessor _processor = new ExternalBusinessProcessor();
+		ProgramInfoDOXML _doXML = new ProgramInfoDOXML();
+		//ProgramInfoDOXML _do = new ProgramInfoDOXML();
+		
+		StringBuffer _xml = new StringBuffer();
+		_xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "<das>");
+		try {
+			ProgramInfoDO _doing = (ProgramInfoDO)_doXML.setDO("<?xml version=\"1.0\" encoding=\"utf-8\"?><das><programInfo><PGM_NM>뉴스</PGM_NM><BRD_BGN_DD>20160930</BRD_BGN_DD><BRD_END_DD>20161007</BRD_END_DD></programInfo></das>");
+
+			List _infoList = _processor.getSearchRelationInfoList(_doing);
+			if (_infoList != null && _infoList.size() > 0) {
+				Iterator _iter = _infoList.iterator();
+				while (_iter.hasNext()) {
+					_doXML.setDO(_iter.next());
+					_xml.append( _doXML.getSubXML());
 				}
 			}
 		} catch (Exception e) {

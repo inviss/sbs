@@ -2130,8 +2130,8 @@ buf.append("\n   AND ");
 
 
 
-		buf.append("\n   ,case when MEAT.ARCH_ROUTE = 'P' and MEAT.COCD = 'S' THEN 'PDS'   ");
-		buf.append("\n   when MEAT.ARCH_ROUTE in ('P', 'O') AND MEAT.COCD <> 'S'THEN 'IFCMS'   ");
+		buf.append("\n   ,case when substr(MEAT.ARCH_ROUTE, 1, 1) = 'P' and MEAT.COCD = 'S' THEN 'PDS'   ");
+		buf.append("\n   when substr(MEAT.ARCH_ROUTE, 1, 1) in ('P', 'O') AND MEAT.COCD <> 'S'THEN 'IFCMS'   ");
 		buf.append("\n   when MEAT.arch_route = 'OM' THEN '수동등록'      ");
 		buf.append("\n   when MEAT.ARCH_ROUTE LIKE 'D%' THEN '매체변환'      ");
 		buf.append("\n   when MEAT.ARCH_ROUTE LIKE 'O%' THEN 'ON-AIR'    ");
@@ -2140,13 +2140,13 @@ buf.append("\n   AND ");
 		//buf.append("\n ,value ((SELECT JOB_STATUS FROM CONTENTS_LOC_TBL C WHERE C.CTI_ID=INST_MXF.CTI_ID AND  C.USE_YN='Y'),'') AS ARCHIVE_RE ");
 		//buf.append("\n ,value ((SELECT ARCH_STE_YN FROM CONTENTS_INST_TBL A WHERE A.CTI_ID=INST_MXF.CTI_ID AND A.CTI_FMT LIKE '1%'),'') AS HIGH_QUAL");
 		buf.append("\n   ,CASE       ");
-		buf.append("\n     when MEAT.ARCH_ROUTE = 'P' and  INST_MXF.fl_path <>'' THEN  'Y'            ");
-		buf.append("\n   WHEN MEAT.ARCH_ROUTE <> 'P' THEN  'N'    ");
+		buf.append("\n     when substr(MEAT.ARCH_ROUTE, 1, 1) = 'P' and  INST_MXF.fl_path <>'' THEN  'Y'            ");
+		buf.append("\n   WHEN substr(MEAT.ARCH_ROUTE, 1, 1) <> 'P' THEN  'N'    ");
 		buf.append("\n   ELSE 'N'    ");
 		buf.append("\n   END AS ARCHIVE_RE    ");
 		buf.append("\n   ,CASE       ");
 		buf.append("\n     WHEN (MEAT.ARCH_ROUTE LIKE 'O%' OR MEAT.ARCH_ROUTE LIKE 'D%') and INST_MXF.fl_path <>'' THEN 'Y'        ");
-		buf.append("\n     WHEN MEAT.ARCH_ROUTE = 'P' THEN  'N'    ");
+		buf.append("\n     WHEN substr(MEAT.ARCH_ROUTE, 1, 1) = 'P' THEN  'N'    ");
 		buf.append("\n     ELSE 'N'    ");
 		buf.append("\n   END AS HIGH_QUAL    ");		
 		buf.append("\n , CASE WHEN INST_WMV.cti_id IS NOT NULL AND INST_WMV.FL_PATH IS NOT NULL THEN 'Y' ELSE 'N' END AS wmv ");
@@ -2204,7 +2204,7 @@ buf.append("\n   AND ");
 						if(i!=0){
 							buf.append("\n 	 or  ");
 						}
-						buf.append("\n 	( MEAT.arch_route ='P' )");
+						buf.append("\n 	( MEAT.arch_route like 'P%' )");
 
 					}
 				}

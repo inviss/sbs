@@ -631,7 +631,7 @@ public class ExternalStatement
 				} else if(path[i].equals("O")) {
 					buf.append("\n mst.arch_route LIKE 'O%'");
 				} else if(path[i].equals("P")){
-					buf.append("\n mst.arch_route ='P'");
+					buf.append("\n substr(mst.arch_route, 1, 1) ='P'");
 				}
 			}
 			buf.append("\n ) ");
@@ -783,7 +783,7 @@ public class ExternalStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( meta.arch_route ='P' )");
+					buf.append("\n 	( substr(meta.arch_route, 1, 1) ='P' )");
 
 				}
 			}
@@ -1491,7 +1491,7 @@ public class ExternalStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 
 				}
 			}
@@ -2657,8 +2657,8 @@ public class ExternalStatement
 			buf.append("\n  ,value (CODE4.DESC,'') AS CT_CLA_NM, LEFT(ct.REG_DT,8) AS REQ_DT,value(UIT.USER_NM,'') as REQ_NM ");
 
 			buf.append("\n , case when    ");
-			buf.append("\n  mmt.ARCH_ROUTE ='P' THEN  '"+dasHandler.getProperty("ARCREQ")+"/' ||right(tc.INPUT_HR,10) || '/'||tc.INPUT_HR_NM ");
-			buf.append("\n  WHEN   mmt.ARCH_ROUTE ='N' THEN     ");
+			buf.append("\n  substr(mmt.ARCH_ROUTE, 1, 1) ='P' THEN  '"+dasHandler.getProperty("ARCREQ")+"/' ||right(tc.INPUT_HR,10) || '/'||tc.INPUT_HR_NM ");
+			buf.append("\n  WHEN   substr(mmt.ARCH_ROUTE, 1, 1) ='N' THEN     ");
 			buf.append("\n   '"+dasHandler.getProperty("MP2")+"/'||left(INST.reg_dt,6)||'/'||substr(INST.reg_dt,7,2)||'/'||INST.wrk_file_nm    ");
 			buf.append("\n end  AS file_path   ");
 			buf.append("\n ,CASE WHEN CT.MEDIA_ID IS NULL THEN ''   ");
@@ -2743,8 +2743,8 @@ public class ExternalStatement
 			buf.append("\n  ,value (CODE4.DESC,'') AS CT_CLA_NM, LEFT(CT.REG_DT,8) AS REQ_DT,value(UIT.USER_NM,'') as REQ_NM ");
 
 			buf.append("\n , case when    ");
-			buf.append("\n  mmt.ARCH_ROUTE ='P' THEN  '"+dasHandler.getProperty("ARCREQ")+"/' ||right(tc.INPUT_HR,10)  ");
-			buf.append("\n  WHEN   mmt.ARCH_ROUTE ='DP' THEN     ");
+			buf.append("\n  substr(mmt.ARCH_ROUTE, 1, 1) ='P' THEN  '"+dasHandler.getProperty("ARCREQ")+"/' ||right(tc.INPUT_HR,10)  ");
+			buf.append("\n  WHEN   substr(mmt.ARCH_ROUTE, 1, 2) ='DP' THEN     ");
 			buf.append("\n   '"+dasHandler.getProperty("MP2")+"/'||left(INST.reg_dt,6)||'/'||substr(INST.reg_dt,7,2)||'/'||INST.wrk_file_nm    ");
 			buf.append("\n end  AS file_path   ");
 			buf.append("\n ,CASE WHEN CT.MEDIA_ID IS NULL THEN ''   ");
@@ -2939,7 +2939,7 @@ public class ExternalStatement
 		//buf.append("\n 		AND A.DEL_DD not like '2%' ");
 		buf.append("\n 		AND (A.DEL_DD is null or A.DEL_DD = '') ");
 
-		buf.append("\n 	    and A.ARCH_ROUTE='N' ");
+		buf.append("\n 	    and substr(A.ARCH_ROUTE, 1, 1)='N' ");
 
 
 		//요청일 검색
@@ -4781,7 +4781,7 @@ public class ExternalStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 
 				}
 			}
@@ -5892,7 +5892,7 @@ public class ExternalStatement
 		buf.append("\n ,cont.ASP_RTO_CD ");
 		buf.append("\n ,inst.VD_HRESOL ");
 		buf.append("\n ,inst.VD_VRESOL");
-		buf.append("\n ,mst.arch_route");
+		buf.append("\n ,CASE WHEN instr(mst.arch_route, 'OS') > 0 THEN REPLACE(mst.arch_route, 'OS', '') ELSE mst.arch_route END AS arch_route");
 		buf.append("\n ,cont.media_id");
 		buf.append("\n ,inst.aud_type_cd");
 		buf.append("\n ,mst.cocd ");
@@ -5975,7 +5975,7 @@ public class ExternalStatement
 		buf.append("\n ,VD_HERSOL ");
 		buf.append("\n ,ASP_RTO_CD ");
 		buf.append("\n ,AUDIO_TYPE  ");
-		buf.append("\n ,ARCH_ROUTE  ");
+		buf.append("\n ,CASE WHEN instr(arch_route, 'OS') > 0 THEN REPLACE(arch_route, 'OS', '') ELSE arch_route END AS ARCH_ROUTE  ");
 		//2012.4.26
 		buf.append("\n ,COCD  ");
 		buf.append("\n ,CHENNEL  ");
@@ -7200,8 +7200,8 @@ public class ExternalStatement
 			buf.append("\n  ,value (CODE4.DESC,'') AS CT_CLA_NM, LEFT(ct.REG_DT,8) AS REQ_DT,value(UIT.USER_NM,'') as REQ_NM ");
 
 			buf.append("\n , case when    ");
-			buf.append("\n  mmt.ARCH_ROUTE ='P' THEN  '"+dasHandler.getProperty("ARCREQ")+"/' ||right(tc.INPUT_HR,10) ||'/'||tc.INPUT_HR_NM ");
-			buf.append("\n  WHEN   mmt.ARCH_ROUTE ='N' THEN     ");
+			buf.append("\n  substr(mmt.ARCH_ROUTE, 1, 1) ='P' THEN  '"+dasHandler.getProperty("ARCREQ")+"/' ||right(tc.INPUT_HR,10) ||'/'||tc.INPUT_HR_NM ");
+			buf.append("\n  WHEN   substr(mmt.ARCH_ROUTE, 1, 1) ='N' THEN     ");
 			buf.append("\n   '"+dasHandler.getProperty("MP2")+"/'||left(INST.reg_dt,6)||'/'||substr(INST.reg_dt,7,2)||'/'||INST.wrk_file_nm    ");
 			buf.append("\n  else ''  ");
 			buf.append("\n end  AS file_path   ");

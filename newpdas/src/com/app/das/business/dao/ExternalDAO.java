@@ -28659,7 +28659,7 @@ public class ExternalDAO extends AbstractDAO
 		PreparedStatement psmt = null;		
 		ResultSet rs = null;
 
-		buf.append(" SELECT  ARCH_ROUTE,COCD, CHENNEL_CD FROM METADAT_MST_TBL                 ");
+		buf.append(" SELECT  CASE WHEN instr(arch_route, 'OS') > 0 THEN REPLACE(arch_route, 'OS', '') ELSE arch_route END AS ARCH_ROUTE, COCD, CHENNEL_CD FROM METADAT_MST_TBL ");
 		buf.append(" WHERE MASTER_ID = (SELECT MASTER_ID FROM CONTENTS_MAPP_TBL WHERE CT_ID= ? fetch first 1 rows only )  ");
 
 		try {
@@ -30425,7 +30425,7 @@ public class ExternalDAO extends AbstractDAO
 		PreparedStatement psmt = null;		
 		ResultSet rs = null;
 
-		buf.append(" SELECT  ARCH_ROUTE FROM METADAT_MST_TBL                 ");
+		buf.append(" SELECT  CASE WHEN instr(arch_route, 'OS') > 0 THEN REPLACE(arch_route, 'OS', '') ELSE arch_route END AS ARCH_ROUTE FROM METADAT_MST_TBL                 ");
 		buf.append(" WHERE MASTER_ID = (SELECT MASTER_ID FROM CONTENTS_MAPP_TBL WHERE CT_ID= ? fetch first 1 rows only )  ");
 
 		try {
@@ -32465,7 +32465,7 @@ public class ExternalDAO extends AbstractDAO
 
 		StringBuffer buf = new StringBuffer();
 
-		buf.append("\n select mst.cocd ,mst.arch_route,mst.chennel_cd from  \n");
+		buf.append("\n select mst.cocd ,CASE WHEN instr(mst.arch_route, 'OS') > 0 THEN REPLACE(mst.arch_route, 'OS', '') ELSE mst.arch_route END AS ARCH_ROUTE,mst.chennel_cd from  \n");
 		buf.append("\n metadat_mst_tbl mst    \n");
 		buf.append("\n inner join (select ct_id,master_id from contents_mapp_tbl group by  ct_id,master_id ) map on mst.master_id = map.master_id \n");
 		buf.append("\n inner join contents_inst_Tbl inst on inst.ct_id = map.ct_id and inst.cti_fmt like '1%' \n");
@@ -38138,9 +38138,10 @@ public class ExternalDAO extends AbstractDAO
 
 		try
 		{
+			//logger.debug("query : " + buf.toString());
 
 			con = DBService.getInstance().getConnection();
-			//logger.debug("query : " + buf.toString());
+			
 			psmt = con.prepareStatement(buf.toString());    
 			int index = 0;			
 			psmt.setLong(++index, nMasterID);

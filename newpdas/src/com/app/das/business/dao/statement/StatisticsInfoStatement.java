@@ -3102,7 +3102,7 @@ public class StatisticsInfoStatement
 				if(i!=0){
 					buf.append("\n 	 or  ");
 				}
-				buf.append("\n 	( A.arch_route ='P' )");
+				buf.append("\n 	( substr(A.arch_route, 1, 1) ='P' )");
 		
 			}
 		}
@@ -3161,7 +3161,7 @@ public class StatisticsInfoStatement
 				if(i!=0){
 					buf.append("\n 	 or  ");
 				}
-				buf.append("\n 	( A.arch_route ='P' )");
+				buf.append("\n 	( substr(A.arch_route, 1, 1) ='P' )");
 		
 			}
 		}
@@ -3560,7 +3560,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -3678,7 +3678,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -3795,7 +3795,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -4202,7 +4202,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -4319,7 +4319,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -4436,7 +4436,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -4843,7 +4843,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -4960,7 +4960,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -5077,7 +5077,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -5472,7 +5472,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -5589,7 +5589,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
@@ -5706,7 +5706,7 @@ public class StatisticsInfoStatement
 					if(i!=0){
 						buf.append("\n 	 or  ");
 					}
-					buf.append("\n 	( arch_route ='P' )");
+					buf.append("\n 	( substr(arch_route, 1, 1) ='P' )");
 			
 				}
 			}
