@@ -178,7 +178,8 @@ public class MetadataServiceImpl implements MetadataService {
 			//if(StringUtils.isNotBlank(mst.getActcCd()))
 			//	mstTbl.setDataStatCd(mst.getActcCd());
 			//if(StringUtils.isNotBlank(mst.getRegrid()))
-				mstTbl.setModrid(mst.getRegrid());
+			/* 2016.11.14 박복영c, 이재만b 요청으로 연계에서 제외함.
+			//	mstTbl.setModrid(mst.getRegrid());
 			/*
 			 * 2016.06.02
 			 * 회차 저장시 메타항목 추가

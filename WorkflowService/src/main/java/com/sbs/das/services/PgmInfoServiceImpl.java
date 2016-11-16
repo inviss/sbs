@@ -99,6 +99,13 @@ public class PgmInfoServiceImpl implements PgmInfoService {
 			pgmInfo.setUseYn(StringUtils.isNotBlank(pgm.getUseYn()) ? pgm.getUseYn() : "Y");
 			
 			pgmInfoDao.updatePgmInfo(pgmInfo);
+			
+			/*
+			 * 2016.09.28
+			 * 프로그램 정보가 변경되면 pgm_id과 연동된 회차정보가 색인된 검색정보를 갱신해야한다.
+			 * 프로시저를 호출하여 갱신하도록 한다.
+			 */
+			pgmInfoDao.insertKwdPgmInfo(pgmInfo);
 		}
 		
 	}

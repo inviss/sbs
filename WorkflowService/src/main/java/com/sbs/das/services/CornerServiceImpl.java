@@ -321,13 +321,13 @@ public class CornerServiceImpl implements CornerService {
 				 * 2016.07.20 아카이브팀 요구사항.
 				 * 코너정보가 검색엔진에 실시간 반영이 되도록 하기 위해
 				 * 메타정보를 강제 업데이트 한다.
+				 * 2016.11.16 아카이브팀 요구사항.
+				 * modrid 제거
 				 */
 				params.clear();
 				params.put("masterId", data.getDasMasterId());
 				MetadatMstTbl metadatMstTbl =  metadatMstDao.getMetadata(params);
 				if(metadatMstTbl != null) {
-					metadatMstTbl.setModrid(data.getRegrid());
-					metadatMstTbl.setModDt(Utility.getTimestamp("yyyyMMddHHmmss"));
 					metadatMstDao.saveMetadata(metadatMstTbl);
 				}
 			}

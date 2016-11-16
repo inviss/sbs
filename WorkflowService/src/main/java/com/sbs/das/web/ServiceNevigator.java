@@ -1071,11 +1071,11 @@ public class ServiceNevigator implements Nevigator {
 						} else {
 							contentInstTbl.setMeCd("002");
 						}
-
+/*
 						if(StringUtils.isNotBlank(das.getDbTable().getContentInst().getOnAirMediaAudioChannel())) {
 							contentInstTbl.setRecordTypeCd(das.getDbTable().getContentInst().getOnAirMediaAudioChannel());
 						}
-
+*/
 						contentInstTbl.setCtiFmt(das.getDbTable().getContentInst().getCtiFmt());
 						contentInstTbl.setFlSz(das.getDbTable().getContentInst().getFlSz());
 						/*
@@ -1114,7 +1114,7 @@ public class ServiceNevigator implements Nevigator {
 							} 
 							contentTbl.setCtNm(das.getDbTable().getContent().getCtNm());
 						} else {
-							contentInstTbl.setRecordTypeCd("001");
+							contentInstTbl.setRecordTypeCd("002");
 						}
 
 						contentInstTbl.setArchSteYn("N");

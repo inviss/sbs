@@ -42,4 +42,9 @@ public class PgmInfoDaoImpl extends SqlMapClientDaoSupport implements PgmInfoDao
 		getSqlMapClientTemplate().insert("PgmInfo.insertPgmInfo", pgmInfoTbl);
 	}
 
+	public void insertKwdPgmInfo(PgmInfoTbl pgmInfoTbl)
+			throws DaoRollbackException {
+		getSqlMapClientTemplate().queryForObject("PgmInfo.insertKwdPgmInfo", pgmInfoTbl);		
+	}
+
 }

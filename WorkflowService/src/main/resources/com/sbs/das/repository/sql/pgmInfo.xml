@@ -28,6 +28,10 @@
 		<result property="parentsCd" column="PARENTS_CD" />
     </resultMap>
     
+    <parameterMap id="inProcedureObj" class="PgmInfo">
+    	<parameter property="pgmId" javaType="java.lang.Long" jdbcType="INTEGER" mode="IN" />
+  	</parameterMap>
+  	
     <select id="findPgmInfo" resultMap="PgmInfoMap" parameterClass="map">
 	     SELECT  
              pgm1.*
@@ -154,6 +158,10 @@
     	WHERE PGM_ID = #pgmId#
     </update>
     
+    <procedure id="insertKwdPgmInfo" parameterMap="inProcedureObj">
+    	{ call das.PRC_SET_PGM_INFO (?) }
+  	</procedure>
+    
 	<insert id="insertPgmInfo" parameterClass="PgmInfo">
     	<selectKey keyProperty="pgmId" resultClass="java.lang.Long">
     		select NEXTVAL FOR das.SEQ_PGM_ID from sysibm.sysdummy1
@@ -212,8 +220,6 @@
 			#useYn:VARCHAR:NO_ENTRY#, 
 			#parentsCd:VARCHAR:NO_ENTRY#
 		)
-		
-		
-		
     </insert>
+    
  </sqlMap>

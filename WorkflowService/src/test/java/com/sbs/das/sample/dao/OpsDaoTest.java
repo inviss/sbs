@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sbs.das.commons.system.XmlStream;
 import com.sbs.das.dto.MetadatMstTbl;
+import com.sbs.das.dto.PgmInfoTbl;
 import com.sbs.das.dto.ops.Data;
 import com.sbs.das.dto.ops.Metadata;
 import com.sbs.das.repository.MetadatMstDao;
@@ -42,6 +43,9 @@ public class OpsDaoTest extends BaseConfig {
 	
 	@Autowired
 	private CornerService cornerService;
+	
+	@Autowired
+	private PgmInfoDao pgmInfoDao;
 	
 	@Ignore
 	@Test
@@ -96,6 +100,7 @@ public class OpsDaoTest extends BaseConfig {
 			
 			Data data = (Data)xmlStream.fromXML(xml);
 			Metadata mst = (Metadata)data.getMetadatas().get(0);
+			
 			metadataService.updateMetadataInfo(mst);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,7 +115,21 @@ public class OpsDaoTest extends BaseConfig {
 			
 			Data data = (Data)xmlStream.fromXML(xml);
 			Metadata mst = (Metadata)data.getMetadatas().get(0);
+			
 			cornerService.updateCorners(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Ignore
+	@Test
+	public void insertKwdPgmInfo() {
+		try {
+			PgmInfoTbl pgmInfo = new PgmInfoTbl();
+			pgmInfo.setPgmId(3762L);
+			
+			pgmInfoDao.insertKwdPgmInfo(pgmInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

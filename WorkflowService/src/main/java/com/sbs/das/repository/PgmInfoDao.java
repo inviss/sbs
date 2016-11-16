@@ -14,4 +14,6 @@ public interface PgmInfoDao {
 	public void updatePgmInfo(PgmInfoTbl pgmInfoTbl) throws DaoRollbackException;
 	public void insertPgmInfo(PgmInfoTbl pgmInfoTbl) throws DaoRollbackException;
 	
+	/* 2016.09.28 */
+	public void insertKwdPgmInfo(PgmInfoTbl pgmInfoTbl) throws DaoRollbackException;
 }
